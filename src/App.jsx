@@ -24,7 +24,11 @@ export default function App() {
   function save(item) { editing ? update(item) : add(item); closeEntry() }
   function deleteItem(id) { if (confirm(t('deleteConfirm'))) { remove(id); closeEntry() } }
   function filename(extension) { return `health-tracker-${new Date().toISOString().slice(0, 10)}.${extension}` }
-  function restore(text) {
+  function clearAll() {
+    if (!confirm(t('clearAllConfirm'))) return ''
+    setStore((current) => ({ ...current, measurements: [] }))
+    return t('clearAllDone')
+  }  function restore(text) {
     const imported = parseBackup(text)
     if (!confirm(t('restoreConfirm'))) return ''
     const result = mergeRestore(store, imported)
@@ -63,7 +67,7 @@ export default function App() {
       <p className="entry-privacy">{t('privacyBody')}</p>
     </main>}
     {screen === 'settings' && <main className="settings-screen">
-      <Settings language={language} onLanguage={changeLanguage} onBackup={() => downloadText(filename('json'), JSON.stringify(createBackup(store), null, 2), 'application/json')} onCsv={() => downloadText(filename('csv'), weightCsv(measurements), 'text/csv;charset=utf-8')} onRestore={restore} t={t} />
+      <Settings language={language} onLanguage={changeLanguage} onBackup={() => downloadText(filename('json'), JSON.stringify(createBackup(store), null, 2), 'application/json')} onCsv={() => downloadText(filename('csv'), weightCsv(measurements), 'text/csv;charset=utf-8')} onRestore={restore} onClearAll={clearAll} t={t} />
     </main>}
     <footer>Health Tracker · {new Date().getFullYear()}</footer>
   </>

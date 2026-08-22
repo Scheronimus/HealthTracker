@@ -108,3 +108,8 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 .entry-link:active { transform: translateY(0); }
 .entry-chevron { align-self: center; color: var(--muted); font-size: 1.75rem; font-weight: 300; line-height: 1; }
 .delete-entry-button { width: 100%; margin-top: .35rem; border-color: #e2bcbc; background: transparent; color: var(--danger); }
+/* Development-only reset tool */
+.debug-section { margin-top: 1.25rem; padding: 1rem; border: 1px dashed #d29363; border-radius: 13px; background: #fff4e8; color: #6f3e20; }
+.debug-section strong { display: block; margin-bottom: .65rem; font-size: .82rem; text-transform: uppercase; letter-spacing: .04em; }
+.debug-delete-button { width: 100%; border-color: #c55e4e; background: #fff; color: #a33228; }
+@media (prefers-color-scheme: dark) { .debug-section { background: #3a281f; color: #ffd5b8; } .debug-delete-button { background: #2a1c17; color: #ffb4a8; } }

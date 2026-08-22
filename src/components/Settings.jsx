@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { languageNames } from '../i18n.js'
 
-export function Settings({ language, onLanguage, onBackup, onCsv, onRestore, t }) {
+export function Settings({ language, onLanguage, onBackup, onCsv, onRestore, onClearAll, t }) {
   const input = useRef(null)
   const [message, setMessage] = useState('')
 
@@ -10,6 +10,11 @@ export function Settings({ language, onLanguage, onBackup, onCsv, onRestore, t }
     if (!file) return
     try { setMessage(await onRestore(await file.text())) } catch { setMessage(t('invalidBackup')) }
     event.target.value = ''
+  }
+
+  function clearAll() {
+    const result = onClearAll()
+    if (result) setMessage(result)
   }
 
   return <section className="settings-panel card">
@@ -25,6 +30,10 @@ export function Settings({ language, onLanguage, onBackup, onCsv, onRestore, t }
       {message && <p className="status" role="status">{message}</p>}
       <p className="hint">{t('dataHint')}</p>
     </div>
+    {import.meta.env.DEV && <div className="debug-section">
+      <strong>{t('debugTools')}</strong>
+      <button className="debug-delete-button" type="button" onClick={clearAll}>{t('clearAll')}</button>
+    </div>}
     <aside className="settings-privacy"><strong>⌂ {t('privacyTitle')}</strong><p>{t('privacyBody')}</p></aside>
     <p className="settings-offline">● {t('install')}</p>
   </section>
