@@ -6,6 +6,10 @@ Run `npm test`, `npm run lint`, and `npm run build`. Tests cover schema validati
 
 ## Manual regression
 
+- Confirm the dashboard shows the graph first, with summaries and the complete history below it.
+- Select the top-right + and confirm the dedicated entry screen opens with Cancel and Save in its top bar.
+- Confirm Cancel returns without changes; confirm Save validates, stores the entry, and returns to the dashboard.
+- Edit a history item and confirm the same screen opens with its existing data.
 - Add a valid weight with date, time, and multiline note; refresh and confirm it persists.
 - Reject empty, zero, negative, and over-1000 kg values.
 - Add measurements out of chronological order and confirm newest-first history and summaries.

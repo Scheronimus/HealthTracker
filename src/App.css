@@ -66,3 +66,25 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 .chart-empty span { font-size: 2.3rem; color: #6ba899; }
 .chart-empty p { margin: .3rem 0 0; }
 @media (min-width: 720px) { .chart-header { flex-direction: row; align-items: center; justify-content: space-between; } .span-control { min-width: 285px; } .chart-svg { min-width: 0; } }
+
+/* Screen navigation */
+.app-header { position: sticky; top: 0; z-index: 20; padding: max(.8rem, env(safe-area-inset-top)) 1rem .8rem; box-shadow: 0 3px 16px #092f2a30; }
+.topbar { width: min(1100px, 100%); min-height: 52px; margin: auto; display: flex; align-items: center; }
+.dashboard-topbar { justify-content: space-between; gap: 1rem; }
+.dashboard-topbar .brand { min-width: 0; margin: 0; }
+.dashboard-topbar .brand img { width: 44px; height: 44px; border-radius: 13px; }
+.dashboard-topbar .brand h1 { font-size: 1.32rem; }
+.dashboard-topbar .brand p { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.add-entry-button { flex: 0 0 46px; width: 46px; height: 46px; display: grid; place-items: center; padding: 0 0 .18rem; border: 2px solid #ffffff80; border-radius: 50%; background: white; color: var(--green); font-size: 2rem; font-weight: 400; line-height: 1; box-shadow: 0 4px 14px #092f2a44; }
+.entry-topbar { display: grid; grid-template-columns: 1fr auto 1fr; gap: .5rem; }
+.entry-topbar h1 { margin: 0; font-size: 1.1rem; text-align: center; white-space: nowrap; }
+.header-action { justify-self: start; border: 0; padding: .55rem .2rem; background: transparent; color: white; }
+.header-action:hover { background: transparent; }
+.save-action { justify-self: end; color: #bff3e5; }
+.weight-chart { margin-top: 0; }
+.history { margin-top: 1rem; }
+.privacy { margin-top: 1rem; }
+.entry-screen { width: min(620px, calc(100% - 2rem)); }
+.entry-screen .entry-form { position: static; padding: 1.1rem; }
+.entry-privacy { margin: 1rem auto; color: var(--muted); font-size: .8rem; text-align: center; }
+@media (max-width: 520px) { .dashboard-topbar .brand p { max-width: 205px; } .app-header { padding-left: .8rem; padding-right: .8rem; } }

@@ -19,3 +19,7 @@ The complete store is serialized under `health-tracker-data`; the language uses 
 ## Weight graph
 
 The dependency-free SVG chart filters measurements through src/utils/chart.js, plots timestamps on a proportional time axis, and derives a padded kilogram scale from visible values. The default span is three months; one-year and all-time ranges are available without changing persisted data. Chart points are touch, pointer, and keyboard accessible.
+
+## Screen flow
+
+The dashboard is the default screen and presents the weight graph first, followed by summaries and the complete editable history. A persistent top-right add control opens a dedicated entry screen. New and edited records share that screen, whose top bar owns Cancel and Save; Save submits the associated form and returns to the dashboard.
