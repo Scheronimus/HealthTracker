@@ -113,3 +113,6 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 .debug-section strong { display: block; margin-bottom: .65rem; font-size: .82rem; text-transform: uppercase; letter-spacing: .04em; }
 .debug-delete-button { width: 100%; border-color: #c55e4e; background: #fff; color: #a33228; }
 @media (prefers-color-scheme: dark) { .debug-section { background: #3a281f; color: #ffd5b8; } .debug-delete-button { background: #2a1c17; color: #ffb4a8; } }
+/* Density-aware chart markers */
+.dense-chart .trend-line { stroke-width: 3; }
+.dense-chart .point-dot { stroke-width: 2.25; }

@@ -20,6 +20,7 @@ Run `npm test`, `npm run lint`, and `npm run build`. Regenerate the one-year gra
 - Confirm the graph defaults to 3 months and correctly switches to 1 year and all time.
 - Tap, click, and keyboard-focus graph points; confirm weight, localized date/time, and note details appear.
 - Confirm empty ranges and a single visible measurement render clearly.
+- Import the 240-entry irregular fixture and confirm the full trend line remains visible without a large marker on every measurement.
 - Edit an entry and confirm its ID is retained. Cancel and accept delete confirmations.
 - Switch among English, Spanish, German, and French; refresh and confirm the language persists.
 - Export CSV and inspect commas, quotes, Unicode, timestamps, and kilogram values.

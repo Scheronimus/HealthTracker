@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { chartGeometry, filterBySpan } from './chart.js'
+import { chartGeometry, filterBySpan, shouldDisplayMarker } from './chart.js'
 
 const entry = (id, timestamp, value) => ({ id, timestamp, value })
 
@@ -17,6 +17,13 @@ describe('weight chart', () => {
     expect(filterBySpan(data, 'allTime', now)).toHaveLength(3)
   })
 
+  it('limits visual markers while retaining endpoints for dense data', () => {
+    const displayed = Array.from({ length: 240 }, (_, index) => index).filter((index) => shouldDisplayMarker(index, 240))
+    expect(displayed.length).toBeLessThanOrEqual(40)
+    expect(displayed[0]).toBe(0)
+    expect(displayed.at(-1)).toBe(239)
+    expect(shouldDisplayMarker(15, 20)).toBe(true)
+  })
   it('plots chronologically and handles a single point', () => {
     const geometry = chartGeometry([data[2], data[1]])
     expect(geometry.points.map(({ id }) => id)).toEqual(['year', 'recent'])

@@ -33,3 +33,9 @@ export function chartGeometry(measurements, width = 800, height = 300) {
   })
   return { points, ticks, min, max }
 }
+export function shouldDisplayMarker(index, count, maximumMarkers = 40) {
+  if (count <= maximumMarkers) return true
+  if (index === 0 || index === count - 1) return true
+  const stride = Math.ceil((count - 1) / (maximumMarkers - 1))
+  return index % stride === 0
+}
