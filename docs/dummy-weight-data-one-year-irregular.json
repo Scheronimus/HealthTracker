@@ -1,0 +1,1930 @@
+{
+  "kind": "health-tracker-backup",
+  "formatVersion": 1,
+  "exportedAt": "2026-08-22T12:00:00.000Z",
+  "data": {
+    "schemaVersion": 1,
+    "measurements": [
+      {
+        "id": "demo-irregular-weight-001",
+        "type": "weight",
+        "value": 92.3,
+        "unit": "kg",
+        "timestamp": "2025-08-23T07:15:00.000Z",
+        "note": "Demo: daily tracking begins"
+      },
+      {
+        "id": "demo-irregular-weight-002",
+        "type": "weight",
+        "value": 92.5,
+        "unit": "kg",
+        "timestamp": "2025-08-24T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-003",
+        "type": "weight",
+        "value": 92.7,
+        "unit": "kg",
+        "timestamp": "2025-08-25T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-004",
+        "type": "weight",
+        "value": 92.8,
+        "unit": "kg",
+        "timestamp": "2025-08-26T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-005",
+        "type": "weight",
+        "value": 92.9,
+        "unit": "kg",
+        "timestamp": "2025-08-27T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-006",
+        "type": "weight",
+        "value": 92.9,
+        "unit": "kg",
+        "timestamp": "2025-08-28T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-007",
+        "type": "weight",
+        "value": 92.8,
+        "unit": "kg",
+        "timestamp": "2025-08-29T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-008",
+        "type": "weight",
+        "value": 92.7,
+        "unit": "kg",
+        "timestamp": "2025-08-30T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-009",
+        "type": "weight",
+        "value": 92.5,
+        "unit": "kg",
+        "timestamp": "2025-08-31T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-010",
+        "type": "weight",
+        "value": 92.2,
+        "unit": "kg",
+        "timestamp": "2025-09-01T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-011",
+        "type": "weight",
+        "value": 92,
+        "unit": "kg",
+        "timestamp": "2025-09-02T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-012",
+        "type": "weight",
+        "value": 91.7,
+        "unit": "kg",
+        "timestamp": "2025-09-03T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-013",
+        "type": "weight",
+        "value": 91.4,
+        "unit": "kg",
+        "timestamp": "2025-09-04T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-014",
+        "type": "weight",
+        "value": 91.2,
+        "unit": "kg",
+        "timestamp": "2025-09-05T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-015",
+        "type": "weight",
+        "value": 91,
+        "unit": "kg",
+        "timestamp": "2025-09-06T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-016",
+        "type": "weight",
+        "value": 90.9,
+        "unit": "kg",
+        "timestamp": "2025-09-07T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-017",
+        "type": "weight",
+        "value": 90.9,
+        "unit": "kg",
+        "timestamp": "2025-09-08T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-018",
+        "type": "weight",
+        "value": 91,
+        "unit": "kg",
+        "timestamp": "2025-09-09T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-019",
+        "type": "weight",
+        "value": 91.1,
+        "unit": "kg",
+        "timestamp": "2025-09-10T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-020",
+        "type": "weight",
+        "value": 91.2,
+        "unit": "kg",
+        "timestamp": "2025-09-11T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-021",
+        "type": "weight",
+        "value": 91.4,
+        "unit": "kg",
+        "timestamp": "2025-09-12T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-022",
+        "type": "weight",
+        "value": 91.5,
+        "unit": "kg",
+        "timestamp": "2025-09-13T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-023",
+        "type": "weight",
+        "value": 91.7,
+        "unit": "kg",
+        "timestamp": "2025-09-14T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-024",
+        "type": "weight",
+        "value": 91.8,
+        "unit": "kg",
+        "timestamp": "2025-09-15T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-025",
+        "type": "weight",
+        "value": 91.9,
+        "unit": "kg",
+        "timestamp": "2025-09-16T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-026",
+        "type": "weight",
+        "value": 91.9,
+        "unit": "kg",
+        "timestamp": "2025-09-17T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-027",
+        "type": "weight",
+        "value": 91.9,
+        "unit": "kg",
+        "timestamp": "2025-09-18T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-028",
+        "type": "weight",
+        "value": 91.8,
+        "unit": "kg",
+        "timestamp": "2025-09-19T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-029",
+        "type": "weight",
+        "value": 91.6,
+        "unit": "kg",
+        "timestamp": "2025-09-20T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-030",
+        "type": "weight",
+        "value": 91.3,
+        "unit": "kg",
+        "timestamp": "2025-09-21T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-031",
+        "type": "weight",
+        "value": 91.1,
+        "unit": "kg",
+        "timestamp": "2025-09-22T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-032",
+        "type": "weight",
+        "value": 90.8,
+        "unit": "kg",
+        "timestamp": "2025-09-23T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-033",
+        "type": "weight",
+        "value": 90.6,
+        "unit": "kg",
+        "timestamp": "2025-09-24T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-034",
+        "type": "weight",
+        "value": 90.3,
+        "unit": "kg",
+        "timestamp": "2025-09-25T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-035",
+        "type": "weight",
+        "value": 90.2,
+        "unit": "kg",
+        "timestamp": "2025-09-26T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-036",
+        "type": "weight",
+        "value": 90.1,
+        "unit": "kg",
+        "timestamp": "2025-09-27T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-037",
+        "type": "weight",
+        "value": 90.1,
+        "unit": "kg",
+        "timestamp": "2025-09-28T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-038",
+        "type": "weight",
+        "value": 90.1,
+        "unit": "kg",
+        "timestamp": "2025-09-29T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-039",
+        "type": "weight",
+        "value": 90.2,
+        "unit": "kg",
+        "timestamp": "2025-09-30T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-040",
+        "type": "weight",
+        "value": 90.4,
+        "unit": "kg",
+        "timestamp": "2025-10-01T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-041",
+        "type": "weight",
+        "value": 90.6,
+        "unit": "kg",
+        "timestamp": "2025-10-02T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-042",
+        "type": "weight",
+        "value": 90.8,
+        "unit": "kg",
+        "timestamp": "2025-10-03T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-043",
+        "type": "weight",
+        "value": 91,
+        "unit": "kg",
+        "timestamp": "2025-10-04T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-044",
+        "type": "weight",
+        "value": 91.2,
+        "unit": "kg",
+        "timestamp": "2025-10-05T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-045",
+        "type": "weight",
+        "value": 91.4,
+        "unit": "kg",
+        "timestamp": "2025-10-06T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-046",
+        "type": "weight",
+        "value": 91.4,
+        "unit": "kg",
+        "timestamp": "2025-10-07T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-047",
+        "type": "weight",
+        "value": 91.4,
+        "unit": "kg",
+        "timestamp": "2025-10-08T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-048",
+        "type": "weight",
+        "value": 91.4,
+        "unit": "kg",
+        "timestamp": "2025-10-09T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-049",
+        "type": "weight",
+        "value": 91.2,
+        "unit": "kg",
+        "timestamp": "2025-10-10T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-050",
+        "type": "weight",
+        "value": 91.1,
+        "unit": "kg",
+        "timestamp": "2025-10-11T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-051",
+        "type": "weight",
+        "value": 90.8,
+        "unit": "kg",
+        "timestamp": "2025-10-12T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-052",
+        "type": "weight",
+        "value": 90.6,
+        "unit": "kg",
+        "timestamp": "2025-10-13T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-053",
+        "type": "weight",
+        "value": 90.4,
+        "unit": "kg",
+        "timestamp": "2025-10-14T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-054",
+        "type": "weight",
+        "value": 90.2,
+        "unit": "kg",
+        "timestamp": "2025-10-15T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-055",
+        "type": "weight",
+        "value": 90.1,
+        "unit": "kg",
+        "timestamp": "2025-10-16T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-056",
+        "type": "weight",
+        "value": 90,
+        "unit": "kg",
+        "timestamp": "2025-10-17T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-057",
+        "type": "weight",
+        "value": 89.9,
+        "unit": "kg",
+        "timestamp": "2025-10-18T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-058",
+        "type": "weight",
+        "value": 90,
+        "unit": "kg",
+        "timestamp": "2025-10-19T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-059",
+        "type": "weight",
+        "value": 90.1,
+        "unit": "kg",
+        "timestamp": "2025-10-20T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-060",
+        "type": "weight",
+        "value": 90.3,
+        "unit": "kg",
+        "timestamp": "2025-10-21T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-061",
+        "type": "weight",
+        "value": 90.5,
+        "unit": "kg",
+        "timestamp": "2025-10-22T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-062",
+        "type": "weight",
+        "value": 90.7,
+        "unit": "kg",
+        "timestamp": "2025-10-23T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-063",
+        "type": "weight",
+        "value": 91,
+        "unit": "kg",
+        "timestamp": "2025-10-24T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-064",
+        "type": "weight",
+        "value": 91.1,
+        "unit": "kg",
+        "timestamp": "2025-10-25T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-065",
+        "type": "weight",
+        "value": 91.3,
+        "unit": "kg",
+        "timestamp": "2025-10-26T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-066",
+        "type": "weight",
+        "value": 91.4,
+        "unit": "kg",
+        "timestamp": "2025-10-27T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-067",
+        "type": "weight",
+        "value": 91.4,
+        "unit": "kg",
+        "timestamp": "2025-10-28T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-068",
+        "type": "weight",
+        "value": 91.3,
+        "unit": "kg",
+        "timestamp": "2025-10-29T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-069",
+        "type": "weight",
+        "value": 91.2,
+        "unit": "kg",
+        "timestamp": "2025-10-30T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-070",
+        "type": "weight",
+        "value": 91,
+        "unit": "kg",
+        "timestamp": "2025-10-31T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-071",
+        "type": "weight",
+        "value": 90.8,
+        "unit": "kg",
+        "timestamp": "2025-11-01T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-072",
+        "type": "weight",
+        "value": 90.5,
+        "unit": "kg",
+        "timestamp": "2025-11-02T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-073",
+        "type": "weight",
+        "value": 90.3,
+        "unit": "kg",
+        "timestamp": "2025-11-03T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-074",
+        "type": "weight",
+        "value": 90,
+        "unit": "kg",
+        "timestamp": "2025-11-04T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-075",
+        "type": "weight",
+        "value": 89.8,
+        "unit": "kg",
+        "timestamp": "2025-11-05T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-076",
+        "type": "weight",
+        "value": 89.7,
+        "unit": "kg",
+        "timestamp": "2025-11-06T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-077",
+        "type": "weight",
+        "value": 89.6,
+        "unit": "kg",
+        "timestamp": "2025-11-07T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-078",
+        "type": "weight",
+        "value": 89.6,
+        "unit": "kg",
+        "timestamp": "2025-11-08T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-079",
+        "type": "weight",
+        "value": 89.7,
+        "unit": "kg",
+        "timestamp": "2025-11-09T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-080",
+        "type": "weight",
+        "value": 89.8,
+        "unit": "kg",
+        "timestamp": "2025-11-10T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-081",
+        "type": "weight",
+        "value": 89.9,
+        "unit": "kg",
+        "timestamp": "2025-11-11T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-082",
+        "type": "weight",
+        "value": 90.1,
+        "unit": "kg",
+        "timestamp": "2025-11-12T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-083",
+        "type": "weight",
+        "value": 90.3,
+        "unit": "kg",
+        "timestamp": "2025-11-13T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-084",
+        "type": "weight",
+        "value": 90.5,
+        "unit": "kg",
+        "timestamp": "2025-11-14T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-085",
+        "type": "weight",
+        "value": 90.6,
+        "unit": "kg",
+        "timestamp": "2025-11-15T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-086",
+        "type": "weight",
+        "value": 90.6,
+        "unit": "kg",
+        "timestamp": "2025-11-16T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-087",
+        "type": "weight",
+        "value": 90.6,
+        "unit": "kg",
+        "timestamp": "2025-11-17T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-088",
+        "type": "weight",
+        "value": 90.6,
+        "unit": "kg",
+        "timestamp": "2025-11-18T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-089",
+        "type": "weight",
+        "value": 90.4,
+        "unit": "kg",
+        "timestamp": "2025-11-19T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-090",
+        "type": "weight",
+        "value": 90.2,
+        "unit": "kg",
+        "timestamp": "2025-11-20T07:15:00.000Z",
+        "note": "Last daily entry before a break"
+      },
+      {
+        "id": "demo-irregular-weight-091",
+        "type": "weight",
+        "value": 88.6,
+        "unit": "kg",
+        "timestamp": "2025-12-21T07:15:00.000Z",
+        "note": "Tracking resumed irregularly"
+      },
+      {
+        "id": "demo-irregular-weight-092",
+        "type": "weight",
+        "value": 89.3,
+        "unit": "kg",
+        "timestamp": "2025-12-24T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-093",
+        "type": "weight",
+        "value": 89.6,
+        "unit": "kg",
+        "timestamp": "2025-12-29T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-094",
+        "type": "weight",
+        "value": 88.3,
+        "unit": "kg",
+        "timestamp": "2026-01-05T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-095",
+        "type": "weight",
+        "value": 88.2,
+        "unit": "kg",
+        "timestamp": "2026-01-09T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-096",
+        "type": "weight",
+        "value": 89.3,
+        "unit": "kg",
+        "timestamp": "2026-01-15T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-097",
+        "type": "weight",
+        "value": 89.2,
+        "unit": "kg",
+        "timestamp": "2026-01-18T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-098",
+        "type": "weight",
+        "value": 87.6,
+        "unit": "kg",
+        "timestamp": "2026-01-25T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-099",
+        "type": "weight",
+        "value": 87.5,
+        "unit": "kg",
+        "timestamp": "2026-01-30T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-100",
+        "type": "weight",
+        "value": 88.1,
+        "unit": "kg",
+        "timestamp": "2026-02-03T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-101",
+        "type": "weight",
+        "value": 88,
+        "unit": "kg",
+        "timestamp": "2026-02-09T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-102",
+        "type": "weight",
+        "value": 87.2,
+        "unit": "kg",
+        "timestamp": "2026-02-12T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-103",
+        "type": "weight",
+        "value": 86.5,
+        "unit": "kg",
+        "timestamp": "2026-02-17T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-104",
+        "type": "weight",
+        "value": 87.7,
+        "unit": "kg",
+        "timestamp": "2026-02-24T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-105",
+        "type": "weight",
+        "value": 87.9,
+        "unit": "kg",
+        "timestamp": "2026-02-28T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-106",
+        "type": "weight",
+        "value": 86.7,
+        "unit": "kg",
+        "timestamp": "2026-03-06T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-107",
+        "type": "weight",
+        "value": 86.5,
+        "unit": "kg",
+        "timestamp": "2026-03-09T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-108",
+        "type": "weight",
+        "value": 87.6,
+        "unit": "kg",
+        "timestamp": "2026-03-16T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-109",
+        "type": "weight",
+        "value": 87.6,
+        "unit": "kg",
+        "timestamp": "2026-03-21T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-110",
+        "type": "weight",
+        "value": 86.7,
+        "unit": "kg",
+        "timestamp": "2026-03-25T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-111",
+        "type": "weight",
+        "value": 86.1,
+        "unit": "kg",
+        "timestamp": "2026-03-31T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-112",
+        "type": "weight",
+        "value": 86.5,
+        "unit": "kg",
+        "timestamp": "2026-04-03T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-113",
+        "type": "weight",
+        "value": 87,
+        "unit": "kg",
+        "timestamp": "2026-04-08T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-114",
+        "type": "weight",
+        "value": 85.5,
+        "unit": "kg",
+        "timestamp": "2026-04-15T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-115",
+        "type": "weight",
+        "value": 85,
+        "unit": "kg",
+        "timestamp": "2026-04-19T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-116",
+        "type": "weight",
+        "value": 85.1,
+        "unit": "kg",
+        "timestamp": "2026-04-20T07:15:00.000Z",
+        "note": "Daily tracking restarted"
+      },
+      {
+        "id": "demo-irregular-weight-117",
+        "type": "weight",
+        "value": 85.2,
+        "unit": "kg",
+        "timestamp": "2026-04-21T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-118",
+        "type": "weight",
+        "value": 85.4,
+        "unit": "kg",
+        "timestamp": "2026-04-22T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-119",
+        "type": "weight",
+        "value": 85.6,
+        "unit": "kg",
+        "timestamp": "2026-04-23T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-120",
+        "type": "weight",
+        "value": 85.8,
+        "unit": "kg",
+        "timestamp": "2026-04-24T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-121",
+        "type": "weight",
+        "value": 86,
+        "unit": "kg",
+        "timestamp": "2026-04-25T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-122",
+        "type": "weight",
+        "value": 86.1,
+        "unit": "kg",
+        "timestamp": "2026-04-26T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-123",
+        "type": "weight",
+        "value": 86.2,
+        "unit": "kg",
+        "timestamp": "2026-04-27T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-124",
+        "type": "weight",
+        "value": 86.3,
+        "unit": "kg",
+        "timestamp": "2026-04-28T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-125",
+        "type": "weight",
+        "value": 86.2,
+        "unit": "kg",
+        "timestamp": "2026-04-29T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-126",
+        "type": "weight",
+        "value": 86.1,
+        "unit": "kg",
+        "timestamp": "2026-04-30T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-127",
+        "type": "weight",
+        "value": 86,
+        "unit": "kg",
+        "timestamp": "2026-05-01T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-128",
+        "type": "weight",
+        "value": 85.8,
+        "unit": "kg",
+        "timestamp": "2026-05-02T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-129",
+        "type": "weight",
+        "value": 85.5,
+        "unit": "kg",
+        "timestamp": "2026-05-03T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-130",
+        "type": "weight",
+        "value": 85.3,
+        "unit": "kg",
+        "timestamp": "2026-05-04T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-131",
+        "type": "weight",
+        "value": 85.1,
+        "unit": "kg",
+        "timestamp": "2026-05-05T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-132",
+        "type": "weight",
+        "value": 84.9,
+        "unit": "kg",
+        "timestamp": "2026-05-06T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-133",
+        "type": "weight",
+        "value": 84.8,
+        "unit": "kg",
+        "timestamp": "2026-05-07T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-134",
+        "type": "weight",
+        "value": 84.7,
+        "unit": "kg",
+        "timestamp": "2026-05-08T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-135",
+        "type": "weight",
+        "value": 84.7,
+        "unit": "kg",
+        "timestamp": "2026-05-09T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-136",
+        "type": "weight",
+        "value": 84.8,
+        "unit": "kg",
+        "timestamp": "2026-05-10T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-137",
+        "type": "weight",
+        "value": 84.9,
+        "unit": "kg",
+        "timestamp": "2026-05-11T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-138",
+        "type": "weight",
+        "value": 85.1,
+        "unit": "kg",
+        "timestamp": "2026-05-12T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-139",
+        "type": "weight",
+        "value": 85.3,
+        "unit": "kg",
+        "timestamp": "2026-05-13T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-140",
+        "type": "weight",
+        "value": 85.6,
+        "unit": "kg",
+        "timestamp": "2026-05-14T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-141",
+        "type": "weight",
+        "value": 85.8,
+        "unit": "kg",
+        "timestamp": "2026-05-15T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-142",
+        "type": "weight",
+        "value": 86,
+        "unit": "kg",
+        "timestamp": "2026-05-16T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-143",
+        "type": "weight",
+        "value": 86.1,
+        "unit": "kg",
+        "timestamp": "2026-05-17T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-144",
+        "type": "weight",
+        "value": 86.2,
+        "unit": "kg",
+        "timestamp": "2026-05-18T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-145",
+        "type": "weight",
+        "value": 86.2,
+        "unit": "kg",
+        "timestamp": "2026-05-19T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-146",
+        "type": "weight",
+        "value": 86.1,
+        "unit": "kg",
+        "timestamp": "2026-05-20T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-147",
+        "type": "weight",
+        "value": 86,
+        "unit": "kg",
+        "timestamp": "2026-05-21T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-148",
+        "type": "weight",
+        "value": 85.8,
+        "unit": "kg",
+        "timestamp": "2026-05-22T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-149",
+        "type": "weight",
+        "value": 85.6,
+        "unit": "kg",
+        "timestamp": "2026-05-23T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-150",
+        "type": "weight",
+        "value": 85.3,
+        "unit": "kg",
+        "timestamp": "2026-05-24T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-151",
+        "type": "weight",
+        "value": 85.1,
+        "unit": "kg",
+        "timestamp": "2026-05-25T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-152",
+        "type": "weight",
+        "value": 84.9,
+        "unit": "kg",
+        "timestamp": "2026-05-26T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-153",
+        "type": "weight",
+        "value": 84.7,
+        "unit": "kg",
+        "timestamp": "2026-05-27T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-154",
+        "type": "weight",
+        "value": 84.6,
+        "unit": "kg",
+        "timestamp": "2026-05-28T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-155",
+        "type": "weight",
+        "value": 84.6,
+        "unit": "kg",
+        "timestamp": "2026-05-29T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-156",
+        "type": "weight",
+        "value": 84.6,
+        "unit": "kg",
+        "timestamp": "2026-05-30T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-157",
+        "type": "weight",
+        "value": 84.7,
+        "unit": "kg",
+        "timestamp": "2026-05-31T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-158",
+        "type": "weight",
+        "value": 84.9,
+        "unit": "kg",
+        "timestamp": "2026-06-01T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-159",
+        "type": "weight",
+        "value": 85,
+        "unit": "kg",
+        "timestamp": "2026-06-02T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-160",
+        "type": "weight",
+        "value": 85.2,
+        "unit": "kg",
+        "timestamp": "2026-06-03T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-161",
+        "type": "weight",
+        "value": 85.4,
+        "unit": "kg",
+        "timestamp": "2026-06-04T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-162",
+        "type": "weight",
+        "value": 85.6,
+        "unit": "kg",
+        "timestamp": "2026-06-05T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-163",
+        "type": "weight",
+        "value": 85.7,
+        "unit": "kg",
+        "timestamp": "2026-06-06T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-164",
+        "type": "weight",
+        "value": 85.7,
+        "unit": "kg",
+        "timestamp": "2026-06-07T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-165",
+        "type": "weight",
+        "value": 85.7,
+        "unit": "kg",
+        "timestamp": "2026-06-08T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-166",
+        "type": "weight",
+        "value": 85.6,
+        "unit": "kg",
+        "timestamp": "2026-06-09T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-167",
+        "type": "weight",
+        "value": 85.5,
+        "unit": "kg",
+        "timestamp": "2026-06-10T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-168",
+        "type": "weight",
+        "value": 85.2,
+        "unit": "kg",
+        "timestamp": "2026-06-11T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-169",
+        "type": "weight",
+        "value": 85,
+        "unit": "kg",
+        "timestamp": "2026-06-12T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-170",
+        "type": "weight",
+        "value": 84.7,
+        "unit": "kg",
+        "timestamp": "2026-06-13T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-171",
+        "type": "weight",
+        "value": 84.4,
+        "unit": "kg",
+        "timestamp": "2026-06-14T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-172",
+        "type": "weight",
+        "value": 84.2,
+        "unit": "kg",
+        "timestamp": "2026-06-15T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-173",
+        "type": "weight",
+        "value": 84,
+        "unit": "kg",
+        "timestamp": "2026-06-16T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-174",
+        "type": "weight",
+        "value": 83.8,
+        "unit": "kg",
+        "timestamp": "2026-06-17T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-175",
+        "type": "weight",
+        "value": 83.7,
+        "unit": "kg",
+        "timestamp": "2026-06-18T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-176",
+        "type": "weight",
+        "value": 83.7,
+        "unit": "kg",
+        "timestamp": "2026-06-19T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-177",
+        "type": "weight",
+        "value": 83.8,
+        "unit": "kg",
+        "timestamp": "2026-06-20T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-178",
+        "type": "weight",
+        "value": 83.9,
+        "unit": "kg",
+        "timestamp": "2026-06-21T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-179",
+        "type": "weight",
+        "value": 84,
+        "unit": "kg",
+        "timestamp": "2026-06-22T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-180",
+        "type": "weight",
+        "value": 84.2,
+        "unit": "kg",
+        "timestamp": "2026-06-23T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-181",
+        "type": "weight",
+        "value": 84.4,
+        "unit": "kg",
+        "timestamp": "2026-06-24T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-182",
+        "type": "weight",
+        "value": 84.6,
+        "unit": "kg",
+        "timestamp": "2026-06-25T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-183",
+        "type": "weight",
+        "value": 84.7,
+        "unit": "kg",
+        "timestamp": "2026-06-26T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-184",
+        "type": "weight",
+        "value": 84.8,
+        "unit": "kg",
+        "timestamp": "2026-06-27T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-185",
+        "type": "weight",
+        "value": 84.8,
+        "unit": "kg",
+        "timestamp": "2026-06-28T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-186",
+        "type": "weight",
+        "value": 84.7,
+        "unit": "kg",
+        "timestamp": "2026-06-29T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-187",
+        "type": "weight",
+        "value": 84.6,
+        "unit": "kg",
+        "timestamp": "2026-06-30T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-188",
+        "type": "weight",
+        "value": 84.4,
+        "unit": "kg",
+        "timestamp": "2026-07-01T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-189",
+        "type": "weight",
+        "value": 84.1,
+        "unit": "kg",
+        "timestamp": "2026-07-02T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-190",
+        "type": "weight",
+        "value": 83.9,
+        "unit": "kg",
+        "timestamp": "2026-07-03T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-191",
+        "type": "weight",
+        "value": 83.6,
+        "unit": "kg",
+        "timestamp": "2026-07-04T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-192",
+        "type": "weight",
+        "value": 83.4,
+        "unit": "kg",
+        "timestamp": "2026-07-05T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-193",
+        "type": "weight",
+        "value": 83.2,
+        "unit": "kg",
+        "timestamp": "2026-07-06T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-194",
+        "type": "weight",
+        "value": 83.1,
+        "unit": "kg",
+        "timestamp": "2026-07-07T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-195",
+        "type": "weight",
+        "value": 83,
+        "unit": "kg",
+        "timestamp": "2026-07-08T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-196",
+        "type": "weight",
+        "value": 83,
+        "unit": "kg",
+        "timestamp": "2026-07-09T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-197",
+        "type": "weight",
+        "value": 83.1,
+        "unit": "kg",
+        "timestamp": "2026-07-10T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-198",
+        "type": "weight",
+        "value": 83.2,
+        "unit": "kg",
+        "timestamp": "2026-07-11T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-199",
+        "type": "weight",
+        "value": 83.4,
+        "unit": "kg",
+        "timestamp": "2026-07-12T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-200",
+        "type": "weight",
+        "value": 83.6,
+        "unit": "kg",
+        "timestamp": "2026-07-13T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-201",
+        "type": "weight",
+        "value": 83.9,
+        "unit": "kg",
+        "timestamp": "2026-07-14T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-202",
+        "type": "weight",
+        "value": 84.1,
+        "unit": "kg",
+        "timestamp": "2026-07-15T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-203",
+        "type": "weight",
+        "value": 84.3,
+        "unit": "kg",
+        "timestamp": "2026-07-16T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-204",
+        "type": "weight",
+        "value": 84.4,
+        "unit": "kg",
+        "timestamp": "2026-07-17T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-205",
+        "type": "weight",
+        "value": 84.5,
+        "unit": "kg",
+        "timestamp": "2026-07-18T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-206",
+        "type": "weight",
+        "value": 84.4,
+        "unit": "kg",
+        "timestamp": "2026-07-19T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-207",
+        "type": "weight",
+        "value": 84.4,
+        "unit": "kg",
+        "timestamp": "2026-07-20T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-208",
+        "type": "weight",
+        "value": 84.2,
+        "unit": "kg",
+        "timestamp": "2026-07-21T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-209",
+        "type": "weight",
+        "value": 84,
+        "unit": "kg",
+        "timestamp": "2026-07-22T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-210",
+        "type": "weight",
+        "value": 83.8,
+        "unit": "kg",
+        "timestamp": "2026-07-23T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-211",
+        "type": "weight",
+        "value": 83.6,
+        "unit": "kg",
+        "timestamp": "2026-07-24T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-212",
+        "type": "weight",
+        "value": 83.4,
+        "unit": "kg",
+        "timestamp": "2026-07-25T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-213",
+        "type": "weight",
+        "value": 83.2,
+        "unit": "kg",
+        "timestamp": "2026-07-26T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-214",
+        "type": "weight",
+        "value": 83,
+        "unit": "kg",
+        "timestamp": "2026-07-27T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-215",
+        "type": "weight",
+        "value": 83,
+        "unit": "kg",
+        "timestamp": "2026-07-28T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-216",
+        "type": "weight",
+        "value": 83,
+        "unit": "kg",
+        "timestamp": "2026-07-29T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-217",
+        "type": "weight",
+        "value": 83,
+        "unit": "kg",
+        "timestamp": "2026-07-30T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-218",
+        "type": "weight",
+        "value": 83.2,
+        "unit": "kg",
+        "timestamp": "2026-07-31T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-219",
+        "type": "weight",
+        "value": 83.3,
+        "unit": "kg",
+        "timestamp": "2026-08-01T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-220",
+        "type": "weight",
+        "value": 83.5,
+        "unit": "kg",
+        "timestamp": "2026-08-02T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-221",
+        "type": "weight",
+        "value": 83.8,
+        "unit": "kg",
+        "timestamp": "2026-08-03T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-222",
+        "type": "weight",
+        "value": 84,
+        "unit": "kg",
+        "timestamp": "2026-08-04T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-223",
+        "type": "weight",
+        "value": 84.1,
+        "unit": "kg",
+        "timestamp": "2026-08-05T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-224",
+        "type": "weight",
+        "value": 84.3,
+        "unit": "kg",
+        "timestamp": "2026-08-06T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-225",
+        "type": "weight",
+        "value": 84.3,
+        "unit": "kg",
+        "timestamp": "2026-08-07T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-226",
+        "type": "weight",
+        "value": 84.3,
+        "unit": "kg",
+        "timestamp": "2026-08-08T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-227",
+        "type": "weight",
+        "value": 84.2,
+        "unit": "kg",
+        "timestamp": "2026-08-09T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-228",
+        "type": "weight",
+        "value": 84,
+        "unit": "kg",
+        "timestamp": "2026-08-10T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-229",
+        "type": "weight",
+        "value": 83.8,
+        "unit": "kg",
+        "timestamp": "2026-08-11T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-230",
+        "type": "weight",
+        "value": 83.6,
+        "unit": "kg",
+        "timestamp": "2026-08-12T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-231",
+        "type": "weight",
+        "value": 83.3,
+        "unit": "kg",
+        "timestamp": "2026-08-13T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-232",
+        "type": "weight",
+        "value": 83,
+        "unit": "kg",
+        "timestamp": "2026-08-14T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-233",
+        "type": "weight",
+        "value": 82.8,
+        "unit": "kg",
+        "timestamp": "2026-08-15T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-234",
+        "type": "weight",
+        "value": 82.6,
+        "unit": "kg",
+        "timestamp": "2026-08-16T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-235",
+        "type": "weight",
+        "value": 82.5,
+        "unit": "kg",
+        "timestamp": "2026-08-17T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-236",
+        "type": "weight",
+        "value": 82.4,
+        "unit": "kg",
+        "timestamp": "2026-08-18T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-237",
+        "type": "weight",
+        "value": 82.4,
+        "unit": "kg",
+        "timestamp": "2026-08-19T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-238",
+        "type": "weight",
+        "value": 82.5,
+        "unit": "kg",
+        "timestamp": "2026-08-20T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-239",
+        "type": "weight",
+        "value": 82.6,
+        "unit": "kg",
+        "timestamp": "2026-08-21T07:15:00.000Z",
+        "note": ""
+      },
+      {
+        "id": "demo-irregular-weight-240",
+        "type": "weight",
+        "value": 82.8,
+        "unit": "kg",
+        "timestamp": "2026-08-22T07:15:00.000Z",
+        "note": "One-year check-in"
+      }
+    ]
+  }
+}

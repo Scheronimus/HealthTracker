@@ -23,9 +23,14 @@ PWA/offline behavior requires a production build: `npm run build` then `npm run 
 
 ## One-year demo data
 
-To test the graph and range controls, open Settings → Restore backup and select [`docs/dummy-weight-data-one-year.json`](docs/dummy-weight-data-one-year.json). It contains 53 weekly measurements covering one year. Restore merges the demo records with existing data and does not overwrite matching IDs. Delete the demo entries individually or clear this site’s browser storage when testing is finished.
+To test the graph and range controls, open Settings → Restore backup and choose one of these files:
 
-Regenerate the fixture with `npm run generate:demo-backup`.
+- [`docs/dummy-weight-data-one-year-irregular.json`](docs/dummy-weight-data-one-year-irregular.json): 240 measurements with daily tracking, a 30-day forgotten period, entries every 3–7 days, then daily tracking again.
+- [`docs/dummy-weight-data-one-year.json`](docs/dummy-weight-data-one-year.json): 53 weekly measurements for a simpler sparse-data test.
+
+Restore merges demo records with existing data and does not overwrite matching IDs. Delete demo entries individually or clear this site's browser storage when testing is finished.
+
+Regenerate them with `npm run generate:irregular-demo-backup` and `npm run generate:demo-backup`.
 ## Quality checks
 
 Run `npm test`, `npm run lint`, and `npm run build`. See [Testing](docs/TESTING.md) for manual checks.
