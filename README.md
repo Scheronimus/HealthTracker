@@ -9,6 +9,7 @@ Production target: <https://scheronimus.github.io/HealthTracker/>
 ## Features
 
 - Record, edit, and delete dated weight measurements in kilograms with optional notes.
+- Prominent interactive weight graph with 3-month, 1-year, and all-time ranges.
 - Newest-first history and latest, previous-entry, and total-change summaries.
 - English, Spanish, German, and French interfaces with a locally saved preference.
 - Versioned and validated local data, tested migration infrastructure, JSON backup/merge restore, and CSV export.

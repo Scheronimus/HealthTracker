@@ -15,3 +15,7 @@ The complete store is serialized under `health-tracker-data`; the language uses 
 ## Offline and deployment
 
 `deployment.config.mjs` is the deployment identity source. Vite uses `/HealthTracker/`; `vite-plugin-pwa` generates a manifest and auto-updating service worker that precaches the application shell. GitHub Actions tests, lints, builds, and deploys `main` to Pages.
+
+## Weight graph
+
+The dependency-free SVG chart filters measurements through src/utils/chart.js, plots timestamps on a proportional time axis, and derives a padded kilogram scale from visible values. The default span is three months; one-year and all-time ranges are available without changing persisted data. Chart points are touch, pointer, and keyboard accessible.

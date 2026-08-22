@@ -3,6 +3,7 @@ import { EntryForm } from './components/EntryForm.jsx'
 import { History } from './components/History.jsx'
 import { Settings } from './components/Settings.jsx'
 import { Summary } from './components/Summary.jsx'
+import { WeightChart } from './components/WeightChart.jsx'
 import { createBackup, mergeRestore, parseBackup, weightCsv } from './data/transfer.js'
 import { loadLanguage, saveLanguage } from './data/storage.js'
 import { useHealthData } from './hooks/useHealthData.js'
@@ -31,6 +32,7 @@ export default function App() {
     <main>
       <aside className="privacy"><strong>⌂ {t('privacyTitle')}</strong><span>{t('privacyBody')}</span></aside>
       <Summary measurements={measurements} t={t} />
+      <WeightChart measurements={measurements} language={language} t={t} />
       <div className="layout"><EntryForm key={editing?.id ?? 'new'} editing={editing} onSave={save} onCancel={() => setEditing(null)} t={t} /><History measurements={measurements} language={language} onEdit={setEditing} onDelete={deleteItem} t={t} /></div>
       <Settings language={language} onLanguage={changeLanguage} onBackup={() => downloadText(filename('json'), JSON.stringify(createBackup(store), null, 2), 'application/json')} onCsv={() => downloadText(filename('csv'), weightCsv(measurements), 'text/csv;charset=utf-8')} onRestore={restore} t={t} />
       <p className="offline-note">● {t('install')}</p>

@@ -9,6 +9,9 @@ Run `npm test`, `npm run lint`, and `npm run build`. Tests cover schema validati
 - Add a valid weight with date, time, and multiline note; refresh and confirm it persists.
 - Reject empty, zero, negative, and over-1000 kg values.
 - Add measurements out of chronological order and confirm newest-first history and summaries.
+- Confirm the graph defaults to 3 months and correctly switches to 1 year and all time.
+- Tap, click, and keyboard-focus graph points; confirm weight, localized date/time, and note details appear.
+- Confirm empty ranges and a single visible measurement render clearly.
 - Edit an entry and confirm its ID is retained. Cancel and accept delete confirmations.
 - Switch among English, Spanish, German, and French; refresh and confirm the language persists.
 - Export CSV and inspect commas, quotes, Unicode, timestamps, and kilogram values.
