@@ -47,7 +47,7 @@ export function WeightChart({ measurements, language, span, onSpanChange, t }) {
         <svg className="chart-svg" viewBox={`0 0 ${WIDTH + PAD.left + PAD.right} ${HEIGHT + PAD.top + PAD.bottom}`} role="img" aria-label={t('chartDescription', { count: points.length })}>
           <defs><linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#4bb69d" stopOpacity=".34" /><stop offset="1" stopColor="#4bb69d" stopOpacity=".02" /></linearGradient></defs>
           <g transform={`translate(${PAD.left} ${PAD.top})`}>
-            {ticks.map(({ value, y }) => <g key={value}><line className="grid-line" x1="0" x2={WIDTH} y1={y} y2={y} /><text className="axis-label y-label" x="-10" y={y + 4}>{value.toFixed(1)}</text></g>)}
+            {ticks.map(({ value, y }) => <g key={value}><line className="grid-line" x1="0" x2={WIDTH} y1={y} y2={y} /><text className="axis-label y-label" x="-10" y={y + 4}>{value.toFixed(0)}</text></g>)}
             {points.length > 1 && <polygon points={area} fill={`url(#${gradientId})`} />}
             {points.length > 1 && <polyline className="trend-line" points={line} />}
             {active && <line className="chart-crosshair" x1={active.x} x2={active.x} y1="0" y2={HEIGHT} />}

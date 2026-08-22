@@ -8,29 +8,41 @@ export function filterBySpan(measurements, span, now = new Date()) {
   return measurements.filter(({ timestamp }) => Date.parse(timestamp) >= cutoff.getTime())
 }
 
+export function niceIntegerStep(range, targetIntervals = 3) {
+  if (!Number.isFinite(range) || range <= targetIntervals) return 1
+  const roughStep = range / targetIntervals
+  const magnitude = 10 ** Math.floor(Math.log10(roughStep))
+  const normalized = roughStep / magnitude
+  const multiplier = normalized <= 1 ? 1 : normalized <= 2 ? 2 : normalized <= 5 ? 5 : 10
+  return Math.max(1, multiplier * magnitude)
+}
+
 export function chartGeometry(measurements, width = 800, height = 300) {
   const sorted = [...measurements].sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp))
   if (!sorted.length) return { points: [], ticks: [], min: 0, max: 0 }
   const values = sorted.map(({ value }) => value)
   const rawMin = Math.min(...values)
   const rawMax = Math.max(...values)
-  const padding = Math.max((rawMax - rawMin) * 0.15, 1)
-  const min = Math.floor((rawMin - padding) * 2) / 2
-  const max = Math.ceil((rawMax + padding) * 2) / 2
+  const step = niceIntegerStep(rawMax - rawMin)
+  let min = Math.floor(rawMin / step) * step
+  let max = Math.ceil(rawMax / step) * step
+  if (min === max) { min -= step; max += step }
   const start = Date.parse(sorted[0].timestamp)
   const end = Date.parse(sorted.at(-1).timestamp)
   const timeRange = end - start || 1
-  const valueRange = max - min || 1
+  const valueRange = max - min
+  const plotInset = Math.min(14, height * 0.05)
+  const plotHeight = height - plotInset * 2
   const points = sorted.map((item, index) => ({
     ...item,
     x: sorted.length === 1 ? width / 2 : ((Date.parse(item.timestamp) - start) / timeRange) * width,
-    y: height - ((item.value - min) / valueRange) * height,
+    y: height - plotInset - ((item.value - min) / valueRange) * plotHeight,
     index,
   }))
-  const ticks = Array.from({ length: 4 }, (_, index) => {
-    const value = min + ((max - min) * index) / 3
-    return { value, y: height - (index * height) / 3 }
-  })
+  const ticks = []
+  for (let value = min; value <= max; value += step) {
+    ticks.push({ value, y: height - plotInset - ((value - min) / valueRange) * plotHeight })
+  }
   return { points, ticks, min, max }
 }
 export function nearestPointIndex(points, targetX) {
