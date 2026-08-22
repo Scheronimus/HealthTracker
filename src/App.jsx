@@ -81,7 +81,7 @@ export default function App() {
     </header>
 
     {screen === 'dashboard' && <main>
-      <WeightChart measurements={visibleMeasurements} language={language} span={chartSpan} onSpanChange={setChartSpan} t={t} />
+      <WeightChart measurements={visibleMeasurements} language={language} span={chartSpan} onSpanChange={setChartSpan} profile={store.profile} t={t} />
       <Summary measurements={measurements} visibleMeasurements={visibleMeasurements} span={chartSpan} language={language} profile={store.profile} t={t} />
       <History measurements={measurements} language={language} onEdit={openEntry} t={t} />
     </main>}

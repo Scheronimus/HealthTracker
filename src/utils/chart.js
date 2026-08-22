@@ -17,12 +17,13 @@ export function niceIntegerStep(range, targetIntervals = 3) {
   return Math.max(1, multiplier * magnitude)
 }
 
-export function chartGeometry(measurements, width = 800, height = 300) {
+export function chartGeometry(measurements, width = 800, height = 300, referenceRange = null) {
   const sorted = [...measurements].sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp))
-  if (!sorted.length) return { points: [], ticks: [], min: 0, max: 0 }
+  if (!sorted.length) return { points: [], ticks: [], min: 0, max: 0, plotInset: 0, plotHeight: height }
   const values = sorted.map(({ value }) => value)
-  const rawMin = Math.min(...values)
-  const rawMax = Math.max(...values)
+  const scaleValues = referenceRange ? [...values, referenceRange.min, referenceRange.max] : values
+  const rawMin = Math.min(...scaleValues)
+  const rawMax = Math.max(...scaleValues)
   const step = niceIntegerStep(rawMax - rawMin)
   let min = Math.floor(rawMin / step) * step
   let max = Math.ceil(rawMax / step) * step
@@ -43,7 +44,11 @@ export function chartGeometry(measurements, width = 800, height = 300) {
   for (let value = min; value <= max; value += step) {
     ticks.push({ value, y: height - plotInset - ((value - min) / valueRange) * plotHeight })
   }
-  return { points, ticks, min, max }
+  return { points, ticks, min, max, plotInset, plotHeight }
+}
+
+export function chartValueY(value, geometry, height = 300) {
+  return height - geometry.plotInset - ((value - geometry.min) / (geometry.max - geometry.min)) * geometry.plotHeight
 }
 export function nearestPointIndex(points, targetX) {
   if (!points.length) return -1

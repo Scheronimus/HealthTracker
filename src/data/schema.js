@@ -1,4 +1,4 @@
-export const SCHEMA_VERSION = 2
+export const SCHEMA_VERSION = 3
 export const BACKUP_KIND = 'health-tracker-backup'
 export const STORAGE_KEY = 'health-tracker-data'
 export const LANGUAGE_KEY = 'health-tracker-language'
@@ -9,7 +9,7 @@ export function emptyStore() {
 }
 
 export function emptyProfile() {
-  return { name: '', age: null, heightCm: null, showBmi: false }
+  return { name: '', age: null, heightCm: null, showBmi: false, showBmiRange: false }
 }
 
 export function validateProfile(profile) {
@@ -18,6 +18,7 @@ export function validateProfile(profile) {
     && (profile.age === null || (Number.isInteger(profile.age) && profile.age >= 0 && profile.age <= 130))
     && (profile.heightCm === null || (Number.isFinite(profile.heightCm) && profile.heightCm >= 50 && profile.heightCm <= 300))
     && typeof profile.showBmi === 'boolean'
+    && typeof profile.showBmiRange === 'boolean'
 }
 
 export function createId() {

@@ -8,4 +8,4 @@ Restore accepts only a valid, supported Health Tracker backup. It merges records
 
 CSV is intended for analysis and is not a full recovery format. JSON is the full backup format. Both exports contain sensitive health information and should be protected accordingly.
 
-The profile is optional. BMI is calculated locally from the latest weight and saved height only when enabled; the calculated BMI is not persisted as a separate measurement. JSON backup includes the profile, while CSV does not.
+The profile is optional. BMI and the optional WHO graph range are calculated locally from the latest weight and saved height only when enabled; the calculated BMI is not persisted as a separate measurement. JSON backup includes the profile, while CSV does not.

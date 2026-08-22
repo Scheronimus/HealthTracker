@@ -1,15 +1,20 @@
 import { useId, useMemo, useState } from 'react'
-import { chartGeometry, nearestPointIndex } from '../utils/chart.js'
+import { chartGeometry, chartValueY, nearestPointIndex } from '../utils/chart.js'
+import { healthyWeightRange } from '../utils/bmi.js'
 import { formatDate } from '../utils/date.js'
 
 const WIDTH = 800
 const HEIGHT = 400
 const PAD = { top: 18, right: 18, bottom: 42, left: 55 }
 
-export function WeightChart({ measurements, language, span, onSpanChange, t }) {
+export function WeightChart({ measurements, language, span, onSpanChange, profile, t }) {
   const [activeIndex, setActiveIndex] = useState(null)
   const gradientId = useId().replaceAll(':', '')
-  const { points, ticks } = useMemo(() => chartGeometry(measurements, WIDTH, HEIGHT), [measurements])
+  const referenceRange = useMemo(() => profile.showBmiRange ? healthyWeightRange(profile.heightCm) : null, [profile.heightCm, profile.showBmiRange])
+  const geometry = useMemo(() => chartGeometry(measurements, WIDTH, HEIGHT, referenceRange), [measurements, referenceRange])
+  const { points, ticks } = geometry
+  const rangeTop = referenceRange ? chartValueY(referenceRange.max, geometry, HEIGHT) : null
+  const rangeBottom = referenceRange ? chartValueY(referenceRange.min, geometry, HEIGHT) : null
   const line = points.map(({ x, y }) => `${x},${y}`).join(' ')
   const area = points.length ? `0,${HEIGHT} ${line} ${WIDTH},${HEIGHT}` : ''
   const first = points[0]
@@ -48,6 +53,7 @@ export function WeightChart({ measurements, language, span, onSpanChange, t }) {
           <defs><linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#4bb69d" stopOpacity=".34" /><stop offset="1" stopColor="#4bb69d" stopOpacity=".02" /></linearGradient></defs>
           <g transform={`translate(${PAD.left} ${PAD.top})`}>
             {ticks.map(({ value, y }) => <g key={value}><line className="grid-line" x1="0" x2={WIDTH} y1={y} y2={y} /><text className="axis-label y-label" x="-10" y={y + 4}>{value.toFixed(0)}</text></g>)}
+            {referenceRange && <g className="bmi-reference-band"><rect x="0" y={rangeTop} width={WIDTH} height={rangeBottom - rangeTop} /><text x="10" y={rangeTop + 20}>{t('whoReferenceRange')}</text></g>}
             {points.length > 1 && <polygon points={area} fill={`url(#${gradientId})`} />}
             {points.length > 1 && <polyline className="trend-line" points={line} />}
             {active && <line className="chart-crosshair" x1={active.x} x2={active.x} y1="0" y2={HEIGHT} />}

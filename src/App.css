@@ -137,3 +137,13 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 .summary-note { display: block; margin-top: .2rem; }
 .summary-with-bmi article:last-child { grid-column: 1 / -1; }
 @media (min-width: 720px) { .summary-with-bmi { grid-template-columns: repeat(3, 1fr); } .summary-with-bmi article:last-child { grid-column: auto; } }
+/* WHO BMI screening context */
+.bmi-reference-band rect { fill: #55ad8c; opacity: .16; }
+.bmi-reference-band text { fill: #174f43; font-size: 13px; font-weight: 750; }
+.bmi-status { width: fit-content; margin-top: .35rem; padding: .22rem .5rem; border-radius: 999px; background: #f1d9a9; color: #694817; font-size: .78rem; font-weight: 750; }
+.bmi-status.bmiWithin { background: #d3ecdf; color: #175b45; }
+.bmi-status.bmiClass2, .bmi-status.bmiClass3 { background: #f0caca; color: #812f2f; }
+.bmi-status.adultRangeUnavailable { border-radius: 8px; background: #e4e8e7; color: #445651; }
+.bmi-caution, .bmi-disclaimer { display: block; margin-top: .45rem; color: var(--muted); font-size: .75rem; line-height: 1.35; }
+.bmi-caution { padding: .45rem; border-radius: 8px; background: #f6ead2; color: #604b25; }
+@media (prefers-color-scheme: dark) { .bmi-reference-band text { fill: #c9f1e4; } .bmi-caution { background: #493d26; color: #f3dfb6; } }

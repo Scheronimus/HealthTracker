@@ -4,7 +4,7 @@ Health Tracker is a client-only React 19 application built with Vite. `App.jsx` 
 
 ## Data model
 
-The persisted root is `{ schemaVersion: 2, measurements: Measurement[], profile: Profile }`. Version 1 stores are migrated automatically with an empty profile. A measurement is `{ id, type, value, unit, timestamp, note }`. Version 1 supports `type: "weight"`, numeric values in `unit: "kg"`, ISO timestamps, and notes up to 1,000 characters. IDs use `crypto.randomUUID()` where available.
+The persisted root is `{ schemaVersion: 3, measurements: Measurement[], profile: Profile }`. Version 1 stores are migrated automatically with an empty profile; version 2 profiles are migrated with the graph range disabled. A measurement is `{ id, type, value, unit, timestamp, note }`. Version 1 supports `type: "weight"`, numeric values in `unit: "kg"`, ISO timestamps, and notes up to 1,000 characters. IDs use `crypto.randomUUID()` where available.
 
 `src/data/schema.js` owns validation and constants, `migrations.js` performs sequential migrations and validates the result, `storage.js` isolates browser persistence, and `transfer.js` owns versioned backup, safe merge restore, and CSV generation. New measurement types should add type-specific validation, presentation, and export rules without changing the root model.
 
@@ -15,7 +15,7 @@ The complete store is serialized under `health-tracker-data`; the language uses 
 
 ## Optional profile and BMI
 
-The validated profile stores optional `name`, `age`, and `heightCm` values plus an explicit `showBmi` preference. Profile editing has its own Settings sub-screen. When enabled and height plus a current weight are available, `src/utils/bmi.js` calculates BMI as kilograms divided by squared height in metres. BMI is derived display data and is never stored as a measurement. Profile data remains local and is included in full JSON backups.
+The validated profile stores optional `name`, `age`, and `heightCm` values plus explicit `showBmi` and `showBmiRange` preferences. Profile editing has its own Settings sub-screen. When enabled and height plus a current weight are available, `src/utils/bmi.js` calculates BMI as kilograms divided by squared height in metres. The BMI status uses WHO adult thresholds and is presented as a screening estimate, not a diagnosis. Ages under 18 receive no adult classification; ages 65 and over receive an interpretation caution. BMI is derived display data and is never stored as a measurement. When enabled, the graph converts the WHO BMI reference interval (18.5 to below 25) into kilograms using profile height, includes both bounds in its vertical scale, and renders the resulting band behind the weight trend. Profile data remains local and is included in full JSON backups.
 
 Restore imports a backed-up profile only when the local profile is still empty. An existing local profile always wins, preventing silent overwrite. CSV remains weight-only.
 

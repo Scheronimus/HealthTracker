@@ -16,8 +16,12 @@ describe('measurement schema', () => {
   })
   it('validates optional profile values', () => {
     expect(validateProfile(emptyProfile())).toBe(true)
-    expect(validateProfile({ name: 'Alex', age: 35, heightCm: 180.5, showBmi: true })).toBe(true)
-    expect(validateProfile({ name: 'Alex', age: 131, heightCm: 180, showBmi: true })).toBe(false)
+    expect(validateProfile({ name: 'Alex', age: 35, heightCm: 180.5, showBmi: true, showBmiRange: true })).toBe(true)
+    expect(validateProfile({ name: 'Alex', age: 131, heightCm: 180, showBmi: true, showBmiRange: false })).toBe(false)
+  })
+  it('migrates a version-two profile with the graph range disabled', () => {
+    const legacy = { schemaVersion: 2, measurements: [], profile: { name: 'Alex', age: 35, heightCm: 180, showBmi: true } }
+    expect(migrateStore(legacy).profile).toEqual({ ...legacy.profile, showBmiRange: false })
   })
   it('migrates a version-one store without changing measurements', () => {
     const legacy = { schemaVersion: 1, measurements: [] }
