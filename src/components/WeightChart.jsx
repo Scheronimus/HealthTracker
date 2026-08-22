@@ -1,17 +1,15 @@
 import { useId, useMemo, useState } from 'react'
-import { chartGeometry, filterBySpan, nearestPointIndex } from '../utils/chart.js'
+import { chartGeometry, nearestPointIndex } from '../utils/chart.js'
 import { formatDateTime } from '../utils/date.js'
 
 const WIDTH = 800
 const HEIGHT = 400
 const PAD = { top: 18, right: 18, bottom: 42, left: 55 }
 
-export function WeightChart({ measurements, language, t }) {
-  const [span, setSpan] = useState('threeMonths')
+export function WeightChart({ measurements, language, span, onSpanChange, t }) {
   const [activeIndex, setActiveIndex] = useState(null)
   const gradientId = useId().replaceAll(':', '')
-  const visible = useMemo(() => filterBySpan(measurements, span), [measurements, span])
-  const { points, ticks } = useMemo(() => chartGeometry(visible, WIDTH, HEIGHT), [visible])
+  const { points, ticks } = useMemo(() => chartGeometry(measurements, WIDTH, HEIGHT), [measurements])
   const line = points.map(({ x, y }) => `${x},${y}`).join(' ')
   const area = points.length ? `0,${HEIGHT} ${line} ${WIDTH},${HEIGHT}` : ''
   const first = points[0]
@@ -41,7 +39,7 @@ export function WeightChart({ measurements, language, t }) {
     <div className="chart-header">
       <div><h2 id="chart-title">{t('trend')}</h2><p>{t('trendHint')}</p></div>
       <div className="span-control" role="group" aria-label={t('timeSpan')}>
-        {['threeMonths', 'oneYear', 'allTime'].map((option) => <button key={option} type="button" className={span === option ? 'active' : ''} aria-pressed={span === option} onClick={() => { setSpan(option); setActiveIndex(null) }}>{t(option)}</button>)}
+        {['threeMonths', 'oneYear', 'allTime'].map((option) => <button key={option} type="button" className={span === option ? 'active' : ''} aria-pressed={span === option} onClick={() => { onSpanChange(option); setActiveIndex(null) }}>{t(option)}</button>)}
       </div>
     </div>
     {!points.length ? <div className="chart-empty"><span>⌁</span><p>{t('noChartData')}</p></div> : <>

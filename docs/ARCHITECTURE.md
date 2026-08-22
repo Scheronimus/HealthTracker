@@ -23,3 +23,7 @@ The dependency-free SVG chart filters measurements through src/utils/chart.js, p
 ## Screen flow
 
 The dashboard is the default screen and presents the weight graph first, followed by summaries and the complete editable history. Top-right settings and add controls open dedicated settings and entry screens. Selecting any history row opens that record on the shared entry screen. Its top bar owns Cancel and Save; existing records also expose confirmed deletion inside the edit screen. Save submits the associated form and returns to the dashboard.
+
+## Dashboard summaries
+
+The graph span is dashboard-level state shared by the chart and summary. Current weight always uses the newest measurement; Change compares the newest and oldest measurements visible in the selected 3-month, 1-year, or all-time range. The previous-entry summary is intentionally omitted.

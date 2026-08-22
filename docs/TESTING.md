@@ -19,6 +19,8 @@ Run `npm test`, `npm run lint`, and `npm run build`. Regenerate the one-year gra
 - Reject empty, zero, negative, and over-1000 kg values.
 - Add measurements out of chronological order and confirm newest-first history and summaries.
 - Confirm the graph defaults to 3 months and correctly switches to 1 year and all time.
+- Confirm Current weight always shows the newest measurement and no Since previous card is present.
+- Switch each graph span and confirm Change compares the first and last measurements visible in that range.
 - On a narrow smartphone, confirm the entire graph and both date labels fit without a horizontal scrollbar.
 - Tap, drag, or move across the graph and confirm the vertical crosshair snaps to the nearest measurement with weight, localized date/time, and note details.
 - Drag the crosshair from edge to edge and confirm the page does not scroll sideways or lose touch tracking.

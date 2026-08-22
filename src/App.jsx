@@ -5,6 +5,7 @@ import { Settings } from './components/Settings.jsx'
 import { Summary } from './components/Summary.jsx'
 import { WeightChart } from './components/WeightChart.jsx'
 import { createBackup, mergeRestore, parseBackup, weightCsv } from './data/transfer.js'
+import { filterBySpan } from './utils/chart.js'
 import { loadLanguage, saveLanguage } from './data/storage.js'
 import { useHealthData } from './hooks/useHealthData.js'
 import { translate } from './i18n.js'
@@ -15,7 +16,9 @@ export default function App() {
   const [language, setLanguage] = useState(loadLanguage)
   const [screen, setScreen] = useState('dashboard')
   const [editing, setEditing] = useState(null)
+  const [chartSpan, setChartSpan] = useState('threeMonths')
   const { store, setStore, measurements, add, update, remove } = useHealthData()
+  const visibleMeasurements = filterBySpan(measurements, chartSpan)
   const t = (key, values) => translate(language, key, values)
   function changeLanguage(next) { setLanguage(next); saveLanguage(next) }
   function showScreen(next) { setScreen(next); window.scrollTo(0, 0) }
@@ -65,8 +68,8 @@ export default function App() {
     </header>
 
     {screen === 'dashboard' && <main>
-      <WeightChart measurements={measurements} language={language} t={t} />
-      <Summary measurements={measurements} t={t} />
+      <WeightChart measurements={visibleMeasurements} language={language} span={chartSpan} onSpanChange={setChartSpan} t={t} />
+      <Summary measurements={measurements} visibleMeasurements={visibleMeasurements} span={chartSpan} t={t} />
       <History measurements={measurements} language={language} onEdit={openEntry} t={t} />
     </main>}
     {screen === 'entry' && <main className="entry-screen">
