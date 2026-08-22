@@ -10,7 +10,8 @@ Run `npm test`, `npm run lint`, and `npm run build`. Regenerate the one-year gra
 - Select the top-right + and confirm the dedicated entry screen opens with Cancel and Save in its top bar.
 - Select the settings button and confirm language, backup, restore, CSV, privacy, and offline information open on a separate screen; Close returns to the dashboard.
 - Confirm Cancel returns without changes; confirm Save validates, stores the entry, and returns to the dashboard.
-- Edit a history item and confirm the same screen opens with its existing data.
+- Confirm history has no inline Edit/Delete buttons; select anywhere on a row and confirm the edit screen opens with its existing data.
+- Confirm Delete appears on existing-record edit screens only, still requires confirmation, and returns to the dashboard after deletion.
 - Add a valid weight with date, time, and multiline note; refresh and confirm it persists.
 - Reject empty, zero, negative, and over-1000 kg values.
 - Add measurements out of chronological order and confirm newest-first history and summaries.

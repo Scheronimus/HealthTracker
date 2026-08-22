@@ -22,7 +22,7 @@ export default function App() {
   function openEntry(item = null) { setEditing(item); showScreen('entry') }
   function closeEntry() { setEditing(null); showScreen('dashboard') }
   function save(item) { editing ? update(item) : add(item); closeEntry() }
-  function deleteItem(id) { if (confirm(t('deleteConfirm'))) remove(id) }
+  function deleteItem(id) { if (confirm(t('deleteConfirm'))) { remove(id); closeEntry() } }
   function filename(extension) { return `health-tracker-${new Date().toISOString().slice(0, 10)}.${extension}` }
   function restore(text) {
     const imported = parseBackup(text)
@@ -56,10 +56,10 @@ export default function App() {
     {screen === 'dashboard' && <main>
       <WeightChart measurements={measurements} language={language} t={t} />
       <Summary measurements={measurements} t={t} />
-      <History measurements={measurements} language={language} onEdit={openEntry} onDelete={deleteItem} t={t} />
+      <History measurements={measurements} language={language} onEdit={openEntry} t={t} />
     </main>}
     {screen === 'entry' && <main className="entry-screen">
-      <EntryForm key={editing?.id ?? 'new'} editing={editing} onSave={save} t={t} />
+      <EntryForm key={editing?.id ?? 'new'} editing={editing} onSave={save} onDelete={deleteItem} t={t} />
       <p className="entry-privacy">{t('privacyBody')}</p>
     </main>}
     {screen === 'settings' && <main className="settings-screen">

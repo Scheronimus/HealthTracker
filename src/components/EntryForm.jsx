@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { createWeightMeasurement } from '../data/schema.js'
 import { localFormValues, toIsoTimestamp } from '../utils/date.js'
 
-export function EntryForm({ editing, onSave, t }) {
+export function EntryForm({ editing, onSave, onDelete, t }) {
   const initial = localFormValues(editing?.timestamp)
   const [date, setDate] = useState(initial.date)
   const [time, setTime] = useState(initial.time)
@@ -28,5 +28,6 @@ export function EntryForm({ editing, onSave, t }) {
     <label>{t('weight')}<span className="weight-input"><input id="weight" type="number" inputMode="decimal" min="0.1" max="1000" step="0.1" value={weight} onChange={(event) => setWeight(event.target.value)} required /><span>kg</span></span></label>
     <label>{t('note')}<textarea value={note} maxLength="1000" rows="5" onChange={(event) => setNote(event.target.value)} /></label>
     {error && <p className="error" role="alert">{error}</p>}
+    {editing && <button className="delete-entry-button" type="button" onClick={() => onDelete(editing.id)}>{t('delete')}</button>}
   </form>
 }

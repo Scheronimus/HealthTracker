@@ -102,3 +102,9 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 .settings-privacy p { margin: .35rem 0 0; color: #395b54; }
 .settings-offline { margin: 1rem 0 0; color: var(--muted); font-size: .8rem; text-align: center; }
 @media (max-width: 520px) { .dashboard-topbar .brand p { max-width: 150px; } }
+/* Selectable history rows */
+.entry-link { width: 100%; grid-template-columns: 1fr auto auto; align-items: center; color: var(--ink); text-align: left; font-weight: 400; }
+.entry-link:hover { filter: none; border-color: #8ebbb0; transform: translateY(-1px); box-shadow: 0 8px 24px #184f3d18; }
+.entry-link:active { transform: translateY(0); }
+.entry-chevron { align-self: center; color: var(--muted); font-size: 1.75rem; font-weight: 300; line-height: 1; }
+.delete-entry-button { width: 100%; margin-top: .35rem; border-color: #e2bcbc; background: transparent; color: var(--danger); }
