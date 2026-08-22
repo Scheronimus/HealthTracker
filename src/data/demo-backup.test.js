@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises'
 import { describe, expect, it } from 'vitest'
+import { createIrregularDemoStore } from './demo.js'
 import { parseBackup } from './transfer.js'
 
 const weeklyPath = new URL('../../docs/dummy-weight-data-one-year.json', import.meta.url)
@@ -21,6 +22,7 @@ describe('one-year demo backups', () => {
 
   it('provides daily, forgotten, irregular, and resumed-daily phases', async () => {
     const data = await readBackup(irregularPath)
+    expect(data).toEqual(createIrregularDemoStore())
     expect(data.measurements).toHaveLength(240)
     const start = Date.parse(data.measurements[0].timestamp)
     const days = data.measurements.map(({ timestamp }) => (Date.parse(timestamp) - start) / DAY)

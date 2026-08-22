@@ -28,7 +28,14 @@ export default function App() {
     if (!confirm(t('clearAllConfirm'))) return ''
     setStore((current) => ({ ...current, measurements: [] }))
     return t('clearAllDone')
-  }  function restore(text) {
+  }
+  async function loadDemo() {
+    const { createIrregularDemoStore } = await import('./data/demo.js')
+    const result = mergeRestore(store, createIrregularDemoStore())
+    setStore(result.data)
+    return t('demoLoaded', result)
+  }
+  function restore(text) {
     const imported = parseBackup(text)
     if (!confirm(t('restoreConfirm'))) return ''
     const result = mergeRestore(store, imported)
@@ -67,7 +74,7 @@ export default function App() {
       <p className="entry-privacy">{t('privacyBody')}</p>
     </main>}
     {screen === 'settings' && <main className="settings-screen">
-      <Settings language={language} onLanguage={changeLanguage} onBackup={() => downloadText(filename('json'), JSON.stringify(createBackup(store), null, 2), 'application/json')} onCsv={() => downloadText(filename('csv'), weightCsv(measurements), 'text/csv;charset=utf-8')} onRestore={restore} onClearAll={clearAll} t={t} />
+      <Settings language={language} onLanguage={changeLanguage} onBackup={() => downloadText(filename('json'), JSON.stringify(createBackup(store), null, 2), 'application/json')} onCsv={() => downloadText(filename('csv'), weightCsv(measurements), 'text/csv;charset=utf-8')} onRestore={restore} onLoadDemo={import.meta.env.DEV ? loadDemo : undefined} onClearAll={clearAll} t={t} />
     </main>}
     <footer>Health Tracker · {new Date().getFullYear()}</footer>
   </>

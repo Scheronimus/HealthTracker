@@ -31,6 +31,8 @@ To test the graph and range controls, open Settings → Restore backup and choos
 Restore merges demo records with existing data and does not overwrite matching IDs. Delete demo entries individually or clear this site's browser storage when testing is finished.
 
 Regenerate them with `npm run generate:irregular-demo-backup` and `npm run generate:demo-backup`.
+
+During local development, Settings → Temporary debug tools also provides **Load one-year demo data**, so no file transfer is needed for phone testing.
 ## Quality checks
 
 Run `npm test`, `npm run lint`, and `npm run build`. See [Testing](docs/TESTING.md) for manual checks.

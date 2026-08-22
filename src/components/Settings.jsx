@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { languageNames } from '../i18n.js'
 
-export function Settings({ language, onLanguage, onBackup, onCsv, onRestore, onClearAll, t }) {
+export function Settings({ language, onLanguage, onBackup, onCsv, onRestore, onLoadDemo, onClearAll, t }) {
   const input = useRef(null)
   const [message, setMessage] = useState('')
 
@@ -10,6 +10,11 @@ export function Settings({ language, onLanguage, onBackup, onCsv, onRestore, onC
     if (!file) return
     try { setMessage(await onRestore(await file.text())) } catch { setMessage(t('invalidBackup')) }
     event.target.value = ''
+  }
+
+  async function loadDemo() {
+    setMessage(t('demoLoading'))
+    setMessage(await onLoadDemo())
   }
 
   function clearAll() {
@@ -32,7 +37,10 @@ export function Settings({ language, onLanguage, onBackup, onCsv, onRestore, onC
     </div>
     {import.meta.env.DEV && <div className="debug-section">
       <strong>{t('debugTools')}</strong>
-      <button className="debug-delete-button" type="button" onClick={clearAll}>{t('clearAll')}</button>
+      <div className="debug-actions">
+        <button className="debug-load-button" type="button" onClick={loadDemo}>{t('loadDemo')}</button>
+        <button className="debug-delete-button" type="button" onClick={clearAll}>{t('clearAll')}</button>
+      </div>
     </div>}
     <aside className="settings-privacy"><strong>⌂ {t('privacyTitle')}</strong><p>{t('privacyBody')}</p></aside>
     <p className="settings-offline">● {t('install')}</p>

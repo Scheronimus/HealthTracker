@@ -107,6 +107,8 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 /* Development-only reset tool */
 .debug-section { margin-top: 1.25rem; padding: 1rem; border: 1px dashed #d29363; border-radius: 13px; background: #fff4e8; color: #6f3e20; }
 .debug-section strong { display: block; margin-bottom: .65rem; font-size: .82rem; text-transform: uppercase; letter-spacing: .04em; }
+.debug-actions { display: grid; gap: .55rem; }
+.debug-load-button { width: 100%; border-color: var(--green); background: var(--green); color: white; }
 .debug-delete-button { width: 100%; border-color: #c55e4e; background: #fff; color: #a33228; }
 @media (prefers-color-scheme: dark) { .debug-section { background: #3a281f; color: #ffd5b8; } .debug-delete-button { background: #2a1c17; color: #ffb4a8; } }
 
