@@ -45,6 +45,8 @@ Run `npm test`, `npm run lint`, and `npm run build`. See [Testing](docs/TESTING.
 
 Use `develop` for ongoing work. Merge reviewed, verified releases into `main`; pushes to `main` run the GitHub Pages workflow. The Vite and PWA base is `/HealthTracker/`.
 
+Before the first deployment, open the repository's **Settings -> Pages** and set **Build and deployment -> Source** to **GitHub Actions**. This one-time repository setting cannot be created by the workflow's standard token.
+
 ## Data ownership
 
 Clearing browser/site storage or losing the device can permanently remove the data. Download JSON backups regularly and store them somewhere safe. Restore merges new records and never silently overwrites an existing record with the same ID. See [Privacy and data recovery](docs/PRIVACY_AND_DATA_RECOVERY.md).
