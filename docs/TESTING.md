@@ -2,7 +2,7 @@
 
 ## Automated
 
-Run `npm test`, `npm run lint`, and `npm run build`. Tests cover schema validation, unique IDs, version-zero migration, future-version rejection, backup round trips, non-overwriting restore, malformed imports, and CSV escaping.
+Run `npm test`, `npm run lint`, and `npm run build`. Regenerate the one-year graph fixture with `npm run generate:demo-backup` when its generator changes. Tests cover schema validation, unique IDs, version-zero migration, future-version rejection, backup round trips, non-overwriting restore, malformed imports, and CSV escaping.
 
 ## Manual regression
 

@@ -21,6 +21,11 @@ Install Node.js 22 or newer, then run `npm ci` and `npm start`. On Windows, doub
 
 PWA/offline behavior requires a production build: `npm run build` then `npm run preview`.
 
+## One-year demo data
+
+To test the graph and range controls, open Settings → Restore backup and select [`docs/dummy-weight-data-one-year.json`](docs/dummy-weight-data-one-year.json). It contains 53 weekly measurements covering one year. Restore merges the demo records with existing data and does not overwrite matching IDs. Delete the demo entries individually or clear this site’s browser storage when testing is finished.
+
+Regenerate the fixture with `npm run generate:demo-backup`.
 ## Quality checks
 
 Run `npm test`, `npm run lint`, and `npm run build`. See [Testing](docs/TESTING.md) for manual checks.
