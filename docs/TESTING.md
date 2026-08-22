@@ -42,4 +42,4 @@ Run `npm test`, `npm run lint`, and `npm run build`. Regenerate the one-year gra
 
 ## Profile and BMI checks
 
-Automated tests cover BMI calculation and WHO categories, reference-weight conversion, optional profile validation, migrations through schema version 3, graph scaling with the reference band, and safe profile restore. Manually verify Profile Cancel/Save, localized labels, the height requirement when BMI is enabled, BMI visibility using the newest weight, and mobile summary layout.
+Automated tests cover BMI calculation and WHO categories, six-band weight conversion, optional profile validation, migrations through schema version 3, unchanged measurement-derived graph scaling, and safe profile restore. Manually verify Profile Cancel/Save, localized labels, the height requirement when BMI is enabled, BMI visibility using the newest weight, and mobile summary layout.

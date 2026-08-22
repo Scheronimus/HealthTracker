@@ -17,13 +17,12 @@ export function niceIntegerStep(range, targetIntervals = 3) {
   return Math.max(1, multiplier * magnitude)
 }
 
-export function chartGeometry(measurements, width = 800, height = 300, referenceRange = null) {
+export function chartGeometry(measurements, width = 800, height = 300) {
   const sorted = [...measurements].sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp))
   if (!sorted.length) return { points: [], ticks: [], min: 0, max: 0, plotInset: 0, plotHeight: height }
   const values = sorted.map(({ value }) => value)
-  const scaleValues = referenceRange ? [...values, referenceRange.min, referenceRange.max] : values
-  const rawMin = Math.min(...scaleValues)
-  const rawMax = Math.max(...scaleValues)
+  const rawMin = Math.min(...values)
+  const rawMax = Math.max(...values)
   const step = niceIntegerStep(rawMax - rawMin)
   let min = Math.floor(rawMin / step) * step
   let max = Math.ceil(rawMax / step) * step

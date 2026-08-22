@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { bmiStatus, calculateBmi, healthyWeightRange } from './bmi.js'
+import { bmiStatus, bmiWeightBands, calculateBmi, healthyWeightRange } from './bmi.js'
 
 describe('BMI', () => {
   it('calculates BMI from kilograms and centimetres', () => {
@@ -18,6 +18,13 @@ describe('BMI', () => {
     expect(bmiStatus(22, 17)).toBe('adultRangeUnavailable')
   })
 
+  it('converts all six WHO categories into weight bands', () => {
+    const bands = bmiWeightBands(180)
+    expect(bands.map(({ key }) => key)).toEqual(['bmiBelow', 'bmiWithin', 'bmiAbove', 'bmiClass1', 'bmiClass2', 'bmiClass3'])
+    expect(bands[1].minKg).toBeCloseTo(59.94)
+    expect(bands[1].maxKg).toBe(81)
+    expect(bands.at(-1).maxKg).toBe(Infinity)
+  })
   it('converts the WHO reference BMI into a weight range', () => {
     expect(healthyWeightRange(180).min).toBeCloseTo(59.94)
     expect(healthyWeightRange(180).max).toBe(81)

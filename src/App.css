@@ -138,12 +138,23 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 .summary-with-bmi article:last-child { grid-column: 1 / -1; }
 @media (min-width: 720px) { .summary-with-bmi { grid-template-columns: repeat(3, 1fr); } .summary-with-bmi article:last-child { grid-column: auto; } }
 /* WHO BMI screening context */
-.bmi-reference-band rect { fill: #55ad8c; opacity: .16; }
-.bmi-reference-band text { fill: #174f43; font-size: 13px; font-weight: 750; }
+.bmi-zone { opacity: .18; }
+.bmi-zone.bmiBelow, .bmi-swatch.bmiBelow { fill: #5597c7; background: #8fc2e7; }
+.bmi-zone.bmiWithin, .bmi-swatch.bmiWithin { fill: #47a879; background: #86d2aa; }
+.bmi-zone.bmiAbove, .bmi-swatch.bmiAbove { fill: #d4ad3f; background: #ecd27d; }
+.bmi-zone.bmiClass1, .bmi-swatch.bmiClass1 { fill: #df873c; background: #efad73; }
+.bmi-zone.bmiClass2, .bmi-swatch.bmiClass2 { fill: #d95d4f; background: #ec948a; }
+.bmi-zone.bmiClass3, .bmi-swatch.bmiClass3 { fill: #a93c4a; background: #d97986; }
+.bmi-zone-legend { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .4rem .65rem; margin: .4rem .25rem 0; }
+.bmi-zone-legend > div { min-width: 0; display: flex; align-items: center; gap: .38rem; color: var(--muted); font-size: .67rem; line-height: 1.2; }
+.bmi-zone-legend span { min-width: 0; display: grid; }
+.bmi-zone-legend b { color: var(--ink); font-size: .7rem; }
+.bmi-swatch { flex: 0 0 .65rem; width: .65rem; height: 1.55rem; border-radius: 4px; }
 .bmi-status { width: fit-content; margin-top: .35rem; padding: .22rem .5rem; border-radius: 999px; background: #f1d9a9; color: #694817; font-size: .78rem; font-weight: 750; }
 .bmi-status.bmiWithin { background: #d3ecdf; color: #175b45; }
 .bmi-status.bmiClass2, .bmi-status.bmiClass3 { background: #f0caca; color: #812f2f; }
 .bmi-status.adultRangeUnavailable { border-radius: 8px; background: #e4e8e7; color: #445651; }
 .bmi-caution, .bmi-disclaimer { display: block; margin-top: .45rem; color: var(--muted); font-size: .75rem; line-height: 1.35; }
 .bmi-caution { padding: .45rem; border-radius: 8px; background: #f6ead2; color: #604b25; }
-@media (prefers-color-scheme: dark) { .bmi-reference-band text { fill: #c9f1e4; } .bmi-caution { background: #493d26; color: #f3dfb6; } }
+@media (min-width: 720px) { .bmi-zone-legend { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+@media (prefers-color-scheme: dark) { .bmi-caution { background: #493d26; color: #f3dfb6; } }

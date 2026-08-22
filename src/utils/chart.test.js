@@ -30,11 +30,6 @@ describe('weight chart', () => {
     expect(chartGeometry([data[0]]).points[0].x).toBe(400)
   })
 
-  it('includes an enabled reference range in the vertical scale', () => {
-    const geometry = chartGeometry([data[2]], 800, 300, { min: 60, max: 90 })
-    expect(geometry.min).toBeLessThanOrEqual(60)
-    expect(geometry.max).toBeGreaterThanOrEqual(90)
-  })
 
   it('uses adaptive whole-number weight ticks', () => {
     const ticksFor = (values) => chartGeometry(values.map((value, index) => (

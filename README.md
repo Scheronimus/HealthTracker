@@ -11,7 +11,7 @@ Production target: <https://scheronimus.github.io/HealthTracker/>
 - Record, edit, and delete dated weight measurements in kilograms with optional notes.
 - Prominent interactive weight graph with 3-month, 1-year, and all-time ranges.
 - Newest-first history with current weight and graph-span change summaries.
-- Optional local profile, WHO BMI screening context, and height-specific reference range on the graph.
+- Optional local profile, WHO BMI screening context, and height-specific WHO color zones on the unchanged graph scale.
 - English, Spanish, German, and French interfaces with a locally saved preference.
 - Versioned and validated local data, tested migration infrastructure, JSON backup/merge restore, and CSV export.
 - Installable PWA with a cached application shell for offline use.
