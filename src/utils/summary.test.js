@@ -9,8 +9,8 @@ const measurements = [
 
 describe('weight summaries', () => {
   it('keeps current weight global and calculates change from the visible range', () => {
-    expect(summarizeWeights(measurements, measurements.slice(0, 2))).toEqual({ current: 75, rangeChange: -2, entries: 3 })
-    expect(summarizeWeights(measurements, measurements)).toEqual({ current: 75, rangeChange: -5, entries: 3 })
+    expect(summarizeWeights(measurements, measurements.slice(0, 2))).toEqual({ current: 75, rangeChange: -2 })
+    expect(summarizeWeights(measurements, measurements)).toEqual({ current: 75, rangeChange: -5 })
   })
 
   it('has no range change with fewer than two visible entries', () => {
