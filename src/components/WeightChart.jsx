@@ -3,7 +3,7 @@ import { chartGeometry, filterBySpan, nearestPointIndex } from '../utils/chart.j
 import { formatDateTime } from '../utils/date.js'
 
 const WIDTH = 800
-const HEIGHT = 300
+const HEIGHT = 400
 const PAD = { top: 18, right: 18, bottom: 42, left: 55 }
 
 export function WeightChart({ measurements, language, t }) {
