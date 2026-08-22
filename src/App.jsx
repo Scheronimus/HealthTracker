@@ -73,7 +73,7 @@ export default function App() {
       <History measurements={measurements} language={language} onEdit={openEntry} t={t} />
     </main>}
     {screen === 'entry' && <main className="entry-screen">
-      <EntryForm key={editing?.id ?? 'new'} editing={editing} onSave={save} onDelete={deleteItem} t={t} />
+      <EntryForm key={editing?.id ?? 'new'} editing={editing} measurements={measurements} onSave={save} onDelete={deleteItem} t={t} />
       <p className="entry-privacy">{t('privacyBody')}</p>
     </main>}
     {screen === 'settings' && <main className="settings-screen">

@@ -1,6 +1,6 @@
 import { useId, useMemo, useState } from 'react'
 import { chartGeometry, nearestPointIndex } from '../utils/chart.js'
-import { formatDateTime } from '../utils/date.js'
+import { formatDate } from '../utils/date.js'
 
 const WIDTH = 800
 const HEIGHT = 400
@@ -33,7 +33,7 @@ export function WeightChart({ measurements, language, span, onSpanChange, t }) {
     setActiveIndex(Math.max(0, Math.min(points.length - 1, next)))
   }
 
-  const activeText = active ? `${formatDateTime(active.timestamp, language)}, ${active.value.toFixed(1)} kg` : t('chartDescription', { count: points.length })
+  const activeText = active ? `${formatDate(active.timestamp, language)}, ${active.value.toFixed(1)} kg` : t('chartDescription', { count: points.length })
 
   return <section className="weight-chart card" aria-labelledby="chart-title">
     <div className="chart-header">
@@ -56,7 +56,7 @@ export function WeightChart({ measurements, language, span, onSpanChange, t }) {
             <rect className="chart-navigation" x="0" y="0" width={WIDTH} height={HEIGHT} tabIndex="0" role="slider" aria-label={t('chartNavigation')} aria-valuemin="0" aria-valuemax={points.length - 1} aria-valuenow={activeIndex ?? points.length - 1} aria-valuetext={activeText} onFocus={() => setActiveIndex((current) => current ?? points.length - 1)} onKeyDown={navigate} onPointerDown={(event) => { event.currentTarget.setPointerCapture?.(event.pointerId); selectAtPointer(event) }} onPointerMove={selectAtPointer} />
           </g>
         </svg>
-        {active && <div className="chart-tooltip"><strong>{active.value.toFixed(1)} kg</strong><span>{formatDateTime(active.timestamp, language)}</span>{active.note && <small>{active.note}</small>}</div>}
+        {active && <div className="chart-tooltip"><strong>{active.value.toFixed(1)} kg</strong><span>{formatDate(active.timestamp, language)}</span>{active.note && <small>{active.note}</small>}</div>}
       </div>
       <p className="chart-caption">{t('visibleEntries', { count: points.length })}</p>
     </>}
