@@ -18,7 +18,7 @@ The complete store is serialized under `health-tracker-data`; the language uses 
 
 ## Weight graph
 
-The dependency-free SVG chart filters measurements through src/utils/chart.js, plots timestamps on a proportional time axis, and derives a padded kilogram scale from visible values. The default span is three months; one-year and all-time ranges are available without changing persisted data. The chart renders the exact trend without point markers. Pointer and touch movement snap a vertical crosshair to the nearest measurement; the same data is navigable by keyboard with Left/Right and Home/End.
+The dependency-free SVG chart filters measurements through src/utils/chart.js, plots timestamps on a proportional time axis, and derives a padded kilogram scale from visible values. The default span is three months; one-year and all-time ranges are available without changing persisted data. The SVG chart scales to 100% of its container with no minimum width or internal horizontal scrolling, so it remains fully visible on narrow phones. The chart renders the exact trend without point markers. Pointer and touch movement snap a vertical crosshair to the nearest measurement; the same data is navigable by keyboard with Left/Right and Home/End.
 
 ## Screen flow
 

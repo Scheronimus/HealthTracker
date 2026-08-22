@@ -19,7 +19,9 @@ Run `npm test`, `npm run lint`, and `npm run build`. Regenerate the one-year gra
 - Reject empty, zero, negative, and over-1000 kg values.
 - Add measurements out of chronological order and confirm newest-first history and summaries.
 - Confirm the graph defaults to 3 months and correctly switches to 1 year and all time.
+- On a narrow smartphone, confirm the entire graph and both date labels fit without a horizontal scrollbar.
 - Tap, drag, or move across the graph and confirm the vertical crosshair snaps to the nearest measurement with weight, localized date/time, and note details.
+- Drag the crosshair from edge to edge and confirm the page does not scroll sideways or lose touch tracking.
 - Focus the graph navigation area and confirm Left/Right and Home/End move through measurements.
 - Confirm empty ranges and a single visible measurement render clearly.
 - Import the 240-entry irregular fixture and confirm the full trend line remains readable with no point markers.

@@ -55,7 +55,7 @@ export function WeightChart({ measurements, language, t }) {
             {active && <line className="chart-crosshair" x1={active.x} x2={active.x} y1="0" y2={HEIGHT} />}
             <text className="axis-label x-start" x="0" y={HEIGHT + 28}>{new Intl.DateTimeFormat(language, { dateStyle: 'medium' }).format(new Date(first.timestamp))}</text>
             {last.id !== first.id && <text className="axis-label x-end" x={WIDTH} y={HEIGHT + 28}>{new Intl.DateTimeFormat(language, { dateStyle: 'medium' }).format(new Date(last.timestamp))}</text>}
-            <rect className="chart-navigation" x="0" y="0" width={WIDTH} height={HEIGHT} tabIndex="0" role="slider" aria-label={t('chartNavigation')} aria-valuemin="0" aria-valuemax={points.length - 1} aria-valuenow={activeIndex ?? points.length - 1} aria-valuetext={activeText} onFocus={() => setActiveIndex((current) => current ?? points.length - 1)} onKeyDown={navigate} onPointerDown={selectAtPointer} onPointerMove={selectAtPointer} />
+            <rect className="chart-navigation" x="0" y="0" width={WIDTH} height={HEIGHT} tabIndex="0" role="slider" aria-label={t('chartNavigation')} aria-valuemin="0" aria-valuemax={points.length - 1} aria-valuenow={activeIndex ?? points.length - 1} aria-valuetext={activeText} onFocus={() => setActiveIndex((current) => current ?? points.length - 1)} onKeyDown={navigate} onPointerDown={(event) => { event.currentTarget.setPointerCapture?.(event.pointerId); selectAtPointer(event) }} onPointerMove={selectAtPointer} />
           </g>
         </svg>
         {active && <div className="chart-tooltip"><strong>{active.value.toFixed(1)} kg</strong><span>{formatDateTime(active.timestamp, language)}</span>{active.note && <small>{active.note}</small>}</div>}

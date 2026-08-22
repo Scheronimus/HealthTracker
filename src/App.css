@@ -3,7 +3,7 @@ header { background: var(--green); color: white; padding: max(1.3rem, env(safe-a
 .brand { max-width: 1100px; margin: auto; display: flex; gap: .9rem; align-items: center; }
 .brand img { width: 52px; height: 52px; border-radius: 15px; box-shadow: 0 5px 16px #092f2a66; }
 h1, h2, p { margin-top: 0; } h1 { margin-bottom: .15rem; font-size: 1.55rem; } .brand p { margin: 0; color: #d8eee7; font-size: .92rem; }
-main { width: min(1100px, calc(100% - 2rem)); margin: 1rem auto 2.5rem; }
+main { width: min(1400px, calc(100% - 1rem)); margin: .5rem auto 2.5rem; }
 .privacy { display: flex; flex-direction: column; gap: .2rem; padding: .85rem 1rem; border-radius: 14px; background: var(--mint); font-size: .88rem; }
 .privacy span { color: #395b54; }
 .summary { display: grid; grid-template-columns: repeat(2, 1fr); gap: .65rem; margin: 1rem 0; }
@@ -37,7 +37,7 @@ button:hover { filter: brightness(.96); } .error { color: var(--danger); font-si
 .hint, .status { margin: .85rem 0 0; font-size: .82rem; color: var(--muted); } .status { color: var(--green-dark); }
 .offline-note, footer { color: var(--muted); font-size: .78rem; text-align: center; margin: 1.1rem 0; } .offline-note::first-letter { color: #3ca37d; }
 footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
-@media (min-width: 720px) { main { margin-top: 1.5rem; } .summary { grid-template-columns: repeat(4, 1fr); } .layout { grid-template-columns: minmax(280px, .8fr) minmax(400px, 1.2fr); } .entry-form { position: sticky; top: 1rem; } }
+@media (min-width: 720px) { main { width: min(1400px, calc(100% - 2rem)); margin-top: 1.5rem; } .summary { grid-template-columns: repeat(4, 1fr); } .layout { grid-template-columns: minmax(280px, .8fr) minmax(400px, 1.2fr); } .entry-form { position: sticky; top: 1rem; } }
 @media (prefers-color-scheme: dark) { :root { background: #10211e; color: #eaf2ef; --cream: #182d29; --ink: #edf5f2; --muted: #a7b9b4; --line: #2c4640; } input, textarea, select, .weight-input { background: #10211e; color: #edf5f2; border-color: #48625c; } .privacy { color: #18322e; } button { background: #213a35; color: #dff4ed; border-color: #48625c; } }
 
 .weight-chart { margin: 1rem 0; padding: 1rem; overflow: hidden; }
@@ -47,8 +47,8 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 .span-control { display: grid; grid-template-columns: repeat(3, 1fr); padding: .22rem; border-radius: 11px; background: var(--mint); }
 .span-control button { min-width: 0; border: 0; padding: .55rem .4rem; background: transparent; color: #31574f; font-size: .78rem; }
 .span-control button.active { background: var(--green); color: white; box-shadow: 0 2px 8px #0c443c33; }
-.chart-wrap { position: relative; width: 100%; overflow-x: auto; }
-.chart-svg { display: block; width: 100%; min-width: 520px; height: auto; overflow: visible; }
+.chart-wrap { position: relative; width: 100%; overflow: hidden; }
+.chart-svg { display: block; width: 100%; max-width: 100%; height: auto; overflow: visible; }
 .grid-line { stroke: var(--line); stroke-width: 1; stroke-dasharray: 4 5; }
 .axis-label { fill: var(--muted); font-size: 12px; }
 .y-label { text-anchor: end; }
@@ -65,7 +65,7 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 
 /* Screen navigation */
 .app-header { position: sticky; top: 0; z-index: 20; padding: max(.8rem, env(safe-area-inset-top)) 1rem .8rem; box-shadow: 0 3px 16px #092f2a30; }
-.topbar { width: min(1100px, 100%); min-height: 52px; margin: auto; display: flex; align-items: center; }
+.topbar { width: min(1400px, 100%); min-height: 52px; margin: auto; display: flex; align-items: center; }
 .dashboard-topbar { justify-content: space-between; gap: 1rem; }
 .dashboard-topbar .brand { min-width: 0; margin: 0; }
 .dashboard-topbar .brand img { width: 44px; height: 44px; border-radius: 13px; }
@@ -116,3 +116,4 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 .chart-crosshair { stroke: #0d6657; stroke-width: 1.5; stroke-dasharray: 5 4; vector-effect: non-scaling-stroke; pointer-events: none; }
 .chart-navigation { fill: transparent; cursor: crosshair; touch-action: pan-y; }
 .chart-navigation:focus { outline: none; stroke: #e08c5a; stroke-width: 2; stroke-dasharray: 5 4; vector-effect: non-scaling-stroke; }
+@media (max-width: 520px) { .weight-chart { padding: .75rem .45rem .7rem; } .chart-header { padding: 0 .3rem; } .chart-caption { padding-right: .3rem; } }
