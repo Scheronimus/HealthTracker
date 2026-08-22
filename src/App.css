@@ -50,7 +50,7 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 .chart-wrap { position: relative; width: 100%; overflow: hidden; }
 .chart-svg { display: block; width: 100%; max-width: 100%; height: auto; overflow: visible; }
 .grid-line { stroke: var(--line); stroke-width: 1; stroke-dasharray: 4 5; }
-.axis-label { fill: var(--muted); font-size: 12px; }
+.axis-label { fill: #111714; font-size: 14px; font-weight: 600; }
 .y-label { text-anchor: end; }
 .x-end { text-anchor: end; }
 .trend-line { fill: none; stroke: #20957c; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
@@ -117,3 +117,6 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 .chart-navigation { fill: transparent; cursor: crosshair; touch-action: pan-y; }
 .chart-navigation:focus { outline: none; stroke: #e08c5a; stroke-width: 2; stroke-dasharray: 5 4; vector-effect: non-scaling-stroke; }
 @media (max-width: 520px) { .weight-chart { padding: .75rem .45rem .7rem; } .chart-header { padding: 0 .3rem; } .chart-caption { padding-right: .3rem; } }
+
+@media (max-width: 520px) { .axis-label { font-size: 24px; } .y-label { font-size: 20px; } }
+@media (prefers-color-scheme: dark) { .axis-label { fill: #f2f7f5; } }
