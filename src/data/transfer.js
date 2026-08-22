@@ -1,4 +1,5 @@
-import { BACKUP_KIND, createWeightMeasurement, SCHEMA_VERSION, validateBackup } from './schema.js'
+import { BACKUP_KIND, createWeightMeasurement, emptyProfile, SCHEMA_VERSION } from './schema.js'
+import { migrateStore } from './migrations.js'
 import { localDateValue, toDateTimestamp } from '../utils/date.js'
 
 export function createBackup(data, now = new Date()) {
@@ -8,8 +9,8 @@ export function createBackup(data, now = new Date()) {
 export function parseBackup(text) {
   let parsed
   try { parsed = JSON.parse(text) } catch { throw new Error('invalidBackup') }
-  if (!validateBackup(parsed) || parsed.data.schemaVersion !== SCHEMA_VERSION) throw new Error('invalidBackup')
-  return parsed.data
+  if (!parsed || parsed.kind !== BACKUP_KIND || typeof parsed.exportedAt !== 'string' || Number.isNaN(Date.parse(parsed.exportedAt))) throw new Error('invalidBackup')
+  try { return migrateStore(parsed.data) } catch { throw new Error('invalidBackup') }
 }
 
 export function mergeRestore(existing, imported) {
@@ -21,7 +22,10 @@ export function mergeRestore(existing, imported) {
     byId.set(item.id, item)
     added += 1
   }
-  return { data: { schemaVersion: SCHEMA_VERSION, measurements: [...byId.values()] }, added, duplicates }
+  const localProfile = existing.profile ?? emptyProfile()
+  const importedProfile = imported.profile ?? emptyProfile()
+  const hasLocalProfile = JSON.stringify(localProfile) !== JSON.stringify(emptyProfile())
+  return { data: { schemaVersion: SCHEMA_VERSION, measurements: [...byId.values()], profile: hasLocalProfile ? localProfile : importedProfile }, added, duplicates }
 }
 
 function csvCell(value) {
@@ -105,5 +109,5 @@ export function mergeWeightImport(existing, importedMeasurements) {
     measurements.push(item)
     added += 1
   }
-  return { data: { schemaVersion: SCHEMA_VERSION, measurements }, added, duplicates }
+  return { data: { ...existing, schemaVersion: SCHEMA_VERSION, measurements }, added, duplicates }
 }

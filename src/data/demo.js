@@ -1,3 +1,4 @@
+import { emptyProfile, SCHEMA_VERSION } from './schema.js'
 const START = new Date('2025-08-23T07:15:00.000Z')
 const IRREGULAR_INTERVALS = [3, 5, 7, 4, 6, 3, 7, 5, 4, 6]
 
@@ -38,5 +39,5 @@ export function createIrregularDemoStore() {
     }
   })
 
-  return { schemaVersion: 1, measurements }
+  return { schemaVersion: SCHEMA_VERSION, measurements, profile: emptyProfile() }
 }

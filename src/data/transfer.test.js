@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest'
+import { emptyProfile } from './schema.js'
 import { createBackup, mergeRestore, mergeWeightImport, parseBackup, parseWeightImportCsv, weightCsv } from './transfer.js'
 
 const item = { id: 'record-123456', type: 'weight', value: 70.5, unit: 'kg', timestamp: '2026-08-22T08:00:00.000Z', note: 'a, "note"' }
-const store = { schemaVersion: 1, measurements: [item] }
+const store = { schemaVersion: 2, measurements: [item], profile: emptyProfile() }
 
 describe('backup and export', () => {
   it('round-trips a versioned backup', () => expect(parseBackup(JSON.stringify(createBackup(store)))).toEqual(store))
@@ -11,6 +12,12 @@ describe('backup and export', () => {
     const result = mergeRestore(store, { schemaVersion: 1, measurements: [changed] })
     expect(result).toMatchObject({ added: 0, duplicates: 1 })
     expect(result.data.measurements[0].value).toBe(70.5)
+  })
+  it('imports a profile only when the local profile is empty', () => {
+    const imported = { ...store, profile: { name: 'Alex', age: 35, heightCm: 180, showBmi: true } }
+    expect(mergeRestore(store, imported).data.profile.name).toBe('Alex')
+    const local = { ...store, profile: { name: 'Local', age: null, heightCm: null, showBmi: false } }
+    expect(mergeRestore(local, imported).data.profile.name).toBe('Local')
   })
   it('escapes CSV values', () => expect(weightCsv([item])).toContain('"a, ""note"""'))
   it('rejects malformed backup data', () => expect(() => parseBackup('{"nope":true}')).toThrow('invalidBackup'))

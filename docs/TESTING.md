@@ -39,3 +39,7 @@ Run `npm test`, `npm run lint`, and `npm run build`. Regenerate the one-year gra
 - Build and preview, load once online, go offline, reload, and confirm the shell and local edits work.
 - Install on supported desktop/mobile browsers and confirm standalone launch under `/HealthTracker/`.
 - Run the same-Wi-Fi launcher and open its QR URL from a phone. Note that install/service-worker testing generally requires HTTPS or localhost, so use production for the final PWA check.
+
+## Profile and BMI checks
+
+Automated tests cover BMI calculation, optional profile validation, version-1-to-version-2 migration, and safe profile restore. Manually verify Profile Cancel/Save, localized labels, the height requirement when BMI is enabled, BMI visibility using the newest weight, and mobile summary layout.

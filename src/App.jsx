@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { EntryForm } from './components/EntryForm.jsx'
 import { History } from './components/History.jsx'
+import { ProfileForm } from './components/ProfileForm.jsx'
 import { Settings } from './components/Settings.jsx'
 import { Summary } from './components/Summary.jsx'
 import { WeightChart } from './components/WeightChart.jsx'
@@ -24,6 +25,7 @@ export default function App() {
   function showScreen(next) { setScreen(next); window.scrollTo(0, 0) }
   function openEntry(item = null) { setEditing(item); showScreen('entry') }
   function closeEntry() { setEditing(null); showScreen('dashboard') }
+  function saveProfile(profile) { setStore((current) => ({ ...current, profile })); showScreen('settings') }
   function save(item) { editing ? update(item) : add(item); closeEntry() }
   function deleteItem(id) { if (confirm(t('deleteConfirm'))) { remove(id); closeEntry() } }
   function filename(extension) { return `health-tracker-${new Date().toISOString().slice(0, 10)}.${extension}` }
@@ -66,6 +68,11 @@ export default function App() {
         <h1>{editing ? t('edit') : t('add')}</h1>
         <button className="header-action save-action" type="submit" form="entry-form">{t('save')}</button>
       </div>}
+      {screen === 'profile' && <div className="topbar entry-topbar">
+        <button className="header-action" type="button" onClick={() => showScreen('settings')}>{t('cancel')}</button>
+        <h1>{t('profile')}</h1>
+        <button className="header-action save-action" type="submit" form="profile-form">{t('save')}</button>
+      </div>}
       {screen === 'settings' && <div className="topbar settings-topbar">
         <button className="header-action" type="button" onClick={() => showScreen('dashboard')}>{t('close')}</button>
         <h1>{t('menu')}</h1>
@@ -75,15 +82,18 @@ export default function App() {
 
     {screen === 'dashboard' && <main>
       <WeightChart measurements={visibleMeasurements} language={language} span={chartSpan} onSpanChange={setChartSpan} t={t} />
-      <Summary measurements={measurements} visibleMeasurements={visibleMeasurements} span={chartSpan} language={language} t={t} />
+      <Summary measurements={measurements} visibleMeasurements={visibleMeasurements} span={chartSpan} language={language} profile={store.profile} t={t} />
       <History measurements={measurements} language={language} onEdit={openEntry} t={t} />
     </main>}
     {screen === 'entry' && <main className="entry-screen">
       <EntryForm key={editing?.id ?? 'new'} editing={editing} measurements={measurements} onSave={save} onDelete={deleteItem} t={t} />
       <p className="entry-privacy">{t('privacyBody')}</p>
     </main>}
+    {screen === 'profile' && <main className="entry-screen">
+      <ProfileForm profile={store.profile} onSave={saveProfile} t={t} />
+    </main>}
     {screen === 'settings' && <main className="settings-screen">
-      <Settings language={language} onLanguage={changeLanguage} onBackup={() => downloadText(filename('json'), JSON.stringify(createBackup(store), null, 2), 'application/json')} onCsv={() => downloadText(filename('csv'), weightCsv(measurements), 'text/csv;charset=utf-8')} onCsvImport={importCsv} onRestore={restore} onLoadDemo={import.meta.env.DEV ? loadDemo : undefined} onClearAll={clearAll} t={t} />
+      <Settings language={language} onLanguage={changeLanguage} profile={store.profile} onProfile={() => showScreen('profile')} onBackup={() => downloadText(filename('json'), JSON.stringify(createBackup(store), null, 2), 'application/json')} onCsv={() => downloadText(filename('csv'), weightCsv(measurements), 'text/csv;charset=utf-8')} onCsvImport={importCsv} onRestore={restore} onLoadDemo={import.meta.env.DEV ? loadDemo : undefined} onClearAll={clearAll} t={t} />
     </main>}
     <footer>Health Tracker · {new Date().getFullYear()}</footer>
   </>

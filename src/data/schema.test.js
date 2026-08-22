@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { createWeightMeasurement, emptyStore, validateMeasurement, validateStore } from './schema.js'
+import { createWeightMeasurement, emptyProfile, emptyStore, validateMeasurement, validateProfile, validateStore } from './schema.js'
 import { migrateStore } from './migrations.js'
 
 describe('measurement schema', () => {
@@ -12,7 +12,16 @@ describe('measurement schema', () => {
   it('rejects invalid measurements and duplicate IDs', () => {
     const item = createWeightMeasurement({ value: 72, timestamp: '2026-08-22T08:00:00.000Z' })
     expect(validateMeasurement({ ...item, value: -1 })).toBe(false)
-    expect(validateStore({ schemaVersion: 1, measurements: [item, item] })).toBe(false)
+    expect(validateStore({ ...emptyStore(), measurements: [item, item] })).toBe(false)
+  })
+  it('validates optional profile values', () => {
+    expect(validateProfile(emptyProfile())).toBe(true)
+    expect(validateProfile({ name: 'Alex', age: 35, heightCm: 180.5, showBmi: true })).toBe(true)
+    expect(validateProfile({ name: 'Alex', age: 131, heightCm: 180, showBmi: true })).toBe(false)
+  })
+  it('migrates a version-one store without changing measurements', () => {
+    const legacy = { schemaVersion: 1, measurements: [] }
+    expect(migrateStore(legacy)).toEqual(emptyStore())
   })
   it('migrates the explicit version-zero shape', () => {
     expect(migrateStore({ measurements: [] })).toEqual(emptyStore())

@@ -121,3 +121,19 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 
 @media (max-width: 520px) { .axis-label { font-size: 24px; } .y-label { font-size: 20px; } }
 @media (prefers-color-scheme: dark) { .axis-label { fill: #f2f7f5; } }
+
+/* Optional local profile and BMI */
+.profile-form { padding: 1.1rem; }
+.profile-intro { margin: 0 0 1rem; }
+.toggle-row { grid-template-columns: auto 1fr; align-items: start; gap: .75rem; padding: .85rem; border: 1px solid var(--line); border-radius: 12px; cursor: pointer; }
+.toggle-row input { width: 1.15rem; height: 1.15rem; margin-top: .1rem; accent-color: var(--green); }
+.toggle-row span { display: grid; gap: .2rem; color: var(--ink); }
+.toggle-row small, .profile-privacy, .summary-note { color: var(--muted); font-size: .78rem; }
+.profile-privacy { margin: 1rem 0 0; text-align: center; }
+.profile-link { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; padding: .9rem; text-align: left; color: var(--ink); }
+.profile-link span { display: grid; gap: .18rem; }
+.profile-link small { color: var(--muted); font-weight: 500; }
+.profile-link b { color: var(--muted); font-size: 1.6rem; font-weight: 400; }
+.summary-note { display: block; margin-top: .2rem; }
+.summary-with-bmi article:last-child { grid-column: 1 / -1; }
+@media (min-width: 720px) { .summary-with-bmi { grid-template-columns: repeat(3, 1fr); } .summary-with-bmi article:last-child { grid-column: auto; } }

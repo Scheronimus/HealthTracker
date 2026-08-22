@@ -1,11 +1,23 @@
-export const SCHEMA_VERSION = 1
+export const SCHEMA_VERSION = 2
 export const BACKUP_KIND = 'health-tracker-backup'
 export const STORAGE_KEY = 'health-tracker-data'
 export const LANGUAGE_KEY = 'health-tracker-language'
 export const SUPPORTED_LANGUAGES = ['en', 'es', 'de', 'fr']
 
 export function emptyStore() {
-  return { schemaVersion: SCHEMA_VERSION, measurements: [] }
+  return { schemaVersion: SCHEMA_VERSION, measurements: [], profile: emptyProfile() }
+}
+
+export function emptyProfile() {
+  return { name: '', age: null, heightCm: null, showBmi: false }
+}
+
+export function validateProfile(profile) {
+  if (!profile || typeof profile !== 'object' || Array.isArray(profile)) return false
+  return typeof profile.name === 'string' && profile.name.length <= 100
+    && (profile.age === null || (Number.isInteger(profile.age) && profile.age >= 0 && profile.age <= 130))
+    && (profile.heightCm === null || (Number.isFinite(profile.heightCm) && profile.heightCm >= 50 && profile.heightCm <= 300))
+    && typeof profile.showBmi === 'boolean'
 }
 
 export function createId() {
@@ -31,7 +43,7 @@ export function validateMeasurement(item) {
 
 export function validateStore(value) {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return false
-  if (value.schemaVersion !== SCHEMA_VERSION || !Array.isArray(value.measurements)) return false
+  if (value.schemaVersion !== SCHEMA_VERSION || !Array.isArray(value.measurements) || !validateProfile(value.profile)) return false
   if (!value.measurements.every(validateMeasurement)) return false
   return new Set(value.measurements.map(({ id }) => id)).size === value.measurements.length
 }

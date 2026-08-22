@@ -1,7 +1,8 @@
-import { SCHEMA_VERSION, validateStore } from './schema.js'
+import { emptyProfile, SCHEMA_VERSION, validateStore } from './schema.js'
 
 const migrations = {
   1: (legacy) => ({ schemaVersion: 1, measurements: legacy.measurements ?? [] }),
+  2: (versionOne) => ({ ...versionOne, schemaVersion: 2, profile: emptyProfile() }),
 }
 
 export function migrateStore(input) {

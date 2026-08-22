@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { languageNames } from '../i18n.js'
 
-export function Settings({ language, onLanguage, onBackup, onCsv, onCsvImport, onRestore, onLoadDemo, onClearAll, t }) {
+export function Settings({ language, onLanguage, onProfile, profile, onBackup, onCsv, onCsvImport, onRestore, onLoadDemo, onClearAll, t }) {
   const backupInput = useRef(null)
   const csvInput = useRef(null)
   const [message, setMessage] = useState('')
@@ -31,6 +31,7 @@ export function Settings({ language, onLanguage, onBackup, onCsv, onCsvImport, o
   }
 
   return <section className="settings-panel card">
+    <button className="profile-link" type="button" onClick={onProfile}><span><strong>{t('profile')}</strong><small>{profile.name || t('profileOptionalShort')}</small></span><b aria-hidden="true">›</b></button>
     <label>{t('language')}<select value={language} onChange={(event) => onLanguage(event.target.value)}>{Object.entries(languageNames).map(([code, name]) => <option key={code} value={code}>{name}</option>)}</select></label>
     <div className="settings-section">
       <h2>{t('settings')}</h2>
