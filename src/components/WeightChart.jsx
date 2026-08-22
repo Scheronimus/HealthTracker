@@ -1,15 +1,14 @@
 import { useId, useMemo, useState } from 'react'
-import { chartGeometry, filterBySpan, shouldDisplayMarker } from '../utils/chart.js'
+import { chartGeometry, filterBySpan, nearestPointIndex } from '../utils/chart.js'
 import { formatDateTime } from '../utils/date.js'
 
 const WIDTH = 800
 const HEIGHT = 300
 const PAD = { top: 18, right: 18, bottom: 42, left: 55 }
-const DENSE_POINT_COUNT = 60
 
 export function WeightChart({ measurements, language, t }) {
   const [span, setSpan] = useState('threeMonths')
-  const [active, setActive] = useState(null)
+  const [activeIndex, setActiveIndex] = useState(null)
   const gradientId = useId().replaceAll(':', '')
   const visible = useMemo(() => filterBySpan(measurements, span), [measurements, span])
   const { points, ticks } = useMemo(() => chartGeometry(visible, WIDTH, HEIGHT), [visible])
@@ -17,13 +16,32 @@ export function WeightChart({ measurements, language, t }) {
   const area = points.length ? `0,${HEIGHT} ${line} ${WIDTH},${HEIGHT}` : ''
   const first = points[0]
   const last = points.at(-1)
-  const dense = points.length > DENSE_POINT_COUNT
+  const active = activeIndex === null ? null : points[activeIndex] ?? null
 
-  return <section className={`weight-chart card${dense ? ' dense-chart' : ''}`} aria-labelledby="chart-title">
+  function selectAtPointer(event) {
+    const bounds = event.currentTarget.getBoundingClientRect()
+    const chartX = ((event.clientX - bounds.left) / bounds.width) * WIDTH
+    setActiveIndex(nearestPointIndex(points, chartX))
+  }
+
+  function navigate(event) {
+    let next = activeIndex ?? points.length - 1
+    if (event.key === 'ArrowLeft') next -= 1
+    else if (event.key === 'ArrowRight') next += 1
+    else if (event.key === 'Home') next = 0
+    else if (event.key === 'End') next = points.length - 1
+    else return
+    event.preventDefault()
+    setActiveIndex(Math.max(0, Math.min(points.length - 1, next)))
+  }
+
+  const activeText = active ? `${formatDateTime(active.timestamp, language)}, ${active.value.toFixed(1)} kg` : t('chartDescription', { count: points.length })
+
+  return <section className="weight-chart card" aria-labelledby="chart-title">
     <div className="chart-header">
       <div><h2 id="chart-title">{t('trend')}</h2><p>{t('trendHint')}</p></div>
       <div className="span-control" role="group" aria-label={t('timeSpan')}>
-        {['threeMonths', 'oneYear', 'allTime'].map((option) => <button key={option} type="button" className={span === option ? 'active' : ''} aria-pressed={span === option} onClick={() => { setSpan(option); setActive(null) }}>{t(option)}</button>)}
+        {['threeMonths', 'oneYear', 'allTime'].map((option) => <button key={option} type="button" className={span === option ? 'active' : ''} aria-pressed={span === option} onClick={() => { setSpan(option); setActiveIndex(null) }}>{t(option)}</button>)}
       </div>
     </div>
     {!points.length ? <div className="chart-empty"><span>⌁</span><p>{t('noChartData')}</p></div> : <>
@@ -34,16 +52,10 @@ export function WeightChart({ measurements, language, t }) {
             {ticks.map(({ value, y }) => <g key={value}><line className="grid-line" x1="0" x2={WIDTH} y1={y} y2={y} /><text className="axis-label y-label" x="-10" y={y + 4}>{value.toFixed(1)}</text></g>)}
             {points.length > 1 && <polygon points={area} fill={`url(#${gradientId})`} />}
             {points.length > 1 && <polyline className="trend-line" points={line} />}
-            {points.map((point) => {
-              const selected = active?.id === point.id
-              const showMarker = selected || shouldDisplayMarker(point.index, points.length)
-              return <g key={point.id} className="chart-point" tabIndex={showMarker ? 0 : -1} role="button" aria-label={`${formatDateTime(point.timestamp, language)}, ${point.value.toFixed(1)} kg`} onFocus={() => setActive(point)} onBlur={() => setActive(null)} onClick={() => setActive(selected ? null : point)}>
-                <circle className="point-target" cx={point.x} cy={point.y} r={dense ? 8 : 16} />
-                {showMarker && <circle className="point-dot" cx={point.x} cy={point.y} r={selected ? 5.5 : dense ? 2.25 : 4} />}
-              </g>
-            })}
+            {active && <line className="chart-crosshair" x1={active.x} x2={active.x} y1="0" y2={HEIGHT} />}
             <text className="axis-label x-start" x="0" y={HEIGHT + 28}>{new Intl.DateTimeFormat(language, { dateStyle: 'medium' }).format(new Date(first.timestamp))}</text>
             {last.id !== first.id && <text className="axis-label x-end" x={WIDTH} y={HEIGHT + 28}>{new Intl.DateTimeFormat(language, { dateStyle: 'medium' }).format(new Date(last.timestamp))}</text>}
+            <rect className="chart-navigation" x="0" y="0" width={WIDTH} height={HEIGHT} tabIndex="0" role="slider" aria-label={t('chartNavigation')} aria-valuemin="0" aria-valuemax={points.length - 1} aria-valuenow={activeIndex ?? points.length - 1} aria-valuetext={activeText} onFocus={() => setActiveIndex((current) => current ?? points.length - 1)} onKeyDown={navigate} onPointerDown={selectAtPointer} onPointerMove={selectAtPointer} />
           </g>
         </svg>
         {active && <div className="chart-tooltip"><strong>{active.value.toFixed(1)} kg</strong><span>{formatDateTime(active.timestamp, language)}</span>{active.note && <small>{active.note}</small>}</div>}

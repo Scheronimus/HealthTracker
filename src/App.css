@@ -54,10 +54,6 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 .y-label { text-anchor: end; }
 .x-end { text-anchor: end; }
 .trend-line { fill: none; stroke: #20957c; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-.point-target { fill: transparent; cursor: pointer; }
-.point-dot { fill: var(--cream); stroke: #16856f; stroke-width: 4; vector-effect: non-scaling-stroke; transition: r .15s ease; }
-.chart-point:focus { outline: none; }
-.chart-point:focus .point-dot { stroke: #e08c5a; }
 .chart-tooltip { position: sticky; left: .4rem; bottom: .4rem; width: max-content; max-width: calc(100% - .8rem); display: grid; gap: .12rem; padding: .55rem .7rem; border-radius: 10px; background: var(--green-dark); color: white; box-shadow: 0 5px 18px #0c443c55; font-size: .78rem; pointer-events: none; }
 .chart-tooltip strong { font-size: .95rem; }
 .chart-tooltip small { max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #d8eee7; }
@@ -113,6 +109,8 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 .debug-section strong { display: block; margin-bottom: .65rem; font-size: .82rem; text-transform: uppercase; letter-spacing: .04em; }
 .debug-delete-button { width: 100%; border-color: #c55e4e; background: #fff; color: #a33228; }
 @media (prefers-color-scheme: dark) { .debug-section { background: #3a281f; color: #ffd5b8; } .debug-delete-button { background: #2a1c17; color: #ffb4a8; } }
-/* Density-aware chart markers */
-.dense-chart .trend-line { stroke-width: 3; }
-.dense-chart .point-dot { stroke-width: 2.25; }
+
+/* Crosshair chart navigation */
+.chart-crosshair { stroke: #0d6657; stroke-width: 1.5; stroke-dasharray: 5 4; vector-effect: non-scaling-stroke; pointer-events: none; }
+.chart-navigation { fill: transparent; cursor: crosshair; touch-action: pan-y; }
+.chart-navigation:focus { outline: none; stroke: #e08c5a; stroke-width: 2; stroke-dasharray: 5 4; vector-effect: non-scaling-stroke; }

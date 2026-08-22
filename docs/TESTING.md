@@ -18,9 +18,10 @@ Run `npm test`, `npm run lint`, and `npm run build`. Regenerate the one-year gra
 - Reject empty, zero, negative, and over-1000 kg values.
 - Add measurements out of chronological order and confirm newest-first history and summaries.
 - Confirm the graph defaults to 3 months and correctly switches to 1 year and all time.
-- Tap, click, and keyboard-focus graph points; confirm weight, localized date/time, and note details appear.
+- Tap, drag, or move across the graph and confirm the vertical crosshair snaps to the nearest measurement with weight, localized date/time, and note details.
+- Focus the graph navigation area and confirm Left/Right and Home/End move through measurements.
 - Confirm empty ranges and a single visible measurement render clearly.
-- Import the 240-entry irregular fixture and confirm the full trend line remains visible without a large marker on every measurement.
+- Import the 240-entry irregular fixture and confirm the full trend line remains readable with no point markers.
 - Edit an entry and confirm its ID is retained. Cancel and accept delete confirmations.
 - Switch among English, Spanish, German, and French; refresh and confirm the language persists.
 - Export CSV and inspect commas, quotes, Unicode, timestamps, and kilogram values.

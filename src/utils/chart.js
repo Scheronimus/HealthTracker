@@ -33,9 +33,16 @@ export function chartGeometry(measurements, width = 800, height = 300) {
   })
   return { points, ticks, min, max }
 }
-export function shouldDisplayMarker(index, count, maximumMarkers = 40) {
-  if (count <= maximumMarkers) return true
-  if (index === 0 || index === count - 1) return true
-  const stride = Math.ceil((count - 1) / (maximumMarkers - 1))
-  return index % stride === 0
+export function nearestPointIndex(points, targetX) {
+  if (!points.length) return -1
+  let low = 0
+  let high = points.length - 1
+  while (low < high) {
+    const middle = Math.floor((low + high) / 2)
+    if (points[middle].x < targetX) low = middle + 1
+    else high = middle
+  }
+  if (low === 0) return 0
+  const previous = low - 1
+  return Math.abs(points[low].x - targetX) < Math.abs(points[previous].x - targetX) ? low : previous
 }
