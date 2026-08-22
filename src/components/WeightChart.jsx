@@ -7,7 +7,7 @@ const WIDTH = 800
 const HEIGHT = 400
 const PAD = { top: 18, right: 18, bottom: 42, left: 55 }
 
-export function WeightChart({ measurements, language, span, onSpanChange, profile, t }) {
+export function WeightChart({ measurements, language, span, onSpanChange, profile, onBmiZonesChange, t }) {
   const [activeIndex, setActiveIndex] = useState(null)
   const gradientId = useId().replaceAll(':', '')
   const bmiBands = useMemo(() => profile.showBmiRange && (profile.age === null || profile.age >= 18) ? bmiWeightBands(profile.heightCm) : [], [profile.age, profile.heightCm, profile.showBmiRange])
@@ -48,7 +48,7 @@ export function WeightChart({ measurements, language, span, onSpanChange, profil
 
   return <section className="weight-chart card" aria-labelledby="chart-title">
     <div className="chart-header">
-      <div><h2 id="chart-title">{t('trend')}</h2><p>{t('trendHint')}</p></div>
+      <div className="chart-title-group"><h2 id="chart-title">{t('trend')}</h2><p>{t('trendHint')}</p>{profile.showBmi && (profile.age === null || profile.age >= 18) && <button className="chart-bmi-toggle" type="button" role="switch" aria-checked={profile.showBmiRange} onClick={() => onBmiZonesChange(!profile.showBmiRange)}><i aria-hidden="true" />{t('bmiZonesToggle')}</button>}</div>
       <div className="span-control" role="group" aria-label={t('timeSpan')}>
         {['threeMonths', 'oneYear', 'allTime'].map((option) => <button key={option} type="button" className={span === option ? 'active' : ''} aria-pressed={span === option} onClick={() => { onSpanChange(option); setActiveIndex(null) }}>{t(option)}</button>)}
       </div>

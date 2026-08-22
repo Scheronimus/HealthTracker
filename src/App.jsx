@@ -26,6 +26,7 @@ export default function App() {
   function openEntry(item = null) { setEditing(item); showScreen('entry') }
   function closeEntry() { setEditing(null); showScreen('dashboard') }
   function saveProfile(profile) { setStore((current) => ({ ...current, profile })); showScreen('settings') }
+  function changeBmiZones(showBmiRange) { setStore((current) => ({ ...current, profile: { ...current.profile, showBmiRange } })) }
   function save(item) { editing ? update(item) : add(item); closeEntry() }
   function deleteItem(id) { if (confirm(t('deleteConfirm'))) { remove(id); closeEntry() } }
   function filename(extension) { return `health-tracker-${new Date().toISOString().slice(0, 10)}.${extension}` }
@@ -81,7 +82,7 @@ export default function App() {
     </header>
 
     {screen === 'dashboard' && <main>
-      <WeightChart measurements={visibleMeasurements} language={language} span={chartSpan} onSpanChange={setChartSpan} profile={store.profile} t={t} />
+      <WeightChart measurements={visibleMeasurements} language={language} span={chartSpan} onSpanChange={setChartSpan} profile={store.profile} onBmiZonesChange={changeBmiZones} t={t} />
       <Summary measurements={measurements} visibleMeasurements={visibleMeasurements} span={chartSpan} language={language} profile={store.profile} t={t} />
       <History measurements={measurements} language={language} onEdit={openEntry} t={t} />
     </main>}

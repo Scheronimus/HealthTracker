@@ -158,3 +158,10 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 .bmi-caution { padding: .45rem; border-radius: 8px; background: #f6ead2; color: #604b25; }
 @media (min-width: 720px) { .bmi-zone-legend { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
 @media (prefers-color-scheme: dark) { .bmi-caution { background: #493d26; color: #f3dfb6; } }
+/* Graph-level BMI zone switch */
+.chart-title-group { min-width: 0; }
+.chart-bmi-toggle { display: inline-flex; align-items: center; gap: .45rem; margin-top: .65rem; padding: .35rem .55rem; border-color: var(--line); color: var(--ink); font-size: .72rem; }
+.chart-bmi-toggle i { position: relative; width: 1.9rem; height: 1.05rem; border-radius: 999px; background: #aab9b5; transition: background .15s ease; }
+.chart-bmi-toggle i::after { content: ''; position: absolute; top: .15rem; left: .15rem; width: .75rem; height: .75rem; border-radius: 50%; background: white; box-shadow: 0 1px 3px #0004; transition: transform .15s ease; }
+.chart-bmi-toggle[aria-checked='true'] i { background: var(--green); }
+.chart-bmi-toggle[aria-checked='true'] i::after { transform: translateX(.85rem); }
