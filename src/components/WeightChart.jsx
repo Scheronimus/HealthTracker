@@ -56,7 +56,7 @@ export function WeightChart({ measurements, language, span, onSpanChange, profil
     {!points.length ? <div className="chart-empty"><span>⌁</span><p>{t('noChartData')}</p></div> : <>
       <div className="chart-wrap">
         <svg className="chart-svg" viewBox={`0 0 ${WIDTH + PAD.left + PAD.right} ${HEIGHT + PAD.top + PAD.bottom}`} role="img" aria-label={t('chartDescription', { count: points.length })}>
-          <defs><linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#4bb69d" stopOpacity=".34" /><stop offset="1" stopColor="#4bb69d" stopOpacity=".02" /></linearGradient></defs>
+          <defs><linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#4e91b8" stopOpacity=".34" /><stop offset="1" stopColor="#4e91b8" stopOpacity=".02" /></linearGradient></defs>
           <g transform={`translate(${PAD.left} ${PAD.top})`}>
             {visibleBands.map((band) => <rect key={band.key} className={`bmi-zone ${band.key}`} x="0" y={band.top} width={WIDTH} height={band.height} />)}
             {ticks.map(({ value, y }) => <g key={value}><line className="grid-line" x1="0" x2={WIDTH} y1={y} y2={y} /><text className="axis-label y-label" x="-10" y={y + 4}>{value.toFixed(0)}</text></g>)}
