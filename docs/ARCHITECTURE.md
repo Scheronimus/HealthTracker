@@ -31,3 +31,7 @@ The graph span is dashboard-level state shared by the chart and summary. Current
 ## Date-only weight policy
 
 Weight entry and presentation are date-only. New records convert the chosen local date to local noon for the existing timestamp-based schema, avoiding common midnight timezone shifts while retaining extensibility for future measurement types. The entry form prevents a second weight on the same local calendar date and excludes the current record during editing. Existing persisted timestamps remain valid, but hours are not shown in weight UI.
+
+## External weight CSV import
+
+The importer parses quoted CSV cells, requires DD/MM/YY or DD/MM/YYYY dates, interprets two-digit years as 20xx, accepts comma or point decimals, and skips explicit missing markers such as NN. Invalid non-missing rows fail the complete import with their line number. Merge is date-based: existing local weight dates and earlier rows in the same file win, so import never silently overwrites a daily weight.

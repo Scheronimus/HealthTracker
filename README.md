@@ -21,6 +21,9 @@ Install Node.js 22 or newer, then run `npm ci` and `npm start`. On Windows, doub
 
 PWA/offline behavior requires a production build: `npm run build` then `npm run preview`.
 
+## Import weight CSV
+
+Settings → Import weight CSV accepts headerless rows in `DD/MM/YY,weight` format. Decimal-comma weights must be quoted, for example `31/03/26,"99,7"`; integer or decimal-point weights are also accepted. `NN`, `NA`, `N/A`, and empty weights are treated as missing and skipped. Invalid rows reject the import with a line number. Existing weight dates are kept unchanged, and duplicate dates within the CSV are skipped.
 ## One-year demo data
 
 To test the graph and range controls, open Settings → Restore backup and choose one of these files:

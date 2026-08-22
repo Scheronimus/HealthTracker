@@ -4,7 +4,7 @@ import { History } from './components/History.jsx'
 import { Settings } from './components/Settings.jsx'
 import { Summary } from './components/Summary.jsx'
 import { WeightChart } from './components/WeightChart.jsx'
-import { createBackup, mergeRestore, parseBackup, weightCsv } from './data/transfer.js'
+import { createBackup, mergeRestore, mergeWeightImport, parseBackup, parseWeightImportCsv, weightCsv } from './data/transfer.js'
 import { filterBySpan } from './utils/chart.js'
 import { loadLanguage, saveLanguage } from './data/storage.js'
 import { useHealthData } from './hooks/useHealthData.js'
@@ -38,7 +38,13 @@ export default function App() {
     setStore(result.data)
     return t('demoLoaded', result)
   }
-  function restore(text) {
+  function importCsv(text) {
+    const parsed = parseWeightImportCsv(text)
+    if (!confirm(t('csvImportConfirm', { count: parsed.measurements.length }))) return ''
+    const result = mergeWeightImport(store, parsed.measurements)
+    setStore(result.data)
+    return t('csvImportDone', { ...result, skipped: parsed.skipped })
+  }  function restore(text) {
     const imported = parseBackup(text)
     if (!confirm(t('restoreConfirm'))) return ''
     const result = mergeRestore(store, imported)
@@ -77,7 +83,7 @@ export default function App() {
       <p className="entry-privacy">{t('privacyBody')}</p>
     </main>}
     {screen === 'settings' && <main className="settings-screen">
-      <Settings language={language} onLanguage={changeLanguage} onBackup={() => downloadText(filename('json'), JSON.stringify(createBackup(store), null, 2), 'application/json')} onCsv={() => downloadText(filename('csv'), weightCsv(measurements), 'text/csv;charset=utf-8')} onRestore={restore} onLoadDemo={import.meta.env.DEV ? loadDemo : undefined} onClearAll={clearAll} t={t} />
+      <Settings language={language} onLanguage={changeLanguage} onBackup={() => downloadText(filename('json'), JSON.stringify(createBackup(store), null, 2), 'application/json')} onCsv={() => downloadText(filename('csv'), weightCsv(measurements), 'text/csv;charset=utf-8')} onCsvImport={importCsv} onRestore={restore} onLoadDemo={import.meta.env.DEV ? loadDemo : undefined} onClearAll={clearAll} t={t} />
     </main>}
     <footer>Health Tracker · {new Date().getFullYear()}</footer>
   </>

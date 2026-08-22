@@ -31,6 +31,9 @@ Run `npm test`, `npm run lint`, and `npm run build`. Regenerate the one-year gra
 - Edit an entry and confirm its ID is retained. Cancel and accept delete confirmations.
 - Switch among English, Spanish, German, and French; refresh and confirm the language persists.
 - Export CSV and inspect commas, quotes, Unicode, timestamps, and kilogram values.
+- Import `31/03/26,"99,7"`, `01/04/26,NN`, and `02/04/26,99`; confirm two weights are added and the missing row is reported as skipped.
+- Import a file with an impossible date or invalid weight and confirm the line-specific error leaves data unchanged.
+- Reimport a date already stored and confirm the existing weight is preserved.
 - Export JSON, add another record, restore the older file, and confirm current IDs are never overwritten.
 - Try malformed JSON, an unsupported schema version, duplicate IDs, invalid units, and invalid timestamps; confirm nothing changes.
 - Build and preview, load once online, go offline, reload, and confirm the shell and local edits work.
