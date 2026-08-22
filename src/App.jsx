@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import packageJson from '../package.json'
 import { EntryForm } from './components/EntryForm.jsx'
 import { History } from './components/History.jsx'
 import { ProfileForm } from './components/ProfileForm.jsx'
@@ -96,6 +97,6 @@ export default function App() {
     {screen === 'settings' && <main className="settings-screen">
       <Settings language={language} onLanguage={changeLanguage} profile={store.profile} onProfile={() => showScreen('profile')} onBackup={() => downloadText(filename('json'), JSON.stringify(createBackup(store), null, 2), 'application/json')} onCsv={() => downloadText(filename('csv'), weightCsv(measurements), 'text/csv;charset=utf-8')} onCsvImport={importCsv} onRestore={restore} onLoadDemo={import.meta.env.DEV ? loadDemo : undefined} onClearAll={clearAll} t={t} />
     </main>}
-    <footer>Health Tracker · {new Date().getFullYear()}</footer>
+    <footer className="app-version">Health Tracker · v{packageJson.version} · {new Date().getFullYear()}</footer>
   </>
 }

@@ -165,3 +165,4 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 .chart-bmi-toggle i::after { content: ''; position: absolute; top: .15rem; left: .15rem; width: .75rem; height: .75rem; border-radius: 50%; background: white; box-shadow: 0 1px 3px #0004; transition: transform .15s ease; }
 .chart-bmi-toggle[aria-checked='true'] i { background: var(--green); }
 .chart-bmi-toggle[aria-checked='true'] i::after { transform: translateX(.85rem); }
+.app-version { margin-top: 2rem; color: var(--muted); font-size: .72rem; text-align: center; }
