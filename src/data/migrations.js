@@ -2,6 +2,8 @@ import { SCHEMA_VERSION, validateStore } from './schema.js'
 
 const migrations = {
   1: (legacy) => ({ schemaVersion: 1, measurements: legacy.measurements ?? [] }),
+  2: (versionOne) => ({ ...versionOne, schemaVersion: 2, profile: { name: '', age: null, heightCm: null, showBmi: false } }),
+  3: (versionTwo) => ({ ...versionTwo, schemaVersion: 3, profile: { ...versionTwo.profile, showBmiRange: false } }),
 }
 
 export function migrateStore(input) {

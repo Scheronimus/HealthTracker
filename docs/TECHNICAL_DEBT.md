@@ -5,3 +5,5 @@
 - Automated tests focus on the highest-risk data boundary. Component accessibility and end-to-end PWA install/offline behavior still need browser automation.
 - The service worker uses automatic updates. A future app with long-running unsaved forms should add an update-available flow before activation.
 - Restore preserves collisions by ID but does not offer a manual conflict-resolution UI.
+
+- The bulk-delete control is intentionally temporary and development-only through import.meta.env.DEV; remove its UI, translations, and callback when demo-data testing is complete.

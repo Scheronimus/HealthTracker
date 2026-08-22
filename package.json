@@ -9,6 +9,8 @@
     "mobile": "node scripts/mobile-server.mjs",
     "generate:production-qr": "node scripts/generate-production-qr.mjs",
     "generate:icons": "node scripts/generate-icons.mjs",
+    "generate:demo-backup": "node scripts/generate-demo-backup.mjs",
+    "generate:irregular-demo-backup": "node scripts/generate-irregular-demo-backup.mjs",
     "build": "vite build",
     "lint": "eslint .",
     "test": "vitest run",

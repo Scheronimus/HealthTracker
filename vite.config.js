@@ -13,9 +13,9 @@ export default defineConfig({
       manifest: {
         name: 'Health Tracker',
         short_name: 'Health',
-        description: 'Private, offline body-weight tracking',
-        theme_color: '#145c52',
-        background_color: '#f4f7f3',
+        description: 'Private, offline health measurement tracking',
+        theme_color: '#245a7a',
+        background_color: '#f5f8fa',
         display: 'standalone',
         start_url: deployment.basePath,
         scope: deployment.basePath,

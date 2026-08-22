@@ -9,7 +9,9 @@ Production target: <https://scheronimus.github.io/HealthTracker/>
 ## Features
 
 - Record, edit, and delete dated weight measurements in kilograms with optional notes.
-- Newest-first history and latest, previous-entry, and total-change summaries.
+- Prominent interactive weight graph with 3-month, 1-year, and all-time ranges.
+- Newest-first history with current weight and graph-span change summaries.
+- Optional local profile, WHO BMI screening context, and height-specific WHO color zones on the unchanged graph scale.
 - English, Spanish, German, and French interfaces with a locally saved preference.
 - Versioned and validated local data, tested migration infrastructure, JSON backup/merge restore, and CSV export.
 - Installable PWA with a cached application shell for offline use.
@@ -20,6 +22,21 @@ Install Node.js 22 or newer, then run `npm ci` and `npm start`. On Windows, doub
 
 PWA/offline behavior requires a production build: `npm run build` then `npm run preview`.
 
+## Import weight CSV
+
+Settings → Import weight CSV accepts headerless rows in `DD/MM/YY,weight` format. Decimal-comma weights must be quoted, for example `31/03/26,"99,7"`; integer or decimal-point weights are also accepted. `NN`, `NA`, `N/A`, and empty weights are treated as missing and skipped. Invalid rows reject the import with a line number. Existing weight dates are kept unchanged, and duplicate dates within the CSV are skipped.
+## One-year demo data
+
+To test the graph and range controls, open Settings → Restore backup and choose one of these files:
+
+- [`docs/dummy-weight-data-one-year-irregular.json`](docs/dummy-weight-data-one-year-irregular.json): 240 measurements with daily tracking, a 30-day forgotten period, entries every 3–7 days, then daily tracking again.
+- [`docs/dummy-weight-data-one-year.json`](docs/dummy-weight-data-one-year.json): 53 weekly measurements for a simpler sparse-data test.
+
+Restore merges demo records with existing data and does not overwrite matching IDs. Delete demo entries individually or clear this site's browser storage when testing is finished.
+
+Regenerate them with `npm run generate:irregular-demo-backup` and `npm run generate:demo-backup`.
+
+During local development, Settings → Temporary debug tools also provides **Load one-year demo data**, so no file transfer is needed for phone testing.
 ## Quality checks
 
 Run `npm test`, `npm run lint`, and `npm run build`. See [Testing](docs/TESTING.md) for manual checks.
@@ -27,6 +44,8 @@ Run `npm test`, `npm run lint`, and `npm run build`. See [Testing](docs/TESTING.
 ## Branch and deployment workflow
 
 Use `develop` for ongoing work. Merge reviewed, verified releases into `main`; pushes to `main` run the GitHub Pages workflow. The Vite and PWA base is `/HealthTracker/`.
+
+Before the first deployment, open the repository's **Settings -> Pages** and set **Build and deployment -> Source** to **GitHub Actions**. This one-time repository setting cannot be created by the workflow's standard token.
 
 ## Data ownership
 
