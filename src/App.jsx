@@ -18,8 +18,9 @@ export default function App() {
   const { store, setStore, measurements, add, update, remove } = useHealthData()
   const t = (key, values) => translate(language, key, values)
   function changeLanguage(next) { setLanguage(next); saveLanguage(next) }
-  function openEntry(item = null) { setEditing(item); setScreen('entry'); window.scrollTo(0, 0) }
-  function closeEntry() { setEditing(null); setScreen('dashboard'); window.scrollTo(0, 0) }
+  function showScreen(next) { setScreen(next); window.scrollTo(0, 0) }
+  function openEntry(item = null) { setEditing(item); showScreen('entry') }
+  function closeEntry() { setEditing(null); showScreen('dashboard') }
   function save(item) { editing ? update(item) : add(item); closeEntry() }
   function deleteItem(id) { if (confirm(t('deleteConfirm'))) remove(id) }
   function filename(extension) { return `health-tracker-${new Date().toISOString().slice(0, 10)}.${extension}` }
@@ -33,26 +34,36 @@ export default function App() {
 
   return <>
     <header className="app-header">
-      {screen === 'dashboard' ? <div className="topbar dashboard-topbar">
+      {screen === 'dashboard' && <div className="topbar dashboard-topbar">
         <div className="brand"><img src={`${import.meta.env.BASE_URL}app-icon.svg`} alt="" /><div><h1>{t('appName')}</h1><p>{t('tagline')}</p></div></div>
-        <button className="add-entry-button" type="button" onClick={() => openEntry()} aria-label={t('add')} title={t('add')}>+</button>
-      </div> : <div className="topbar entry-topbar">
+        <div className="dashboard-actions">
+          <button className="settings-button" type="button" onClick={() => showScreen('settings')} aria-label={t('menu')} title={t('menu')}>⚙</button>
+          <button className="add-entry-button" type="button" onClick={() => openEntry()} aria-label={t('add')} title={t('add')}>+</button>
+        </div>
+      </div>}
+      {screen === 'entry' && <div className="topbar entry-topbar">
         <button className="header-action" type="button" onClick={closeEntry}>{t('cancel')}</button>
         <h1>{editing ? t('edit') : t('add')}</h1>
         <button className="header-action save-action" type="submit" form="entry-form">{t('save')}</button>
       </div>}
+      {screen === 'settings' && <div className="topbar settings-topbar">
+        <button className="header-action" type="button" onClick={() => showScreen('dashboard')}>{t('close')}</button>
+        <h1>{t('menu')}</h1>
+        <span aria-hidden="true" />
+      </div>}
     </header>
 
-    {screen === 'dashboard' ? <main>
+    {screen === 'dashboard' && <main>
       <WeightChart measurements={measurements} language={language} t={t} />
       <Summary measurements={measurements} t={t} />
       <History measurements={measurements} language={language} onEdit={openEntry} onDelete={deleteItem} t={t} />
-      <aside className="privacy"><strong>⌂ {t('privacyTitle')}</strong><span>{t('privacyBody')}</span></aside>
-      <Settings language={language} onLanguage={changeLanguage} onBackup={() => downloadText(filename('json'), JSON.stringify(createBackup(store), null, 2), 'application/json')} onCsv={() => downloadText(filename('csv'), weightCsv(measurements), 'text/csv;charset=utf-8')} onRestore={restore} t={t} />
-      <p className="offline-note">● {t('install')}</p>
-    </main> : <main className="entry-screen">
+    </main>}
+    {screen === 'entry' && <main className="entry-screen">
       <EntryForm key={editing?.id ?? 'new'} editing={editing} onSave={save} t={t} />
       <p className="entry-privacy">{t('privacyBody')}</p>
+    </main>}
+    {screen === 'settings' && <main className="settings-screen">
+      <Settings language={language} onLanguage={changeLanguage} onBackup={() => downloadText(filename('json'), JSON.stringify(createBackup(store), null, 2), 'application/json')} onCsv={() => downloadText(filename('csv'), weightCsv(measurements), 'text/csv;charset=utf-8')} onRestore={restore} t={t} />
     </main>}
     <footer>Health Tracker · {new Date().getFullYear()}</footer>
   </>

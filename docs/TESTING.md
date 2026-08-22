@@ -8,6 +8,7 @@ Run `npm test`, `npm run lint`, and `npm run build`. Tests cover schema validati
 
 - Confirm the dashboard shows the graph first, with summaries and the complete history below it.
 - Select the top-right + and confirm the dedicated entry screen opens with Cancel and Save in its top bar.
+- Select the settings button and confirm language, backup, restore, CSV, privacy, and offline information open on a separate screen; Close returns to the dashboard.
 - Confirm Cancel returns without changes; confirm Save validates, stores the entry, and returns to the dashboard.
 - Edit a history item and confirm the same screen opens with its existing data.
 - Add a valid weight with date, time, and multiline note; refresh and confirm it persists.
