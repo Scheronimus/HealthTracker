@@ -9,6 +9,7 @@ main { width: min(1400px, calc(100% - 1rem)); margin: .5rem auto 2.5rem; }
 .summary { display: grid; grid-template-columns: repeat(2, 1fr); gap: .65rem; margin: 1rem 0; }
 .summary article { padding: .85rem; background: var(--cream); border: 1px solid var(--line); border-radius: 15px; box-shadow: 0 4px 18px #184f3d0a; }
 .summary span { display: block; color: var(--muted); font-size: .76rem; text-transform: uppercase; letter-spacing: .04em; }
+.summary span small { font-size: inherit; font-weight: 650; text-transform: none; letter-spacing: 0; color: var(--ink); }
 .summary strong { display: block; margin-top: .3rem; font-size: 1.2rem; }
 .layout { display: grid; gap: 1rem; align-items: start; }
 .card { background: var(--cream); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 6px 24px #184f3d0c; }

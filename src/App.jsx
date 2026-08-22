@@ -69,7 +69,7 @@ export default function App() {
 
     {screen === 'dashboard' && <main>
       <WeightChart measurements={visibleMeasurements} language={language} span={chartSpan} onSpanChange={setChartSpan} t={t} />
-      <Summary measurements={measurements} visibleMeasurements={visibleMeasurements} span={chartSpan} t={t} />
+      <Summary measurements={measurements} visibleMeasurements={visibleMeasurements} span={chartSpan} language={language} t={t} />
       <History measurements={measurements} language={language} onEdit={openEntry} t={t} />
     </main>}
     {screen === 'entry' && <main className="entry-screen">

@@ -4,6 +4,10 @@ export function formatDateTime(timestamp, language) {
   return new Intl.DateTimeFormat(locales[language], { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(timestamp))
 }
 
+export function formatDate(timestamp, language) {
+  return new Intl.DateTimeFormat(locales[language], { dateStyle: 'medium' }).format(new Date(timestamp))
+}
+
 export function localFormValues(timestamp = new Date().toISOString()) {
   const date = new Date(timestamp)
   const local = new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString()
