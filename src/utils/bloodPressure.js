@@ -1,6 +1,7 @@
 import { localDateValue } from './date.js'
 
-export const BP_PERIODS = ['morning', 'evening']
+export const BP_READING_SLOTS = [1, 2]
+export const MIN_BP_SESSION_GAP_MINUTES = 120
 
 export function parseLocalDate(date) {
   const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date)
@@ -48,15 +49,24 @@ export function localTimeValue(timestamp = new Date().toISOString()) {
   return `${String(value.getHours()).padStart(2, '0')}:${String(value.getMinutes()).padStart(2, '0')}`
 }
 
-export function hasBloodPressureSlot(measurements, date, period, excludedId = null) {
-  return measurements.some((item) => item.type === 'bloodPressure' && item.id !== excludedId && item.period === period && localDateValue(item.timestamp) === date)
+export function bloodPressureReadingsOnDate(measurements, date, excludedId = null) {
+  return measurements
+    .filter((item) => item.type === 'bloodPressure' && item.id !== excludedId && localDateValue(item.timestamp) === date)
+    .sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp))
 }
 
-export function defaultBloodPressurePeriod(measurements, now = new Date()) {
-  const date = localDateValue(now)
-  const present = new Set(measurements.filter((item) => item.type === 'bloodPressure' && localDateValue(item.timestamp) === date).map(({ period }) => period))
-  const missing = BP_PERIODS.filter((period) => !present.has(period))
-  return missing.length === 1 ? missing[0] : now.getHours() < 12 ? 'morning' : 'evening'
+export function isBloodPressureDayFull(measurements, date, excludedId = null) {
+  return bloodPressureReadingsOnDate(measurements, date, excludedId).length >= 2
+}
+
+export function hasNearbyBloodPressureReading(measurements, timestamp, excludedId = null, minimumMinutes = MIN_BP_SESSION_GAP_MINUTES) {
+  const time = Date.parse(timestamp)
+  if (Number.isNaN(time)) return false
+  const date = localDateValue(timestamp)
+  return measurements.some((item) => item.type === 'bloodPressure'
+    && item.id !== excludedId
+    && localDateValue(item.timestamp) === date
+    && Math.abs(Date.parse(item.timestamp) - time) < minimumMinutes * 60000)
 }
 
 export function groupBloodPressurePeriods(measurements, today = localDateValue()) {
@@ -87,5 +97,3 @@ export function averageChange(currentMeasurements, previousMeasurements) {
     pulse: current.pulse - previous.pulse,
   }
 }
-
-export function isWeeklyAverageAboveReference(average) { return Boolean(average && (average.systolic > 135 || average.diastolic > 85)) }

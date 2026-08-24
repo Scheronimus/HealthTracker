@@ -36,12 +36,13 @@ describe('one-year demo backups', () => {
     expect(days.at(-1)).toBe(364)
   })
 
-  it('provides morning and evening blood-pressure readings for every tracked day', () => {
+  it('provides two well-separated blood-pressure readings for every tracked day', () => {
     const data = createBloodPressureDemoStore()
     expect(validateStore(data)).toBe(true)
     expect(data.measurements).toHaveLength(480)
-    expect(data.measurements.filter(({ period }) => period === 'morning')).toHaveLength(240)
-    expect(data.measurements.filter(({ period }) => period === 'evening')).toHaveLength(240)
+    const dates = Object.groupBy(data.measurements, ({ timestamp }) => timestamp.slice(0, 10))
+    expect(Object.keys(dates)).toHaveLength(240)
+    expect(Object.values(dates).every((readings) => readings.length === 2 && Date.parse(readings[1].timestamp) - Date.parse(readings[0].timestamp) >= 2 * 60 * 60 * 1000)).toBe(true)
   })
 
   it('combines weight and blood-pressure data for the debug button', () => {

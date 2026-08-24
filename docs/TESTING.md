@@ -2,20 +2,26 @@
 
 ## Automated
 
-Blood Pressure Pass tests cover schema v4 and all migration paths, mixed stores/backups, slot uniqueness and edit exclusion, local date/time conversion, DST-safe first-reading-anchored periods, available-reading averages, strict threshold behavior, chart ordering/scale/domain/markers/nearest point, and Weight-only CSV behavior.
+Blood Pressure Pass tests cover schema v6 and all migration paths, mixed stores/backups, module preferences, the two-readings-per-date limit and edit exclusion, local date/time conversion, DST-safe first-reading-anchored periods, available-reading averages, chart ordering/scale/domain/markers/nearest point, and Weight/Blood Pressure CSV import behavior.
 
 Run `npm test`, `npm run lint`, and `npm run build`. Regenerate the one-year graph fixture with `npm run generate:demo-backup` when its generator changes. Tests cover schema validation, unique IDs, version-zero migration, future-version rejection, backup round trips, non-overwriting restore, malformed imports, and CSV escaping.
 
 ## Manual regression
 
-For Blood Pressure, also verify the focused Overview, optional morning/evening readings, historical backfilling, compact Diary navigation, available-reading comparisons, neutral reference wording, future-date prevention, pointer/touch and keyboard chart navigation, four languages, narrow layouts, and dark mode.
+For Blood Pressure, also verify the focused Overview, up to two time-ordered readings per date, historical backfilling, compact Diary navigation, factual averages without medical interpretation, future-date prevention, pointer/touch and keyboard chart navigation, four languages, narrow layouts, and dark mode. Confirm the banner module selector switches between Weight and Blood Pressure and remains usable with keyboard navigation.
 
-- Confirm Blood Pressure opens on Overview with a combined period average, change from the previous period, today’s two slots, and progress out of 14 possible readings.
-- Confirm Diary shows seven compact date rows with morning/evening columns, navigates older and newer periods, and returns to the same period and tab after adding or editing a reading.
-- Confirm Trends retains the current-period chart during this milestone and all three blood-pressure tabs are keyboard accessible.
+- Enter two readings on the same date less than two hours apart and confirm the second is rejected; confirm a two-hour separation is accepted.
+- Confirm the entry form asks only for date and time, and that a third reading on the same date is rejected.
+
+- Confirm Blood Pressure opens on Overview with a combined period average, change from the previous period, today’s first/second reading slots, and progress out of 14 possible readings.
+- Confirm Diary shows seven compact date rows with Reading 1/Reading 2 columns, orders readings by time, navigates older and newer periods, and returns to the same period and tab after adding or editing a reading.
+- Confirm Trends defaults to 30-day daily averages; switch among 7 days, 30 days, 3 months, and 1 year and confirm longer ranges use weekly averages.
+- Switch Trends between Averages and Individual readings; confirm the average view uses connected trend lines, while individual first/second readings remain separate markers without a misleading connecting line.
+- Confirm Individual readings automatically moves a longer range to 30 days, disables 3-month and 1-year ranges, and uses smaller markers when more than 30 readings are visible.
+- Confirm the selected-range average and change remain stable when only the chart display mode changes, and all three blood-pressure tabs are keyboard accessible.
 - Select the top-right + and confirm the dedicated entry screen opens with Cancel and Save in its top bar.
 - Select the settings button and confirm language, backup, restore, CSV, privacy, and offline information open on a separate screen; Close returns to the dashboard.
-- In development, confirm Load one-year demo data directly adds all 240 irregular weight records and 480 morning/evening blood-pressure records, and a second selection adds no duplicates.
+- In development, confirm Load one-year demo data directly adds all 240 irregular weight records and 480 blood-pressure records (two per tracked date), and a second selection adds no duplicates.
 - In development, confirm Delete all entries appears under Temporary debug tools, cancellation preserves data, and confirmation removes measurements but preserves language.
 - In a production build, confirm the temporary debug section is absent.
 - Confirm Cancel returns without changes; confirm Save validates, stores the entry, and returns to the dashboard.
@@ -36,10 +42,12 @@ For Blood Pressure, also verify the focused Overview, optional morning/evening r
 - Import the 240-entry irregular fixture and confirm the full trend line remains readable with no point markers.
 - Edit an entry and confirm its ID is retained. Cancel and accept delete confirmations.
 - Switch among English, Spanish, German, and French; refresh and confirm the language persists.
+- In Profile, hide a module and confirm it disappears from the banner selector. Reorder the enabled modules, reload, and confirm the first one opens by default. Confirm saving with no visible module is rejected.
 - Export CSV and inspect commas, quotes, Unicode, timestamps, and kilogram values.
 - Import `31/03/26,"99,7"`, `01/04/26,NN`, and `02/04/26,99`; confirm two weights are added and the missing row is reported as skipped.
 - Import a file with an impossible date or invalid weight and confirm the line-specific error leaves data unchanged.
 - Reimport a date already stored and confirm the existing weight is preserved.
+- Import headerless Blood Pressure rows in `DD/MM/YY,HH:MM:SS,systolic,diastolic,pulse` format; confirm valid rows appear at the entered local time and conflicting rows are skipped.
 - Export JSON, add another record, restore the older file, and confirm current IDs are never overwritten.
 - Try malformed JSON, an unsupported schema version, duplicate IDs, invalid units, and invalid timestamps; confirm nothing changes.
 - Build and preview, load once online, go offline, reload, and confirm the shell and local edits work.

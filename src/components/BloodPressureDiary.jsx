@@ -1,4 +1,4 @@
-import { BP_PERIODS, localTimeValue, weekDates } from '../utils/bloodPressure.js'
+import { BP_READING_SLOTS, bloodPressureReadingsOnDate, localTimeValue, weekDates } from '../utils/bloodPressure.js'
 import { formatDate, localDateValue } from '../utils/date.js'
 
 export function BloodPressureDiary({ week, language, canGoNewer, canGoOlder, onNewer, onOlder, onSlot, t }) {
@@ -11,14 +11,17 @@ export function BloodPressureDiary({ week, language, canGoNewer, canGoOlder, onN
     </div>
     <div className={'bp-diary-table-wrap card'}><table className={'bp-diary-table'}>
       <caption className={'visually-hidden'}>{t('diary')}</caption>
-      <thead><tr><th scope={'col'}>{t('date')}</th>{BP_PERIODS.map((period) => <th key={period} scope={'col'}>{t(period)}</th>)}</tr></thead>
+      <thead><tr><th scope={'col'}>{t('date')}</th>{BP_READING_SLOTS.map((slot) => <th key={slot} scope={'col'}>{t(slot === 1 ? 'readingOne' : 'readingTwo')}</th>)}</tr></thead>
       <tbody>{weekDates(week.start).map((date) => <tr className={date === today ? 'today' : ''} key={date}>
         <th scope={'row'}><time dateTime={date}><strong>{new Intl.DateTimeFormat(language, { weekday: 'short' }).format(new Date(`${date}T12:00:00`))}</strong><small>{new Intl.DateTimeFormat(language, { month: 'short', day: 'numeric' }).format(new Date(`${date}T12:00:00`))}</small></time></th>
-        {BP_PERIODS.map((period) => {
-          const item = week.measurements.find((entry) => entry.period === period && localDateValue(entry.timestamp) === date)
+        {BP_READING_SLOTS.map((slot) => {
+          const readings = bloodPressureReadingsOnDate(week.measurements, date)
+          const item = readings[slot - 1]
           const future = date > today
-          const label = item ? `${t(period)}, ${item.systolicMmHg}/${item.diastolicMmHg} mmHg, ${item.pulseBpm} bpm` : `${t(period)}, ${t(future ? 'upcoming' : 'addOptional')}`
-          return <td key={period}><button aria-label={label} type={'button'} className={item ? 'bp-diary-reading recorded' : 'bp-diary-reading optional'} disabled={future} onClick={() => onSlot(item, { date, period })}>
+          const available = slot <= readings.length + 1
+          const slotLabel = t(slot === 1 ? 'readingOne' : 'readingTwo')
+          const label = item ? `${slotLabel}, ${item.systolicMmHg}/${item.diastolicMmHg} mmHg, ${item.pulseBpm} bpm` : `${slotLabel}, ${t(future ? 'upcoming' : 'addOptional')}`
+          return <td key={slot}><button aria-label={label} type={'button'} className={item ? 'bp-diary-reading recorded' : 'bp-diary-reading optional'} disabled={future || !available} onClick={() => onSlot(item, { date, slot })}>
             {item ? <><strong>{item.systolicMmHg}/{item.diastolicMmHg}</strong><small>{localTimeValue(item.timestamp)} · {item.pulseBpm} bpm</small></> : <span>{t(future ? 'upcoming' : 'addOptional')}</span>}
           </button></td>
         })}

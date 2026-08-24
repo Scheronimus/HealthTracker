@@ -1,4 +1,4 @@
-import { averageChange, isWeeklyAverageAboveReference, weeklyAverages } from '../utils/bloodPressure.js'
+import { averageChange, bloodPressureReadingsOnDate, weeklyAverages } from '../utils/bloodPressure.js'
 import { localDateValue } from '../utils/date.js'
 
 function changeText(value) {
@@ -7,11 +7,11 @@ function changeText(value) {
   return `${rounded > 0 ? '+' : '−'}${Math.abs(rounded)}`
 }
 
-export function BloodPressureOverview({ current, previous, onSlot, onShowDiary, onShowTrends, t }) {
+export function BloodPressureOverview({ current, previous, onSlot, t }) {
   const average = weeklyAverages(current.measurements)
   const change = averageChange(current.measurements, previous?.measurements ?? [])
   const today = localDateValue()
-  const todayReadings = current.measurements.filter((item) => localDateValue(item.timestamp) === today)
+  const todayReadings = bloodPressureReadingsOnDate(current.measurements, today)
 
   return <section className={'bp-overview'}>
     <article className={'bp-overview-hero card'}>
@@ -25,10 +25,11 @@ export function BloodPressureOverview({ current, previous, onSlot, onShowDiary, 
 
     <section className={'bp-today card'}>
       <div className={'section-heading'}><h2>{t('today')}</h2><span>{todayReadings.length}/2</span></div>
-      <div className={'bp-today-slots'}>{['morning', 'evening'].map((period) => {
-        const item = todayReadings.find((reading) => reading.period === period)
-        return <button key={period} type={'button'} className={item ? 'bp-today-reading recorded' : 'bp-today-reading optional'} onClick={() => onSlot(item, { date: today, period })}>
-          <span>{t(period)}</span>
+      <div className={'bp-today-slots'}>{[0, 1].map((index) => {
+        const item = todayReadings[index]
+        const available = index <= todayReadings.length
+        return <button key={index} type={'button'} className={item ? 'bp-today-reading recorded' : 'bp-today-reading optional'} disabled={!available} onClick={() => onSlot(item, { date: today, slot: index + 1 })}>
+          <span>{t(index === 0 ? 'readingOne' : 'readingTwo')}</span>
           {item ? <><strong>{item.systolicMmHg} / {item.diastolicMmHg}</strong><small>{item.pulseBpm} bpm</small></> : <strong>{t('addOptional')}</strong>}
         </button>
       })}</div>
@@ -37,14 +38,6 @@ export function BloodPressureOverview({ current, previous, onSlot, onShowDiary, 
     <section className={'bp-progress card'}>
       <div><span>{t('periodProgress')}</span><strong>{t('possibleReadingsLogged', { count: current.measurements.length, total: 14 })}</strong></div>
       <progress value={current.measurements.length} max={'14'}>{current.measurements.length}/14</progress>
-      <button type={'button'} onClick={onShowDiary}>{t('openDiary')}</button>
     </section>
-
-    <aside className={'bp-reference compact'}>
-      <strong>{average ? t(isWeeklyAverageAboveReference(average) ? 'bpAboveReference' : 'bpNotAboveReference') : t('bpNoAverage')}</strong>
-      <p>{t('bpReferenceDisclaimer')}</p>
-    </aside>
-
-    <button className={'bp-trends-link card'} type={'button'} onClick={onShowTrends}><span><strong>{t('trends')}</strong><small>{t('trendsPreviewHint')}</small></span><i aria-hidden={'true'}>›</i></button>
   </section>
 }

@@ -8,11 +8,11 @@ Production target: <https://scheronimus.github.io/HealthTracker/>
 
 ## Features
 
-Health Tracker supports modular Weight and Blood Pressure areas. Blood Pressure records exact local date/time, an explicit morning/evening period, systolic and diastolic pressure, and pulse. Seven-day measurement periods begin with the first reading rather than on Monday. The app averages whatever readings are available, reports neutral coverage by readings and days, and treats every slot as optional. Mixed data is included in JSON backups; CSV stays Weight-only.
+Health Tracker supports modular Weight and Blood Pressure areas. Blood Pressure records exact local date/time, systolic and diastolic pressure, and pulse. Each date can contain up to two time-ordered readings at least two hours apart. Seven-day measurement periods begin with the first reading rather than on Monday. The app averages whatever readings are available and reports neutral coverage by readings and days. Mixed data is included in JSON backups; CSV stays Weight-only.
 
 - Record, edit, and delete dated weight measurements in kilograms with optional notes.
-- Record morning and evening blood-pressure readings with exact local date/time, systolic, diastolic, and pulse values.
-- Review flexible seven-day measurement periods with available-reading averages, neutral coverage, a 135/85 average-only comparison, an accessible SVG chart, and optional backfillable readings.
+- Record up to two blood-pressure readings per date with exact local date/time, systolic, diastolic, and pulse values.
+- Review a focused blood-pressure overview, compact two-reading diary, and accessible 7-day to 1-year trends using daily or weekly averages without connecting individual readings into a misleading line.
 - Prominent interactive weight graph with 3-month, 1-year, and all-time ranges.
 - Newest-first history with current weight and graph-span change summaries.
 - Optional local profile, WHO BMI screening context, and height-specific WHO color zones on the unchanged graph scale.
@@ -26,9 +26,9 @@ Install Node.js 22 or newer, then run `npm ci` and `npm start`. On Windows, doub
 
 PWA/offline behavior requires a production build: `npm run build` then `npm run preview`.
 
-## Import weight CSV
+## Import CSV
 
-Settings → Import weight CSV accepts headerless rows in `DD/MM/YY,weight` format. Decimal-comma weights must be quoted, for example `31/03/26,"99,7"`; integer or decimal-point weights are also accepted. `NN`, `NA`, `N/A`, and empty weights are treated as missing and skipped. Invalid rows reject the import with a line number. Existing weight dates are kept unchanged, and duplicate dates within the CSV are skipped.
+Settings → Import CSV accepts headerless weight rows in `DD/MM/YY,weight` format, or blood-pressure rows in `DD/MM/YY,HH:MM:SS,systolic,diastolic,pulse` format. Decimal-comma weights must be quoted, for example `31/03/26,"99,7"`; integer or decimal-point weights are also accepted. `NN`, `NA`, `N/A`, and empty weights are treated as missing and skipped. Invalid rows reject the import with a line number. Existing weight dates remain unchanged. Blood-pressure imports preserve existing readings and skip rows that would exceed two readings per date or place readings less than two hours apart.
 ## One-year demo data
 
 To test the graph and range controls, open Settings → Restore backup and choose one of these files:
@@ -40,7 +40,7 @@ Restore merges demo records with existing data and does not overwrite matching I
 
 Regenerate them with `npm run generate:irregular-demo-backup` and `npm run generate:demo-backup`.
 
-During local development, Settings → Temporary debug tools also provides **Load one-year demo data**. The same button adds the irregular weight series plus morning and evening blood-pressure readings for every tracked day, so no file transfer is needed for phone testing.
+During local development, Settings → Temporary debug tools also provides **Load one-year demo data**. The same button adds the irregular weight series plus two well-separated blood-pressure readings for every tracked day, so no file transfer is needed for phone testing.
 
 Demo data is intended for interface testing only.
 

@@ -5,6 +5,17 @@ const migrations = {
   2: (versionOne) => ({ ...versionOne, schemaVersion: 2, profile: { name: '', age: null, heightCm: null, showBmi: false } }),
   3: (versionTwo) => ({ ...versionTwo, schemaVersion: 3, profile: { ...versionTwo.profile, showBmiRange: false } }),
   4: (versionThree) => ({ ...versionThree, schemaVersion: 4 }),
+  5: (versionFour) => ({
+    ...versionFour,
+    schemaVersion: 5,
+    measurements: versionFour.measurements.map((item) => {
+      if (item.type !== 'bloodPressure') return item
+      const measurement = { ...item }
+      delete measurement.period
+      return measurement
+    }),
+  }),
+  6: (versionFive) => ({ ...versionFive, schemaVersion: 6, profile: { ...versionFive.profile, modules: ['weight', 'bloodPressure'] } }),
 }
 
 export function migrateStore(input) {

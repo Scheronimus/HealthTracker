@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest'
-import { addLocalDays, averageChange, defaultBloodPressurePeriod, groupBloodPressurePeriods, hasBloodPressureSlot, isWeeklyAverageAboveReference, localTimeValue, measurementPeriodStart, timestampFromLocal, weekDates, weekStart, weeklyAverages } from './bloodPressure.js'
+import { addLocalDays, averageChange, bloodPressureReadingsOnDate, groupBloodPressurePeriods, hasNearbyBloodPressureReading, isBloodPressureDayFull, localTimeValue, measurementPeriodStart, timestampFromLocal, weekDates, weekStart, weeklyAverages } from './bloodPressure.js'
 import { createBloodPressureMeasurement, emptyStore, validateMeasurement, validateStore } from '../data/schema.js'
 
-const reading = (date, period, systolic = 130, diastolic = 80, pulse = 60, id = `${date}-${period}`) => ({ id: id.padEnd(8, 'x'), type: 'bloodPressure', timestamp: timestampFromLocal(date, period === 'morning' ? '08:00' : '20:00'), period, systolicMmHg: systolic, diastolicMmHg: diastolic, pulseBpm: pulse })
+const reading = (date, number = 1, systolic = 130, diastolic = 80, pulse = 60, id = `${date}-${number}`) => ({ id: id.padEnd(8, 'x'), type: 'bloodPressure', timestamp: timestampFromLocal(date, number === 1 ? '08:00' : '20:00'), systolicMmHg: systolic, diastolicMmHg: diastolic, pulseBpm: pulse })
 
 describe('blood-pressure records', () => {
   it('validates the discriminated record and numeric constraints', () => {
-    const item = createBloodPressureMeasurement({ timestamp: '2026-08-24T08:00:00.000Z', period: 'morning', systolicMmHg: 120, diastolicMmHg: 80, pulseBpm: 60 })
+    const item = createBloodPressureMeasurement({ timestamp: '2026-08-24T08:00:00.000Z', systolicMmHg: 120, diastolicMmHg: 80, pulseBpm: 60 })
     expect(validateMeasurement(item)).toBe(true)
     expect(validateMeasurement({ ...item, systolicMmHg: 49 })).toBe(false)
     expect(validateMeasurement({ ...item, diastolicMmHg: 120 })).toBe(false)
@@ -14,7 +14,9 @@ describe('blood-pressure records', () => {
     const weight = { id: 'weight-123', type: 'weight', value: 70, unit: 'kg', timestamp: item.timestamp, note: '' }
     expect(validateStore({ ...emptyStore(), measurements: [weight, item] })).toBe(true)
     expect(validateStore({ ...emptyStore(), measurements: [item, { ...weight, id: item.id }] })).toBe(false)
-    expect(validateStore({ ...emptyStore(), measurements: [item, { ...item, id: 'pressure-other' }] })).toBe(false)
+    const second = { ...item, id: 'pressure-other', timestamp: '2026-08-24T20:00:00.000Z' }
+    expect(validateStore({ ...emptyStore(), measurements: [item, second] })).toBe(true)
+    expect(validateStore({ ...emptyStore(), measurements: [item, second, { ...item, id: 'pressure-third', timestamp: '2026-08-24T19:00:00.000Z' }] })).toBe(false)
   })
   it('round-trips local date/time values', () => {
     const timestamp = timestampFromLocal('2026-08-24', '07:35')
@@ -28,7 +30,7 @@ describe('blood-pressure records', () => {
     expect(addLocalDays('2026-03-28', 2)).toBe('2026-03-30')
   })
   it('anchors consecutive seven-day periods to the first reading instead of Monday', () => {
-    const records = [reading('2026-08-26', 'morning'), reading('2026-09-01', 'evening'), reading('2026-09-02', 'morning')]
+    const records = [reading('2026-08-26'), reading('2026-09-01', 2), reading('2026-09-02')]
     expect(measurementPeriodStart('2026-09-01', '2026-08-26')).toBe('2026-08-26')
     expect(measurementPeriodStart('2026-09-02', '2026-08-26')).toBe('2026-09-02')
     const periods = groupBloodPressurePeriods(records, '2026-09-03')
@@ -36,29 +38,29 @@ describe('blood-pressure records', () => {
     expect(periods[0].measurements).toHaveLength(1)
     expect(periods[1].measurements).toHaveLength(2)
   })
-  it('enforces one morning and evening slot while excluding edits', () => {
-    const morning = reading('2026-08-24', 'morning')
-    expect(hasBloodPressureSlot([morning], '2026-08-24', 'morning')).toBe(true)
-    expect(hasBloodPressureSlot([morning], '2026-08-24', 'evening')).toBe(false)
-    expect(hasBloodPressureSlot([morning], '2026-08-24', 'morning', morning.id)).toBe(false)
+  it('allows at most two readings per date while excluding edits', () => {
+    const first = reading('2026-08-24')
+    const second = reading('2026-08-24', 2)
+    expect(isBloodPressureDayFull([first], '2026-08-24')).toBe(false)
+    expect(isBloodPressureDayFull([first, second], '2026-08-24')).toBe(true)
+    expect(isBloodPressureDayFull([first, second], '2026-08-24', first.id)).toBe(false)
+    expect(bloodPressureReadingsOnDate([second, first], '2026-08-24')).toEqual([first, second])
   })
-  it('chooses the only missing today slot before the time default', () => {
-    const now = new Date(2026, 7, 24, 8)
-    expect(defaultBloodPressurePeriod([reading('2026-08-24', 'morning')], now)).toBe('evening')
-    expect(defaultBloodPressurePeriod([], new Date(2026, 7, 24, 13))).toBe('evening')
+  it('keeps nearby readings in the same measurement session', () => {
+    const first = reading('2026-08-24')
+    expect(hasNearbyBloodPressureReading([first], timestampFromLocal('2026-08-24', '08:01'))).toBe(true)
+    expect(hasNearbyBloodPressureReading([first], timestampFromLocal('2026-08-24', '09:59'))).toBe(true)
+    expect(hasNearbyBloodPressureReading([first], timestampFromLocal('2026-08-24', '10:00'))).toBe(false)
+    expect(hasNearbyBloodPressureReading([first], timestampFromLocal('2026-08-25', '08:01'))).toBe(false)
+    expect(hasNearbyBloodPressureReading([first], timestampFromLocal('2026-08-24', '08:01'), first.id)).toBe(false)
   })
-  it('averages whatever readings are available and applies the reference threshold', () => {
-    const items = [reading('2026-08-24', 'morning', 140, 90, 70), reading('2026-08-24', 'evening', 130, 80, 60)]
+  it('averages whatever readings are available', () => {
+    const items = [reading('2026-08-24', 1, 140, 90, 70), reading('2026-08-24', 2, 130, 80, 60)]
     expect(weeklyAverages(items)).toEqual({ systolic: 135, diastolic: 85, pulse: 65, count: 2 })
-    expect(isWeeklyAverageAboveReference(weeklyAverages(items))).toBe(false)
-    expect(isWeeklyAverageAboveReference(weeklyAverages([reading('2026-08-24', 'morning', 136, 80)]))).toBe(true)
-    const outlierDiluted = [reading('2026-08-24', 'morning', 200, 100), ...Array.from({ length: 13 }, (_, index) => reading(addLocalDays('2026-08-24', Math.floor((index + 1) / 2)), index % 2 ? 'morning' : 'evening', 120, 70, 60, `safe-${index}`))]
-    expect(isWeeklyAverageAboveReference(weeklyAverages(outlierDiluted))).toBe(false)
-    expect(weeklyAverages(outlierDiluted).count).toBe(14)
   })
   it('compares the available averages of consecutive periods', () => {
-    const current = [reading('2026-08-24', 'morning', 128, 78, 62), reading('2026-08-24', 'evening', 132, 82, 66)]
-    const previous = [reading('2026-08-17', 'morning', 136, 86, 68)]
+    const current = [reading('2026-08-24', 1, 128, 78, 62), reading('2026-08-24', 2, 132, 82, 66)]
+    const previous = [reading('2026-08-17', 1, 136, 86, 68)]
     expect(averageChange(current, previous)).toEqual({ systolic: -6, diastolic: -6, pulse: -4 })
     expect(averageChange(current, [])).toBe(null)
     expect(averageChange([], previous)).toBe(null)

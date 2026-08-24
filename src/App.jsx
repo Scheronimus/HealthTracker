@@ -8,7 +8,7 @@ import { Summary } from './components/Summary.jsx'
 import { WeightChart } from './components/WeightChart.jsx'
 import { BloodPressureDashboard } from './components/BloodPressureDashboard.jsx'
 import { BloodPressureEntryForm } from './components/BloodPressureEntryForm.jsx'
-import { createBackup, mergeRestore, mergeWeightImport, parseBackup, parseWeightImportCsv, weightCsv } from './data/transfer.js'
+import { createBackup, mergeBloodPressureImport, mergeRestore, mergeWeightImport, parseBackup, parseHealthImportCsv, weightCsv } from './data/transfer.js'
 import { filterBySpan } from './utils/chart.js'
 import { loadLanguage, saveLanguage } from './data/storage.js'
 import { useHealthData } from './hooks/useHealthData.js'
@@ -21,24 +21,25 @@ import './App.css'
 
 export default function App() {
   const [language, setLanguage] = useState(loadLanguage)
+  const { store, setStore, measurements, add, update, remove } = useHealthData()
   const [screen, setScreen] = useState('dashboard')
-  const [feature, setFeature] = useState('weight')
+  const [feature, setFeature] = useState(() => store.profile.modules[0])
   const [editing, setEditing] = useState(null)
   const [entryPreset, setEntryPreset] = useState(null)
   const [selectedWeek, setSelectedWeek] = useState(null)
   const [bloodPressureView, setBloodPressureView] = useState('overview')
   const [chartSpan, setChartSpan] = useState('threeMonths')
-  const { store, setStore, measurements, add, update, remove } = useHealthData()
   const weightMeasurements = measurements.filter(({ type }) => type === 'weight')
   const bloodPressureMeasurements = measurements.filter(({ type }) => type === 'bloodPressure')
   const visibleMeasurements = filterBySpan(weightMeasurements, chartSpan)
   const bloodPressureWeeks = groupBloodPressurePeriods(bloodPressureMeasurements)
+  const visibleFeatures = store.profile.modules.map((id) => FEATURES.find((item) => item.id === id)).filter(Boolean)
   const t = (key, values) => translate(language, key, values)
   function changeLanguage(next) { setLanguage(next); saveLanguage(next) }
   function showScreen(next) { setScreen(next); window.scrollTo(0, 0) }
   function openEntry(item = null, preset = null) { setEditing(item); setEntryPreset(preset); showScreen('entry') }
   function closeEntry() { setEditing(null); setEntryPreset(null); showScreen('dashboard') }
-  function saveProfile(profile) { setStore((current) => ({ ...current, profile })); showScreen('settings') }
+  function saveProfile(profile) { setStore((current) => ({ ...current, profile })); setFeature(profile.modules[0]); showScreen('settings') }
   function changeBmiZones(showBmiRange) { setStore((current) => ({ ...current, profile: { ...current.profile, showBmiRange } })) }
   function save(item) {
     editing ? update(item) : add(item)
@@ -70,11 +71,11 @@ export default function App() {
     return t('demoLoaded', result)
   }
   function importCsv(text) {
-    const parsed = parseWeightImportCsv(text)
-    if (!confirm(t('csvImportConfirm', { count: parsed.measurements.length }))) return ''
-    const result = mergeWeightImport(store, parsed.measurements)
+    const parsed = parseHealthImportCsv(text)
+    if (!confirm(t(parsed.type === 'bloodPressure' ? 'bpCsvImportConfirm' : 'csvImportConfirm', { count: parsed.measurements.length }))) return ''
+    const result = parsed.type === 'bloodPressure' ? mergeBloodPressureImport(store, parsed.measurements) : mergeWeightImport(store, parsed.measurements)
     setStore(result.data)
-    return t('csvImportDone', { ...result, skipped: parsed.skipped })
+    return t(parsed.type === 'bloodPressure' ? 'bpCsvImportDone' : 'csvImportDone', { ...result, skipped: parsed.skipped })
   }  function restore(text) {
     const imported = parseBackup(text)
     if (!confirm(t('restoreConfirm'))) return ''
@@ -86,7 +87,7 @@ export default function App() {
   return <>
     <header className="app-header">
       {screen === 'dashboard' && <div className="topbar dashboard-topbar">
-        <div className="brand"><img src={`${import.meta.env.BASE_URL}app-icon.svg`} alt="" /><div><h1>{t('appName')}</h1><p>{t('tagline')}</p></div></div>
+        <div className="brand"><img src={`${import.meta.env.BASE_URL}app-icon.svg`} alt="" /><div><h1>{t('appName')}</h1><label className="module-selector"><span className="visually-hidden">{t('healthAreas')}</span><select value={feature} onChange={(event) => switchFeature(event.target.value)}>{visibleFeatures.map((item) => <option key={item.id} value={item.id}>{t(item.labelKey)}</option>)}</select></label></div></div>
         <div className="dashboard-actions">
           <button className="settings-button" type="button" onClick={() => showScreen('settings')} aria-label={t('menu')} title={t('menu')}>⚙</button>
           <button className="add-entry-button" type="button" onClick={() => openEntry()} aria-label={t(feature === 'weight' ? 'add' : 'addBloodPressure')} title={t(feature === 'weight' ? 'add' : 'addBloodPressure')}>+</button>
@@ -110,18 +111,17 @@ export default function App() {
     </header>
 
     {screen === 'dashboard' && <main>
-      <nav className="feature-nav" aria-label={t('healthAreas')}>{FEATURES.map((item) => <button key={item.id} type="button" className={feature === item.id ? 'active' : ''} aria-pressed={feature === item.id} onClick={() => switchFeature(item.id)}>{t(item.labelKey)}</button>)}</nav>
       {feature === 'weight' && <>
         <WeightChart measurements={visibleMeasurements} language={language} span={chartSpan} onSpanChange={setChartSpan} profile={store.profile} onBmiZonesChange={changeBmiZones} t={t} />
         <Summary measurements={weightMeasurements} visibleMeasurements={visibleMeasurements} span={chartSpan} language={language} profile={store.profile} t={t} />
         <History measurements={weightMeasurements} language={language} onEdit={openEntry} t={t} />
       </>}
-      {feature === 'bloodPressure' && <BloodPressureDashboard weeks={bloodPressureWeeks} selectedWeek={selectedWeek} view={bloodPressureView} language={language} onSlot={openEntry} onSelectWeek={setSelectedWeek} onView={setBloodPressureView} t={t} />}
+      {feature === 'bloodPressure' && <BloodPressureDashboard weeks={bloodPressureWeeks} measurements={bloodPressureMeasurements} selectedWeek={selectedWeek} view={bloodPressureView} language={language} onSlot={openEntry} onSelectWeek={setSelectedWeek} onView={setBloodPressureView} t={t} />}
     </main>}
     {screen === 'entry' && <main className="entry-screen">
       {feature === 'weight'
         ? <EntryForm key={editing?.id ?? 'new'} editing={editing} measurements={weightMeasurements} onSave={save} onDelete={deleteItem} t={t} />
-        : <BloodPressureEntryForm key={editing?.id ?? `${entryPreset?.date}-${entryPreset?.period}`} editing={editing} preset={entryPreset} measurements={bloodPressureMeasurements} onSave={save} onDelete={deleteItem} t={t} />}
+        : <BloodPressureEntryForm key={editing?.id ?? `${entryPreset?.date}-${entryPreset?.slot}`} editing={editing} preset={entryPreset} measurements={bloodPressureMeasurements} onSave={save} onDelete={deleteItem} t={t} />}
       <p className="entry-privacy">{t('privacyBody')}</p>
     </main>}
     {screen === 'profile' && <main className="entry-screen">
