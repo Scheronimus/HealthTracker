@@ -1,5 +1,5 @@
-import { BP_READING_SLOTS, bloodPressureReadingsOnDate, localTimeValue, weekDates } from '../utils/bloodPressure.js'
-import { formatDate, localDateValue } from '../utils/date.js'
+import { BP_READING_SLOTS, bloodPressureReadingsOnDate, localTimeValue, weekDates } from '../bloodPressure.js'
+import { formatDate, localDateValue } from '../../../utils/date.js'
 
 export function BloodPressureDiary({ week, language, canGoNewer, canGoOlder, onNewer, onOlder, onSlot, t }) {
   const today = localDateValue()

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { createWeightMeasurement } from '../data/schema.js'
-import { hasWeightOnDate, localDateValue, toDateTimestamp } from '../utils/date.js'
+import { createWeightMeasurement } from '../model.js'
+import { hasWeightOnDate, localDateValue, toDateTimestamp } from '../../../utils/date.js'
 
-export function EntryForm({ editing, measurements, onSave, onDelete, t }) {
+export function WeightEntryForm({ editing, measurements, onSave, onDelete, t }) {
   const [date, setDate] = useState(localDateValue(editing?.timestamp))
   const [weight, setWeight] = useState(editing?.value ?? '')
   const [note, setNote] = useState(editing?.note ?? '')

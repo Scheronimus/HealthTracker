@@ -1,6 +1,6 @@
-import { localDateValue } from './date.js'
+import { localDateValue } from '../../utils/date.js'
 import { parseLocalDate } from './bloodPressure.js'
-import { niceIntegerStep } from './chart.js'
+import { niceIntegerStep } from '../../utils/numbers.js'
 
 export function bloodPressureChartGeometry(measurements, start, end, width = 800, height = 300) {
   const sorted = [...measurements].sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp))

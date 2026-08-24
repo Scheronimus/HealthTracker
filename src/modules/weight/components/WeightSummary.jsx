@@ -1,10 +1,10 @@
-import { formatDate } from '../utils/date.js'
-import { summarizeWeights } from '../utils/summary.js'
-import { bmiStatus, calculateBmi } from '../utils/bmi.js'
+import { formatDate } from '../../../utils/date.js'
+import { summarizeWeights } from '../summary.js'
+import { bmiStatus, calculateBmi } from '../bmi.js'
 
 function signed(value) { return `${value > 0 ? '+' : ''}${value.toFixed(1)} kg` }
 
-export function Summary({ measurements, visibleMeasurements, span, language, profile, t }) {
+export function WeightSummary({ measurements, visibleMeasurements, span, language, profile, t }) {
   if (!measurements.length) return null
   const { current, rangeChange, comparisonTimestamp } = summarizeWeights(measurements, visibleMeasurements)
   const bmi = profile.showBmi ? calculateBmi(current, profile.heightCm) : null

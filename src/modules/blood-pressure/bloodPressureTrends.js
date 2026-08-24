@@ -1,5 +1,5 @@
 import { addLocalDays, measurementPeriodStart, timestampFromLocal, weeklyAverages } from './bloodPressure.js'
-import { localDateValue } from './date.js'
+import { localDateValue } from '../../utils/date.js'
 
 export const BP_TREND_RANGES = {
   sevenDays: 7,

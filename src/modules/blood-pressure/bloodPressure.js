@@ -1,4 +1,4 @@
-import { localDateValue } from './date.js'
+import { localDateValue } from '../../utils/date.js'
 
 export const BP_READING_SLOTS = [1, 2]
 export const MIN_BP_SESSION_GAP_MINUTES = 120

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { addLocalDays, averageChange, bloodPressureReadingsOnDate, groupBloodPressurePeriods, hasNearbyBloodPressureReading, isBloodPressureDayFull, localTimeValue, measurementPeriodStart, timestampFromLocal, weekDates, weekStart, weeklyAverages } from './bloodPressure.js'
-import { createBloodPressureMeasurement, emptyStore, validateMeasurement, validateStore } from '../data/schema.js'
+import { createBloodPressureMeasurement, emptyStore, validateMeasurement, validateStore } from '../../data/schema.js'
 
 const reading = (date, number = 1, systolic = 130, diastolic = 80, pulse = 60, id = `${date}-${number}`) => ({ id: id.padEnd(8, 'x'), type: 'bloodPressure', timestamp: timestampFromLocal(date, number === 1 ? '08:00' : '20:00'), systolicMmHg: systolic, diastolicMmHg: diastolic, pulseBpm: pulse })
 

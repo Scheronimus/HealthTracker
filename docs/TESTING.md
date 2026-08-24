@@ -2,7 +2,7 @@
 
 ## Automated
 
-Blood Pressure Pass tests cover schema v6 and all migration paths, mixed stores/backups, module preferences, the two-readings-per-date limit and edit exclusion, local date/time conversion, DST-safe first-reading-anchored periods, available-reading averages, chart ordering/scale/domain/markers/nearest point, and Weight/Blood Pressure CSV import behavior.
+Tests cover the module registry contract, schema v6 and all migration paths, mixed stores/backups, module preferences, the two-readings-per-date limit and edit exclusion, local date/time conversion, DST-safe first-reading-anchored periods, available-reading averages, chart ordering/scale/domain/markers/nearest point, and Weight/Blood Pressure CSV import behavior.
 
 Run `npm test`, `npm run lint`, and `npm run build`. Regenerate the one-year graph fixture with `npm run generate:demo-backup` when its generator changes. Tests cover schema validation, unique IDs, version-zero migration, future-version rejection, backup round trips, non-overwriting restore, malformed imports, and CSV escaping.
 

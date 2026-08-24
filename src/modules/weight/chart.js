@@ -1,3 +1,5 @@
+import { niceIntegerStep } from '../../utils/numbers.js'
+
 export const CHART_SPANS = Object.freeze({ threeMonths: 3, oneYear: 12, allTime: null })
 
 export function filterBySpan(measurements, span, now = new Date()) {
@@ -6,15 +8,6 @@ export function filterBySpan(measurements, span, now = new Date()) {
   const cutoff = new Date(now)
   cutoff.setMonth(cutoff.getMonth() - months)
   return measurements.filter(({ timestamp }) => Date.parse(timestamp) >= cutoff.getTime())
-}
-
-export function niceIntegerStep(range, targetIntervals = 3) {
-  if (!Number.isFinite(range) || range <= targetIntervals) return 1
-  const roughStep = range / targetIntervals
-  const magnitude = 10 ** Math.floor(Math.log10(roughStep))
-  const normalized = roughStep / magnitude
-  const multiplier = normalized <= 1 ? 1 : normalized <= 2 ? 2 : normalized <= 5 ? 5 : 10
-  return Math.max(1, multiplier * magnitude)
 }
 
 export function chartGeometry(measurements, width = 800, height = 300) {
