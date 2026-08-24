@@ -12,7 +12,7 @@ Version 1 stores are migrated with an empty profile; version 2 profiles gain the
 
 ## Persistence and restore
 
-Mixed Weight and blood-pressure stores are validated and included in JSON backup/restore. Duplicate IDs and blood-pressure readings beyond the two-per-local-date limit are rejected or preserved locally during merge. New, edited, and CSV-imported readings on the same date must be at least two hours apart; migration does not discard older data. CSV export remains Weight-only, while CSV import recognizes Weight and Blood Pressure row shapes.
+Mixed Weight and blood-pressure stores are validated and included in JSON backup/restore. Store validation rejects duplicate IDs and invalid blood-pressure collections. During restore, existing IDs remain local and imported blood-pressure readings that conflict with the two-per-date rule are skipped. New, edited, and CSV-imported readings on the same date must be at least two hours apart; migration does not discard older data. CSV export remains Weight-only, while CSV import recognizes Weight and Blood Pressure row shapes.
 
 The complete store is serialized under `health-tracker-data`; the language uses `health-tracker-language`. Invalid local data fails closed to an empty store. JSON backup envelopes contain a kind, format version, export timestamp, and full versioned store. Restore validates first, requests explicit confirmation, then adds records whose IDs are new. Matching IDs preserve the local record.
 
@@ -23,9 +23,7 @@ The validated profile stores optional shared personal values, module preferences
 
 Restore imports a backed-up profile only when the local profile is still empty. An existing local profile always wins, preventing silent overwrite. CSV is not a complete recovery format.
 
-## Offline and deployment
-
-## Blood-pressure module
+## Module system
 
 `src/modules/catalog.js` is the authoritative data-side module catalog: identifiers, measurement types, validators, collection constraints, and CSV capabilities live there. `src/modules/registry.jsx` enriches those definitions with each module’s Dashboard, Entry Form, optional Profile Settings, labels, and initial UI state. A contract test requires every catalog entry to provide a complete implementation.
 
@@ -40,11 +38,11 @@ Restore imports a backed-up profile only when the local profile is still empty. 
 
 No rendering, entry, delete, import, or module-state branch should be added to `App.jsx`. The registry contract test fails when a catalog module lacks its required UI or data capabilities.
 
+## Blood-pressure module
+
 Seven-day measurement periods are derived with DST-safe local-calendar arithmetic and anchored to the earliest reading, so a person can begin on any weekday. Periods, averages, and coverage are never stored. Values average every available reading directly with full internal precision; there is no completeness requirement or medical interpretation.
 
 The dependency-free chart has separate pressure lines, distinct first/second-reading marker shapes in individual mode, pointer/touch nearest-reading selection, and Left/Right/Home/End navigation. Pulse remains in tooltips and averages rather than becoming a third line.
-
-`deployment.config.mjs` is the deployment identity source. Vite uses `/HealthTracker/`; `vite-plugin-pwa` generates a manifest and auto-updating service worker that precaches the application shell. GitHub Actions tests, lints, builds, and deploys `main` to Pages.
 
 ## Weight graph
 
@@ -52,7 +50,7 @@ The dependency-free SVG chart filters measurements through `src/modules/weight/c
 
 ## Screen flow
 
-The dashboard is the default screen and presents the weight graph first, followed by summaries and the complete editable history. Top-right settings and add controls open dedicated settings and entry screens. Selecting any history row opens that record on the shared entry screen. Its top bar owns Cancel and Save; existing records also expose confirmed deletion inside the edit screen. Save submits the associated form and returns to the dashboard.
+The dashboard is the default screen and opens the first module in the profile's ordered visible-module list. The banner selector changes modules without a router. Each module controls its own dashboard layout; Weight presents its graph first, while Blood Pressure opens its Overview tab. Top-right settings and module-specific add controls open dedicated settings and entry screens. Selecting an editable record opens it in the active module's form within the shared entry-screen shell. Its top bar owns Cancel and Save; existing records also expose confirmed deletion inside the edit screen. Save submits the form and returns to the active dashboard.
 
 ## Dashboard summaries
 
@@ -65,3 +63,7 @@ Weight entry and presentation are date-only. New records convert the chosen loca
 ## External CSV import
 
 The importer detects rows by column count and parses quoted CSV cells. Weight rows require `DD/MM/YY,weight`, accept comma or point decimals, and skip explicit missing markers such as NN. Blood Pressure rows require `DD/MM/YY,HH:MM:SS,systolic,diastolic,pulse`. Dates may also use four-digit years; two-digit years mean 20xx. Invalid rows fail the complete import with their line number. Weight merge is date-based, so existing local dates win. Blood Pressure merge is chronological and skips readings that conflict with the two-per-date or two-hour rules.
+
+## Offline and deployment
+
+`deployment.config.mjs` is the deployment identity source. Vite uses `/HealthTracker/`; `vite-plugin-pwa` generates a manifest and auto-updating service worker that precaches the application shell. On pushes to `main`, the GitHub Actions Pages workflow installs with Node.js 24, then tests, lints, builds, and deploys the application.

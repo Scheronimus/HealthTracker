@@ -17,7 +17,7 @@ Health Tracker supports modular Weight and Blood Pressure areas. Blood Pressure 
 - Newest-first history with current weight and graph-span change summaries.
 - Optional local profile, WHO BMI screening context, and height-specific WHO color zones on the unchanged graph scale.
 - English, Spanish, German, and French interfaces with a locally saved preference.
-- Versioned and validated local data, tested migration infrastructure, JSON backup/merge restore, and CSV export.
+- Versioned and validated local data, tested migration infrastructure, JSON backup/merge restore, Weight CSV export, and Weight/Blood Pressure CSV import.
 - Installable PWA with a cached application shell for offline use.
 
 ## Run locally
@@ -50,7 +50,7 @@ Run `npm test`, `npm run lint`, and `npm run build`. See [Testing](docs/TESTING.
 
 ## Branch and deployment workflow
 
-Use `develop` for ongoing work. Merge reviewed, verified releases into `main`; pushes to `main` run the GitHub Pages workflow. The Vite and PWA base is `/HealthTracker/`.
+Use `develop` for integrated ongoing work and focused feature branches for implementation. Prepare a reviewed release on `release/<version>` from `develop`, then merge the verified release into `main`; pushes to `main` run the GitHub Pages workflow. The Vite and PWA base is `/HealthTracker/`.
 
 Before the first deployment, open the repository's **Settings -> Pages** and set **Build and deployment -> Source** to **GitHub Actions**. This one-time repository setting cannot be created by the workflow's standard token.
 
