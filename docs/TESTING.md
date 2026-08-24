@@ -4,7 +4,7 @@
 
 Tests cover the module registry contract, schema v6 and all migration paths, mixed stores/backups, module preferences, the two-readings-per-date limit and edit exclusion, local date/time conversion, DST-safe first-reading-anchored periods, available-reading averages, chart ordering/scale/domain/markers/nearest point, and Weight/Blood Pressure CSV import behavior.
 
-Run `npm test`, `npm run lint`, and `npm run build`. Regenerate the one-year graph fixture with `npm run generate:demo-backup` when its generator changes. Tests cover schema validation, unique IDs, version-zero migration, future-version rejection, backup round trips, non-overwriting restore, malformed imports, and CSV escaping.
+Run `npm test`, `npm run lint`, and `npm run build`. Regenerate the weekly and irregular one-year graph fixtures with `npm run generate:demo-backup` and `npm run generate:irregular-demo-backup` when their generators change. Tests cover schema validation, unique IDs, version-zero migration, future-version rejection, backup round trips, non-overwriting restore, malformed imports, and CSV escaping.
 
 ## Manual regression
 
@@ -22,7 +22,7 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 - Select the top-right + and confirm the dedicated entry screen opens with Cancel and Save in its top bar.
 - Select the settings button and confirm language, backup, restore, CSV, privacy, and offline information open on a separate screen; Close returns to the dashboard.
 - In development, confirm Load one-year demo data directly adds all 240 irregular weight records and 480 blood-pressure records (two per tracked date), and a second selection adds no duplicates.
-- In development, confirm Delete all entries appears under Temporary debug tools, cancellation preserves data, and confirmation removes measurements but preserves language.
+- In development, confirm Delete all entries appears under Temporary debug tools, cancellation preserves data, and confirmation removes measurements while preserving profile, module, and language preferences.
 - In a production build, confirm the temporary debug section is absent.
 - Confirm Cancel returns without changes; confirm Save validates, stores the entry, and returns to the dashboard.
 - Confirm history has no inline Edit/Delete buttons; select anywhere on a row and confirm the edit screen opens with its existing data.
@@ -56,4 +56,4 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 
 ## Profile and BMI checks
 
-Automated tests cover BMI calculation and WHO categories, six-band weight conversion, optional profile validation, migrations through schema version 3, unchanged measurement-derived graph scaling, and safe profile restore. Manually verify Profile Cancel/Save, localized labels, the height requirement when BMI is enabled, BMI visibility using the newest weight, the graph-level zone switch appearing only with BMI enabled, and mobile summary layout.
+Automated tests cover BMI calculation and WHO categories, six-band weight conversion, optional profile validation, sequential migrations through schema version 6, unchanged measurement-derived graph scaling, module preferences, and safe profile restore. Manually verify Profile Cancel/Save, localized labels, the height requirement when BMI is enabled, BMI visibility using the newest weight, the graph-level zone switch appearing only with BMI enabled, and mobile summary layout.

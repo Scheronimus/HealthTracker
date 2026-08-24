@@ -45,7 +45,7 @@ This file applies to the entire repository. Read `README.md`, `docs/ARCHITECTURE
 For normal code changes, run all of:
 
 ```sh
-npm test -- --run
+npm test
 npm run lint
 npm run build
 git diff --check
@@ -55,6 +55,6 @@ Also add focused tests for changed data rules, migrations, calculations, imports
 
 ## Git workflow
 
-- Ongoing work starts from `develop` on a focused feature branch; reviewed releases merge into `main`.
+- Ongoing work starts from `develop` on a focused feature branch. Prepare releases on `release/<version>` from `develop`; reviewed and verified releases merge into `main`.
 - Do not commit without the user’s approval. If the current work already forms a coherent, verified milestone and a new request would be cleaner in a separate commit, proactively suggest committing the milestone and ask the user before continuing. Before committing, confirm tests/lint/build are successful and the working tree contains only intended changes.
 - Use concise conventional-style commit messages consistent with repository history.
