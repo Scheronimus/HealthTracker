@@ -37,7 +37,7 @@ export function Settings({ language, onLanguage, onProfile, profile, onBackup, o
       <h2>{t('settings')}</h2>
       <div className="data-actions">
         <button onClick={onBackup}>{t('backup')}</button>
-        <button onClick={onCsv}>{t('csv')}</button>
+        {onCsv && <button onClick={onCsv}>{t('csv')}</button>}
         <button onClick={() => csvInput.current?.click()}>{t('importCsv')}</button>
         <input ref={csvInput} hidden type="file" accept="text/csv,.csv" onChange={chooseCsv} />
         <button onClick={() => backupInput.current?.click()}>{t('restore')}</button>

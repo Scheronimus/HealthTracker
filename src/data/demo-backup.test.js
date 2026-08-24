@@ -1,7 +1,8 @@
 import { readFile } from 'node:fs/promises'
 import { describe, expect, it } from 'vitest'
-import { createIrregularDemoStore } from './demo.js'
-import { parseBackup } from './transfer.js'
+import { createBloodPressureDemoStore, createCombinedDemoStore, createIrregularDemoStore } from './demo.js'
+import { validateStore } from './schema.js'
+import { mergeRestore, parseBackup } from './transfer.js'
 
 const weeklyPath = new URL('../../docs/dummy-weight-data-one-year.json', import.meta.url)
 const irregularPath = new URL('../../docs/dummy-weight-data-one-year-irregular.json', import.meta.url)
@@ -33,5 +34,22 @@ describe('one-year demo backups', () => {
     expect(intervals.every((interval) => interval >= 3 && interval <= 7)).toBe(true)
     expect(days.filter((day) => day >= 240)).toEqual(Array.from({ length: 125 }, (_, index) => index + 240))
     expect(days.at(-1)).toBe(364)
+  })
+
+  it('provides two well-separated blood-pressure readings for every tracked day', () => {
+    const data = createBloodPressureDemoStore()
+    expect(validateStore(data)).toBe(true)
+    expect(data.measurements).toHaveLength(480)
+    const dates = Object.groupBy(data.measurements, ({ timestamp }) => timestamp.slice(0, 10))
+    expect(Object.keys(dates)).toHaveLength(240)
+    expect(Object.values(dates).every((readings) => readings.length === 2 && Date.parse(readings[1].timestamp) - Date.parse(readings[0].timestamp) >= 2 * 60 * 60 * 1000)).toBe(true)
+  })
+
+  it('combines weight and blood-pressure data for the debug button', () => {
+    const data = createCombinedDemoStore()
+    expect(validateStore(data)).toBe(true)
+    expect(data.measurements.filter(({ type }) => type === 'weight')).toHaveLength(240)
+    expect(data.measurements.filter(({ type }) => type === 'bloodPressure')).toHaveLength(480)
+    expect(mergeRestore(data, createCombinedDemoStore())).toMatchObject({ added: 0, duplicates: 720 })
   })
 })

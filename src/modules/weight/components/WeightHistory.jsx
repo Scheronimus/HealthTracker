@@ -1,6 +1,6 @@
-import { formatDate } from '../utils/date.js'
+import { formatDate } from '../../../utils/date.js'
 
-export function History({ measurements, language, onEdit, t }) {
+export function WeightHistory({ measurements, language, onEdit, t }) {
   return <section className="history">
     <div className="section-heading"><h2>{t('history')}</h2><span>{measurements.length}</span></div>
     {!measurements.length && <div className="empty card"><span>↗</span><p>{t('noEntries')}</p></div>}
