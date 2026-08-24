@@ -1,5 +1,5 @@
-import { averageChange, bloodPressureReadingsOnDate, weeklyAverages } from '../utils/bloodPressure.js'
-import { localDateValue } from '../utils/date.js'
+import { averageChange, bloodPressureReadingsOnDate, weeklyAverages } from '../bloodPressure.js'
+import { localDateValue } from '../../../utils/date.js'
 
 function changeText(value) {
   const rounded = Math.round(value)

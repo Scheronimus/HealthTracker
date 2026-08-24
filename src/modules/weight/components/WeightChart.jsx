@@ -1,7 +1,7 @@
 import { useId, useMemo, useState } from 'react'
-import { chartGeometry, chartValueY, nearestPointIndex } from '../utils/chart.js'
-import { bmiWeightBands } from '../utils/bmi.js'
-import { formatDate } from '../utils/date.js'
+import { chartGeometry, chartValueY, nearestPointIndex } from '../chart.js'
+import { bmiWeightBands } from '../bmi.js'
+import { formatDate } from '../../../utils/date.js'
 
 const WIDTH = 800
 const HEIGHT = 400

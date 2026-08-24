@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { createBloodPressureMeasurement } from '../data/schema.js'
-import { localDateValue } from '../utils/date.js'
-import { hasNearbyBloodPressureReading, isBloodPressureDayFull, localTimeValue, timestampFromLocal } from '../utils/bloodPressure.js'
+import { createBloodPressureMeasurement } from '../model.js'
+import { localDateValue } from '../../../utils/date.js'
+import { hasNearbyBloodPressureReading, isBloodPressureDayFull, localTimeValue, timestampFromLocal } from '../bloodPressure.js'
 
 export function BloodPressureEntryForm({ editing, preset, measurements, onSave, onDelete, t }) {
   const now = new Date()

@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react'
-import { bloodPressureChartGeometry, nearestBloodPressurePoint } from '../utils/bloodPressureChart.js'
-import { BP_TREND_RANGES, bloodPressureTrendData, trendAxisDates } from '../utils/bloodPressureTrends.js'
-import { formatDate } from '../utils/date.js'
-import { parseLocalDate } from '../utils/bloodPressure.js'
+import { bloodPressureChartGeometry, nearestBloodPressurePoint } from '../bloodPressureChart.js'
+import { BP_TREND_RANGES, bloodPressureTrendData, trendAxisDates } from '../bloodPressureTrends.js'
+import { formatDate } from '../../../utils/date.js'
+import { parseLocalDate } from '../bloodPressure.js'
 
 const WIDTH = 800
 const HEIGHT = 300

@@ -140,6 +140,9 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 .module-preference label input { width: 1.1rem; height: 1.1rem; accent-color: var(--primary); }
 .module-preference > div { display: flex; gap: .3rem; }
 .module-preference button { width: 2.25rem; height: 2.25rem; padding: 0; }
+.module-settings { margin: 1rem 0 0; padding: .85rem; border: 1px solid var(--line); border-radius: 12px; }
+.module-settings legend { padding: 0 .3rem; color: var(--ink); font-size: .88rem; font-weight: 750; }
+.module-settings > label:last-child { margin-bottom: 0; }
 .profile-link { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; padding: .9rem; text-align: left; color: var(--ink); }
 .profile-link span { display: grid; gap: .18rem; }
 .profile-link small { color: var(--muted); font-weight: 500; }
