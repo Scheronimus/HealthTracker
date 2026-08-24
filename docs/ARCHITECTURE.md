@@ -29,9 +29,9 @@ Restore imports a backed-up profile only when the local profile is still empty. 
 
 `src/features.js` defines the small top-level feature selection while `App.jsx` retains state-driven navigation and Weight remains the default. Blood-pressure calculations, chart geometry, forms, dashboard, and week presentation live in isolated modules. Every Weight consumer receives an explicitly filtered Weight array.
 
-Weeks and their fourteen slots are derived with DST-safe local-calendar arithmetic; no weeks, averages, counts, or statuses are stored. Weekly values average readings directly with full internal precision. Reference status is true only when the calculated systolic average is strictly greater than 135 or diastolic average is strictly greater than 85.
+Seven-day measurement periods are derived with DST-safe local-calendar arithmetic and anchored to the earliest reading, so a person can begin on any weekday. Periods, averages, coverage, and statuses are never stored. Values average every available reading directly with full internal precision; there is no completeness requirement or 14-reading target. Reference status is true only when the calculated systolic average is strictly greater than 135 or diastolic average is strictly greater than 85.
 
-The dependency-free selected-week SVG has a fixed Monday–Sunday domain, separate pressure lines, distinct morning/evening marker shapes, pointer/touch nearest-reading selection, and Left/Right/Home/End navigation. Pulse remains in tooltips and averages rather than becoming a third line.
+The dependency-free selected-period SVG has a fixed seven-day domain, separate pressure lines, distinct morning/evening marker shapes, pointer/touch nearest-reading selection, and Left/Right/Home/End navigation. Pulse remains in tooltips and averages rather than becoming a third line.
 
 `deployment.config.mjs` is the deployment identity source. Vite uses `/HealthTracker/`; `vite-plugin-pwa` generates a manifest and auto-updating service worker that precaches the application shell. GitHub Actions tests, lints, builds, and deploys `main` to Pages.
 

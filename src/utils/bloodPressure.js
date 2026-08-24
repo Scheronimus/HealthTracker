@@ -25,6 +25,17 @@ export function weekStart(date) {
 
 export function weekDates(start) { return Array.from({ length: 7 }, (_, index) => addLocalDays(start, index)) }
 
+function localDayDifference(date, anchor) {
+  const value = parseLocalDate(date)
+  const origin = parseLocalDate(anchor)
+  return value && origin ? Math.round((value - origin) / 86400000) : null
+}
+
+export function measurementPeriodStart(date, anchor) {
+  const difference = localDayDifference(date, anchor)
+  return difference === null ? null : addLocalDays(anchor, Math.floor(difference / 7) * 7)
+}
+
 export function timestampFromLocal(date, time) {
   if (!parseLocalDate(date) || !/^([01]\d|2[0-3]):[0-5]\d$/.test(time)) return null
   const value = new Date(`${date}T${time}:00`)
@@ -48,19 +59,22 @@ export function defaultBloodPressurePeriod(measurements, now = new Date()) {
   return missing.length === 1 ? missing[0] : now.getHours() < 12 ? 'morning' : 'evening'
 }
 
-export function groupBloodPressureWeeks(measurements, today = localDateValue()) {
+export function groupBloodPressurePeriods(measurements, today = localDateValue()) {
   const records = measurements.filter(({ type }) => type === 'bloodPressure')
-  const starts = new Set(records.map((item) => weekStart(localDateValue(item.timestamp))))
-  const currentStart = weekStart(today)
+  const anchor = records.length ? records.map((item) => localDateValue(item.timestamp)).sort()[0] : today
+  const starts = new Set(records.map((item) => measurementPeriodStart(localDateValue(item.timestamp), anchor)))
+  const currentStart = measurementPeriodStart(today, anchor)
   starts.delete(currentStart)
   const ordered = [currentStart, ...[...starts].sort().reverse()]
-  return ordered.map((start) => ({ start, end: addLocalDays(start, 6), measurements: records.filter((item) => weekStart(localDateValue(item.timestamp)) === start).sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp)) }))
+  return ordered.map((start) => ({ start, end: addLocalDays(start, 6), measurements: records.filter((item) => measurementPeriodStart(localDateValue(item.timestamp), anchor) === start).sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp)) }))
 }
+
+export const groupBloodPressureWeeks = groupBloodPressurePeriods
 
 export function weeklyAverages(measurements) {
   if (!measurements.length) return null
   const sum = measurements.reduce((total, item) => ({ systolic: total.systolic + item.systolicMmHg, diastolic: total.diastolic + item.diastolicMmHg, pulse: total.pulse + item.pulseBpm }), { systolic: 0, diastolic: 0, pulse: 0 })
-  return { systolic: sum.systolic / measurements.length, diastolic: sum.diastolic / measurements.length, pulse: sum.pulse / measurements.length, count: measurements.length, complete: measurements.length === 14 }
+  return { systolic: sum.systolic / measurements.length, diastolic: sum.diastolic / measurements.length, pulse: sum.pulse / measurements.length, count: measurements.length }
 }
 
 export function isWeeklyAverageAboveReference(average) { return Boolean(average && (average.systolic > 135 || average.diastolic > 85)) }

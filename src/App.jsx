@@ -16,8 +16,7 @@ import { useHealthData } from './hooks/useHealthData.js'
 import { translate } from './i18n.js'
 import { downloadText } from './utils/download.js'
 import { FEATURES } from './features.js'
-import { groupBloodPressureWeeks } from './utils/bloodPressure.js'
-import { weekStart } from './utils/bloodPressure.js'
+import { groupBloodPressurePeriods, measurementPeriodStart } from './utils/bloodPressure.js'
 import { localDateValue } from './utils/date.js'
 import './App.css'
 
@@ -33,7 +32,7 @@ export default function App() {
   const weightMeasurements = measurements.filter(({ type }) => type === 'weight')
   const bloodPressureMeasurements = measurements.filter(({ type }) => type === 'bloodPressure')
   const visibleMeasurements = filterBySpan(weightMeasurements, chartSpan)
-  const bloodPressureWeeks = groupBloodPressureWeeks(bloodPressureMeasurements)
+  const bloodPressureWeeks = groupBloodPressurePeriods(bloodPressureMeasurements)
   const t = (key, values) => translate(language, key, values)
   function changeLanguage(next) { setLanguage(next); saveLanguage(next) }
   function showScreen(next) { setScreen(next); window.scrollTo(0, 0) }
@@ -43,8 +42,14 @@ export default function App() {
   function changeBmiZones(showBmiRange) { setStore((current) => ({ ...current, profile: { ...current.profile, showBmiRange } })) }
   function save(item) {
     editing ? update(item) : add(item)
-    if (selectedWeek && item.type === 'bloodPressure' && weekStart(localDateValue(item.timestamp)) !== selectedWeek) { setSelectedWeek(null); setEditing(null); setEntryPreset(null); showScreen('dashboard') }
-    else closeEntry()
+    if (selectedWeek && item.type === 'bloodPressure') {
+      const nextMeasurements = [...bloodPressureMeasurements.filter((entry) => entry.id !== item.id), item]
+      const anchor = nextMeasurements.map((entry) => localDateValue(entry.timestamp)).sort()[0]
+      setSelectedWeek(measurementPeriodStart(localDateValue(item.timestamp), anchor))
+      setEditing(null)
+      setEntryPreset(null)
+      showScreen('bpWeek')
+    } else closeEntry()
   }
   function deleteItem(id) {
     if (!confirm(t(feature === 'weight' ? 'deleteConfirm' : 'deleteBloodPressureConfirm'))) return

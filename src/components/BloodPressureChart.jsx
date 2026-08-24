@@ -30,14 +30,14 @@ export function BloodPressureChart({ measurements, start, language, t }) {
   if (!geometry.points.length) return <section className={'weight-chart card'}><h2>{t('weekChart')}</h2><div className={'chart-empty'}><p>{t('noBpWeekData')}</p></div></section>
   return <section className={'weight-chart bp-chart card'}>
     <div className={'chart-header'}><div><h2>{t('weekChart')}</h2><p>{t('bpChartHint')}</p></div><div className={'bp-legend'}><span><i className={'sys'} />{t('systolic')}</span><span><i className={'dia'} />{t('diastolic')}</span><span>● {t('morning')}</span><span>■ {t('evening')}</span></div></div>
-    <div className={'chart-wrap'}><svg className={'chart-svg'} viewBox={'0 0 870 360'} role={'img'} aria-label={t('bpChartDescription', { count: geometry.points.length })}><g transform={'translate(52 18)'}>
+    <div className={'chart-wrap'}><svg className={'chart-svg'} viewBox={'0 0 870 360'} aria-hidden={'true'}><g transform={'translate(52 18)'}>
       {geometry.ticks.map(({ value, y }) => <g key={value}><line className={'grid-line'} x1={'0'} x2={WIDTH} y1={y} y2={y} /><text className={'axis-label y-label'} x={'-9'} y={y + 4}>{value}</text></g>)}
       {weekDates(start).map((date, index) => <text key={date} className={'axis-label bp-day-label'} x={(index + .5) / 7 * WIDTH} y={HEIGHT + 28}>{new Intl.DateTimeFormat(language, { weekday: 'short' }).format(new Date(`${date}T12:00:00`))}</text>)}
       {geometry.points.length > 1 && <><polyline className={'bp-line systolic-line'} points={systolicLine} /><polyline className={'bp-line diastolic-line'} points={diastolicLine} /></>}
       {geometry.points.map((point) => <BpMarkers key={point.id} point={point} />)}
       {active && <line className={'chart-crosshair'} x1={active.x} x2={active.x} y1={'0'} y2={HEIGHT} />}
-      <rect className={'chart-navigation'} x={'0'} y={'0'} width={WIDTH} height={HEIGHT} tabIndex={'0'} role={'slider'} aria-label={t('bpChartNavigation')} aria-valuemin={'0'} aria-valuemax={geometry.points.length - 1} aria-valuenow={activeIndex ?? geometry.points.length - 1} aria-valuetext={activeText} onFocus={() => setActiveIndex((value) => value ?? geometry.points.length - 1)} onKeyDown={navigate} onPointerDown={select} onPointerMove={select} />
     </g></svg>
+    <div className={'bp-chart-navigation'} role={'slider'} tabIndex={'0'} aria-label={t('bpChartNavigation')} aria-valuemin={'0'} aria-valuemax={geometry.points.length - 1} aria-valuenow={activeIndex ?? geometry.points.length - 1} aria-valuetext={activeText} onFocus={() => setActiveIndex((value) => value ?? geometry.points.length - 1)} onKeyDown={navigate} onPointerDown={(event) => { event.currentTarget.setPointerCapture?.(event.pointerId); select(event) }} onPointerMove={select} />
     {active && <div className={'chart-tooltip'}><strong>{active.systolicMmHg}/{active.diastolicMmHg} mmHg</strong><span>{formatDate(active.timestamp, language)} · {localTimeValue(active.timestamp)} · {t(active.period)}</span><small>{active.pulseBpm} bpm</small></div>}</div>
   </section>
 }

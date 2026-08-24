@@ -18,7 +18,7 @@ export function BloodPressureEntryForm({ editing, preset, measurements, onSave, 
     event.preventDefault()
     const timestamp = timestampFromLocal(date, time)
     const values = { systolicMmHg: Number(systolic), diastolicMmHg: Number(diastolic), pulseBpm: Number(pulse) }
-    const invalid = !timestamp || !['morning', 'evening'].includes(period)
+    const invalid = !timestamp || date > localDateValue() || !['morning', 'evening'].includes(period)
       || !Number.isInteger(values.systolicMmHg) || values.systolicMmHg < 50 || values.systolicMmHg > 300
       || !Number.isInteger(values.diastolicMmHg) || values.diastolicMmHg < 30 || values.diastolicMmHg > 200
       || !Number.isInteger(values.pulseBpm) || values.pulseBpm < 30 || values.pulseBpm > 250
@@ -29,7 +29,7 @@ export function BloodPressureEntryForm({ editing, preset, measurements, onSave, 
     onSave(editing ? { ...next, id: editing.id } : next)
   }
 
-  const dateField = <label>{t('date')}<input type={'date'} value={date} onChange={(event) => { setDate(event.target.value); setError('') }} required /></label>
+  const dateField = <label>{t('date')}<input type={'date'} max={localDateValue()} value={date} onChange={(event) => { setDate(event.target.value); setError('') }} required /></label>
   const timeField = <label>{t('time')}<input type={'time'} value={time} onChange={(event) => setTime(event.target.value)} required /></label>
   const periodField = <label>{t('period')}<select value={period} onChange={(event) => { setPeriod(event.target.value); setError('') }} required><option value={'morning'}>{t('morning')}</option><option value={'evening'}>{t('evening')}</option></select></label>
   const pressureFields = <>

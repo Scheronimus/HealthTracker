@@ -8,11 +8,11 @@ Production target: <https://scheronimus.github.io/HealthTracker/>
 
 ## Features
 
-Health Tracker supports modular Weight and Blood Pressure areas. Blood Pressure records exact local date/time, an explicit morning/evening period, systolic and diastolic pressure, and pulse. Its Monday–Sunday views provide N/14 progress, direct weekly averages, a neutral 135/85 average-only comparison, an accessible SVG chart, and historical slot backfilling. Mixed data is included in JSON backups; CSV stays Weight-only.
+Health Tracker supports modular Weight and Blood Pressure areas. Blood Pressure records exact local date/time, an explicit morning/evening period, systolic and diastolic pressure, and pulse. Seven-day measurement periods begin with the first reading rather than on Monday. The app averages whatever readings are available, reports neutral coverage by readings and days, and treats every slot as optional. Mixed data is included in JSON backups; CSV stays Weight-only.
 
 - Record, edit, and delete dated weight measurements in kilograms with optional notes.
 - Record morning and evening blood-pressure readings with exact local date/time, systolic, diastolic, and pulse values.
-- Review Monday–Sunday measurement weeks with N/14 progress, direct weekly averages, a neutral 135/85 average-only comparison, an accessible SVG chart, and backfillable day slots.
+- Review flexible seven-day measurement periods with available-reading averages, neutral coverage, a 135/85 average-only comparison, an accessible SVG chart, and optional backfillable readings.
 - Prominent interactive weight graph with 3-month, 1-year, and all-time ranges.
 - Newest-first history with current weight and graph-span change summaries.
 - Optional local profile, WHO BMI screening context, and height-specific WHO color zones on the unchanged graph scale.

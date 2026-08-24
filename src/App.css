@@ -190,7 +190,10 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 .bp-slot strong { display: grid; text-align: right; }
 .bp-slot small { color: var(--muted); font-size: .65rem; font-weight: 500; }
 .bp-slot em { color: var(--primary); font-size: .7rem; font-style: normal; }
-.bp-slot.missing { border-style: dashed; background: transparent; }
+.bp-slot.optional { border-style: dashed; background: transparent; }
+.bp-slot:disabled { cursor: default; opacity: .55; }
+.bp-chart-navigation { position: absolute; left: 6%; right: 2%; top: 5%; height: 83%; cursor: crosshair; touch-action: pan-y; }
+.bp-chart-navigation:focus { outline: 2px dashed #e08c5a; outline-offset: -4px; }
 .bp-history { margin-top: 1.2rem; }
 .bp-week-link { width: 100%; display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: .7rem; padding: .85rem; color: var(--ink); text-align: left; }
 .bp-week-link > span { display: grid; gap: .2rem; }

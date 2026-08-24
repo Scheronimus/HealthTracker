@@ -2,13 +2,13 @@
 
 ## Automated
 
-Blood Pressure Pass tests cover schema v4 and all migration paths, mixed stores/backups, slot uniqueness and edit exclusion, local date/time conversion, DST-safe Monday–Sunday grouping and boundaries, direct weekly averages, incomplete weeks, strict threshold behavior, chart ordering/scale/domain/markers/nearest point, and Weight-only CSV behavior.
+Blood Pressure Pass tests cover schema v4 and all migration paths, mixed stores/backups, slot uniqueness and edit exclusion, local date/time conversion, DST-safe first-reading-anchored periods, available-reading averages, strict threshold behavior, chart ordering/scale/domain/markers/nearest point, and Weight-only CSV behavior.
 
 Run `npm test`, `npm run lint`, and `npm run build`. Regenerate the one-year graph fixture with `npm run generate:demo-backup` when its generator changes. Tests cover schema validation, unique IDs, version-zero migration, future-version rejection, backup round trips, non-overwriting restore, malformed imports, and CSV escaping.
 
 ## Manual regression
 
-For Blood Pressure, also verify the contextual add defaults, one morning/evening slot per date, historical backfilling and derived-week removal, seven-day N/14 display, one-decimal average-so-far values, neutral average-only reference wording, pointer/touch and keyboard chart navigation, four languages, narrow layouts, and dark mode.
+For Blood Pressure, also verify the contextual add defaults, optional morning/evening readings, historical backfilling and derived-period removal, readings-across-days coverage, available-reading averages, neutral reference wording, future-date prevention, pointer/touch and keyboard chart navigation, four languages, narrow layouts, and dark mode.
 
 - Confirm the dashboard shows the graph first, with summaries and the complete history below it.
 - Select the top-right + and confirm the dedicated entry screen opens with Cancel and Save in its top bar.
