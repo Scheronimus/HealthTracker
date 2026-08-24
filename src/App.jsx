@@ -67,8 +67,8 @@ export default function App() {
   function openWeek(start) { setSelectedWeek(start); showScreen('bpWeek') }
   function closeWeek() { setSelectedWeek(null); showScreen('dashboard') }
   async function loadDemo() {
-    const { createIrregularDemoStore } = await import('./data/demo.js')
-    const result = mergeRestore(store, createIrregularDemoStore())
+    const { createCombinedDemoStore } = await import('./data/demo.js')
+    const result = mergeRestore(store, createCombinedDemoStore())
     setStore(result.data)
     return t('demoLoaded', result)
   }

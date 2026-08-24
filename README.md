@@ -40,7 +40,10 @@ Restore merges demo records with existing data and does not overwrite matching I
 
 Regenerate them with `npm run generate:irregular-demo-backup` and `npm run generate:demo-backup`.
 
-During local development, Settings → Temporary debug tools also provides **Load one-year demo data**, so no file transfer is needed for phone testing.
+During local development, Settings → Temporary debug tools also provides **Load one-year demo data**. The same button adds the irregular weight series plus morning and evening blood-pressure readings for every tracked day, so no file transfer is needed for phone testing.
+
+Demo data is intended for interface testing only.
+
 ## Quality checks
 
 Run `npm test`, `npm run lint`, and `npm run build`. See [Testing](docs/TESTING.md) for manual checks.

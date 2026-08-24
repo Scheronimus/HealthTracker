@@ -13,7 +13,7 @@ For Blood Pressure, also verify the contextual add defaults, optional morning/ev
 - Confirm the dashboard shows the graph first, with summaries and the complete history below it.
 - Select the top-right + and confirm the dedicated entry screen opens with Cancel and Save in its top bar.
 - Select the settings button and confirm language, backup, restore, CSV, privacy, and offline information open on a separate screen; Close returns to the dashboard.
-- In development, confirm Load one-year demo data directly adds all 240 irregular-demo records, and a second selection adds no duplicates.
+- In development, confirm Load one-year demo data directly adds all 240 irregular weight records and 480 morning/evening blood-pressure records, and a second selection adds no duplicates.
 - In development, confirm Delete all entries appears under Temporary debug tools, cancellation preserves data, and confirmation removes measurements but preserves language.
 - In a production build, confirm the temporary debug section is absent.
 - Confirm Cancel returns without changes; confirm Save validates, stores the entry, and returns to the dashboard.
