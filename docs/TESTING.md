@@ -8,9 +8,11 @@ Run `npm test`, `npm run lint`, and `npm run build`. Regenerate the one-year gra
 
 ## Manual regression
 
-For Blood Pressure, also verify the contextual add defaults, optional morning/evening readings, historical backfilling and derived-period removal, readings-across-days coverage, available-reading averages, neutral reference wording, future-date prevention, pointer/touch and keyboard chart navigation, four languages, narrow layouts, and dark mode.
+For Blood Pressure, also verify the focused Overview, optional morning/evening readings, historical backfilling, compact Diary navigation, available-reading comparisons, neutral reference wording, future-date prevention, pointer/touch and keyboard chart navigation, four languages, narrow layouts, and dark mode.
 
-- Confirm the dashboard shows the graph first, with summaries and the complete history below it.
+- Confirm Blood Pressure opens on Overview with a combined period average, change from the previous period, today’s two slots, and progress out of 14 possible readings.
+- Confirm Diary shows seven compact date rows with morning/evening columns, navigates older and newer periods, and returns to the same period and tab after adding or editing a reading.
+- Confirm Trends retains the current-period chart during this milestone and all three blood-pressure tabs are keyboard accessible.
 - Select the top-right + and confirm the dedicated entry screen opens with Cancel and Save in its top bar.
 - Select the settings button and confirm language, backup, restore, CSV, privacy, and offline information open on a separate screen; Close returns to the dashboard.
 - In development, confirm Load one-year demo data directly adds all 240 irregular weight records and 480 morning/evening blood-pressure records, and a second selection adds no duplicates.

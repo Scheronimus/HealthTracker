@@ -8,7 +8,6 @@ import { Summary } from './components/Summary.jsx'
 import { WeightChart } from './components/WeightChart.jsx'
 import { BloodPressureDashboard } from './components/BloodPressureDashboard.jsx'
 import { BloodPressureEntryForm } from './components/BloodPressureEntryForm.jsx'
-import { BloodPressureWeek } from './components/BloodPressureWeek.jsx'
 import { createBackup, mergeRestore, mergeWeightImport, parseBackup, parseWeightImportCsv, weightCsv } from './data/transfer.js'
 import { filterBySpan } from './utils/chart.js'
 import { loadLanguage, saveLanguage } from './data/storage.js'
@@ -27,6 +26,7 @@ export default function App() {
   const [editing, setEditing] = useState(null)
   const [entryPreset, setEntryPreset] = useState(null)
   const [selectedWeek, setSelectedWeek] = useState(null)
+  const [bloodPressureView, setBloodPressureView] = useState('overview')
   const [chartSpan, setChartSpan] = useState('threeMonths')
   const { store, setStore, measurements, add, update, remove } = useHealthData()
   const weightMeasurements = measurements.filter(({ type }) => type === 'weight')
@@ -37,7 +37,7 @@ export default function App() {
   function changeLanguage(next) { setLanguage(next); saveLanguage(next) }
   function showScreen(next) { setScreen(next); window.scrollTo(0, 0) }
   function openEntry(item = null, preset = null) { setEditing(item); setEntryPreset(preset); showScreen('entry') }
-  function closeEntry() { setEditing(null); setEntryPreset(null); showScreen(selectedWeek ? 'bpWeek' : 'dashboard') }
+  function closeEntry() { setEditing(null); setEntryPreset(null); showScreen('dashboard') }
   function saveProfile(profile) { setStore((current) => ({ ...current, profile })); showScreen('settings') }
   function changeBmiZones(showBmiRange) { setStore((current) => ({ ...current, profile: { ...current.profile, showBmiRange } })) }
   function save(item) {
@@ -48,14 +48,13 @@ export default function App() {
       setSelectedWeek(measurementPeriodStart(localDateValue(item.timestamp), anchor))
       setEditing(null)
       setEntryPreset(null)
-      showScreen('bpWeek')
+      showScreen('dashboard')
     } else closeEntry()
   }
   function deleteItem(id) {
     if (!confirm(t(feature === 'weight' ? 'deleteConfirm' : 'deleteBloodPressureConfirm'))) return
     remove(id)
-    if (selectedWeek) { setSelectedWeek(null); setEditing(null); setEntryPreset(null); showScreen('dashboard') }
-    else closeEntry()
+    closeEntry()
   }
   function filename(extension) { return `health-tracker-${new Date().toISOString().slice(0, 10)}.${extension}` }
   function clearAll() {
@@ -63,9 +62,7 @@ export default function App() {
     setStore((current) => ({ ...current, measurements: [] }))
     return t('clearAllDone')
   }
-  function switchFeature(next) { setFeature(next); setSelectedWeek(null); showScreen('dashboard') }
-  function openWeek(start) { setSelectedWeek(start); showScreen('bpWeek') }
-  function closeWeek() { setSelectedWeek(null); showScreen('dashboard') }
+  function switchFeature(next) { setFeature(next); setSelectedWeek(null); setBloodPressureView('overview'); showScreen('dashboard') }
   async function loadDemo() {
     const { createCombinedDemoStore } = await import('./data/demo.js')
     const result = mergeRestore(store, createCombinedDemoStore())
@@ -110,11 +107,6 @@ export default function App() {
         <h1>{t('menu')}</h1>
         <span aria-hidden="true" />
       </div>}
-      {screen === 'bpWeek' && <div className="topbar settings-topbar">
-        <button className="header-action" type="button" onClick={closeWeek}>{t('back')}</button>
-        <h1>{t('measurementWeek')}</h1>
-        <span aria-hidden="true" />
-      </div>}
     </header>
 
     {screen === 'dashboard' && <main>
@@ -124,7 +116,7 @@ export default function App() {
         <Summary measurements={weightMeasurements} visibleMeasurements={visibleMeasurements} span={chartSpan} language={language} profile={store.profile} t={t} />
         <History measurements={weightMeasurements} language={language} onEdit={openEntry} t={t} />
       </>}
-      {feature === 'bloodPressure' && <BloodPressureDashboard weeks={bloodPressureWeeks} language={language} onSlot={openEntry} onSelectWeek={openWeek} t={t} />}
+      {feature === 'bloodPressure' && <BloodPressureDashboard weeks={bloodPressureWeeks} selectedWeek={selectedWeek} view={bloodPressureView} language={language} onSlot={openEntry} onSelectWeek={setSelectedWeek} onView={setBloodPressureView} t={t} />}
     </main>}
     {screen === 'entry' && <main className="entry-screen">
       {feature === 'weight'
@@ -138,7 +130,6 @@ export default function App() {
     {screen === 'settings' && <main className="settings-screen">
       <Settings language={language} onLanguage={changeLanguage} profile={store.profile} onProfile={() => showScreen('profile')} onBackup={() => downloadText(filename('json'), JSON.stringify(createBackup(store), null, 2), 'application/json')} onCsv={() => downloadText(filename('csv'), weightCsv(measurements), 'text/csv;charset=utf-8')} onCsvImport={importCsv} onRestore={restore} onLoadDemo={import.meta.env.DEV ? loadDemo : undefined} onClearAll={clearAll} t={t} />
     </main>}
-    {screen === 'bpWeek' && <main>{bloodPressureWeeks.find((week) => week.start === selectedWeek) && <BloodPressureWeek week={bloodPressureWeeks.find((week) => week.start === selectedWeek)} language={language} onSlot={openEntry} t={t} detailed />}</main>}
     <footer className="app-version">Health Tracker · v{packageJson.version} · {new Date().getFullYear()}</footer>
   </>
 }

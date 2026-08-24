@@ -77,4 +77,15 @@ export function weeklyAverages(measurements) {
   return { systolic: sum.systolic / measurements.length, diastolic: sum.diastolic / measurements.length, pulse: sum.pulse / measurements.length, count: measurements.length }
 }
 
+export function averageChange(currentMeasurements, previousMeasurements) {
+  const current = weeklyAverages(currentMeasurements)
+  const previous = weeklyAverages(previousMeasurements)
+  if (!current || !previous) return null
+  return {
+    systolic: current.systolic - previous.systolic,
+    diastolic: current.diastolic - previous.diastolic,
+    pulse: current.pulse - previous.pulse,
+  }
+}
+
 export function isWeeklyAverageAboveReference(average) { return Boolean(average && (average.systolic > 135 || average.diastolic > 85)) }

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { addLocalDays, defaultBloodPressurePeriod, groupBloodPressurePeriods, hasBloodPressureSlot, isWeeklyAverageAboveReference, localTimeValue, measurementPeriodStart, timestampFromLocal, weekDates, weekStart, weeklyAverages } from './bloodPressure.js'
+import { addLocalDays, averageChange, defaultBloodPressurePeriod, groupBloodPressurePeriods, hasBloodPressureSlot, isWeeklyAverageAboveReference, localTimeValue, measurementPeriodStart, timestampFromLocal, weekDates, weekStart, weeklyAverages } from './bloodPressure.js'
 import { createBloodPressureMeasurement, emptyStore, validateMeasurement, validateStore } from '../data/schema.js'
 
 const reading = (date, period, systolic = 130, diastolic = 80, pulse = 60, id = `${date}-${period}`) => ({ id: id.padEnd(8, 'x'), type: 'bloodPressure', timestamp: timestampFromLocal(date, period === 'morning' ? '08:00' : '20:00'), period, systolicMmHg: systolic, diastolicMmHg: diastolic, pulseBpm: pulse })
@@ -55,5 +55,12 @@ describe('blood-pressure records', () => {
     const outlierDiluted = [reading('2026-08-24', 'morning', 200, 100), ...Array.from({ length: 13 }, (_, index) => reading(addLocalDays('2026-08-24', Math.floor((index + 1) / 2)), index % 2 ? 'morning' : 'evening', 120, 70, 60, `safe-${index}`))]
     expect(isWeeklyAverageAboveReference(weeklyAverages(outlierDiluted))).toBe(false)
     expect(weeklyAverages(outlierDiluted).count).toBe(14)
+  })
+  it('compares the available averages of consecutive periods', () => {
+    const current = [reading('2026-08-24', 'morning', 128, 78, 62), reading('2026-08-24', 'evening', 132, 82, 66)]
+    const previous = [reading('2026-08-17', 'morning', 136, 86, 68)]
+    expect(averageChange(current, previous)).toEqual({ systolic: -6, diastolic: -6, pulse: -4 })
+    expect(averageChange(current, [])).toBe(null)
+    expect(averageChange([], previous)).toBe(null)
   })
 })

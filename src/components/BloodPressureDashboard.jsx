@@ -1,13 +1,22 @@
-import { BloodPressureWeek } from './BloodPressureWeek.jsx'
-import { formatDate, localDateValue } from '../utils/date.js'
+import { BloodPressureChart } from './BloodPressureChart.jsx'
+import { BloodPressureDiary } from './BloodPressureDiary.jsx'
+import { BloodPressureOverview } from './BloodPressureOverview.jsx'
 
-export function BloodPressureDashboard({ weeks, language, onSlot, onSelectWeek, t }) {
-  const [current, ...history] = weeks
+export function BloodPressureDashboard({ weeks, selectedWeek, view, language, onSlot, onSelectWeek, onView, t }) {
+  const current = weeks[0]
+  const selectedIndex = Math.max(0, weeks.findIndex((week) => week.start === selectedWeek))
+  const selected = weeks[selectedIndex] ?? current
+  function selectView(next) {
+    if (next === 'diary' && !selectedWeek) onSelectWeek(current.start)
+    onView(next)
+  }
+
   return <div className={'bp-dashboard'}>
-    <BloodPressureWeek week={current} language={language} onSlot={onSlot} t={t} detailed />
-    <section className={'bp-history'}><div className={'section-heading'}><h2>{t('previousWeeks')}</h2><span>{history.length}</span></div>
-      {!history.length && <div className={'empty card'}><p>{t('noPreviousWeeks')}</p></div>}
-      <div className={'entry-list'}>{history.map((week) => { const days = new Set(week.measurements.map(({ timestamp }) => localDateValue(timestamp))).size; return <button key={week.start} type={'button'} className={'entry-link bp-week-link card'} onClick={() => onSelectWeek(week.start)}><span><strong>{formatDate(`${week.start}T12:00:00`, language)} – {formatDate(`${week.end}T12:00:00`, language)}</strong><small>{t('coverage', { count: week.measurements.length, days })}</small></span><i aria-hidden={'true'}>›</i></button> })}</div>
-    </section>
+    <nav className={'bp-view-nav'} aria-label={t('bloodPressureViews')}>
+      {['overview', 'diary', 'trends'].map((item) => <button key={item} type={'button'} className={view === item ? 'active' : ''} aria-pressed={view === item} onClick={() => selectView(item)}>{t(item)}</button>)}
+    </nav>
+    {view === 'overview' && <BloodPressureOverview current={current} previous={weeks[1]} onSlot={onSlot} onShowDiary={() => selectView('diary')} onShowTrends={() => selectView('trends')} t={t} />}
+    {view === 'diary' && <BloodPressureDiary week={selected} language={language} canGoNewer={selectedIndex > 0} canGoOlder={selectedIndex < weeks.length - 1} onNewer={() => onSelectWeek(weeks[selectedIndex - 1].start)} onOlder={() => onSelectWeek(weeks[selectedIndex + 1].start)} onSlot={onSlot} t={t} />}
+    {view === 'trends' && <BloodPressureChart measurements={current.measurements} start={current.start} language={language} t={t} />}
   </div>
 }
