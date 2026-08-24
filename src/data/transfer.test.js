@@ -3,7 +3,7 @@ import { emptyProfile } from './schema.js'
 import { createBackup, mergeRestore, mergeWeightImport, parseBackup, parseWeightImportCsv, weightCsv } from './transfer.js'
 
 const item = { id: 'record-123456', type: 'weight', value: 70.5, unit: 'kg', timestamp: '2026-08-22T08:00:00.000Z', note: 'a, "note"' }
-const store = { schemaVersion: 3, measurements: [item], profile: emptyProfile() }
+const store = { schemaVersion: 4, measurements: [item], profile: emptyProfile() }
 
 describe('backup and export', () => {
   it('round-trips a versioned backup', () => expect(parseBackup(JSON.stringify(createBackup(store)))).toEqual(store))
@@ -20,6 +20,18 @@ describe('backup and export', () => {
     expect(mergeRestore(local, imported).data.profile.name).toBe('Local')
   })
   it('escapes CSV values', () => expect(weightCsv([item])).toContain('"a, ""note"""'))
+  it('keeps mixed JSON records and excludes blood pressure from weight CSV', () => {
+    const bp = { id: 'pressure-123', type: 'bloodPressure', timestamp: '2026-08-22T18:00:00.000Z', period: 'evening', systolicMmHg: 125, diastolicMmHg: 80, pulseBpm: 62 }
+    const mixed = { ...store, measurements: [item, bp] }
+    expect(parseBackup(JSON.stringify(createBackup(mixed)))).toEqual(mixed)
+    expect(weightCsv(mixed.measurements)).not.toContain('pressure-123')
+  })
+  it('does not merge a second blood-pressure record into an occupied local slot', () => {
+    const bp = { id: 'pressure-123', type: 'bloodPressure', timestamp: '2026-08-22T18:00:00.000Z', period: 'evening', systolicMmHg: 125, diastolicMmHg: 80, pulseBpm: 62 }
+    const collision = { ...bp, id: 'pressure-456', systolicMmHg: 130 }
+    const result = mergeRestore({ ...store, measurements: [item, bp] }, { ...store, measurements: [collision] })
+    expect(result).toMatchObject({ added: 0, duplicates: 1 })
+  })
   it('rejects malformed backup data', () => expect(() => parseBackup('{"nope":true}')).toThrow('invalidBackup'))
   it('imports DD/MM/YY weights with decimal commas and skips NN', () => {
     const csv = '31/03/26,"99,7"\n01/04/26,NN\n02/04/26,99\n03/04/26,"98,3"'

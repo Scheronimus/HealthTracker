@@ -4,11 +4,15 @@ Health Tracker is a client-only React 19 application built with Vite. `App.jsx` 
 
 ## Data model
 
-The persisted root is `{ schemaVersion: 3, measurements: Measurement[], profile: Profile }`. Version 1 stores are migrated automatically with an empty profile; version 2 profiles are migrated with the graph range disabled. A measurement is `{ id, type, value, unit, timestamp, note }`. Version 1 supports `type: "weight"`, numeric values in `unit: "kg"`, ISO timestamps, and notes up to 1,000 characters. IDs use `crypto.randomUUID()` where available.
+The current persisted root is `{ schemaVersion: 4, measurements: Measurement[], profile: Profile }`. Every older migration path remains sequential; v3-to-v4 changes only the version. Measurements are a discriminated union: existing Weight records are unchanged, while blood-pressure records contain `id`, `type: "bloodPressure"`, exact `timestamp`, explicit `period`, `systolicMmHg`, `diastolicMmHg`, and `pulseBpm`.
+
+Version 1 stores are migrated with an empty profile; version 2 profiles gain the disabled graph-range preference; version 3 then migrates unchanged to version 4. Existing Weight records keep numeric kilograms, ISO timestamps, and notes up to 1,000 characters. IDs use `crypto.randomUUID()` where available.
 
 `src/data/schema.js` owns validation and constants, `migrations.js` performs sequential migrations and validates the result, `storage.js` isolates browser persistence, and `transfer.js` owns versioned backup, safe merge restore, and CSV generation. New measurement types should add type-specific validation, presentation, and export rules without changing the root model.
 
 ## Persistence and restore
+
+Mixed Weight and blood-pressure stores are validated and included in JSON backup/restore. Duplicate IDs and duplicate blood-pressure local-date/period slots are rejected or preserved locally during merge. Weight CSV import/export remains explicitly Weight-only.
 
 The complete store is serialized under `health-tracker-data`; the language uses `health-tracker-language`. Invalid local data fails closed to an empty store. JSON backup envelopes contain a kind, format version, export timestamp, and full versioned store. Restore validates first, requests explicit confirmation, then adds records whose IDs are new. Matching IDs preserve the local record.
 
@@ -20,6 +24,14 @@ The validated profile stores optional `name`, `age`, and `heightCm` values plus 
 Restore imports a backed-up profile only when the local profile is still empty. An existing local profile always wins, preventing silent overwrite. CSV remains weight-only.
 
 ## Offline and deployment
+
+## Blood-pressure module
+
+`src/features.js` defines the small top-level feature selection while `App.jsx` retains state-driven navigation and Weight remains the default. Blood-pressure calculations, chart geometry, forms, dashboard, and week presentation live in isolated modules. Every Weight consumer receives an explicitly filtered Weight array.
+
+Weeks and their fourteen slots are derived with DST-safe local-calendar arithmetic; no weeks, averages, counts, or statuses are stored. Weekly values average readings directly with full internal precision. Reference status is true only when the calculated systolic average is strictly greater than 135 or diastolic average is strictly greater than 85.
+
+The dependency-free selected-week SVG has a fixed Monday–Sunday domain, separate pressure lines, distinct morning/evening marker shapes, pointer/touch nearest-reading selection, and Left/Right/Home/End navigation. Pulse remains in tooltips and averages rather than becoming a third line.
 
 `deployment.config.mjs` is the deployment identity source. Vite uses `/HealthTracker/`; `vite-plugin-pwa` generates a manifest and auto-updating service worker that precaches the application shell. GitHub Actions tests, lints, builds, and deploys `main` to Pages.
 

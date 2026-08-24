@@ -1,0 +1,66 @@
+import { localDateValue } from './date.js'
+
+export const BP_PERIODS = ['morning', 'evening']
+
+export function parseLocalDate(date) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date)
+  if (!match) return null
+  const value = new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]), 12)
+  return value.getFullYear() === Number(match[1]) && value.getMonth() === Number(match[2]) - 1 && value.getDate() === Number(match[3]) ? value : null
+}
+
+export function addLocalDays(date, count) {
+  const value = parseLocalDate(date)
+  if (!value) return null
+  value.setDate(value.getDate() + count)
+  return localDateValue(value)
+}
+
+export function weekStart(date) {
+  const value = parseLocalDate(date)
+  if (!value) return null
+  value.setDate(value.getDate() - ((value.getDay() + 6) % 7))
+  return localDateValue(value)
+}
+
+export function weekDates(start) { return Array.from({ length: 7 }, (_, index) => addLocalDays(start, index)) }
+
+export function timestampFromLocal(date, time) {
+  if (!parseLocalDate(date) || !/^([01]\d|2[0-3]):[0-5]\d$/.test(time)) return null
+  const value = new Date(`${date}T${time}:00`)
+  return Number.isNaN(value.getTime()) ? null : value.toISOString()
+}
+
+export function localTimeValue(timestamp = new Date().toISOString()) {
+  const value = new Date(timestamp)
+  if (Number.isNaN(value.getTime())) return ''
+  return `${String(value.getHours()).padStart(2, '0')}:${String(value.getMinutes()).padStart(2, '0')}`
+}
+
+export function hasBloodPressureSlot(measurements, date, period, excludedId = null) {
+  return measurements.some((item) => item.type === 'bloodPressure' && item.id !== excludedId && item.period === period && localDateValue(item.timestamp) === date)
+}
+
+export function defaultBloodPressurePeriod(measurements, now = new Date()) {
+  const date = localDateValue(now)
+  const present = new Set(measurements.filter((item) => item.type === 'bloodPressure' && localDateValue(item.timestamp) === date).map(({ period }) => period))
+  const missing = BP_PERIODS.filter((period) => !present.has(period))
+  return missing.length === 1 ? missing[0] : now.getHours() < 12 ? 'morning' : 'evening'
+}
+
+export function groupBloodPressureWeeks(measurements, today = localDateValue()) {
+  const records = measurements.filter(({ type }) => type === 'bloodPressure')
+  const starts = new Set(records.map((item) => weekStart(localDateValue(item.timestamp))))
+  const currentStart = weekStart(today)
+  starts.delete(currentStart)
+  const ordered = [currentStart, ...[...starts].sort().reverse()]
+  return ordered.map((start) => ({ start, end: addLocalDays(start, 6), measurements: records.filter((item) => weekStart(localDateValue(item.timestamp)) === start).sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp)) }))
+}
+
+export function weeklyAverages(measurements) {
+  if (!measurements.length) return null
+  const sum = measurements.reduce((total, item) => ({ systolic: total.systolic + item.systolicMmHg, diastolic: total.diastolic + item.diastolicMmHg, pulse: total.pulse + item.pulseBpm }), { systolic: 0, diastolic: 0, pulse: 0 })
+  return { systolic: sum.systolic / measurements.length, diastolic: sum.diastolic / measurements.length, pulse: sum.pulse / measurements.length, count: measurements.length, complete: measurements.length === 14 }
+}
+
+export function isWeeklyAverageAboveReference(average) { return Boolean(average && (average.systolic > 135 || average.diastolic > 85)) }

@@ -166,3 +166,49 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 .chart-bmi-toggle[aria-checked='true'] i { background: var(--primary); }
 .chart-bmi-toggle[aria-checked='true'] i::after { transform: translateX(.85rem); }
 .app-version { margin-top: 2rem; color: var(--muted); font-size: .72rem; text-align: center; }
+
+/* Modular health-area navigation and blood-pressure pass */
+.feature-nav { display: grid; grid-template-columns: 1fr 1fr; gap: .25rem; max-width: 440px; margin: 0 auto 1rem; padding: .25rem; border-radius: 13px; background: var(--primary-soft); }
+.feature-nav button { border: 0; background: transparent; color: #315a70; }
+.feature-nav button.active { background: var(--primary); color: white; box-shadow: 0 2px 8px #173f5833; }
+.bp-week-heading { display: flex; justify-content: space-between; gap: 1rem; align-items: start; margin: .4rem .2rem .75rem; }
+.bp-week-heading h2 { margin: 0 0 .2rem; }
+.bp-week-heading p { margin: 0; color: var(--muted); font-size: .8rem; }
+.bp-week-heading > strong { padding: .4rem .65rem; border-radius: 999px; background: var(--primary-soft); color: var(--primary-dark); }
+.bp-averages { display: grid; grid-template-columns: repeat(3, 1fr); gap: .55rem; }
+.bp-averages article { padding: .8rem; border: 1px solid var(--line); border-radius: 14px; background: var(--cream); }
+.bp-averages span, .bp-averages small { display: block; color: var(--muted); font-size: .72rem; }
+.bp-averages strong { display: inline-block; margin: .25rem .2rem 0 0; font-size: 1.2rem; }
+.bp-reference { margin: .7rem 0; padding: .85rem; border-left: 4px solid #7aa4b9; border-radius: 10px; background: var(--primary-soft); color: #294e63; }
+.bp-reference p { margin: .25rem 0 0; font-size: .76rem; }
+.bp-slots { display: grid; gap: .55rem; margin-top: .8rem; }
+.bp-day { display: grid; grid-template-columns: minmax(110px, .5fr) 1fr; align-items: center; gap: .6rem; padding: .65rem; }
+.bp-day > time { color: var(--muted); font-size: .78rem; font-weight: 700; }
+.bp-day > div { display: grid; grid-template-columns: 1fr 1fr; gap: .45rem; }
+.bp-slot { min-width: 0; display: flex; align-items: center; justify-content: space-between; gap: .4rem; padding: .55rem; text-align: left; }
+.bp-slot > span { color: var(--muted); font-size: .7rem; }
+.bp-slot strong { display: grid; text-align: right; }
+.bp-slot small { color: var(--muted); font-size: .65rem; font-weight: 500; }
+.bp-slot em { color: var(--primary); font-size: .7rem; font-style: normal; }
+.bp-slot.missing { border-style: dashed; background: transparent; }
+.bp-history { margin-top: 1.2rem; }
+.bp-week-link { width: 100%; display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: .7rem; padding: .85rem; color: var(--ink); text-align: left; }
+.bp-week-link > span { display: grid; gap: .2rem; }
+.bp-week-link small { color: var(--muted); }
+.bp-week-link i { color: var(--muted); font-size: 1.6rem; font-style: normal; }
+.bp-fields { display: grid; gap: .2rem; }
+.form-hint { color: var(--muted); font-size: .78rem; }
+.bp-legend { display: flex; flex-wrap: wrap; gap: .45rem .8rem; color: var(--muted); font-size: .72rem; }
+.bp-legend span { display: flex; align-items: center; gap: .25rem; }
+.bp-legend i { width: 1.1rem; height: 3px; background: #277ca7; }
+.bp-legend i.dia { background: #d07042; }
+.bp-line { fill: none; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.systolic-line { stroke: #277ca7; }
+.diastolic-line { stroke: #d07042; }
+.bp-marker { stroke-width: 2; vector-effect: non-scaling-stroke; }
+.systolic-marker { fill: #277ca7; stroke: var(--cream); }
+.diastolic-marker { fill: #d07042; stroke: var(--cream); }
+.bp-day-label { text-anchor: middle; }
+@media (min-width: 720px) { .bp-slots { grid-template-columns: 1fr 1fr; } .bp-fields { grid-template-columns: repeat(3, 1fr); gap: .65rem; } }
+@media (max-width: 560px) { .bp-day { grid-template-columns: 1fr; } .bp-averages strong { font-size: 1rem; } .bp-averages article { padding: .6rem; } }
+@media (prefers-color-scheme: dark) { .feature-nav button { color: #d8edf7; } .bp-reference { color: #d8edf7; } }

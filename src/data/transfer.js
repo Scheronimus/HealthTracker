@@ -15,10 +15,20 @@ export function parseBackup(text) {
 
 export function mergeRestore(existing, imported) {
   const byId = new Map(existing.measurements.map((item) => [item.id, item]))
+  const bloodPressureSlots = new Set(existing.measurements.filter(({ type }) => type === 'bloodPressure').map((item) => {
+    const date = new Date(item.timestamp)
+    return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}-${item.period}`
+  }))
   let added = 0
   let duplicates = 0
   for (const item of imported.measurements) {
     if (byId.has(item.id)) { duplicates += 1; continue }
+    if (item.type === 'bloodPressure') {
+      const date = new Date(item.timestamp)
+      const slot = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}-${item.period}`
+      if (bloodPressureSlots.has(slot)) { duplicates += 1; continue }
+      bloodPressureSlots.add(slot)
+    }
     byId.set(item.id, item)
     added += 1
   }

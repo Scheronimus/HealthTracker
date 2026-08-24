@@ -1,6 +1,6 @@
 # Health Tracker
 
-A private, mobile-first body-weight tracker. Health Tracker works offline after its first successful load and keeps all health data only in the current browser on the current device—there are no accounts, backend, analytics, ads, telemetry, or external health services.
+A private, mobile-first weight and blood-pressure tracker. Health Tracker works offline after its first successful load and keeps all health data only in the current browser on the current device—there are no accounts, backend, analytics, ads, telemetry, or external health services.
 
 Production target: <https://scheronimus.github.io/HealthTracker/>
 
@@ -8,7 +8,11 @@ Production target: <https://scheronimus.github.io/HealthTracker/>
 
 ## Features
 
+Health Tracker supports modular Weight and Blood Pressure areas. Blood Pressure records exact local date/time, an explicit morning/evening period, systolic and diastolic pressure, and pulse. Its Monday–Sunday views provide N/14 progress, direct weekly averages, a neutral 135/85 average-only comparison, an accessible SVG chart, and historical slot backfilling. Mixed data is included in JSON backups; CSV stays Weight-only.
+
 - Record, edit, and delete dated weight measurements in kilograms with optional notes.
+- Record morning and evening blood-pressure readings with exact local date/time, systolic, diastolic, and pulse values.
+- Review Monday–Sunday measurement weeks with N/14 progress, direct weekly averages, a neutral 135/85 average-only comparison, an accessible SVG chart, and backfillable day slots.
 - Prominent interactive weight graph with 3-month, 1-year, and all-time ranges.
 - Newest-first history with current weight and graph-span change summaries.
 - Optional local profile, WHO BMI screening context, and height-specific WHO color zones on the unchanged graph scale.

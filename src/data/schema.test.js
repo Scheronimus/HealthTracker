@@ -23,6 +23,10 @@ describe('measurement schema', () => {
     const legacy = { schemaVersion: 2, measurements: [], profile: { name: 'Alex', age: 35, heightCm: 180, showBmi: true } }
     expect(migrateStore(legacy).profile).toEqual({ ...legacy.profile, showBmiRange: false })
   })
+  it('migrates schema three to four without changing data', () => {
+    const legacy = { schemaVersion: 3, measurements: [], profile: emptyProfile() }
+    expect(migrateStore(legacy)).toEqual({ ...legacy, schemaVersion: 4 })
+  })
   it('migrates a version-one store without changing measurements', () => {
     const legacy = { schemaVersion: 1, measurements: [] }
     expect(migrateStore(legacy)).toEqual(emptyStore())
