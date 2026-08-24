@@ -1,5 +1,7 @@
 # Privacy and data recovery
 
+Weight and blood-pressure records share the same local-only, versioned store. JSON is the complete mixed-data recovery format. CSV export remains Weight-only; CSV import accepts both Weight and Blood Pressure formats. Restore preserves matching IDs and keeps local records when an imported blood-pressure reading would exceed the two-readings-per-date limit.
+
 Health Tracker sends no health data anywhere. It has no account, backend, analytics, advertising, telemetry, or external health integration. Measurements, optional profile details, BMI preference, and language preference remain in browser `localStorage` for the current origin and browser profile.
 
 This also means there is no server-side recovery. Data can be lost if site data is cleared, the browser profile is removed, the device is lost, or a private-browsing session ends. Download JSON backups regularly, verify the file is safely stored, and create a fresh backup after important changes.

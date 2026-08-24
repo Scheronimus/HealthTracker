@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import { emptyProfile } from './schema.js'
-import { createBackup, mergeRestore, mergeWeightImport, parseBackup, parseWeightImportCsv, weightCsv } from './transfer.js'
+import { createBackup, mergeBloodPressureImport, mergeRestore, mergeWeightImport, parseBackup, parseBloodPressureImportCsv, parseHealthImportCsv, parseWeightImportCsv, weightCsv } from './transfer.js'
 
 const item = { id: 'record-123456', type: 'weight', value: 70.5, unit: 'kg', timestamp: '2026-08-22T08:00:00.000Z', note: 'a, "note"' }
-const store = { schemaVersion: 3, measurements: [item], profile: emptyProfile() }
+const store = { schemaVersion: 6, measurements: [item], profile: emptyProfile() }
 
 describe('backup and export', () => {
   it('round-trips a versioned backup', () => expect(parseBackup(JSON.stringify(createBackup(store)))).toEqual(store))
@@ -14,12 +14,25 @@ describe('backup and export', () => {
     expect(result.data.measurements[0].value).toBe(70.5)
   })
   it('imports a profile only when the local profile is empty', () => {
-    const imported = { ...store, profile: { name: 'Alex', age: 35, heightCm: 180, showBmi: true, showBmiRange: true } }
+    const imported = { ...store, profile: { name: 'Alex', age: 35, heightCm: 180, showBmi: true, showBmiRange: true, modules: ['bloodPressure'] } }
     expect(mergeRestore(store, imported).data.profile.name).toBe('Alex')
-    const local = { ...store, profile: { name: 'Local', age: null, heightCm: null, showBmi: false, showBmiRange: false } }
+    const local = { ...store, profile: { name: 'Local', age: null, heightCm: null, showBmi: false, showBmiRange: false, modules: ['weight'] } }
     expect(mergeRestore(local, imported).data.profile.name).toBe('Local')
   })
   it('escapes CSV values', () => expect(weightCsv([item])).toContain('"a, ""note"""'))
+  it('keeps mixed JSON records and excludes blood pressure from weight CSV', () => {
+    const bp = { id: 'pressure-123', type: 'bloodPressure', timestamp: '2026-08-22T18:00:00.000Z', systolicMmHg: 125, diastolicMmHg: 80, pulseBpm: 62 }
+    const mixed = { ...store, measurements: [item, bp] }
+    expect(parseBackup(JSON.stringify(createBackup(mixed)))).toEqual(mixed)
+    expect(weightCsv(mixed.measurements)).not.toContain('pressure-123')
+  })
+  it('does not merge a third blood-pressure record for an occupied local day', () => {
+    const first = { id: 'pressure-123', type: 'bloodPressure', timestamp: '2026-08-22T08:00:00.000Z', systolicMmHg: 125, diastolicMmHg: 80, pulseBpm: 62 }
+    const second = { ...first, id: 'pressure-456', timestamp: '2026-08-22T18:00:00.000Z' }
+    const third = { ...first, id: 'pressure-789', timestamp: '2026-08-22T21:00:00.000Z', systolicMmHg: 130 }
+    const result = mergeRestore({ ...store, measurements: [item, first, second] }, { ...store, measurements: [third] })
+    expect(result).toMatchObject({ added: 0, duplicates: 1 })
+  })
   it('rejects malformed backup data', () => expect(() => parseBackup('{"nope":true}')).toThrow('invalidBackup'))
   it('imports DD/MM/YY weights with decimal commas and skips NN', () => {
     const csv = '31/03/26,"99,7"\n01/04/26,NN\n02/04/26,99\n03/04/26,"98,3"'
@@ -39,5 +52,22 @@ describe('backup and export', () => {
     const result = mergeWeightImport(store, imported)
     expect(result).toMatchObject({ added: 1, duplicates: 1 })
     expect(result.data.measurements.find(({ id }) => id === item.id).value).toBe(70.5)
+  })
+  it('imports headerless blood-pressure CSV with date, time, pressure, and pulse', () => {
+    const csv = '02/03/26,17:45:00,145,80,85\n03/03/26,16:49:00,152,89,78\n04/03/26,19:32:00,144,88,86'
+    const parsed = parseBloodPressureImportCsv(csv)
+    expect(parsed.measurements).toHaveLength(3)
+    expect(parsed.measurements[0]).toMatchObject({ type: 'bloodPressure', systolicMmHg: 145, diastolicMmHg: 80, pulseBpm: 85 })
+    expect(new Date(parsed.measurements[0].timestamp).getHours()).toBe(17)
+    expect(parseHealthImportCsv(csv).type).toBe('bloodPressure')
+  })
+  it('rejects invalid blood-pressure CSV with a line number', () => {
+    try { parseBloodPressureImportCsv('02/03/26,25:00:00,145,80,85') } catch (error) { expect(error).toMatchObject({ message: 'invalidCsv', line: 1 }); return }
+    throw new Error('Expected invalid CSV to fail')
+  })
+  it('merges at most two blood-pressure readings per date at least two hours apart', () => {
+    const parsed = parseBloodPressureImportCsv('02/03/26,08:00:00,145,80,85\n02/03/26,08:30:00,142,78,82\n02/03/26,18:00:00,138,76,75\n02/03/26,21:00:00,136,75,72')
+    const result = mergeBloodPressureImport(store, parsed.measurements)
+    expect(result).toMatchObject({ added: 2, duplicates: 2 })
   })
 })

@@ -41,3 +41,35 @@ export function createIrregularDemoStore() {
 
   return { schemaVersion: SCHEMA_VERSION, measurements, profile: emptyProfile() }
 }
+
+export function createBloodPressureDemoStore() {
+  const trackedDays = createIrregularDemoStore().measurements.map(({ timestamp }) =>
+    Math.round((Date.parse(timestamp) - START.getTime()) / 86400000),
+  )
+  const measurements = trackedDays.flatMap((day) => [1, 2].map((readingNumber, readingIndex) => {
+    const timestamp = new Date(START)
+    timestamp.setUTCDate(timestamp.getUTCDate() + day)
+    timestamp.setUTCHours(readingNumber === 1 ? 7 : 18, readingNumber === 1 ? 15 : 45, 0, 0)
+    const systolic = 132 - day * 0.012 + Math.sin(day * 0.23 + readingIndex) * 7
+    const diastolic = 83 - day * 0.006 + Math.cos(day * 0.19 + readingIndex) * 4
+    const pulse = 66 + Math.sin(day * 0.29 + readingIndex * 1.7) * 6
+    return {
+      id: `demo-bp-${String(day).padStart(3, '0')}-${readingNumber}`,
+      type: 'bloodPressure',
+      timestamp: timestamp.toISOString(),
+      systolicMmHg: Math.round(systolic),
+      diastolicMmHg: Math.round(diastolic),
+      pulseBpm: Math.round(pulse),
+    }
+  }))
+
+  return { schemaVersion: SCHEMA_VERSION, measurements, profile: emptyProfile() }
+}
+
+export function createCombinedDemoStore() {
+  return {
+    schemaVersion: SCHEMA_VERSION,
+    measurements: [...createIrregularDemoStore().measurements, ...createBloodPressureDemoStore().measurements],
+    profile: emptyProfile(),
+  }
+}
