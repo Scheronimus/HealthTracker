@@ -55,7 +55,7 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 .y-label { text-anchor: end; }
 .x-end { text-anchor: end; }
 .trend-line { fill: none; stroke: #327fa8; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-.chart-tooltip { position: sticky; left: .4rem; bottom: .4rem; width: max-content; max-width: calc(100% - .8rem); display: grid; gap: .12rem; padding: .55rem .7rem; border-radius: 10px; background: var(--primary-dark); color: white; box-shadow: 0 5px 18px #173f5855; font-size: .78rem; pointer-events: none; }
+.chart-tooltip { width: max-content; max-width: calc(100% - .8rem); display: grid; gap: .12rem; margin: .35rem .4rem 0; padding: .55rem .7rem; border-radius: 10px; background: var(--primary-dark); color: white; box-shadow: 0 5px 18px #173f5855; font-size: .78rem; pointer-events: none; }
 .chart-tooltip strong { font-size: .95rem; }
 .chart-tooltip small { max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #dcecf4; }
 .chart-caption { margin: .35rem 0 0; color: var(--muted); font-size: .76rem; text-align: right; }

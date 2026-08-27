@@ -37,6 +37,7 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 - Switch each graph span and confirm Change compares the first and last measurements visible in that range and shows the localized date of the older comparison measurement.
 - On a narrow smartphone, confirm the entire graph and both date labels fit without a horizontal scrollbar.
 - Tap, drag, or move across the graph and confirm the vertical crosshair snaps to the nearest measurement with weight, localized date, and note details.
+- On a narrow phone, select the first and last Weight and Blood Pressure chart points and confirm the selected-reading tooltip stays below the graph without covering endpoint dates.
 - Drag the crosshair from edge to edge and confirm the page does not scroll sideways or lose touch tracking.
 - Focus the graph navigation area and confirm Left/Right and Home/End move through measurements.
 - Confirm empty ranges and a single visible measurement render clearly.
