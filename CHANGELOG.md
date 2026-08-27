@@ -31,3 +31,18 @@
 - Existing local data is migrated sequentially to schema version 6.
 - JSON backup and restore includes both modules and module preferences.
 - CSV export remains Weight-only; CSV import accepts Weight and Blood Pressure formats.
+
+## 1.0.0 - 2026-08-23
+
+### Added
+
+- Private, client-only Weight tracking with date-only entry, optional notes, newest-first history, editing, and confirmed deletion.
+- A responsive interactive weight graph with 3-month, 1-year, and all-time ranges, adaptive axes, touch/pointer crosshair selection, and keyboard navigation.
+- Optional local profile details, BMI screening context, and height-specific WHO adult BMI color zones.
+- English, Spanish, German, and French interfaces with a locally persisted language preference.
+- Versioned local storage, validated JSON backup and non-overwriting restore, plus Weight CSV import and export.
+- An installable offline PWA, GitHub Pages deployment workflow, production QR asset, and mobile development launcher.
+
+### Data compatibility
+
+- The initial release stored Weight measurements and optional profile data using schema version 3, with sequential migrations from earlier development schemas.
