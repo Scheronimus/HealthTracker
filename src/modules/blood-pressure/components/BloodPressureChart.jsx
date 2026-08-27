@@ -80,8 +80,8 @@ export function BloodPressureChart({ measurements, language, t }) {
         {mode === 'individual' && geometry.points.map((point) => <BpMarkers key={point.id} point={point} dense={geometry.points.length > 30} />)}
         {active && <line className={'chart-crosshair'} x1={active.x} x2={active.x} y1={'0'} y2={HEIGHT} />}
       </g></svg>
-      <div className={'bp-chart-navigation'} role={'slider'} tabIndex={'0'} aria-label={t('bpChartNavigation')} aria-valuemin={'0'} aria-valuemax={geometry.points.length - 1} aria-valuenow={activeIndex ?? geometry.points.length - 1} aria-valuetext={activeText} onFocus={() => setActiveIndex((value) => value ?? geometry.points.length - 1)} onKeyDown={navigate} onPointerDown={(event) => { event.currentTarget.setPointerCapture?.(event.pointerId); select(event) }} onPointerMove={select} />
-      {active && <div className={'chart-tooltip'}><strong>{activePressure}</strong><span>{formatDate(active.timestamp, language)}</span><small>{activeContext}</small></div>}</div>}
+      <div className={'bp-chart-navigation'} role={'slider'} tabIndex={'0'} aria-label={t('bpChartNavigation')} aria-valuemin={'0'} aria-valuemax={geometry.points.length - 1} aria-valuenow={activeIndex ?? geometry.points.length - 1} aria-valuetext={activeText} onFocus={() => setActiveIndex((value) => value ?? geometry.points.length - 1)} onKeyDown={navigate} onPointerDown={(event) => { event.currentTarget.setPointerCapture?.(event.pointerId); select(event) }} onPointerMove={select} /></div>}
+      {active && <div className={'chart-tooltip'}><strong>{activePressure}</strong><span>{formatDate(active.timestamp, language)}</span><small>{activeContext}</small></div>}
     </section>
   </section>
 }
