@@ -19,6 +19,7 @@ Health Tracker supports modular Weight and Blood Pressure areas. Blood Pressure 
 - English, Spanish, German, and French interfaces with a locally saved preference.
 - Versioned and validated local data, tested migration infrastructure, JSON backup/merge restore, Weight CSV export, and Weight/Blood Pressure CSV import.
 - Installable PWA with a cached application shell for offline use.
+- Expandable sharing QR code in Settings for opening the production app on another device.
 
 ## Run locally
 

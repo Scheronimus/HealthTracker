@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.2.0 - 2026-08-28
+
+### Added
+
+- A discreet, expandable sharing section in Settings with a production-app QR code and direct link, available in English, Spanish, German, and French.
+
+### Data compatibility
+
+- The persisted data schema remains at version 6; no migration is required.
+
 ## 1.1.0 - 2026-08-25
 
 ### Added

@@ -20,7 +20,8 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 - Confirm Individual readings automatically moves a longer range to 30 days, disables 3-month and 1-year ranges, and uses smaller markers when more than 30 readings are visible.
 - Confirm the selected-range average and change remain stable when only the chart display mode changes, and all three blood-pressure tabs are keyboard accessible.
 - Select the top-right + and confirm the dedicated entry screen opens with Cancel and Save in its top bar.
-- Select the settings button and confirm language, backup, restore, CSV, privacy, and offline information open on a separate screen; Close returns to the dashboard.
+- Confirm the flat options icon is crisp and recognizable on desktop and mobile, then select it and confirm language, backup, restore, CSV, privacy, sharing, and offline information open on a separate screen; Close returns to the dashboard.
+- Expand Share Health Tracker, scan the QR code, and confirm it opens `https://scheronimus.github.io/HealthTracker/`; repeat in all four languages.
 - In development, confirm Load one-year demo data directly adds all 240 irregular weight records and 480 blood-pressure records (two per tracked date), and a second selection adds no duplicates.
 - In development, confirm Delete all entries appears under Temporary debug tools, cancellation preserves data, and confirmation removes measurements while preserving profile, module, and language preferences.
 - In a production build, confirm the temporary debug section is absent.
@@ -36,6 +37,7 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 - Switch each graph span and confirm Change compares the first and last measurements visible in that range and shows the localized date of the older comparison measurement.
 - On a narrow smartphone, confirm the entire graph and both date labels fit without a horizontal scrollbar.
 - Tap, drag, or move across the graph and confirm the vertical crosshair snaps to the nearest measurement with weight, localized date, and note details.
+- On a narrow phone, select the first and last Weight and Blood Pressure chart points and confirm the selected-reading tooltip stays below the graph without covering endpoint dates.
 - Drag the crosshair from edge to edge and confirm the page does not scroll sideways or lose touch tracking.
 - Focus the graph navigation area and confirm Left/Right and Home/End move through measurements.
 - Confirm empty ranges and a single visible measurement render clearly.

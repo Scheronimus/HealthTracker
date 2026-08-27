@@ -55,7 +55,7 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 .y-label { text-anchor: end; }
 .x-end { text-anchor: end; }
 .trend-line { fill: none; stroke: #327fa8; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-.chart-tooltip { position: sticky; left: .4rem; bottom: .4rem; width: max-content; max-width: calc(100% - .8rem); display: grid; gap: .12rem; padding: .55rem .7rem; border-radius: 10px; background: var(--primary-dark); color: white; box-shadow: 0 5px 18px #173f5855; font-size: .78rem; pointer-events: none; }
+.chart-tooltip { width: max-content; max-width: calc(100% - .8rem); display: grid; gap: .12rem; margin: .35rem .4rem 0; padding: .55rem .7rem; border-radius: 10px; background: var(--primary-dark); color: white; box-shadow: 0 5px 18px #173f5855; font-size: .78rem; pointer-events: none; }
 .chart-tooltip strong { font-size: .95rem; }
 .chart-tooltip small { max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #dcecf4; }
 .chart-caption { margin: .35rem 0 0; color: var(--muted); font-size: .76rem; text-align: right; }
@@ -91,6 +91,7 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 /* Dedicated settings screen */
 .dashboard-actions { display: flex; align-items: center; gap: .55rem; }
 .settings-button { flex: 0 0 42px; width: 42px; height: 42px; display: grid; place-items: center; padding: 0; border: 1px solid #ffffff80; border-radius: 50%; background: #ffffff18; color: white; font-size: 1.25rem; line-height: 1; }
+.settings-button svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
 .settings-topbar { display: grid; grid-template-columns: 1fr auto 1fr; gap: .5rem; }
 .settings-topbar h1 { margin: 0; font-size: 1.1rem; text-align: center; }
 .settings-screen { width: min(620px, calc(100% - 2rem)); }
@@ -100,6 +101,12 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 .settings-panel .data-actions button { width: 100%; text-align: left; padding: .85rem; }
 .settings-privacy { margin-top: 1.25rem; padding: 1rem; border-radius: 13px; background: var(--primary-soft); color: #294e63; font-size: .85rem; }
 .settings-privacy p { margin: .35rem 0 0; color: #35576a; }
+.settings-share { margin-top: 1rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .8rem; }
+.settings-share summary { padding: 1rem 0 .25rem; cursor: pointer; text-align: center; }
+.settings-share > div { display: grid; justify-items: center; gap: .65rem; padding: .5rem 0; text-align: center; }
+.settings-share p { margin: 0; }
+.settings-share img { width: min(230px, 80vw); height: auto; border-radius: 10px; background: white; }
+.settings-share a { color: var(--primary); overflow-wrap: anywhere; }
 .settings-offline { margin: 1rem 0 0; color: var(--muted); font-size: .8rem; text-align: center; }
 /* Selectable history rows */
 .entry-link { width: 100%; grid-template-columns: 1fr auto auto; align-items: center; color: var(--ink); text-align: left; font-weight: 400; }
