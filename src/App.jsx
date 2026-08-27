@@ -75,7 +75,9 @@ export default function App() {
       {screen === 'dashboard' && <div className="topbar dashboard-topbar">
         <div className="brand"><img src={`${import.meta.env.BASE_URL}app-icon.svg`} alt="" /><div><h1>{t('appName')}</h1><label className="module-selector"><span className="visually-hidden">{t('healthAreas')}</span><select value={feature} onChange={(event) => switchFeature(event.target.value)}>{visibleModules.map((item) => <option key={item.id} value={item.id}>{t(item.labelKey)}</option>)}</select></label></div></div>
         <div className="dashboard-actions">
-          <button className="settings-button" type="button" onClick={() => showScreen('settings')} aria-label={t('menu')} title={t('menu')}>⚙</button>
+          <button className="settings-button" type="button" onClick={() => showScreen('settings')} aria-label={t('menu')} title={t('menu')}>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M6 14v6" /></svg>
+          </button>
           <button className="add-entry-button" type="button" onClick={() => openEntry()} aria-label={t(activeModule.labels.add)} title={t(activeModule.labels.add)}>+</button>
         </div>
       </div>}
