@@ -1,5 +1,7 @@
 import { useRef, useState } from 'react'
 import { languageNames } from '../i18n.js'
+import productionQrUrl from '../../docs/production-app-qr.svg?url'
+import { deployment } from '../../deployment.config.mjs'
 
 export function Settings({ language, onLanguage, onProfile, profile, onBackup, onCsv, onCsvImport, onRestore, onLoadDemo, onClearAll, t }) {
   const backupInput = useRef(null)
@@ -54,6 +56,14 @@ export function Settings({ language, onLanguage, onProfile, profile, onBackup, o
       </div>
     </div>}
     <aside className="settings-privacy"><strong>⌂ {t('privacyTitle')}</strong><p>{t('privacyBody')}</p></aside>
+    <details className="settings-share">
+      <summary>{t('shareApp')}</summary>
+      <div>
+        <p>{t('shareAppHint')}</p>
+        <img src={productionQrUrl} alt={t('shareAppQrAlt')} width="333" height="333" />
+        <a href={deployment.productionUrl}>{deployment.productionUrl}</a>
+      </div>
+    </details>
     <p className="settings-offline">● {t('install')}</p>
   </section>
 }

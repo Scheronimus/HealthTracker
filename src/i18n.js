@@ -66,6 +66,11 @@ Object.assign(translations.es, { modulePreferences:'Módulos visibles', modulePr
 Object.assign(translations.de, { modulePreferences:'Sichtbare Module', modulePreferencesHint:'Wähle und sortiere die Module im Kopfbereich. Das erste Modul ist die Startseite.', moduleRequired:'Mindestens ein Modul muss sichtbar bleiben.', moveModuleUp:'{module} nach oben', moveModuleDown:'{module} nach unten' })
 Object.assign(translations.fr, { modulePreferences:'Modules visibles', modulePreferencesHint:'Choisissez et ordonnez les modules de la bannière. Le premier sera la page de démarrage.', moduleRequired:'Conservez au moins un module visible.', moveModuleUp:'Monter {module}', moveModuleDown:'Descendre {module}' })
 
+Object.assign(translations.en, { shareApp:'Share Health Tracker', shareAppHint:'Let a friend scan this code to open and install the app.', shareAppQrAlt:'QR code for the Health Tracker app' })
+Object.assign(translations.es, { shareApp:'Compartir Registro de salud', shareAppHint:'Un amigo puede escanear este código para abrir e instalar la aplicación.', shareAppQrAlt:'Código QR de la aplicación Registro de salud' })
+Object.assign(translations.de, { shareApp:'Gesundheits-Tracker teilen', shareAppHint:'Lass Freunde diesen Code scannen, um die App zu öffnen und zu installieren.', shareAppQrAlt:'QR-Code für die Gesundheits-Tracker-App' })
+Object.assign(translations.fr, { shareApp:'Partager Suivi santé', shareAppHint:'Un ami peut scanner ce code pour ouvrir et installer l’application.', shareAppQrAlt:'Code QR de l’application Suivi santé' })
+
 export const languageNames = { en: 'English', es: 'Español', de: 'Deutsch', fr: 'Français' }
 
 export function translate(language, key, values = {}) {

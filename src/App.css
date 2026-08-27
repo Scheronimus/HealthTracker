@@ -100,6 +100,12 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 .settings-panel .data-actions button { width: 100%; text-align: left; padding: .85rem; }
 .settings-privacy { margin-top: 1.25rem; padding: 1rem; border-radius: 13px; background: var(--primary-soft); color: #294e63; font-size: .85rem; }
 .settings-privacy p { margin: .35rem 0 0; color: #35576a; }
+.settings-share { margin-top: 1rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .8rem; }
+.settings-share summary { padding: 1rem 0 .25rem; cursor: pointer; text-align: center; }
+.settings-share > div { display: grid; justify-items: center; gap: .65rem; padding: .5rem 0; text-align: center; }
+.settings-share p { margin: 0; }
+.settings-share img { width: min(230px, 80vw); height: auto; border-radius: 10px; background: white; }
+.settings-share a { color: var(--primary); overflow-wrap: anywhere; }
 .settings-offline { margin: 1rem 0 0; color: var(--muted); font-size: .8rem; text-align: center; }
 /* Selectable history rows */
 .entry-link { width: 100%; grid-template-columns: 1fr auto auto; align-items: center; color: var(--ink); text-align: left; font-weight: 400; }
