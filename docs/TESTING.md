@@ -2,7 +2,7 @@
 
 ## Automated
 
-Tests cover the module registry contract, schema v6 and all migration paths, mixed stores/backups, module and appearance preferences, core dark-theme WCAG contrast pairs, the two-readings-per-date limit and edit exclusion, local date/time conversion, DST-safe first-reading-anchored periods, available-reading averages, chart ordering/scale/domain/markers/nearest point, and Weight/Blood Pressure CSV import behavior.
+Tests cover the module registry contract, schema v6 and all migration paths, mixed stores/backups, module and appearance preferences, all four languages for new v1.3 interface text, date-input limits, core dark-theme WCAG contrast pairs, specialized dark button styling, the two-readings-per-date limit and edit exclusion, local date/time conversion, DST-safe first-reading-anchored periods, available-reading averages, chart ordering/scale/domain/markers/nearest point, Weight graph/history range synchronization and empty states, and Weight/Blood Pressure CSV import behavior.
 
 Run `npm test`, `npm run lint`, and `npm run build`. Regenerate the weekly and irregular one-year graph fixtures with `npm run generate:demo-backup` and `npm run generate:irregular-demo-backup` when their generators change. Tests cover schema validation, unique IDs, version-zero migration, future-version rejection, backup round trips, non-overwriting restore, malformed imports, and CSV escaping.
 
@@ -27,7 +27,6 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 - In a production build, confirm the temporary debug section is absent.
 - Confirm Cancel returns without changes; confirm Save validates, stores the entry, and returns to the dashboard.
 - Confirm Weight rejects a date after today and Blood Pressure rejects both a later date and a time later today.
-- Confirm CSV import rejects future Weight and Blood Pressure rows with the correct line number. Confirm restore reports and skips future imported records without changing existing local data.
 - If an existing future-dated record is present, confirm it is marked in red and can still be opened and deleted in both modules.
 - Confirm history has no inline Edit/Delete buttons; select anywhere on a row and confirm the edit screen opens with its existing data.
 - Confirm Delete appears on existing-record edit screens only, still requires confirmation, and returns to the dashboard after deletion.
@@ -50,7 +49,7 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 - Edit an entry and confirm its ID is retained. Cancel and accept delete confirmations.
 - Switch among English, Spanish, German, and French; refresh and confirm the language persists.
 - In Settings, switch among Use device setting, Light, and Dark. Confirm the preference persists after reload, explicit choices override the device setting, and System responds to an operating-system theme change.
-- Review text, muted text, cards, privacy panels, inputs, date/time controls, buttons, segmented controls, charts, warnings, focus, hover, selected, and disabled states in both appearance modes.
+- Visually review the overall hierarchy, native date/time controls, hover states, and disabled states in both appearance modes; automated checks cover the core palette contrast and theme-specific selectors.
 - In Profile, hide a module and confirm it disappears from the banner selector. Reorder the enabled modules, reload, and confirm the first one opens by default. Confirm saving with no visible module is rejected.
 - Export CSV and inspect commas, quotes, Unicode, timestamps, and kilogram values.
 - Import `31/03/26,"99,7"`, `01/04/26,NN`, and `02/04/26,99`; confirm two weights are added and the missing row is reported as skipped.

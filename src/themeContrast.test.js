@@ -40,4 +40,12 @@ describe('dark theme contrast', () => {
   ])('%s meets non-text contrast', (_name, foreground, background) => {
     expect(contrast(colors[foreground], colors[background])).toBeGreaterThanOrEqual(3)
   })
+
+  it('scopes the darker trend line to dark charts with visible BMI zones', () => {
+    expect(css).toContain(":root[data-theme='dark'] .weight-chart.bmi-zones-visible .trend-line")
+  })
+
+  it('does not override every specialized button in dark mode', () => {
+    expect(css).not.toMatch(/:root\[data-theme='dark'\]\s+button\s*\{/)
+  })
 })

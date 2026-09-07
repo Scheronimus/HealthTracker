@@ -40,4 +40,11 @@ describe('WeightDashboard range filtering', () => {
     expect(html).toContain('recent note')
     expect(html).toContain('old note')
   })
+
+  it('shows matching empty graph and history states when the range has no measurements', () => {
+    const html = renderToStaticMarkup(<WeightDashboard {...props} measurements={[measurements[2]]} state={{ chartSpan: 'threeMonths' }} />)
+    expect(html).toContain('noChartData')
+    expect(html).toContain('noEntries')
+    expect(html).not.toContain('old note')
+  })
 })
