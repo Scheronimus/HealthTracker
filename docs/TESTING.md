@@ -2,7 +2,7 @@
 
 ## Automated
 
-Tests cover the module registry contract, schema v6 and all migration paths, mixed stores/backups, module preferences, the two-readings-per-date limit and edit exclusion, local date/time conversion, DST-safe first-reading-anchored periods, available-reading averages, chart ordering/scale/domain/markers/nearest point, and Weight/Blood Pressure CSV import behavior.
+Tests cover the module registry contract, schema v6 and all migration paths, mixed stores/backups, module and appearance preferences, core dark-theme WCAG contrast pairs, the two-readings-per-date limit and edit exclusion, local date/time conversion, DST-safe first-reading-anchored periods, available-reading averages, chart ordering/scale/domain/markers/nearest point, and Weight/Blood Pressure CSV import behavior.
 
 Run `npm test`, `npm run lint`, and `npm run build`. Regenerate the weekly and irregular one-year graph fixtures with `npm run generate:demo-backup` and `npm run generate:irregular-demo-backup` when their generators change. Tests cover schema validation, unique IDs, version-zero migration, future-version rejection, backup round trips, non-overwriting restore, malformed imports, and CSV escaping.
 
@@ -65,4 +65,4 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 
 ## Profile and BMI checks
 
-Automated tests cover BMI calculation and WHO categories, six-band weight conversion, optional profile validation, sequential migrations through schema version 6, unchanged measurement-derived graph scaling, module preferences, and safe profile restore. Manually verify Profile Cancel/Save, localized labels, the height requirement when BMI is enabled, BMI visibility using the newest weight, the graph-level zone switch appearing only with BMI enabled, and mobile summary layout.
+Automated tests cover BMI calculation and WHO categories, six-band weight conversion, chart-layer ordering, optional profile validation, sequential migrations through schema version 6, unchanged measurement-derived graph scaling, module preferences, and safe profile restore. Manually verify Profile Cancel/Save, localized labels, the height requirement when BMI is enabled, BMI visibility using the newest weight, the graph-level zone switch appearing only with BMI enabled, matching chart/legend zone colors in light and dark modes, and mobile summary layout.
