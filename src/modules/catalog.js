@@ -2,14 +2,17 @@ import { validateWeightMeasurement } from './weight/model.js'
 import { mergeWeightImport, parseWeightImportCsv, weightCsv } from './weight/transfer.js'
 import { validateBloodPressureCollection, validateBloodPressureMeasurement } from './blood-pressure/model.js'
 import { canRestoreBloodPressure, mergeBloodPressureImport, parseBloodPressureImportCsv } from './blood-pressure/transfer.js'
+import { isFutureLocalDate, isFutureTimestamp, localDateValue } from '../utils/date.js'
 
 export const MODULE_CATALOG = Object.freeze([
   Object.freeze({
     id: 'weight', labelKey: 'weightArea', measurementType: 'weight', validateMeasurement: validateWeightMeasurement,
+    isFutureMeasurement: (item, now) => isFutureLocalDate(localDateValue(item.timestamp), now),
     csv: Object.freeze({ matches: (columns) => columns === 2, parse: parseWeightImportCsv, merge: mergeWeightImport, export: weightCsv, labels: { confirm: 'csvImportConfirm', done: 'csvImportDone', export: 'csv' } }),
   }),
   Object.freeze({
     id: 'bloodPressure', labelKey: 'bloodPressureArea', measurementType: 'bloodPressure', validateMeasurement: validateBloodPressureMeasurement, validateCollection: validateBloodPressureCollection,
+    isFutureMeasurement: (item, now) => isFutureTimestamp(item.timestamp, now),
     csv: Object.freeze({ matches: (columns) => columns === 5, parse: parseBloodPressureImportCsv, merge: mergeBloodPressureImport, labels: { confirm: 'bpCsvImportConfirm', done: 'bpCsvImportDone' } }),
     canRestore: canRestoreBloodPressure,
   }),

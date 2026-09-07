@@ -26,6 +26,9 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 - In development, confirm Delete all entries appears under Temporary debug tools, cancellation preserves data, and confirmation removes measurements while preserving profile, module, and language preferences.
 - In a production build, confirm the temporary debug section is absent.
 - Confirm Cancel returns without changes; confirm Save validates, stores the entry, and returns to the dashboard.
+- Confirm Weight rejects a date after today and Blood Pressure rejects both a later date and a time later today.
+- Confirm CSV import rejects future Weight and Blood Pressure rows with the correct line number. Confirm restore reports and skips future imported records without changing existing local data.
+- If an existing future-dated record is present, confirm it is marked in red and can still be opened and deleted in both modules.
 - Confirm history has no inline Edit/Delete buttons; select anywhere on a row and confirm the edit screen opens with its existing data.
 - Confirm Delete appears on existing-record edit screens only, still requires confirmation, and returns to the dashboard after deletion.
 - Add a valid weight with date and multiline note; confirm no time field is shown, then refresh and confirm it persists.

@@ -71,6 +71,11 @@ Object.assign(translations.es, { shareApp:'Compartir Registro de salud', shareAp
 Object.assign(translations.de, { shareApp:'Gesundheits-Tracker teilen', shareAppHint:'Lass Freunde diesen Code scannen, um die App zu öffnen und zu installieren.', shareAppQrAlt:'QR-Code für die Gesundheits-Tracker-App' })
 Object.assign(translations.fr, { shareApp:'Partager Suivi santé', shareAppHint:'Un ami peut scanner ce code pour ouvrir et installer l’application.', shareAppQrAlt:'Code QR de l’application Suivi santé' })
 
+Object.assign(translations.en, { futureMeasurement:'Measurements cannot be entered in the future.', futureMeasurementLabel:'Future date', restoreDone:'Restore complete: {added} added, {duplicates} duplicates kept unchanged, {future} future measurements skipped.' })
+Object.assign(translations.es, { futureMeasurement:'No se pueden introducir mediciones en el futuro.', futureMeasurementLabel:'Fecha futura', restoreDone:'Restauración terminada: {added} añadidas, {duplicates} duplicados sin cambios, {future} mediciones futuras omitidas.' })
+Object.assign(translations.de, { futureMeasurement:'Messungen können nicht in der Zukunft erfasst werden.', futureMeasurementLabel:'Zukünftiges Datum', restoreDone:'Wiederherstellung fertig: {added} hinzugefügt, {duplicates} Duplikate unverändert, {future} zukünftige Messungen übersprungen.' })
+Object.assign(translations.fr, { futureMeasurement:'Les mesures ne peuvent pas être saisies dans le futur.', futureMeasurementLabel:'Date future', restoreDone:'Restauration terminée : {added} ajoutées, {duplicates} doublons conservés, {future} mesures futures ignorées.' })
+
 export const languageNames = { en: 'English', es: 'Español', de: 'Deutsch', fr: 'Français' }
 
 export function translate(language, key, values = {}) {

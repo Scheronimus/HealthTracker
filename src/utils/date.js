@@ -15,6 +15,16 @@ export function toDateTimestamp(date) {
   return Number.isNaN(parsed.getTime()) ? null : parsed.toISOString()
 }
 
+export function isFutureLocalDate(date, now = new Date()) {
+  const timestamp = typeof date === 'string' ? toDateTimestamp(date) : null
+  return Boolean(timestamp && localDateValue(timestamp) === date && date > localDateValue(now))
+}
+
+export function isFutureTimestamp(timestamp, now = new Date()) {
+  const value = Date.parse(timestamp)
+  return !Number.isNaN(value) && value > now.getTime()
+}
+
 export function hasWeightOnDate(measurements, date, excludedId = null) {
   return measurements.some((item) => item.type === 'weight' && item.id !== excludedId && localDateValue(item.timestamp) === date)
 }

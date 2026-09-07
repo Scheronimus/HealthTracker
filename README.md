@@ -12,6 +12,7 @@ Health Tracker supports modular Weight and Blood Pressure areas. Blood Pressure 
 
 - Record, edit, and delete dated weight measurements in kilograms with optional notes.
 - Record up to two blood-pressure readings per date with exact local date/time, systolic, diastolic, and pulse values.
+- Prevent future-dated or future-timed measurements in manual entry, CSV import, and backup restore while keeping existing records deletable.
 - Review a focused blood-pressure overview, compact two-reading diary, and accessible 7-day to 1-year trends using daily or weekly averages without connecting individual readings into a misleading line.
 - Prominent interactive weight graph with 3-month, 1-year, and all-time ranges.
 - Newest-first history with current weight and graph-span change summaries.

@@ -114,6 +114,14 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 .entry-link:active { transform: translateY(0); }
 .entry-chevron { align-self: center; color: var(--muted); font-size: 1.75rem; font-weight: 300; line-height: 1; }
 .delete-entry-button { width: 100%; margin-top: .35rem; border-color: #e2bcbc; background: transparent; color: var(--danger); }
+.future-record { border-color: #c94c4c; background: #fff0f0; color: #7f2020; }
+.future-record:hover { border-color: #a92f2f; box-shadow: 0 8px 24px #a3393926; }
+.future-record-label { display: block; width: fit-content; margin-top: .25rem; color: #a12d2d; font-size: .7rem; font-weight: 750; }
+@media (prefers-color-scheme: dark) {
+  .future-record { border-color: #e06b6b; background: #412326; color: #ffd9d9; }
+  .future-record:hover { border-color: #ff8b8b; box-shadow: 0 8px 24px #ff6b6b20; }
+  .future-record .future-record-label { color: #ffaaaa; }
+}
 /* Development-only reset tool */
 .debug-section { margin-top: 1.25rem; padding: 1rem; border: 1px dashed #d29363; border-radius: 13px; background: #fff4e8; color: #6f3e20; }
 .debug-section strong { display: block; margin-bottom: .65rem; font-size: .82rem; text-transform: uppercase; letter-spacing: .04em; }

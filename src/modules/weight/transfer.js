@@ -1,5 +1,5 @@
 import { csvCell, csvLines, parseCsvRow, parseImportedDate } from '../../data/csv.js'
-import { localDateValue } from '../../utils/date.js'
+import { isFutureLocalDate, localDateValue } from '../../utils/date.js'
 import { createWeightMeasurement } from './model.js'
 
 export function weightCsv(measurements) {
@@ -8,7 +8,7 @@ export function weightCsv(measurements) {
   return `\uFEFF${rows.map((row) => row.map(csvCell).join(',')).join('\r\n')}\r\n`
 }
 
-export function parseWeightImportCsv(text) {
+export function parseWeightImportCsv(text, now = new Date()) {
   const measurements = []
   let skipped = 0
   const lines = csvLines(text)
@@ -18,7 +18,7 @@ export function parseWeightImportCsv(text) {
     const [dateCell, weightCell] = parseCsvRow(line)
     if (index === 0 && /date|datum|fecha/i.test(dateCell)) continue
     const timestamp = parseImportedDate(dateCell)
-    if (!timestamp || weightCell === undefined) { const error = new Error('invalidCsv'); error.line = index + 1; throw error }
+    if (!timestamp || isFutureLocalDate(localDateValue(timestamp), now) || weightCell === undefined) { const error = new Error('invalidCsv'); error.line = index + 1; throw error }
     if (!weightCell || /^(NN|N\/A|NA)$/i.test(weightCell)) { skipped += 1; continue }
     const value = Number(weightCell.replace(',', '.'))
     if (!Number.isFinite(value) || value <= 0 || value > 1000) { const error = new Error('invalidCsv'); error.line = index + 1; throw error }
