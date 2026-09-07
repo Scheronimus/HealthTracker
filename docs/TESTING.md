@@ -32,6 +32,7 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 - Confirm history has no inline Edit/Delete buttons; select anywhere on a row and confirm the edit screen opens with its existing data.
 - Confirm Delete appears on existing-record edit screens only, still requires confirmation, and returns to the dashboard after deletion.
 - Add a valid weight with date and multiline note; confirm no time field is shown, then refresh and confirm it persists.
+- Open a new Weight form and confirm the latest weight appears in grey while the field remains empty and required. Type a value and confirm the hint disappears; clear the field and confirm it returns. Confirm edit forms show the stored value instead of the hint.
 - Try adding another weight on the same date and confirm it is rejected; edit the existing entry without changing its date and confirm saving remains allowed.
 - Reject empty, zero, negative, and over-1000 kg values.
 - Add measurements out of chronological order and confirm newest-first history and summaries.

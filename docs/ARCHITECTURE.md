@@ -60,6 +60,8 @@ The graph span is dashboard-level state shared by the chart and summary. Current
 
 Weight entry and presentation are date-only. New records convert the chosen local date to local noon for the existing timestamp-based schema, avoiding common midnight timezone shifts while retaining extensibility for future measurement types. The entry form prevents a second weight on the same local calendar date and excludes the current record during editing. Existing persisted timestamps remain valid, but hours are not shown in weight UI.
 
+On a new Weight entry, the newest recorded weight is presented as a muted placeholder and accessible hint. It remains an empty required field and is never submitted as the new value. Edit forms continue to use the stored measurement as the actual field value.
+
 New and imported Weight measurements cannot use a local calendar date after today. Blood Pressure compares its exact timestamp and also rejects a time later today. Restore skips future imported measurements without removing existing local records. Existing future records are marked in red and remain available for editing or deletion.
 
 ## External CSV import

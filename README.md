@@ -11,6 +11,7 @@ Production target: <https://scheronimus.github.io/HealthTracker/>
 Health Tracker supports modular Weight and Blood Pressure areas. Blood Pressure records exact local date/time, systolic and diastolic pressure, and pulse. Each date can contain up to two time-ordered readings at least two hours apart. Seven-day measurement periods begin with the first reading rather than on Monday. The app averages whatever readings are available and reports neutral coverage by readings and days. Mixed data is included in JSON backups; CSV export stays Weight-only, while CSV import accepts both modules.
 
 - Record, edit, and delete dated weight measurements in kilograms with optional notes.
+- See the latest recorded weight as a muted empty-field hint when adding the next Weight measurement.
 - Record up to two blood-pressure readings per date with exact local date/time, systolic, diastolic, and pulse values.
 - Prevent future-dated or future-timed measurements in manual entry, CSV import, and backup restore while keeping existing records deletable.
 - Review a focused blood-pressure overview, compact two-reading diary, and accessible 7-day to 1-year trends using daily or weekly averages without connecting individual readings into a misleading line.

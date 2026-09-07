@@ -19,6 +19,7 @@ input, textarea, select { width: 100%; border: 1px solid #b7c9d3; border-radius:
 textarea { resize: vertical; } .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .65rem; }
 .weight-input { display: grid; grid-template-columns: 1fr auto; align-items: center; border: 1px solid #b7c9d3; border-radius: 10px; background: white; overflow: hidden; }
 .weight-input input { border: 0; border-radius: 0; font-size: 1.15rem; font-weight: 700; } .weight-input span { padding: 0 .9rem; color: var(--muted); }
+.weight-input input::placeholder { color: var(--muted); opacity: .72; font-weight: 650; }
 .button-row, .data-actions { display: flex; flex-wrap: wrap; gap: .55rem; }
 button { border: 1px solid #b7c9d3; border-radius: 10px; padding: .68rem .9rem; background: white; color: var(--primary-dark); font-weight: 700; }
 button.primary { flex: 1; border-color: var(--primary); background: var(--primary); color: white; }
