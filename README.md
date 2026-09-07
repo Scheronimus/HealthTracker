@@ -26,7 +26,7 @@ Health Tracker supports modular Weight and Blood Pressure areas. Blood Pressure 
 
 ## Run locally
 
-Install Node.js 22 or newer, then run `npm ci` and `npm start`. On Windows, double-click `Start Health Tracker.cmd`. For a phone on the same Wi-Fi, double-click `Start Health Tracker on Mobile.cmd` and scan the terminal QR code.
+Install Node.js 24.18.1 or newer in the Node.js 24 LTS line, then run `npm ci` and `npm start`. On Windows, double-click `Start Health Tracker.cmd`. For a phone on the same Wi-Fi, double-click `Start Health Tracker on Mobile.cmd` and scan the terminal QR code.
 
 PWA/offline behavior requires a production build: `npm run build` then `npm run preview`.
 
