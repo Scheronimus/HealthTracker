@@ -1,6 +1,6 @@
 # Health Tracker v1.3.0 plan
 
-Status: Planned; implementation has not started.
+Status: Implemented on `feature/v1.3.0`; automated release verification passed, manual release regression pending.
 
 Version 1.3.0 is a focused usability and visual-quality release. It prevents future measurements, improves the new Weight entry experience, keeps Weight history aligned with the graph filter, and revises dark mode. No persisted schema change or migration is expected.
 
@@ -62,7 +62,7 @@ Likely files include `src/modules/weight/components/WeightDashboard.jsx`, `src/m
 
 ## 4. Revise dark mode
 
-Continue using the operating system's `prefers-color-scheme` setting. A manual theme selector is outside this release unless separately approved.
+Use the operating system's `prefers-color-scheme` setting by default. During implementation, a manual appearance preference was approved and added with System, Light, and Dark choices.
 
 - Replace scattered dark-mode colors with a coherent semantic token set for:
   - page and header backgrounds;
@@ -77,7 +77,7 @@ Continue using the operating system's `prefers-color-scheme` setting. A manual t
 - Verify hover, focus, active, disabled, and selected states on desktop and touch layouts.
 - Preserve the existing light-mode appearance unless a shared-token adjustment is necessary.
 
-The primary files are `src/App.css` and `src/index.css`. Component changes should be limited to cases where additional styling hooks are required.
+The primary files are `src/App.css` and `src/index.css`. The preference is stored separately from health data under `health-tracker-theme`, so it does not require a schema migration or alter backups.
 
 ## Delivery sequence
 
