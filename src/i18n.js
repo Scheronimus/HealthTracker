@@ -76,6 +76,11 @@ Object.assign(translations.es, { futureMeasurement:'No se pueden introducir medi
 Object.assign(translations.de, { futureMeasurement:'Messungen können nicht in der Zukunft erfasst werden.', futureMeasurementLabel:'Zukünftiges Datum', latestWeightHint:'Letztes Gewicht: {weight} kg. Gib einen neuen Wert ein.', restoreDone:'Wiederherstellung fertig: {added} hinzugefügt, {duplicates} Duplikate unverändert, {future} zukünftige Messungen übersprungen.' })
 Object.assign(translations.fr, { futureMeasurement:'Les mesures ne peuvent pas être saisies dans le futur.', futureMeasurementLabel:'Date future', latestWeightHint:'Dernier poids : {weight} kg. Saisissez une nouvelle valeur.', restoreDone:'Restauration terminée : {added} ajoutées, {duplicates} doublons conservés, {future} mesures futures ignorées.' })
 
+Object.assign(translations.en, { theme:'Appearance', themeSystem:'Use device setting', themeLight:'Light', themeDark:'Dark' })
+Object.assign(translations.es, { theme:'Apariencia', themeSystem:'Usar ajuste del dispositivo', themeLight:'Claro', themeDark:'Oscuro' })
+Object.assign(translations.de, { theme:'Darstellung', themeSystem:'Geräteeinstellung verwenden', themeLight:'Hell', themeDark:'Dunkel' })
+Object.assign(translations.fr, { theme:'Apparence', themeSystem:'Utiliser le réglage de l’appareil', themeLight:'Clair', themeDark:'Sombre' })
+
 export const languageNames = { en: 'English', es: 'Español', de: 'Deutsch', fr: 'Français' }
 
 export function translate(language, key, values = {}) {

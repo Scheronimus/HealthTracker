@@ -71,3 +71,7 @@ The importer detects rows by column count and parses quoted CSV cells. Weight ro
 ## Offline and deployment
 
 `deployment.config.mjs` is the deployment identity source. Vite uses `/HealthTracker/`; `vite-plugin-pwa` generates a manifest and auto-updating service worker that precaches the application shell. On pushes to `main`, the GitHub Actions Pages workflow installs with Node.js 24, then tests, lints, builds, and deploys the application.
+
+## Appearance preference
+
+The appearance preference is stored separately under `health-tracker-theme`, like the language preference, and does not change the versioned health-data store or backup format. System is the default and follows `prefers-color-scheme`; Light and Dark explicitly override the device preference. The resolved theme is applied to the document root so native controls and application colors use the same color scheme.

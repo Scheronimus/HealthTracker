@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import packageJson from '../package.json'
 import { ProfileForm } from './components/ProfileForm.jsx'
 import { Settings } from './components/Settings.jsx'
@@ -8,10 +8,12 @@ import { useHealthData } from './hooks/useHealthData.js'
 import { translate } from './i18n.js'
 import { downloadText } from './utils/download.js'
 import { MODULES_BY_ID } from './modules/registry.jsx'
+import { applyTheme, loadTheme, saveTheme, watchSystemTheme } from './utils/theme.js'
 import './App.css'
 
 export default function App() {
   const [language, setLanguage] = useState(loadLanguage)
+  const [theme, setTheme] = useState(() => { const saved = loadTheme(); applyTheme(saved); return saved })
   const { store, setStore, measurements, add, update, remove } = useHealthData()
   const [screen, setScreen] = useState('dashboard')
   const [feature, setFeature] = useState(() => store.profile.modules[0])
@@ -26,7 +28,9 @@ export default function App() {
   const ActiveEntryForm = activeModule.EntryForm
   const csvExportModule = visibleModules.find((module) => module.csv?.export)
   const t = (key, values) => translate(language, key, values)
+  useEffect(() => watchSystemTheme(theme, () => applyTheme(theme)), [theme])
   function changeLanguage(next) { setLanguage(next); saveLanguage(next) }
+  function changeTheme(next) { setTheme(next); saveTheme(next); applyTheme(next) }
   function showScreen(next) { setScreen(next); window.scrollTo(0, 0) }
   function setActiveModuleState(next) { setModuleStates((current) => ({ ...current, [feature]: next })) }
   function openEntry(item = null, preset = null) { setEditing(item); setEntryPreset(preset); showScreen('entry') }
@@ -109,7 +113,7 @@ export default function App() {
       <ProfileForm profile={store.profile} onSave={saveProfile} t={t} />
     </main>}
     {screen === 'settings' && <main className="settings-screen">
-      <Settings language={language} onLanguage={changeLanguage} profile={store.profile} onProfile={() => showScreen('profile')} onBackup={() => downloadText(filename('json'), JSON.stringify(createBackup(store), null, 2), 'application/json')} onCsv={csvExportModule ? () => downloadText(filename('csv'), csvExportModule.csv.export(measurements), 'text/csv;charset=utf-8') : undefined} onCsvImport={importCsv} onRestore={restore} onLoadDemo={import.meta.env.DEV ? loadDemo : undefined} onClearAll={clearAll} t={t} />
+      <Settings language={language} onLanguage={changeLanguage} theme={theme} onTheme={changeTheme} profile={store.profile} onProfile={() => showScreen('profile')} onBackup={() => downloadText(filename('json'), JSON.stringify(createBackup(store), null, 2), 'application/json')} onCsv={csvExportModule ? () => downloadText(filename('csv'), csvExportModule.csv.export(measurements), 'text/csv;charset=utf-8') : undefined} onCsvImport={importCsv} onRestore={restore} onLoadDemo={import.meta.env.DEV ? loadDemo : undefined} onClearAll={clearAll} t={t} />
     </main>}
     <footer className="app-version">Health Tracker · v{packageJson.version} · {new Date().getFullYear()}</footer>
   </>

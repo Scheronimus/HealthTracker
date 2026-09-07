@@ -49,6 +49,8 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 - Import the 240-entry irregular fixture and confirm the full trend line remains readable with no point markers.
 - Edit an entry and confirm its ID is retained. Cancel and accept delete confirmations.
 - Switch among English, Spanish, German, and French; refresh and confirm the language persists.
+- In Settings, switch among Use device setting, Light, and Dark. Confirm the preference persists after reload, explicit choices override the device setting, and System responds to an operating-system theme change.
+- Review text, muted text, cards, privacy panels, inputs, date/time controls, buttons, segmented controls, charts, warnings, focus, hover, selected, and disabled states in both appearance modes.
 - In Profile, hide a module and confirm it disappears from the banner selector. Reorder the enabled modules, reload, and confirm the first one opens by default. Confirm saving with no visible module is rejected.
 - Export CSV and inspect commas, quotes, Unicode, timestamps, and kilogram values.
 - Import `31/03/26,"99,7"`, `01/04/26,NN`, and `02/04/26,99`; confirm two weights are added and the missing row is reported as skipped.
