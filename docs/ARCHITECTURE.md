@@ -54,7 +54,7 @@ The dashboard is the default screen and opens the first module in the profile's 
 
 ## Dashboard summaries
 
-The graph span is dashboard-level state shared by the chart and summary. Current weight always uses the newest measurement; Change compares the newest and oldest measurements visible in the selected 3-month, 1-year, or all-time range and displays the localized date of that oldest comparison measurement. The previous-entry summary is intentionally omitted.
+The graph span is dashboard-level state shared by the chart, summary, and raw Weight history. Current weight always uses the newest measurement; Change compares the newest and oldest measurements visible in the selected 3-month, 1-year, or all-time range and displays the localized date of that oldest comparison measurement. The history list and its count include only measurements in that same range, and row changes compare adjacent visible records. The previous-entry summary is intentionally omitted.
 
 ## Date-only weight policy
 

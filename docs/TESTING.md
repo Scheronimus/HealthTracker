@@ -37,6 +37,7 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 - Reject empty, zero, negative, and over-1000 kg values.
 - Add measurements out of chronological order and confirm newest-first history and summaries.
 - Confirm the graph defaults to 3 months and correctly switches to 1 year and all time.
+- Switch each graph span and confirm the Weight History list, count, empty state, and row changes use only measurements visible in that same range.
 - Confirm Current weight always shows the newest measurement and no Since previous card is present.
 - Switch each graph span and confirm Change compares the first and last measurements visible in that range and shows the localized date of the older comparison measurement.
 - On a narrow smartphone, confirm the entire graph and both date labels fit without a horizontal scrollbar.
