@@ -9,6 +9,6 @@ export function WeightDashboard({ measurements, language, profile, state, onStat
   return <>
     <WeightChart measurements={visibleMeasurements} language={language} span={chartSpan} onSpanChange={(next) => onStateChange({ ...state, chartSpan: next })} profile={profile} onBmiZonesChange={(showBmiRange) => onProfileChange({ ...profile, showBmiRange })} t={t} />
     <WeightSummary measurements={measurements} visibleMeasurements={visibleMeasurements} span={chartSpan} language={language} profile={profile} t={t} />
-    <WeightHistory measurements={measurements} language={language} onEdit={onEdit} t={t} />
+    <WeightHistory measurements={visibleMeasurements} language={language} onEdit={onEdit} t={t} />
   </>
 }

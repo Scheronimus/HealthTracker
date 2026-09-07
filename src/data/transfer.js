@@ -17,12 +17,14 @@ export function parseBackup(text) {
   try { return migrateStore(parsed.data) } catch { throw new Error('invalidBackup') }
 }
 
-export function mergeRestore(existing, imported) {
+export function mergeRestore(existing, imported, now = new Date()) {
   const byId = new Map(existing.measurements.map((item) => [item.id, item]))
   let added = 0
   let duplicates = 0
+  let future = 0
   for (const item of imported.measurements) {
     const module = MODULE_DATA_BY_TYPE[item.type]
+    if (module?.isFutureMeasurement?.(item, now)) { future += 1; continue }
     if (byId.has(item.id) || (module?.canRestore && !module.canRestore([...byId.values()], item))) { duplicates += 1; continue }
     byId.set(item.id, item)
     added += 1
@@ -30,7 +32,7 @@ export function mergeRestore(existing, imported) {
   const localProfile = existing.profile ?? emptyProfile()
   const importedProfile = imported.profile ?? emptyProfile()
   const hasLocalProfile = JSON.stringify(localProfile) !== JSON.stringify(emptyProfile())
-  return { data: { schemaVersion: SCHEMA_VERSION, measurements: [...byId.values()], profile: hasLocalProfile ? localProfile : importedProfile }, added, duplicates }
+  return { data: { schemaVersion: SCHEMA_VERSION, measurements: [...byId.values()], profile: hasLocalProfile ? localProfile : importedProfile }, added, duplicates, future }
 }
 
 export function parseHealthImportCsv(text) {

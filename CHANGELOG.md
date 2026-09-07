@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.3.0 - 2026-09-07
+
+### Added
+
+- A locally saved appearance preference with system, light, and dark choices in English, Spanish, German, and French.
+- The latest recorded Weight as a muted, accessible empty-field hint when adding the next measurement.
+
+### Changed
+
+- Prevented future Weight dates and future Blood Pressure timestamps in manual entry and CSV import, and skipped future measurements during backup restore without removing existing local data.
+- Marked existing future-dated records in red while keeping them available for editing and deletion.
+- Filtered the raw Weight history, count, empty state, and row changes to the selected graph range.
+- Revised dark-mode surfaces, controls, contrast, chart presentation, and BMI colors while preserving the Weight graph's area shading.
+
+### Data compatibility
+
+- The persisted health-data schema remains at version 6; no migration is required.
+- The appearance preference is stored separately and is not included in health-data backups.
+
 ## 1.2.0 - 2026-08-28
 
 ### Added

@@ -1,5 +1,5 @@
 import { BP_READING_SLOTS, bloodPressureReadingsOnDate, localTimeValue, weekDates } from '../bloodPressure.js'
-import { formatDate, localDateValue } from '../../../utils/date.js'
+import { formatDate, isFutureTimestamp, localDateValue } from '../../../utils/date.js'
 
 export function BloodPressureDiary({ week, language, canGoNewer, canGoOlder, onNewer, onOlder, onSlot, t }) {
   const today = localDateValue()
@@ -18,11 +18,12 @@ export function BloodPressureDiary({ week, language, canGoNewer, canGoOlder, onN
           const readings = bloodPressureReadingsOnDate(week.measurements, date)
           const item = readings[slot - 1]
           const future = date > today
+          const futureRecord = Boolean(item && isFutureTimestamp(item.timestamp))
           const available = slot <= readings.length + 1
           const slotLabel = t(slot === 1 ? 'readingOne' : 'readingTwo')
-          const label = item ? `${slotLabel}, ${item.systolicMmHg}/${item.diastolicMmHg} mmHg, ${item.pulseBpm} bpm` : `${slotLabel}, ${t(future ? 'upcoming' : 'addOptional')}`
-          return <td key={slot}><button aria-label={label} type={'button'} className={item ? 'bp-diary-reading recorded' : 'bp-diary-reading optional'} disabled={future || !available} onClick={() => onSlot(item, { date, slot })}>
-            {item ? <><strong>{item.systolicMmHg}/{item.diastolicMmHg}</strong><small>{localTimeValue(item.timestamp)} · {item.pulseBpm} bpm</small></> : <span>{t(future ? 'upcoming' : 'addOptional')}</span>}
+          const label = item ? `${slotLabel}, ${item.systolicMmHg}/${item.diastolicMmHg} mmHg, ${item.pulseBpm} bpm${futureRecord ? `, ${t('futureMeasurementLabel')}` : ''}` : `${slotLabel}, ${t(future ? 'upcoming' : 'addOptional')}`
+          return <td key={slot}><button aria-label={label} type={'button'} className={item ? `bp-diary-reading recorded${futureRecord ? ' future-record' : ''}` : 'bp-diary-reading optional'} disabled={!item && (future || !available)} onClick={() => onSlot(item, { date, slot })}>
+            {item ? <><strong>{item.systolicMmHg}/{item.diastolicMmHg}</strong><small>{localTimeValue(item.timestamp)} · {item.pulseBpm} bpm</small>{futureRecord && <span className={'future-record-label'}>{t('futureMeasurementLabel')}</span>}</> : <span>{t(future ? 'upcoming' : 'addOptional')}</span>}
           </button></td>
         })}
       </tr>)}</tbody>

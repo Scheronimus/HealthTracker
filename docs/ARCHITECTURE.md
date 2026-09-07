@@ -54,11 +54,15 @@ The dashboard is the default screen and opens the first module in the profile's 
 
 ## Dashboard summaries
 
-The graph span is dashboard-level state shared by the chart and summary. Current weight always uses the newest measurement; Change compares the newest and oldest measurements visible in the selected 3-month, 1-year, or all-time range and displays the localized date of that oldest comparison measurement. The previous-entry summary is intentionally omitted.
+The graph span is dashboard-level state shared by the chart, summary, and raw Weight history. Current weight always uses the newest measurement; Change compares the newest and oldest measurements visible in the selected 3-month, 1-year, or all-time range and displays the localized date of that oldest comparison measurement. The history list and its count include only measurements in that same range, and row changes compare adjacent visible records. The previous-entry summary is intentionally omitted.
 
 ## Date-only weight policy
 
 Weight entry and presentation are date-only. New records convert the chosen local date to local noon for the existing timestamp-based schema, avoiding common midnight timezone shifts while retaining extensibility for future measurement types. The entry form prevents a second weight on the same local calendar date and excludes the current record during editing. Existing persisted timestamps remain valid, but hours are not shown in weight UI.
+
+On a new Weight entry, the newest recorded weight is presented as a muted placeholder and accessible hint. It remains an empty required field and is never submitted as the new value. Edit forms continue to use the stored measurement as the actual field value.
+
+New and imported Weight measurements cannot use a local calendar date after today. Blood Pressure compares its exact timestamp and also rejects a time later today. Restore skips future imported measurements without removing existing local records. Existing future records are marked in red and remain available for editing or deletion.
 
 ## External CSV import
 
@@ -67,3 +71,7 @@ The importer detects rows by column count and parses quoted CSV cells. Weight ro
 ## Offline and deployment
 
 `deployment.config.mjs` is the deployment identity source. Vite uses `/HealthTracker/`; `vite-plugin-pwa` generates a manifest and auto-updating service worker that precaches the application shell. On pushes to `main`, the GitHub Actions Pages workflow installs with Node.js 24, then tests, lints, builds, and deploys the application.
+
+## Appearance preference
+
+The appearance preference is stored separately under `health-tracker-theme`, like the language preference, and does not change the versioned health-data store or backup format. System is the default and follows `prefers-color-scheme`; Light and Dark explicitly override the device preference. The resolved theme is applied to the document root so native controls and application colors use the same color scheme.

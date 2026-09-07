@@ -11,19 +11,22 @@ Production target: <https://scheronimus.github.io/HealthTracker/>
 Health Tracker supports modular Weight and Blood Pressure areas. Blood Pressure records exact local date/time, systolic and diastolic pressure, and pulse. Each date can contain up to two time-ordered readings at least two hours apart. Seven-day measurement periods begin with the first reading rather than on Monday. The app averages whatever readings are available and reports neutral coverage by readings and days. Mixed data is included in JSON backups; CSV export stays Weight-only, while CSV import accepts both modules.
 
 - Record, edit, and delete dated weight measurements in kilograms with optional notes.
+- See the latest recorded weight as a muted empty-field hint when adding the next Weight measurement.
 - Record up to two blood-pressure readings per date with exact local date/time, systolic, diastolic, and pulse values.
+- Prevent future-dated or future-timed measurements in manual entry, CSV import, and backup restore while keeping existing records deletable.
 - Review a focused blood-pressure overview, compact two-reading diary, and accessible 7-day to 1-year trends using daily or weekly averages without connecting individual readings into a misleading line.
 - Prominent interactive weight graph with 3-month, 1-year, and all-time ranges.
-- Newest-first history with current weight and graph-span change summaries.
+- Newest-first Weight history filtered to the selected graph span, with current weight and graph-span change summaries.
 - Optional local profile, WHO BMI screening context, and height-specific WHO color zones on the unchanged graph scale.
 - English, Spanish, German, and French interfaces with a locally saved preference.
+- System, light, and dark appearance choices with a locally saved preference.
 - Versioned and validated local data, tested migration infrastructure, JSON backup/merge restore, Weight CSV export, and Weight/Blood Pressure CSV import.
 - Installable PWA with a cached application shell for offline use.
 - Expandable sharing QR code in Settings for opening the production app on another device.
 
 ## Run locally
 
-Install Node.js 22 or newer, then run `npm ci` and `npm start`. On Windows, double-click `Start Health Tracker.cmd`. For a phone on the same Wi-Fi, double-click `Start Health Tracker on Mobile.cmd` and scan the terminal QR code.
+Install Node.js 24.18.1 or newer in the Node.js 24 LTS line, then run `npm ci` and `npm start`. On Windows, double-click `Start Health Tracker.cmd`. For a phone on the same Wi-Fi, double-click `Start Health Tracker on Mobile.cmd` and scan the terminal QR code.
 
 PWA/offline behavior requires a production build: `npm run build` then `npm run preview`.
 

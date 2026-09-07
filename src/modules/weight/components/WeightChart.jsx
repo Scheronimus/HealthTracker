@@ -46,7 +46,7 @@ export function WeightChart({ measurements, language, span, onSpanChange, profil
 
   const activeText = active ? `${formatDate(active.timestamp, language)}, ${active.value.toFixed(1)} kg` : t('chartDescription', { count: points.length })
 
-  return <section className="weight-chart card" aria-labelledby="chart-title">
+  return <section className={`weight-chart card${visibleBands.length ? ' bmi-zones-visible' : ''}`} aria-labelledby="chart-title">
     <div className="chart-header">
       <div className="chart-title-group"><h2 id="chart-title">{t('trend')}</h2><p>{t('trendHint')}</p>{profile.showBmi && (profile.age === null || profile.age >= 18) && <button className="chart-bmi-toggle" type="button" role="switch" aria-checked={profile.showBmiRange} onClick={() => onBmiZonesChange(!profile.showBmiRange)}><i aria-hidden="true" />{t('bmiZonesToggle')}</button>}</div>
       <div className="span-control" role="group" aria-label={t('timeSpan')}>
@@ -56,11 +56,11 @@ export function WeightChart({ measurements, language, span, onSpanChange, profil
     {!points.length ? <div className="chart-empty"><span>⌁</span><p>{t('noChartData')}</p></div> : <>
       <div className="chart-wrap">
         <svg className="chart-svg" viewBox={`0 0 ${WIDTH + PAD.left + PAD.right} ${HEIGHT + PAD.top + PAD.bottom}`} role="img" aria-label={t('chartDescription', { count: points.length })}>
-          <defs><linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#4e91b8" stopOpacity=".34" /><stop offset="1" stopColor="#4e91b8" stopOpacity=".02" /></linearGradient></defs>
+          <defs><linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1"><stop className="trend-area-start" offset="0" /><stop className="trend-area-end" offset="1" /></linearGradient></defs>
           <g transform={`translate(${PAD.left} ${PAD.top})`}>
             {visibleBands.map((band) => <rect key={band.key} className={`bmi-zone ${band.key}`} x="0" y={band.top} width={WIDTH} height={band.height} />)}
+            {points.length > 1 && <polygon className="trend-area" points={area} fill={`url(#${gradientId})`} />}
             {ticks.map(({ value, y }) => <g key={value}><line className="grid-line" x1="0" x2={WIDTH} y1={y} y2={y} /><text className="axis-label y-label" x="-10" y={y + 4}>{value.toFixed(0)}</text></g>)}
-            {points.length > 1 && <polygon points={area} fill={`url(#${gradientId})`} />}
             {points.length > 1 && <polyline className="trend-line" points={line} />}
             {active && <line className="chart-crosshair" x1={active.x} x2={active.x} y1="0" y2={HEIGHT} />}
             <text className="axis-label x-start" x="0" y={HEIGHT + 28}>{new Intl.DateTimeFormat(language, { dateStyle: 'medium' }).format(new Date(first.timestamp))}</text>
