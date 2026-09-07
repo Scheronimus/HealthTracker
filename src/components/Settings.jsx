@@ -3,7 +3,7 @@ import { languageNames } from '../i18n.js'
 import productionQrUrl from '../../docs/production-app-qr.svg?url'
 import { deployment } from '../../deployment.config.mjs'
 
-export function Settings({ language, onLanguage, onProfile, profile, onBackup, onCsv, onCsvImport, onRestore, onLoadDemo, onClearAll, t }) {
+export function Settings({ language, onLanguage, theme, onTheme, onProfile, profile, onBackup, onCsv, onCsvImport, onRestore, onLoadDemo, onClearAll, t }) {
   const backupInput = useRef(null)
   const csvInput = useRef(null)
   const [message, setMessage] = useState('')
@@ -35,6 +35,7 @@ export function Settings({ language, onLanguage, onProfile, profile, onBackup, o
   return <section className="settings-panel card">
     <button className="profile-link" type="button" onClick={onProfile}><span><strong>{t('profile')}</strong><small>{profile.name || t('profileOptionalShort')}</small></span><b aria-hidden="true">›</b></button>
     <label>{t('language')}<select value={language} onChange={(event) => onLanguage(event.target.value)}>{Object.entries(languageNames).map(([code, name]) => <option key={code} value={code}>{name}</option>)}</select></label>
+    <label>{t('theme')}<select value={theme} onChange={(event) => onTheme(event.target.value)}><option value="system">{t('themeSystem')}</option><option value="light">{t('themeLight')}</option><option value="dark">{t('themeDark')}</option></select></label>
     <div className="settings-section">
       <h2>{t('settings')}</h2>
       <div className="data-actions">

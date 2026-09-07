@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { createBloodPressureMeasurement } from '../model.js'
-import { localDateValue } from '../../../utils/date.js'
+import { isFutureTimestamp, localDateValue } from '../../../utils/date.js'
 import { hasNearbyBloodPressureReading, isBloodPressureDayFull, localTimeValue, timestampFromLocal } from '../bloodPressure.js'
 
 export function BloodPressureEntryForm({ editing, preset, measurements, onSave, onDelete, t }) {
@@ -17,8 +17,8 @@ export function BloodPressureEntryForm({ editing, preset, measurements, onSave, 
     event.preventDefault()
     const timestamp = timestampFromLocal(date, time)
     const values = { systolicMmHg: Number(systolic), diastolicMmHg: Number(diastolic), pulseBpm: Number(pulse) }
-    const invalid = !timestamp || date > localDateValue()
-      || !Number.isInteger(values.systolicMmHg) || values.systolicMmHg < 50 || values.systolicMmHg > 300
+    if (timestamp && isFutureTimestamp(timestamp)) { setError(t('futureMeasurement')); return }
+    const invalid = !timestamp || !Number.isInteger(values.systolicMmHg) || values.systolicMmHg < 50 || values.systolicMmHg > 300
       || !Number.isInteger(values.diastolicMmHg) || values.diastolicMmHg < 30 || values.diastolicMmHg > 200
       || !Number.isInteger(values.pulseBpm) || values.pulseBpm < 30 || values.pulseBpm > 250
     if (invalid) { setError(t('bpInvalid')); return }

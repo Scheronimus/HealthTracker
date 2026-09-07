@@ -1,9 +1,9 @@
 import { csvLines, importedDateValue, parseCsvRow } from '../../data/csv.js'
-import { localDateValue } from '../../utils/date.js'
+import { isFutureTimestamp, localDateValue } from '../../utils/date.js'
 import { hasNearbyBloodPressureReading, isBloodPressureDayFull } from './bloodPressure.js'
 import { createBloodPressureMeasurement } from './model.js'
 
-export function parseBloodPressureImportCsv(text) {
+export function parseBloodPressureImportCsv(text, now = new Date()) {
   const measurements = []
   const lines = csvLines(text)
   for (let index = 0; index < lines.length; index += 1) {
@@ -18,7 +18,7 @@ export function parseBloodPressureImportCsv(text) {
     const validTime = timeMatch && Number(timeMatch[1]) < 24 && Number(timeMatch[2]) < 60 && Number(timeMatch[3] ?? 0) < 60
     const timestamp = date && validTime ? new Date(`${date}T${timeMatch[1]}:${timeMatch[2]}:${timeMatch[3] ?? '00'}`).toISOString() : null
     const [systolicMmHg, diastolicMmHg, pulseBpm] = values
-    if (cells.length !== 5 || !timestamp || !values.every(Number.isInteger)
+    if (cells.length !== 5 || !timestamp || isFutureTimestamp(timestamp, now) || !values.every(Number.isInteger)
       || systolicMmHg < 50 || systolicMmHg > 300 || diastolicMmHg < 30 || diastolicMmHg > 200
       || systolicMmHg <= diastolicMmHg || pulseBpm < 30 || pulseBpm > 250) {
       const error = new Error('invalidCsv'); error.line = index + 1; throw error

@@ -2,7 +2,7 @@
 
 ## Automated
 
-Tests cover the module registry contract, schema v6 and all migration paths, mixed stores/backups, module preferences, the two-readings-per-date limit and edit exclusion, local date/time conversion, DST-safe first-reading-anchored periods, available-reading averages, chart ordering/scale/domain/markers/nearest point, and Weight/Blood Pressure CSV import behavior.
+Tests cover the module registry contract, schema v6 and all migration paths, mixed stores/backups, module and appearance preferences, all four languages for new v1.3 interface text, date-input limits, core dark-theme WCAG contrast pairs, specialized dark button styling, the two-readings-per-date limit and edit exclusion, local date/time conversion, DST-safe first-reading-anchored periods, available-reading averages, chart ordering/scale/domain/markers/nearest point, Weight graph/history range synchronization and empty states, and Weight/Blood Pressure CSV import behavior.
 
 Run `npm test`, `npm run lint`, and `npm run build`. Regenerate the weekly and irregular one-year graph fixtures with `npm run generate:demo-backup` and `npm run generate:irregular-demo-backup` when their generators change. Tests cover schema validation, unique IDs, version-zero migration, future-version rejection, backup round trips, non-overwriting restore, malformed imports, and CSV escaping.
 
@@ -26,13 +26,17 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 - In development, confirm Delete all entries appears under Temporary debug tools, cancellation preserves data, and confirmation removes measurements while preserving profile, module, and language preferences.
 - In a production build, confirm the temporary debug section is absent.
 - Confirm Cancel returns without changes; confirm Save validates, stores the entry, and returns to the dashboard.
+- Confirm Weight rejects a date after today and Blood Pressure rejects both a later date and a time later today.
+- If an existing future-dated record is present, confirm it is marked in red and can still be opened and deleted in both modules.
 - Confirm history has no inline Edit/Delete buttons; select anywhere on a row and confirm the edit screen opens with its existing data.
 - Confirm Delete appears on existing-record edit screens only, still requires confirmation, and returns to the dashboard after deletion.
 - Add a valid weight with date and multiline note; confirm no time field is shown, then refresh and confirm it persists.
+- Open a new Weight form and confirm the latest weight appears in grey while the field remains empty and required. Type a value and confirm the hint disappears; clear the field and confirm it returns. Confirm edit forms show the stored value instead of the hint.
 - Try adding another weight on the same date and confirm it is rejected; edit the existing entry without changing its date and confirm saving remains allowed.
 - Reject empty, zero, negative, and over-1000 kg values.
 - Add measurements out of chronological order and confirm newest-first history and summaries.
 - Confirm the graph defaults to 3 months and correctly switches to 1 year and all time.
+- Switch each graph span and confirm the Weight History list, count, empty state, and row changes use only measurements visible in that same range.
 - Confirm Current weight always shows the newest measurement and no Since previous card is present.
 - Switch each graph span and confirm Change compares the first and last measurements visible in that range and shows the localized date of the older comparison measurement.
 - On a narrow smartphone, confirm the entire graph and both date labels fit without a horizontal scrollbar.
@@ -44,6 +48,8 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 - Import the 240-entry irregular fixture and confirm the full trend line remains readable with no point markers.
 - Edit an entry and confirm its ID is retained. Cancel and accept delete confirmations.
 - Switch among English, Spanish, German, and French; refresh and confirm the language persists.
+- In Settings, switch among Use device setting, Light, and Dark. Confirm the preference persists after reload, explicit choices override the device setting, and System responds to an operating-system theme change.
+- Visually review the overall hierarchy, native date/time controls, hover states, and disabled states in both appearance modes; automated checks cover the core palette contrast and theme-specific selectors.
 - In Profile, hide a module and confirm it disappears from the banner selector. Reorder the enabled modules, reload, and confirm the first one opens by default. Confirm saving with no visible module is rejected.
 - Export CSV and inspect commas, quotes, Unicode, timestamps, and kilogram values.
 - Import `31/03/26,"99,7"`, `01/04/26,NN`, and `02/04/26,99`; confirm two weights are added and the missing row is reported as skipped.
@@ -58,4 +64,4 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 
 ## Profile and BMI checks
 
-Automated tests cover BMI calculation and WHO categories, six-band weight conversion, optional profile validation, sequential migrations through schema version 6, unchanged measurement-derived graph scaling, module preferences, and safe profile restore. Manually verify Profile Cancel/Save, localized labels, the height requirement when BMI is enabled, BMI visibility using the newest weight, the graph-level zone switch appearing only with BMI enabled, and mobile summary layout.
+Automated tests cover BMI calculation and WHO categories, six-band weight conversion, chart-layer ordering, optional profile validation, sequential migrations through schema version 6, unchanged measurement-derived graph scaling, module preferences, and safe profile restore. Manually verify Profile Cancel/Save, localized labels, the height requirement when BMI is enabled, BMI visibility using the newest weight, the graph-level zone switch appearing only with BMI enabled, matching chart/legend zone colors in light and dark modes, and mobile summary layout.

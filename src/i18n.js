@@ -71,6 +71,16 @@ Object.assign(translations.es, { shareApp:'Compartir Registro de salud', shareAp
 Object.assign(translations.de, { shareApp:'Gesundheits-Tracker teilen', shareAppHint:'Lass Freunde diesen Code scannen, um die App zu öffnen und zu installieren.', shareAppQrAlt:'QR-Code für die Gesundheits-Tracker-App' })
 Object.assign(translations.fr, { shareApp:'Partager Suivi santé', shareAppHint:'Un ami peut scanner ce code pour ouvrir et installer l’application.', shareAppQrAlt:'Code QR de l’application Suivi santé' })
 
+Object.assign(translations.en, { futureMeasurement:'Measurements cannot be entered in the future.', futureMeasurementLabel:'Future date', latestWeightHint:'Latest weight: {weight} kg. Enter a new value.', restoreDone:'Restore complete: {added} added, {duplicates} duplicates kept unchanged, {future} future measurements skipped.' })
+Object.assign(translations.es, { futureMeasurement:'No se pueden introducir mediciones en el futuro.', futureMeasurementLabel:'Fecha futura', latestWeightHint:'Último peso: {weight} kg. Introduce un valor nuevo.', restoreDone:'Restauración terminada: {added} añadidas, {duplicates} duplicados sin cambios, {future} mediciones futuras omitidas.' })
+Object.assign(translations.de, { futureMeasurement:'Messungen können nicht in der Zukunft erfasst werden.', futureMeasurementLabel:'Zukünftiges Datum', latestWeightHint:'Letztes Gewicht: {weight} kg. Gib einen neuen Wert ein.', restoreDone:'Wiederherstellung fertig: {added} hinzugefügt, {duplicates} Duplikate unverändert, {future} zukünftige Messungen übersprungen.' })
+Object.assign(translations.fr, { futureMeasurement:'Les mesures ne peuvent pas être saisies dans le futur.', futureMeasurementLabel:'Date future', latestWeightHint:'Dernier poids : {weight} kg. Saisissez une nouvelle valeur.', restoreDone:'Restauration terminée : {added} ajoutées, {duplicates} doublons conservés, {future} mesures futures ignorées.' })
+
+Object.assign(translations.en, { theme:'Appearance', themeSystem:'Use device setting', themeLight:'Light', themeDark:'Dark' })
+Object.assign(translations.es, { theme:'Apariencia', themeSystem:'Usar ajuste del dispositivo', themeLight:'Claro', themeDark:'Oscuro' })
+Object.assign(translations.de, { theme:'Darstellung', themeSystem:'Geräteeinstellung verwenden', themeLight:'Hell', themeDark:'Dunkel' })
+Object.assign(translations.fr, { theme:'Apparence', themeSystem:'Utiliser le réglage de l’appareil', themeLight:'Clair', themeDark:'Sombre' })
+
 export const languageNames = { en: 'English', es: 'Español', de: 'Deutsch', fr: 'Français' }
 
 export function translate(language, key, values = {}) {
