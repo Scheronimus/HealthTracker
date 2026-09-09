@@ -20,6 +20,7 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 - Confirm Individual readings automatically moves a longer range to 30 days, disables 3-month and 1-year ranges, and uses smaller markers when more than 30 readings are visible.
 - Confirm the selected-range average and change remain stable when only the chart display mode changes, and all three blood-pressure tabs are keyboard accessible.
 - Select the top-right + and confirm the dedicated entry screen opens with Cancel and Save in its top bar.
+- At a narrow mobile width, open Weight and Blood Pressure entry screens in all four languages; confirm the complete Cancel and Save labels remain visible and long centered titles wrap without overlapping either action. Repeat for the Profile screen.
 - Confirm the flat options icon is crisp and recognizable on desktop and mobile, then select it and confirm Language, Appearance, the Data backup/restore workflow, privacy, sharing, and offline information open on a separate screen; Close returns to the dashboard.
 - Expand Share Health Tracker, scan the QR code, and confirm it opens `https://scheronimus.github.io/HealthTracker/`; use the button below the QR code and confirm it opens the device share sheet (or copies/explains how to copy the link when sharing is unavailable); repeat in all four languages.
 - In development, confirm Load one-year demo data directly adds all 240 irregular weight records and 480 blood-pressure records (two per tracked date), and a second selection adds no duplicates.
