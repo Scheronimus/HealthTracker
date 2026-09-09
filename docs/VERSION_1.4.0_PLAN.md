@@ -59,6 +59,25 @@ CSV may return in a later version as an explicitly named **Advanced data exchang
 
 Until those acceptance criteria are met, hiding CSV is safer and clearer than labeling unfinished behavior “Advanced.”
 
+## Show “What’s new” once after an update
+
+Add a short, dismissible release-note notice on the first launch of v1.4.0. This is useful because the revised Data workflow changes where users find recovery controls and removes CSV from production Options.
+
+A browser PWA cannot reliably identify the exact moment an update was installed. Define the behavior as **first app launch after the running version changes**:
+
+- Compare the current application version with a separate local `last-seen-release` value.
+- Show the notice once when v1.4.0 is newer or different, then record v1.4.0 only after the user dismisses it.
+- Do not put this preference in the versioned health-data store or include it in backups; it is device/browser UI state, like language and appearance.
+- Do not show historical release notes in sequence. On a new browser profile or after site storage is cleared, show the current release note once; this is deterministic and avoids unreliable attempts to distinguish a clean install from an update.
+- Never block dashboard access, data entry, backup, restore, or offline use. Use a compact banner, card, or lightweight dialog with a clear Close action and accessible focus behavior.
+- Keep the content to a title, two or three user-relevant bullets, and an optional link/button to view the relevant Options area. Do not reproduce the full changelog.
+- Localize the notice in English, Spanish, German, and French and ship its content with the application so it works offline.
+- If the user changes language before dismissing it, render the same release note in the newly selected language.
+
+For v1.4.0, mention the clearer backup/restore experience, the revised wording, and that CSV is no longer offered as a production transfer option. Phrase the CSV point neutrally and direct users to complete backups for recovery.
+
+Keep release-note content separate from general translations if that makes future notes easier to retire. Retain only the current release’s notice in the app unless a product decision introduces a full changelog screen.
+
 ## Four-language wording review
 
 Review all user-facing copy, not only the Data section. The known German error `JSON-Sicherung laden` labels a download action as “load”; it should use wording equivalent to “Download backup.” Treat that as evidence for a systematic audit rather than an isolated substitution.
@@ -89,6 +108,7 @@ Likely implementation areas include:
 - `src/components/Settings.jsx` and its focused tests for the revised hierarchy and removal of production CSV controls;
 - `src/i18n.js` and translation tests for the complete copy audit and key/placeholder parity;
 - `src/App.css` only where the backup-first layout needs responsive or focus-state adjustments;
+- a small version-notice utility/component and focused tests for once-per-version local state;
 - `README.md`, `docs/PRIVACY_AND_DATA_RECOVERY.md`, `docs/TESTING.md`, and `docs/TECHNICAL_DEBT.md` to align the public contract and future CSV decision;
 - version metadata for v1.4.0 during release preparation.
 
@@ -101,10 +121,11 @@ Do not change `src/App.jsx` to implement module-specific transfer behavior. Keep
 3. Remove CSV controls from the production interface while retaining and testing the underlying utilities.
 4. Review and revise all four language sets, with proficient/native review for Spanish, German, and French.
 5. Add translation parity, placeholder, focused rendering, and accessibility coverage.
-6. Update public data-recovery, testing, technical-debt, and feature documentation.
-7. Bump application release metadata to 1.4.0.
-8. Run the complete automated and manual verification below.
-9. Prepare `release/1.4.0` from `develop` after the feature branch is reviewed and integrated.
+6. Add the localized, non-blocking v1.4.0 “What’s new” notice and once-per-version state.
+7. Update public data-recovery, testing, technical-debt, and feature documentation.
+8. Bump application release metadata to 1.4.0.
+9. Run the complete automated and manual verification below.
+10. Prepare `release/1.4.0` from `develop` after the feature branch is reviewed and integrated.
 
 ## Automated verification
 
@@ -126,6 +147,9 @@ Add focused tests that verify:
 - CSV parsing and merge utilities remain covered while hidden from production UI.
 - Translation keys and interpolation placeholders remain equivalent across languages.
 - Confirmation, invalid-file, and result messages render the expected variables accessibly.
+- Existing browser profiles see the v1.4.0 notice once, dismissal persists locally, and a later app version can trigger a new notice.
+- A new browser profile sees only the current release note, regardless of whether health measurements exist.
+- The release note remains available and localized offline.
 
 ## Manual regression
 
@@ -136,6 +160,8 @@ Add focused tests that verify:
 - Review every screen in all four languages for meaning, tone, consistency, clipping, wrapping, and stale English text.
 - Pay particular attention to confirmations, errors, empty states, chart labels/tooltips, screen-reader names, and status announcements.
 - Repeat the Options and restore flows on narrow mobile layouts, with keyboard navigation, and in light and dark appearance modes.
+- Simulate an update from v1.3.0, confirm the v1.4.0 notice appears without blocking the dashboard, switch languages before dismissal, dismiss it, and confirm it stays hidden after reload.
+- Verify a clean browser profile sees only the current release note and confirm deleting health records through the app does not make it reappear.
 - Build and preview offline, then confirm backup download and local restore still work in the installed PWA context supported by the target browsers.
 
 ## Release acceptance criteria
@@ -147,5 +173,6 @@ Version 1.4.0 is ready when:
 - CSV is absent from the production interface and documentation, with its future decision recorded as technical debt;
 - every user-facing string has been reviewed in English, Spanish, German, and French, with non-English approval recorded during review;
 - automated parity checks catch missing keys and placeholder drift;
+- the localized v1.4.0 notice appears only for the intended first post-update launch, is accessible and non-blocking, and stays dismissed on later launches;
 - backup contents and restore safety behavior have not regressed;
 - all standard verification and relevant manual regression checks pass.
