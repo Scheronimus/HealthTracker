@@ -18,6 +18,7 @@ Native app sharing is a committed requirement for v1.5.0:
 - When native sharing is unavailable, copy the production URL to the clipboard when permitted and announce success in an accessible status message.
 - When neither sharing nor clipboard access is available, direct the user to the visible production link already shown below the button.
 - Keep English, Spanish, German, and French behavior and wording equivalent.
+- Keep the product name `Health Tracker` untranslated inside the localized shared message.
 - Preserve offline and installable behavior. Native sharing itself requires browser support and a secure context, normally the deployed HTTPS application.
 
 The prototype was manually confirmed on iOS through a temporary HTTPS tunnel. Plain HTTP LAN development addresses are not valid Web Share API tests because they are not secure contexts.

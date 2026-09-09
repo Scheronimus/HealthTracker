@@ -7,6 +7,10 @@ describe('interface translations', () => {
       expect(translate(language, key, { weight: '79.6' })).not.toBe(key)
     }
   })
+
+  it.each(['en', 'es', 'de', 'fr'])('keeps the Health Tracker product name in shared text in %s', (language) => {
+    expect(translate(language, 'shareAppText')).toContain('Health Tracker')
+  })
 })
 
 describe('translation contract', () => {
