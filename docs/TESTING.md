@@ -21,6 +21,7 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 - Confirm the selected-range average and change remain stable when only the chart display mode changes, and all three blood-pressure tabs are keyboard accessible.
 - Select the top-right + and confirm the dedicated entry screen opens with Cancel and Save in its top bar.
 - At a narrow mobile width, open Weight and Blood Pressure entry screens in all four languages; confirm the complete Cancel and Save labels remain visible and long centered titles wrap without overlapping either action. Repeat for the Profile screen.
+- Scroll the Weight and Blood Pressure entry forms in all four languages; confirm the complete header remains pinned and a wrapped title does not cover the form.
 - Confirm the flat options icon is crisp and recognizable on desktop and mobile, then select it and confirm Language, Appearance, the Data backup/restore workflow, privacy, sharing, and offline information open on a separate screen; Close returns to the dashboard.
 - Expand Share Health Tracker, scan the QR code, and confirm it opens `https://scheronimus.github.io/HealthTracker/`; use the button below the QR code and confirm it opens the device share sheet (or copies/explains how to copy the link when sharing is unavailable); repeat in all four languages.
 - In development, confirm Load one-year demo data directly adds all 240 irregular weight records and 480 blood-pressure records (two per tracked date), and a second selection adds no duplicates.
@@ -56,6 +57,7 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 - Download a backup, add another record, restore the older file, and confirm current IDs are never overwritten.
 - Try malformed JSON, an unsupported schema version, duplicate IDs, invalid units, and invalid timestamps; confirm nothing changes.
 - Simulate a previous app version and confirm the localized v1.5 notice appears without blocking the dashboard. Change language before dismissing it, dismiss it, reload, and confirm it stays hidden.
+- While the release notice is visible, open an entry screen and confirm the notice remains dashboard-only and does not appear beneath the entry header.
 - Build and preview, load once online, go offline, reload, and confirm the shell and local edits work.
 - Install on supported desktop/mobile browsers and confirm standalone launch under `/HealthTracker/`.
 - Run the same-Wi-Fi launcher and open its QR URL from a phone. Note that install/service-worker testing generally requires HTTPS or localhost, so use production for the final PWA check.

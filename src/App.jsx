@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import packageJson from '../package.json'
 import { ProfileForm } from './components/ProfileForm.jsx'
 import { ReleaseNotes } from './components/ReleaseNotes.jsx'
@@ -21,6 +21,7 @@ export default function App() {
   const [feature, setFeature] = useState(() => store.profile.modules[0])
   const [editing, setEditing] = useState(null)
   const [entryPreset, setEntryPreset] = useState(null)
+  const headerRef = useRef(null)
   const [moduleStates, setModuleStates] = useState({})
   const [showReleaseNotes, setShowReleaseNotes] = useState(() => shouldShowReleaseNotes(packageJson.version))
   const activeModule = MODULES_BY_ID[feature]
@@ -31,6 +32,18 @@ export default function App() {
   const ActiveEntryForm = activeModule.EntryForm
   const t = (key, values) => translate(language, key, values)
   useEffect(() => watchSystemTheme(theme, () => applyTheme(theme)), [theme])
+  useLayoutEffect(() => {
+    if (screen !== 'entry' || !headerRef.current) return undefined
+    const root = document.documentElement
+    const updateOffset = () => root.style.setProperty('--entry-header-offset', `${headerRef.current.offsetHeight}px`)
+    updateOffset()
+    const observer = new ResizeObserver(updateOffset)
+    observer.observe(headerRef.current)
+    return () => {
+      observer.disconnect()
+      root.style.removeProperty('--entry-header-offset')
+    }
+  }, [screen])
   function changeLanguage(next) { setLanguage(next); saveLanguage(next) }
   function changeTheme(next) { setTheme(next); saveTheme(next); applyTheme(next) }
   function showScreen(next) { setScreen(next); window.scrollTo(0, 0) }
@@ -75,7 +88,7 @@ export default function App() {
   }
 
   return <>
-    <header className="app-header">
+    <header ref={headerRef} className={`app-header${screen === 'entry' ? ' entry-app-header' : ''}`}>
       {screen === 'dashboard' && <div className="topbar dashboard-topbar">
         <div className="brand"><img src={`${import.meta.env.BASE_URL}app-icon.svg`} alt="" /><div><h1>{t('appName')}</h1><label className="module-selector"><span className="visually-hidden">{t('healthAreas')}</span><select value={feature} onChange={(event) => switchFeature(event.target.value)}>{visibleModules.map((item) => <option key={item.id} value={item.id}>{t(item.labelKey)}</option>)}</select></label></div></div>
         <div className="dashboard-actions">
@@ -102,7 +115,7 @@ export default function App() {
       </div>}
     </header>
 
-    {showReleaseNotes && <ReleaseNotes onDismiss={dismissReleaseNotes} t={t} />}
+    {showReleaseNotes && screen === 'dashboard' && <ReleaseNotes onDismiss={dismissReleaseNotes} t={t} />}
 
     {screen === 'dashboard' && <main>
       <ActiveDashboard measurements={moduleMeasurements} language={language} profile={store.profile} state={moduleState} onStateChange={setActiveModuleState} onProfileChange={(profile) => setStore((current) => ({ ...current, profile }))} onEdit={openEntry} t={t} />
