@@ -118,6 +118,9 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 .settings-share > div { display: grid; justify-items: center; gap: .65rem; padding: .5rem 0; text-align: center; }
 .settings-share p { margin: 0; }
 .settings-share img { width: min(230px, 80vw); height: auto; border-radius: 10px; background: white; }
+.settings-share .share-button { min-width: min(230px, 80vw); display: inline-flex; align-items: center; justify-content: center; gap: .5rem; }
+.settings-share .share-button svg { width: 1.15rem; height: 1.15rem; fill: currentColor; }
+.settings-share .share-status { color: var(--primary-dark); }
 .settings-share a { color: var(--accent); overflow-wrap: anywhere; }
 .settings-offline { margin: 1rem 0 0; color: var(--muted); font-size: .8rem; text-align: center; }
 /* Short, non-blocking release notice */
