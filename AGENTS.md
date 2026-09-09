@@ -55,6 +55,11 @@ Also add focused tests for changed data rules, migrations, calculations, imports
 
 ## Git workflow
 
+- Before implementation begins for a new version, create `docs/VERSION_<version>_PLAN.md` and record the intended scope, constraints, verification, and acceptance criteria. Treat it as a living plan that may expand or be refined as decisions are made.
+- A focused, disposable prototype may be created before a version plan when its purpose is to test whether an idea is useful or technically viable. Prototyping does not by itself place the idea in a release.
+- Once a prototype is accepted for a version, add it to that version's plan before or as part of merging it into `develop`. No accepted release feature may reach `develop` without being represented in the version plan.
+- Freeze the agreed scope when preparing `release/<version>`. Update version metadata, release notes, changelog, tests, and documentation on that branch before review and merge to `main`.
+- The version plan is temporary working documentation and may be deleted when the release is finalized. Delete it only after verifying that the changelog and localized in-app “What’s new” notice accurately and completely describe the shipped scope; Git history retains the planning record.
 - Ongoing work starts from `develop` on a focused feature branch. Prepare releases on `release/<version>` from `develop`; reviewed and verified releases merge into `main`.
 - Do not commit without the user’s approval. If the current work already forms a coherent, verified milestone and a new request would be cleaner in a separate commit, proactively suggest committing the milestone and ask the user before continuing. Before committing, confirm tests/lint/build are successful and the working tree contains only intended changes.
 - Use concise conventional-style commit messages consistent with repository history.

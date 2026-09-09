@@ -52,7 +52,11 @@ Run `npm test`, `npm run lint`, and `npm run build`. See [Testing](docs/TESTING.
 
 ## Branch and deployment workflow
 
-Use `develop` for integrated ongoing work and focused feature branches for implementation. Prepare a reviewed release on `release/<version>` from `develop`, then merge the verified release into `main`; pushes to `main` run the GitHub Pages workflow. The Vite and PWA base is `/HealthTracker/`.
+Start each version with a living `docs/VERSION_<version>_PLAN.md` before implementing its release scope. A quick, disposable prototype may be built first to test an idea, but an accepted prototype must be added to the version plan before or when it is merged into `develop`.
+
+Use `develop` for integrated ongoing work and focused feature branches for implementation. Freeze the agreed scope when preparing `release/<version>` from `develop`, then merge the reviewed and verified release into `main`; pushes to `main` run the GitHub Pages workflow. The Vite and PWA base is `/HealthTracker/`.
+
+The version plan may be removed when finalizing the release, after confirming that the changelog and localized in-app “What’s new” notice completely describe what ships. The deleted plan remains available in Git history.
 
 Before the first deployment, open the repository's **Settings -> Pages** and set **Build and deployment -> Source** to **GitHub Actions**. This one-time repository setting cannot be created by the workflow's standard token.
 
