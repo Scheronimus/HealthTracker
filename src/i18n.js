@@ -71,6 +71,11 @@ Object.assign(translations.es, { shareApp:'Compartir Registro de salud', shareAp
 Object.assign(translations.de, { shareApp:'Gesundheits-Tracker teilen', shareAppHint:'Lass Freunde diesen Code scannen, um die App zu öffnen und zu installieren.', shareAppQrAlt:'QR-Code für die Gesundheits-Tracker-App' })
 Object.assign(translations.fr, { shareApp:'Partager Suivi santé', shareAppHint:'Un ami peut scanner ce code pour ouvrir et installer l’application.', shareAppQrAlt:'Code QR de l’application Suivi santé' })
 
+Object.assign(translations.en, { shareAppButton:'Share app', shareAppText:'Open Health Tracker to privately track your health data.', shareAppCopied:'App link copied.', shareAppUnavailable:'Sharing is not available here. You can copy the link below.' })
+Object.assign(translations.es, { shareAppButton:'Compartir aplicación', shareAppText:'Abre Health Tracker para controlar tus datos de salud de forma privada.', shareAppCopied:'Enlace de la aplicación copiado.', shareAppUnavailable:'No se puede compartir desde aquí. Puedes copiar el enlace de abajo.' })
+Object.assign(translations.de, { shareAppButton:'App teilen', shareAppText:'Öffne Health Tracker, um deine Gesundheitsdaten privat zu erfassen.', shareAppCopied:'App-Link kopiert.', shareAppUnavailable:'Teilen ist hier nicht verfügbar. Du kannst den Link unten kopieren.' })
+Object.assign(translations.fr, { shareAppButton:'Partager l’application', shareAppText:'Ouvrez Health Tracker pour suivre vos données de santé en toute confidentialité.', shareAppCopied:'Lien de l’application copié.', shareAppUnavailable:'Le partage n’est pas disponible ici. Vous pouvez copier le lien ci-dessous.' })
+
 Object.assign(translations.en, { futureMeasurement:'Measurements cannot be entered in the future.', futureMeasurementLabel:'Future date', latestWeightHint:'Latest weight: {weight} kg. Enter a new value.', restoreDone:'Restore complete: {added} added, {duplicates} duplicates kept unchanged, {future} future measurements skipped.' })
 Object.assign(translations.es, { futureMeasurement:'No se pueden introducir mediciones en el futuro.', futureMeasurementLabel:'Fecha futura', latestWeightHint:'Último peso: {weight} kg. Introduce un valor nuevo.', restoreDone:'Restauración terminada: {added} añadidas, {duplicates} duplicados sin cambios, {future} mediciones futuras omitidas.' })
 Object.assign(translations.de, { futureMeasurement:'Messungen können nicht in der Zukunft erfasst werden.', futureMeasurementLabel:'Zukünftiges Datum', latestWeightHint:'Letztes Gewicht: {weight} kg. Gib einen neuen Wert ein.', restoreDone:'Wiederherstellung fertig: {added} hinzugefügt, {duplicates} Duplikate unverändert, {future} zukünftige Messungen übersprungen.' })
@@ -90,7 +95,7 @@ Object.assign(translations.en, {
   restoreDone:'Restore complete: {added} added, {duplicates} unchanged, {future} future measurements skipped.',
   dataHint:'Use a complete backup to move or recover your Health Tracker data.', backupSensitive:'Backup files contain sensitive health information. Store them somewhere safe.',
   clearAll:'Delete all measurements', clearAllConfirm:'Delete every measurement on this device? This cannot be undone.', clearAllDone:'All measurements were deleted.',
-  whatsNew:'What’s new', releaseTitle:'Health Tracker 1.4', releaseBackup:'Backups are now easier to use. Under Data, you can download a complete backup or restore one. The previous CSV options have been removed.', releaseLanguage:'Interface wording has been improved in English, Spanish, German, and French.', dismissReleaseNotes:'Dismiss release notes'
+  whatsNew:'What’s new', releaseTitle:'Health Tracker 1.5', releaseSharing:'Share Health Tracker more easily with the new share button below the QR code. It opens your device’s share options and never includes your health data.', dismissReleaseNotes:'Dismiss release notes'
 })
 Object.assign(translations.es, {
   tagline:'Tus datos de salud, privados en este dispositivo.', settings:'Datos',
@@ -101,7 +106,7 @@ Object.assign(translations.es, {
   restoreDone:'Restauración terminada: {added} añadidos, {duplicates} sin cambios y {future} mediciones futuras omitidas.',
   dataHint:'Utiliza una copia completa para trasladar o recuperar tus datos de Health Tracker.', backupSensitive:'Las copias contienen información de salud sensible. Guárdalas en un lugar seguro.',
   clearAll:'Eliminar todas las mediciones', clearAllConfirm:'¿Eliminar todas las mediciones de este dispositivo? Esta acción no se puede deshacer.', clearAllDone:'Se eliminaron todas las mediciones.',
-  whatsNew:'Novedades', releaseTitle:'Health Tracker 1.4', releaseBackup:'Las copias de seguridad ahora son más fáciles de usar. En Datos, puedes descargar una copia completa o restaurarla. Se han eliminado las opciones de CSV anteriores.', releaseLanguage:'Los textos de la interfaz se han mejorado en inglés, español, alemán y francés.', dismissReleaseNotes:'Cerrar las novedades'
+  whatsNew:'Novedades', releaseTitle:'Health Tracker 1.5', releaseSharing:'Comparte Health Tracker más fácilmente con el nuevo botón situado debajo del código QR. Abre las opciones para compartir del dispositivo y nunca incluye tus datos de salud.', dismissReleaseNotes:'Cerrar las novedades'
 })
 Object.assign(translations.de, {
   tagline:'Deine Gesundheitsdaten bleiben privat auf diesem Gerät.', settings:'Daten',
@@ -112,7 +117,7 @@ Object.assign(translations.de, {
   restoreDone:'Wiederherstellung abgeschlossen: {added} hinzugefügt, {duplicates} unverändert, {future} zukünftige Messungen übersprungen.',
   invalidBackup:'Diese Datei ist keine gültige Health-Tracker-Datensicherung.', dataHint:'Mit einer vollständigen Datensicherung kannst du deine Health-Tracker-Daten übertragen oder wiederherstellen.', backupSensitive:'Datensicherungsdateien enthalten sensible Gesundheitsdaten. Bewahre sie an einem sicheren Ort auf.',
   clearAll:'Alle Messungen löschen', clearAllConfirm:'Alle Messungen auf diesem Gerät löschen? Dies kann nicht rückgängig gemacht werden.', clearAllDone:'Alle Messungen wurden gelöscht.',
-  whatsNew:'Neu in dieser Version', releaseTitle:'Health Tracker 1.4', releaseBackup:'Datensicherungen sind jetzt einfacher zu verwenden. Unter Daten kannst du eine vollständige Datensicherung herunterladen oder wiederherstellen. Die bisherigen CSV-Optionen wurden entfernt.', releaseLanguage:'Die Formulierungen der Benutzeroberfläche wurden auf Englisch, Spanisch, Deutsch und Französisch verbessert.', dismissReleaseNotes:'Versionshinweise schließen'
+  whatsNew:'Neu in dieser Version', releaseTitle:'Health Tracker 1.5', releaseSharing:'Teile Health Tracker einfacher mit der neuen Schaltfläche unter dem QR-Code. Sie öffnet die Teilen-Optionen deines Geräts und übermittelt niemals deine Gesundheitsdaten.', dismissReleaseNotes:'Versionshinweise schließen'
 })
 Object.assign(translations.fr, {
   tagline:'Vos données de santé restent privées sur cet appareil.', settings:'Données',
@@ -124,7 +129,7 @@ Object.assign(translations.fr, {
   restoreDone:'Restauration terminée : {added} ajoutées, {duplicates} inchangées et {future} mesures futures ignorées.',
   dataHint:'Utilisez une sauvegarde complète pour transférer ou récupérer vos données Health Tracker.', backupSensitive:'Les sauvegardes contiennent des données de santé sensibles. Conservez-les en lieu sûr.',
   clearAll:'Supprimer toutes les mesures', clearAllConfirm:'Supprimer toutes les mesures de cet appareil ? Cette action est irréversible.', clearAllDone:'Toutes les mesures ont été supprimées.',
-  whatsNew:'Nouveautés', releaseTitle:'Health Tracker 1.4', releaseBackup:'Les sauvegardes sont désormais plus faciles à utiliser. Sous Données, vous pouvez télécharger une sauvegarde complète ou en restaurer une. Les anciennes options CSV ont été supprimées.', releaseLanguage:'Les textes de l’interface ont été améliorés en anglais, espagnol, allemand et français.', dismissReleaseNotes:'Fermer les nouveautés'
+  whatsNew:'Nouveautés', releaseTitle:'Health Tracker 1.5', releaseSharing:'Partagez Health Tracker plus facilement grâce au nouveau bouton sous le code QR. Il ouvre les options de partage de votre appareil et n’inclut jamais vos données de santé.', dismissReleaseNotes:'Fermer les nouveautés'
 })
 
 export const languageNames = { en: 'English', es: 'Español', de: 'Deutsch', fr: 'Français' }

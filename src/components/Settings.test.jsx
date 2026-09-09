@@ -1,6 +1,7 @@
 import { renderToStaticMarkup } from 'react-dom/server'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { Settings } from './Settings.jsx'
+import { shareAppLink } from './shareApp.js'
 import { translate } from '../i18n.js'
 
 function renderSettings(language = 'en') {
@@ -40,5 +41,33 @@ describe('Settings data workflow', () => {
   it('does not expose CSV controls in production settings', () => {
     const html = renderSettings()
     expect(html).not.toMatch(/CSV|\.csv|text\/csv/i)
+  })
+})
+
+describe('Settings app sharing', () => {
+  it.each(['en', 'es', 'de', 'fr'])('renders a localized share button below the QR code in %s', (language) => {
+    const html = renderSettings(language)
+    expect(html.indexOf('production-app-qr.svg')).toBeLessThan(html.indexOf(translate(language, 'shareAppButton')))
+    expect(html).toContain(`>${translate(language, 'shareAppButton')}</button>`)
+  })
+
+  it('uses native sharing with the supplied public-app payload', async () => {
+    const share = vi.fn().mockResolvedValue(undefined)
+    const payload = { title: 'Health Tracker', text: 'Open Health Tracker.', url: 'https://example.com/HealthTracker/' }
+    await expect(shareAppLink({ share }, payload)).resolves.toBe('shared')
+    expect(share).toHaveBeenCalledWith(payload)
+  })
+
+  it('copies the public URL when native sharing is unavailable', async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined)
+    const payload = { title: 'Health Tracker', text: 'Open Health Tracker.', url: 'https://example.com/HealthTracker/' }
+    await expect(shareAppLink({ clipboard: { writeText } }, payload)).resolves.toBe('copied')
+    expect(writeText).toHaveBeenCalledWith(payload.url)
+  })
+
+  it('treats cancelling the native share sheet as a normal outcome', async () => {
+    const cancellation = new Error('Cancelled')
+    cancellation.name = 'AbortError'
+    await expect(shareAppLink({ share: vi.fn().mockRejectedValue(cancellation) }, { url: 'https://example.com/' })).resolves.toBe('cancelled')
   })
 })

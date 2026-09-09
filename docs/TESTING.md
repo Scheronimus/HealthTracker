@@ -2,7 +2,7 @@
 
 ## Automated
 
-Tests cover the module registry contract, schema v6 and all migration paths, mixed stores/backups, module and appearance preferences, translation-key and placeholder parity across all four languages, the v1.4 Data and release-note wording, once-per-version notice state, date-input limits, core dark-theme WCAG contrast pairs, specialized dark button styling, the two-readings-per-date limit and edit exclusion, local date/time conversion, DST-safe first-reading-anchored periods, available-reading averages, chart ordering/scale/domain/markers/nearest point, Weight graph/history range synchronization and empty states, and the retained internal CSV parsing behavior.
+Tests cover the module registry contract, schema v6 and all migration paths, mixed stores/backups, module and appearance preferences, translation-key and placeholder parity across all four languages, the Data and v1.5 release-note wording, once-per-version notice state, date-input limits, core dark-theme WCAG contrast pairs, specialized dark button styling, the two-readings-per-date limit and edit exclusion, local date/time conversion, DST-safe first-reading-anchored periods, available-reading averages, chart ordering/scale/domain/markers/nearest point, Weight graph/history range synchronization and empty states, and the retained internal CSV parsing behavior.
 
 Run `npm test`, `npm run lint`, and `npm run build`. Regenerate the weekly and irregular one-year graph fixtures with `npm run generate:demo-backup` and `npm run generate:irregular-demo-backup` when their generators change. Tests cover schema validation, unique IDs, version-zero migration, future-version rejection, backup round trips, non-overwriting restore, malformed imports, and CSV escaping.
 
@@ -21,7 +21,7 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 - Confirm the selected-range average and change remain stable when only the chart display mode changes, and all three blood-pressure tabs are keyboard accessible.
 - Select the top-right + and confirm the dedicated entry screen opens with Cancel and Save in its top bar.
 - Confirm the flat options icon is crisp and recognizable on desktop and mobile, then select it and confirm Language, Appearance, the Data backup/restore workflow, privacy, sharing, and offline information open on a separate screen; Close returns to the dashboard.
-- Expand Share Health Tracker, scan the QR code, and confirm it opens `https://scheronimus.github.io/HealthTracker/`; repeat in all four languages.
+- Expand Share Health Tracker, scan the QR code, and confirm it opens `https://scheronimus.github.io/HealthTracker/`; use the button below the QR code and confirm it opens the device share sheet (or copies/explains how to copy the link when sharing is unavailable); repeat in all four languages.
 - In development, confirm Load one-year demo data directly adds all 240 irregular weight records and 480 blood-pressure records (two per tracked date), and a second selection adds no duplicates.
 - In development, confirm Delete all entries appears under Temporary debug tools, cancellation preserves data, and confirmation removes measurements while preserving profile, module, and language preferences.
 - In a production build, confirm the temporary debug section is absent.
@@ -54,7 +54,7 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 - Confirm production Options contains no CSV controls or CSV recovery claims.
 - Download a backup, add another record, restore the older file, and confirm current IDs are never overwritten.
 - Try malformed JSON, an unsupported schema version, duplicate IDs, invalid units, and invalid timestamps; confirm nothing changes.
-- Simulate a previous app version and confirm the localized v1.4 notice appears without blocking the dashboard. Change language before dismissing it, dismiss it, reload, and confirm it stays hidden.
+- Simulate a previous app version and confirm the localized v1.5 notice appears without blocking the dashboard. Change language before dismissing it, dismiss it, reload, and confirm it stays hidden.
 - Build and preview, load once online, go offline, reload, and confirm the shell and local edits work.
 - Install on supported desktop/mobile browsers and confirm standalone launch under `/HealthTracker/`.
 - Run the same-Wi-Fi launcher and open its QR URL from a phone. Note that install/service-worker testing generally requires HTTPS or localhost, so use production for the final PWA check.
