@@ -12,7 +12,7 @@ Version 1 stores are migrated with an empty profile; version 2 profiles gain the
 
 ## Persistence and restore
 
-Mixed Weight and blood-pressure stores are validated and included in JSON backup/restore. Store validation rejects duplicate IDs and invalid blood-pressure collections. During restore, existing IDs remain local and imported blood-pressure readings that conflict with the two-per-date rule are skipped. New, edited, and CSV-imported readings on the same date must be at least two hours apart; migration does not discard older data. CSV export remains Weight-only, while CSV import recognizes Weight and Blood Pressure row shapes.
+Mixed Weight and blood-pressure stores are validated and included in backup/restore. Store validation rejects duplicate IDs and invalid blood-pressure collections. During restore, existing IDs remain local and imported blood-pressure readings that conflict with the two-per-date rule are skipped. New and edited readings on the same date must be at least two hours apart; migration does not discard older data. CSV parsers and merge utilities remain tested internally, but CSV is not exposed in the production interface until it has a complete, round-trippable product contract.
 
 The complete store is serialized under `health-tracker-data`; the language uses `health-tracker-language`. Invalid local data fails closed to an empty store. JSON backup envelopes contain a kind, format version, export timestamp, and full versioned store. Restore validates first, requests explicit confirmation, then adds records whose IDs are new. Matching IDs preserve the local record.
 
@@ -64,9 +64,9 @@ On a new Weight entry, the newest recorded weight is presented as a muted placeh
 
 New and imported Weight measurements cannot use a local calendar date after today. Blood Pressure compares its exact timestamp and also rejects a time later today. Restore skips future imported measurements without removing existing local records. Existing future records are marked in red and remain available for editing or deletion.
 
-## External CSV import
+## Retained internal CSV utilities
 
-The importer detects rows by column count and parses quoted CSV cells. Weight rows require `DD/MM/YY,weight`, accept comma or point decimals, and skip explicit missing markers such as NN. Blood Pressure rows require `DD/MM/YY,HH:MM:SS,systolic,diastolic,pulse`. Dates may also use four-digit years; two-digit years mean 20xx. Invalid rows fail the complete import with their line number. Weight merge is date-based, so existing local dates win. Blood Pressure merge is chronological and skips readings that conflict with the two-per-date or two-hour rules.
+The retained importer detects rows by column count and parses quoted CSV cells. Weight rows require `DD/MM/YY,weight`, while Blood Pressure rows require `DD/MM/YY,HH:MM:SS,systolic,diastolic,pulse`. Its parsing and safe-merge behavior remains covered as internal groundwork, but no production control invokes it in v1.4.0. See the technical-debt decision gate before exposing it again.
 
 ## Offline and deployment
 
@@ -75,3 +75,7 @@ The importer detects rows by column count and parses quoted CSV cells. Weight ro
 ## Appearance preference
 
 The appearance preference is stored separately under `health-tracker-theme`, like the language preference, and does not change the versioned health-data store or backup format. System is the default and follows `prefers-color-scheme`; Light and Dark explicitly override the device preference. The resolved theme is applied to the document root so native controls and application colors use the same color scheme.
+
+## Release notes
+
+The app compares its package version with `health-tracker-last-seen-release` in local storage. A compact localized notice appears on the first launch of a new version and is marked as seen only when dismissed. This UI preference is not health data, is not included in backups, and does not require a store migration. Release-note content ships in the application bundle so it remains available offline.

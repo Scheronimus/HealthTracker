@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.4.0 - 2026-09-09
+
+- Reworked Options around a clearly named Data section with complete backup and safe merge restore as the primary recovery workflow.
+- Removed incomplete CSV import/export controls from the production interface while retaining the underlying tested utilities for a future product decision.
+- Reviewed interface wording across English, Spanish, German, and French and added automated translation-key and placeholder parity checks.
+- Added a localized, dismissible “What’s new” notice that appears once for each app version and remains available offline.
+
 ## 1.3.0 - 2026-09-07
 
 ### Added

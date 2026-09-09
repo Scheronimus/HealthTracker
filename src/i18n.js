@@ -81,6 +81,52 @@ Object.assign(translations.es, { theme:'Apariencia', themeSystem:'Usar ajuste de
 Object.assign(translations.de, { theme:'Darstellung', themeSystem:'Geräteeinstellung verwenden', themeLight:'Hell', themeDark:'Dunkel' })
 Object.assign(translations.fr, { theme:'Apparence', themeSystem:'Utiliser le réglage de l’appareil', themeLight:'Clair', themeDark:'Sombre' })
 
+Object.assign(translations.en, {
+  tagline:'Your health data, kept private on this device.', settings:'Data',
+  addBloodPressure:'Add blood-pressure reading', editBloodPressure:'Edit blood-pressure reading', profilePrivacy:'Your profile stays on this device and is included in complete backups.',
+  backup:'Create a complete backup', downloadBackup:'Download backup', backupHint:'Save all measurements, profile details, and module preferences in one file.',
+  restore:'Restore from a backup', chooseBackup:'Choose backup file', restoreHint:'Add missing records from a Health Tracker backup without replacing matching records.',
+  restoreConfirm:'Restore valid missing records from this backup? Matching records already on this device will not be replaced.',
+  restoreDone:'Restore complete: {added} added, {duplicates} unchanged, {future} future measurements skipped.',
+  dataHint:'Use a complete backup to move or recover your Health Tracker data.', backupSensitive:'Backup files contain sensitive health information. Store them somewhere safe.',
+  clearAll:'Delete all measurements', clearAllConfirm:'Delete every measurement on this device? This cannot be undone.', clearAllDone:'All measurements were deleted.',
+  whatsNew:'What’s new', releaseTitle:'Health Tracker 1.4', releaseBackup:'Backups are now easier to use. Under Data, you can download a complete backup or restore one. The previous CSV options have been removed.', releaseLanguage:'Interface wording has been improved in English, Spanish, German, and French.', dismissReleaseNotes:'Dismiss release notes'
+})
+Object.assign(translations.es, {
+  tagline:'Tus datos de salud, privados en este dispositivo.', settings:'Datos',
+  addBloodPressure:'Añadir lectura de presión arterial', editBloodPressure:'Editar lectura de presión arterial', profilePrivacy:'Tu perfil permanece en este dispositivo y se incluye en las copias de seguridad completas.',
+  backup:'Crear una copia de seguridad completa', downloadBackup:'Descargar copia de seguridad', backupHint:'Guarda todas las mediciones, los datos del perfil y las preferencias de los módulos en un solo archivo.',
+  restore:'Restaurar desde una copia de seguridad', chooseBackup:'Elegir archivo de copia', restoreHint:'Añade los registros que falten desde una copia de Health Tracker sin sustituir los registros coincidentes.',
+  restoreConfirm:'¿Restaurar los registros válidos que falten desde esta copia? No se sustituirán los registros coincidentes de este dispositivo.',
+  restoreDone:'Restauración terminada: {added} añadidos, {duplicates} sin cambios y {future} mediciones futuras omitidas.',
+  dataHint:'Utiliza una copia completa para trasladar o recuperar tus datos de Health Tracker.', backupSensitive:'Las copias contienen información de salud sensible. Guárdalas en un lugar seguro.',
+  clearAll:'Eliminar todas las mediciones', clearAllConfirm:'¿Eliminar todas las mediciones de este dispositivo? Esta acción no se puede deshacer.', clearAllDone:'Se eliminaron todas las mediciones.',
+  whatsNew:'Novedades', releaseTitle:'Health Tracker 1.4', releaseBackup:'Las copias de seguridad ahora son más fáciles de usar. En Datos, puedes descargar una copia completa o restaurarla. Se han eliminado las opciones de CSV anteriores.', releaseLanguage:'Los textos de la interfaz se han mejorado en inglés, español, alemán y francés.', dismissReleaseNotes:'Cerrar las novedades'
+})
+Object.assign(translations.de, {
+  tagline:'Deine Gesundheitsdaten bleiben privat auf diesem Gerät.', settings:'Daten',
+  privacyTitle:'Datenschutz von Anfang an', allTime:'Gesamter Zeitraum', addBloodPressure:'Blutdruckmessung hinzufügen', editBloodPressure:'Blutdruckmessung bearbeiten', profilePrivacy:'Dein Profil bleibt auf diesem Gerät und ist in vollständigen Datensicherungen enthalten.',
+  backup:'Vollständige Datensicherung erstellen', downloadBackup:'Datensicherung herunterladen', backupHint:'Speichert alle Messungen, Profilangaben und Moduleinstellungen in einer Datei.',
+  restore:'Aus Datensicherung wiederherstellen', chooseBackup:'Datensicherung auswählen', restoreHint:'Fügt fehlende Einträge aus einer Health-Tracker-Datensicherung hinzu, ohne übereinstimmende Einträge zu ersetzen.',
+  restoreConfirm:'Gültige fehlende Einträge aus dieser Datensicherung wiederherstellen? Bereits vorhandene übereinstimmende Einträge werden nicht ersetzt.',
+  restoreDone:'Wiederherstellung abgeschlossen: {added} hinzugefügt, {duplicates} unverändert, {future} zukünftige Messungen übersprungen.',
+  invalidBackup:'Diese Datei ist keine gültige Health-Tracker-Datensicherung.', dataHint:'Mit einer vollständigen Datensicherung kannst du deine Health-Tracker-Daten übertragen oder wiederherstellen.', backupSensitive:'Datensicherungsdateien enthalten sensible Gesundheitsdaten. Bewahre sie an einem sicheren Ort auf.',
+  clearAll:'Alle Messungen löschen', clearAllConfirm:'Alle Messungen auf diesem Gerät löschen? Dies kann nicht rückgängig gemacht werden.', clearAllDone:'Alle Messungen wurden gelöscht.',
+  whatsNew:'Neu in dieser Version', releaseTitle:'Health Tracker 1.4', releaseBackup:'Datensicherungen sind jetzt einfacher zu verwenden. Unter Daten kannst du eine vollständige Datensicherung herunterladen oder wiederherstellen. Die bisherigen CSV-Optionen wurden entfernt.', releaseLanguage:'Die Formulierungen der Benutzeroberfläche wurden auf Englisch, Spanisch, Deutsch und Französisch verbessert.', dismissReleaseNotes:'Versionshinweise schließen'
+})
+Object.assign(translations.fr, {
+  tagline:'Vos données de santé restent privées sur cet appareil.', settings:'Données',
+  addBloodPressure:'Ajouter une mesure de tension artérielle', editBloodPressure:'Modifier une mesure de tension artérielle', profilePrivacy:'Votre profil reste sur cet appareil et figure dans les sauvegardes complètes.',
+  bpRangeHint:'Les plages évitent les fautes de frappe ; elles n’interprètent pas votre santé.', addFirstReading:'Ajoutez des mesures quand vous le pouvez ; la période commence avec la première.',
+  backup:'Créer une sauvegarde complète', downloadBackup:'Télécharger la sauvegarde', backupHint:'Toutes les mesures, les informations du profil et les préférences des modules sont enregistrées dans un seul fichier.',
+  restore:'Restaurer depuis une sauvegarde', chooseBackup:'Choisir un fichier de sauvegarde', restoreHint:'Les données manquantes d’une sauvegarde Health Tracker sont ajoutées sans remplacer celles qui existent déjà.',
+  restoreConfirm:'Restaurer les données valides manquantes de cette sauvegarde ? Les données correspondantes déjà présentes sur cet appareil ne seront pas remplacées.',
+  restoreDone:'Restauration terminée : {added} ajoutées, {duplicates} inchangées et {future} mesures futures ignorées.',
+  dataHint:'Utilisez une sauvegarde complète pour transférer ou récupérer vos données Health Tracker.', backupSensitive:'Les sauvegardes contiennent des données de santé sensibles. Conservez-les en lieu sûr.',
+  clearAll:'Supprimer toutes les mesures', clearAllConfirm:'Supprimer toutes les mesures de cet appareil ? Cette action est irréversible.', clearAllDone:'Toutes les mesures ont été supprimées.',
+  whatsNew:'Nouveautés', releaseTitle:'Health Tracker 1.4', releaseBackup:'Les sauvegardes sont désormais plus faciles à utiliser. Sous Données, vous pouvez télécharger une sauvegarde complète ou en restaurer une. Les anciennes options CSV ont été supprimées.', releaseLanguage:'Les textes de l’interface ont été améliorés en anglais, espagnol, allemand et français.', dismissReleaseNotes:'Fermer les nouveautés'
+})
+
 export const languageNames = { en: 'English', es: 'Español', de: 'Deutsch', fr: 'Français' }
 
 export function translate(language, key, values = {}) {
