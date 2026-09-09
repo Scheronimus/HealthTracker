@@ -2,7 +2,7 @@
 
 ## Automated
 
-Tests cover the module registry contract, schema v6 and all migration paths, mixed stores/backups, module and appearance preferences, all four languages for new v1.3 interface text, date-input limits, core dark-theme WCAG contrast pairs, specialized dark button styling, the two-readings-per-date limit and edit exclusion, local date/time conversion, DST-safe first-reading-anchored periods, available-reading averages, chart ordering/scale/domain/markers/nearest point, Weight graph/history range synchronization and empty states, and Weight/Blood Pressure CSV import behavior.
+Tests cover the module registry contract, schema v6 and all migration paths, mixed stores/backups, module and appearance preferences, translation-key and placeholder parity across all four languages, the v1.4 Data and release-note wording, once-per-version notice state, date-input limits, core dark-theme WCAG contrast pairs, specialized dark button styling, the two-readings-per-date limit and edit exclusion, local date/time conversion, DST-safe first-reading-anchored periods, available-reading averages, chart ordering/scale/domain/markers/nearest point, Weight graph/history range synchronization and empty states, and the retained internal CSV parsing behavior.
 
 Run `npm test`, `npm run lint`, and `npm run build`. Regenerate the weekly and irregular one-year graph fixtures with `npm run generate:demo-backup` and `npm run generate:irregular-demo-backup` when their generators change. Tests cover schema validation, unique IDs, version-zero migration, future-version rejection, backup round trips, non-overwriting restore, malformed imports, and CSV escaping.
 
@@ -20,7 +20,7 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 - Confirm Individual readings automatically moves a longer range to 30 days, disables 3-month and 1-year ranges, and uses smaller markers when more than 30 readings are visible.
 - Confirm the selected-range average and change remain stable when only the chart display mode changes, and all three blood-pressure tabs are keyboard accessible.
 - Select the top-right + and confirm the dedicated entry screen opens with Cancel and Save in its top bar.
-- Confirm the flat options icon is crisp and recognizable on desktop and mobile, then select it and confirm language, backup, restore, CSV, privacy, sharing, and offline information open on a separate screen; Close returns to the dashboard.
+- Confirm the flat options icon is crisp and recognizable on desktop and mobile, then select it and confirm Language, Appearance, the Data backup/restore workflow, privacy, sharing, and offline information open on a separate screen; Close returns to the dashboard.
 - Expand Share Health Tracker, scan the QR code, and confirm it opens `https://scheronimus.github.io/HealthTracker/`; repeat in all four languages.
 - In development, confirm Load one-year demo data directly adds all 240 irregular weight records and 480 blood-pressure records (two per tracked date), and a second selection adds no duplicates.
 - In development, confirm Delete all entries appears under Temporary debug tools, cancellation preserves data, and confirmation removes measurements while preserving profile, module, and language preferences.
@@ -51,13 +51,10 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 - In Settings, switch among Use device setting, Light, and Dark. Confirm the preference persists after reload, explicit choices override the device setting, and System responds to an operating-system theme change.
 - Visually review the overall hierarchy, native date/time controls, hover states, and disabled states in both appearance modes; automated checks cover the core palette contrast and theme-specific selectors.
 - In Profile, hide a module and confirm it disappears from the banner selector. Reorder the enabled modules, reload, and confirm the first one opens by default. Confirm saving with no visible module is rejected.
-- Export CSV and inspect commas, quotes, Unicode, timestamps, and kilogram values.
-- Import `31/03/26,"99,7"`, `01/04/26,NN`, and `02/04/26,99`; confirm two weights are added and the missing row is reported as skipped.
-- Import a file with an impossible date or invalid weight and confirm the line-specific error leaves data unchanged.
-- Reimport a date already stored and confirm the existing weight is preserved.
-- Import headerless Blood Pressure rows in `DD/MM/YY,HH:MM:SS,systolic,diastolic,pulse` format; confirm valid rows appear at the entered local time and conflicting rows are skipped.
-- Export JSON, add another record, restore the older file, and confirm current IDs are never overwritten.
+- Confirm production Options contains no CSV controls or CSV recovery claims.
+- Download a backup, add another record, restore the older file, and confirm current IDs are never overwritten.
 - Try malformed JSON, an unsupported schema version, duplicate IDs, invalid units, and invalid timestamps; confirm nothing changes.
+- Simulate a previous app version and confirm the localized v1.4 notice appears without blocking the dashboard. Change language before dismissing it, dismiss it, reload, and confirm it stays hidden.
 - Build and preview, load once online, go offline, reload, and confirm the shell and local edits work.
 - Install on supported desktop/mobile browsers and confirm standalone launch under `/HealthTracker/`.
 - Run the same-Wi-Fi launcher and open its QR URL from a phone. Note that install/service-worker testing generally requires HTTPS or localhost, so use production for the final PWA check.

@@ -3,22 +3,14 @@ import { languageNames } from '../i18n.js'
 import productionQrUrl from '../../docs/production-app-qr.svg?url'
 import { deployment } from '../../deployment.config.mjs'
 
-export function Settings({ language, onLanguage, theme, onTheme, onProfile, profile, onBackup, onCsv, onCsvImport, onRestore, onLoadDemo, onClearAll, t }) {
+export function Settings({ language, onLanguage, theme, onTheme, onProfile, profile, onBackup, onRestore, onLoadDemo, onClearAll, t }) {
   const backupInput = useRef(null)
-  const csvInput = useRef(null)
   const [message, setMessage] = useState('')
 
   async function chooseBackup(event) {
     const file = event.target.files?.[0]
     if (!file) return
     try { setMessage(await onRestore(await file.text())) } catch { setMessage(t('invalidBackup')) }
-    event.target.value = ''
-  }
-
-  async function chooseCsv(event) {
-    const file = event.target.files?.[0]
-    if (!file) return
-    try { setMessage(await onCsvImport(await file.text())) } catch (error) { setMessage(t('invalidCsv', { line: error.line ?? '?' })) }
     event.target.value = ''
   }
 
@@ -38,16 +30,20 @@ export function Settings({ language, onLanguage, theme, onTheme, onProfile, prof
     <label>{t('theme')}<select value={theme} onChange={(event) => onTheme(event.target.value)}><option value="system">{t('themeSystem')}</option><option value="light">{t('themeLight')}</option><option value="dark">{t('themeDark')}</option></select></label>
     <div className="settings-section">
       <h2>{t('settings')}</h2>
-      <div className="data-actions">
-        <button onClick={onBackup}>{t('backup')}</button>
-        {onCsv && <button onClick={onCsv}>{t('csv')}</button>}
-        <button onClick={() => csvInput.current?.click()}>{t('importCsv')}</button>
-        <input ref={csvInput} hidden type="file" accept="text/csv,.csv" onChange={chooseCsv} />
-        <button onClick={() => backupInput.current?.click()}>{t('restore')}</button>
+      <p className="data-intro">{t('dataHint')}</p>
+      <div className="backup-actions">
+        <div className="backup-action">
+          <div><strong>{t('backup')}</strong><p>{t('backupHint')}</p></div>
+          <button className="primary" type="button" onClick={onBackup}>{t('downloadBackup')}</button>
+        </div>
+        <div className="backup-action">
+          <div><strong>{t('restore')}</strong><p>{t('restoreHint')}</p></div>
+          <button type="button" onClick={() => backupInput.current?.click()}>{t('chooseBackup')}</button>
         <input ref={backupInput} hidden type="file" accept="application/json,.json" onChange={chooseBackup} />
+        </div>
       </div>
       {message && <p className="status" role="status">{message}</p>}
-      <p className="hint">{t('dataHint')}</p>
+      <p className="data-warning">{t('backupSensitive')}</p>
     </div>
     {import.meta.env.DEV && <div className="debug-section">
       <strong>{t('debugTools')}</strong>
