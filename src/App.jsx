@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react'
 import packageJson from '../package.json'
 import { ProfileForm } from './components/ProfileForm.jsx'
+import { ReleaseNotes } from './components/ReleaseNotes.jsx'
 import { Settings } from './components/Settings.jsx'
-import { createBackup, mergeHealthImport, mergeRestore, parseBackup, parseHealthImportCsv } from './data/transfer.js'
+import { createBackup, mergeRestore, parseBackup } from './data/transfer.js'
 import { loadLanguage, saveLanguage } from './data/storage.js'
 import { useHealthData } from './hooks/useHealthData.js'
 import { translate } from './i18n.js'
 import { downloadText } from './utils/download.js'
 import { MODULES_BY_ID } from './modules/registry.jsx'
 import { applyTheme, loadTheme, saveTheme, watchSystemTheme } from './utils/theme.js'
+import { markReleaseNotesSeen, shouldShowReleaseNotes } from './utils/releaseNotes.js'
 import './App.css'
 
 export default function App() {
@@ -20,13 +22,13 @@ export default function App() {
   const [editing, setEditing] = useState(null)
   const [entryPreset, setEntryPreset] = useState(null)
   const [moduleStates, setModuleStates] = useState({})
+  const [showReleaseNotes, setShowReleaseNotes] = useState(() => shouldShowReleaseNotes(packageJson.version))
   const activeModule = MODULES_BY_ID[feature]
   const moduleMeasurements = measurements.filter(({ type }) => type === activeModule.measurementType)
   const moduleState = moduleStates[feature] ?? activeModule.initialState
   const visibleModules = store.profile.modules.map((id) => MODULES_BY_ID[id]).filter(Boolean)
   const ActiveDashboard = activeModule.Dashboard
   const ActiveEntryForm = activeModule.EntryForm
-  const csvExportModule = visibleModules.find((module) => module.csv?.export)
   const t = (key, values) => translate(language, key, values)
   useEffect(() => watchSystemTheme(theme, () => applyTheme(theme)), [theme])
   function changeLanguage(next) { setLanguage(next); saveLanguage(next) }
@@ -53,19 +55,17 @@ export default function App() {
     return t('clearAllDone')
   }
   function switchFeature(next) { setFeature(next); showScreen('dashboard') }
+  function dismissReleaseNotes() {
+    markReleaseNotesSeen(packageJson.version)
+    setShowReleaseNotes(false)
+  }
   async function loadDemo() {
     const { createCombinedDemoStore } = await import('./data/demo.js')
     const result = mergeRestore(store, createCombinedDemoStore())
     setStore(result.data)
     return t('demoLoaded', result)
   }
-  function importCsv(text) {
-    const parsed = parseHealthImportCsv(text)
-    if (!confirm(t(parsed.labels.confirm, { count: parsed.measurements.length }))) return ''
-    const result = mergeHealthImport(store, parsed)
-    setStore(result.data)
-    return t(parsed.labels.done, { ...result, skipped: parsed.skipped })
-  }  function restore(text) {
+  function restore(text) {
     const imported = parseBackup(text)
     if (!confirm(t('restoreConfirm'))) return ''
     const result = mergeRestore(store, imported)
@@ -102,6 +102,8 @@ export default function App() {
       </div>}
     </header>
 
+    {showReleaseNotes && <ReleaseNotes onDismiss={dismissReleaseNotes} t={t} />}
+
     {screen === 'dashboard' && <main>
       <ActiveDashboard measurements={moduleMeasurements} language={language} profile={store.profile} state={moduleState} onStateChange={setActiveModuleState} onProfileChange={(profile) => setStore((current) => ({ ...current, profile }))} onEdit={openEntry} t={t} />
     </main>}
@@ -113,7 +115,7 @@ export default function App() {
       <ProfileForm profile={store.profile} onSave={saveProfile} t={t} />
     </main>}
     {screen === 'settings' && <main className="settings-screen">
-      <Settings language={language} onLanguage={changeLanguage} theme={theme} onTheme={changeTheme} profile={store.profile} onProfile={() => showScreen('profile')} onBackup={() => downloadText(filename('json'), JSON.stringify(createBackup(store), null, 2), 'application/json')} onCsv={csvExportModule ? () => downloadText(filename('csv'), csvExportModule.csv.export(measurements), 'text/csv;charset=utf-8') : undefined} onCsvImport={importCsv} onRestore={restore} onLoadDemo={import.meta.env.DEV ? loadDemo : undefined} onClearAll={clearAll} t={t} />
+      <Settings language={language} onLanguage={changeLanguage} theme={theme} onTheme={changeTheme} profile={store.profile} onProfile={() => showScreen('profile')} onBackup={() => downloadText(filename('json'), JSON.stringify(createBackup(store), null, 2), 'application/json')} onRestore={restore} onLoadDemo={import.meta.env.DEV ? loadDemo : undefined} onClearAll={clearAll} t={t} />
     </main>}
     <footer className="app-version">Health Tracker · v{packageJson.version} · {new Date().getFullYear()}</footer>
   </>

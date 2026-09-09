@@ -1,10 +1,34 @@
 import { describe, expect, it } from 'vitest'
-import { translate } from './i18n.js'
+import { translate, translations } from './i18n.js'
 
-describe('v1.3 interface translations', () => {
+describe('interface translations', () => {
   it.each(['en', 'es', 'de', 'fr'])('provides future-measurement and appearance text in %s', (language) => {
     for (const key of ['futureMeasurement', 'futureMeasurementLabel', 'latestWeightHint', 'theme', 'themeSystem', 'themeLight', 'themeDark']) {
       expect(translate(language, key, { weight: '79.6' })).not.toBe(key)
+    }
+  })
+})
+
+describe('translation contract', () => {
+  const languages = ['en', 'es', 'de', 'fr']
+  const placeholders = (text) => [...text.matchAll(/\{([^}]+)\}/g)].map((match) => match[1]).sort()
+
+  it.each(languages.slice(1))('matches the English keys and placeholders in %s', (language) => {
+    expect(Object.keys(translations[language]).sort()).toEqual(Object.keys(translations.en).sort())
+    for (const key of Object.keys(translations.en)) {
+      expect(placeholders(translations[language][key]), key).toEqual(placeholders(translations.en[key]))
+    }
+  })
+
+  it.each(languages)('provides the v1.4 data and release-note wording in %s', (language) => {
+    for (const key of ['settings', 'downloadBackup', 'backupHint', 'restore', 'restoreHint', 'backupSensitive', 'whatsNew', 'releaseTitle', 'releaseBackup', 'releaseLanguage', 'dismissReleaseNotes']) {
+      expect(translate(language, key)).not.toBe(key)
+    }
+  })
+
+  it('uses Datensicherung consistently in the German recovery workflow', () => {
+    for (const key of ['backup', 'downloadBackup', 'restore', 'chooseBackup', 'restoreHint', 'restoreConfirm', 'invalidBackup', 'dataHint', 'backupSensitive', 'releaseBackup']) {
+      expect(translate('de', key), key).toContain('Datensicherung')
     }
   })
 })

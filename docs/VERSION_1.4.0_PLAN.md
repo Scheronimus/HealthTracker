@@ -1,6 +1,6 @@
 # Health Tracker v1.4.0 plan
 
-Status: Planned on `feature/v1.4.0`; implementation has not started.
+Status: Implemented on `feature/v1.4.0`; automated verification passed, manual release regression pending.
 
 Version 1.4.0 is a focused data-safety and language-quality release. It makes complete backup and restore the obvious path, removes unfinished CSV workflows from the production interface, and reviews the complete interface copy in English, Spanish, German, and French. No persisted schema change or migration is expected.
 
