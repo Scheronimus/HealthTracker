@@ -23,7 +23,7 @@ Health Tracker supports modular Weight and Blood Pressure areas. Blood Pressure 
 - Versioned and validated local data, tested migration infrastructure, and complete backup/merge restore.
 - A short, localized “What’s new” notice after each app version change.
 - Installable PWA with a cached application shell for offline use.
-- Expandable sharing QR code in Settings for opening the production app on another device.
+- Expandable sharing QR code and native share button in Settings for opening the production app on another device.
 
 ## Run locally
 

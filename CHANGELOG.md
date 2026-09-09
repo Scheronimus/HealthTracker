@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.5.0 - 2026-09-09
+
+### Added
+
+- Added a localized native share button below the existing Settings QR code, with clipboard and visible-link fallbacks where the Web Share API is unavailable.
+
+### Data compatibility
+
+- Sharing includes only the public app name, description, and production URL; locally stored health data and profile details are never included.
+- The persisted health-data schema remains at version 6; no migration is required.
+
 ## 1.4.0 - 2026-09-09
 
 - Reworked Options around a clearly named Data section with complete backup and safe merge restore as the primary recovery workflow.
