@@ -1,6 +1,6 @@
 # Health Tracker v1.5.0 plan
 
-Status: Planned on `feature/v1.5.0-native-sharing`; native app sharing is implemented and confirmed as required release scope.
+Status: Release preparation on `release/1.5.0`; scope is frozen to native app sharing.
 
 Version 1.5.0 will improve how people share the public Health Tracker application with another device. The existing QR code remains available, and a conventional share button directly below it opens the device's native share sheet. No health measurements, profile information, or other locally stored data are shared.
 
@@ -23,9 +23,9 @@ Native app sharing is a committed requirement for v1.5.0:
 
 The prototype was manually confirmed on iOS through a temporary HTTPS tunnel. Plain HTTP LAN development addresses are not valid Web Share API tests because they are not secure contexts.
 
-## Remaining release planning
+## Release scope
 
-Any additional v1.5.0 features must be agreed separately before being added to this plan. Native sharing must remain in the release even if other scope is added. Release preparation will update version metadata and the localized “What’s new” notice after the complete scope is known.
+No additional features are planned for v1.5.0. Release preparation updates version metadata and the localized “What’s new” notice to describe native sharing only.
 
 No persisted data-shape change, schema migration, backend, account, analytics, telemetry, or external health integration is expected for this feature.
 

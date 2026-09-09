@@ -24,14 +24,14 @@ describe('translation contract', () => {
     }
   })
 
-  it.each(languages)('provides the v1.4 data and release-note wording in %s', (language) => {
-    for (const key of ['settings', 'downloadBackup', 'backupHint', 'restore', 'restoreHint', 'backupSensitive', 'whatsNew', 'releaseTitle', 'releaseBackup', 'releaseLanguage', 'dismissReleaseNotes']) {
+  it.each(languages)('provides the data and v1.5 release-note wording in %s', (language) => {
+    for (const key of ['settings', 'downloadBackup', 'backupHint', 'restore', 'restoreHint', 'backupSensitive', 'whatsNew', 'releaseTitle', 'releaseSharing', 'dismissReleaseNotes']) {
       expect(translate(language, key)).not.toBe(key)
     }
   })
 
   it('uses Datensicherung consistently in the German recovery workflow', () => {
-    for (const key of ['backup', 'downloadBackup', 'restore', 'chooseBackup', 'restoreHint', 'restoreConfirm', 'invalidBackup', 'dataHint', 'backupSensitive', 'releaseBackup']) {
+    for (const key of ['backup', 'downloadBackup', 'restore', 'chooseBackup', 'restoreHint', 'restoreConfirm', 'invalidBackup', 'dataHint', 'backupSensitive']) {
       expect(translate('de', key), key).toContain('Datensicherung')
     }
   })
