@@ -88,15 +88,13 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 .header-action { justify-self: start; border: 0; padding: .55rem .2rem; background: transparent; color: white; white-space: nowrap; }
 .header-action:hover { background: transparent; }
 .save-action { justify-self: end; color: var(--header-action); }
-.entry-app-header { position: fixed; right: 0; left: 0; }
 .weight-chart { margin-top: 0; }
 .history { margin-top: 1rem; }
 .privacy { margin-top: 1rem; }
-.entry-screen { width: min(620px, calc(100% - 2rem)); margin-top: calc(var(--entry-header-offset, 78px) + .5rem); }
+.entry-screen { width: min(620px, calc(100% - 2rem)); }
 .entry-screen .entry-form { position: static; padding: 1.1rem; }
 .entry-privacy { margin: 1rem auto; color: var(--muted); font-size: .8rem; text-align: center; }
 @media (max-width: 520px) { .app-header { padding-left: .8rem; padding-right: .8rem; } }
-@media (min-width: 720px) { .entry-screen { margin-top: calc(var(--entry-header-offset, 78px) + 1.5rem); } }
 /* Dedicated settings screen */
 .dashboard-actions { display: flex; align-items: center; gap: .55rem; }
 .settings-button { flex: 0 0 42px; width: 42px; height: 42px; display: grid; place-items: center; padding: 0; border: 1px solid #ffffff80; border-radius: 50%; background: #ffffff18; color: white; font-size: 1.25rem; line-height: 1; }
