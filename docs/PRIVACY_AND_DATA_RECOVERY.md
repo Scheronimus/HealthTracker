@@ -6,6 +6,10 @@ Health Tracker sends no health data anywhere. It has no account, backend, analyt
 
 This also means there is no server-side recovery. Data can be lost if site data is cleared, the browser profile is removed, the device is lost, or a private-browsing session ends. Download JSON backups regularly, verify the file is safely stored, and create a fresh backup after important changes.
 
+Health Tracker records locally when it initiates a backup download and can remind you after 7, 14, or 30 days when data has changed. This status cannot verify where the browser saved the file, whether a share or transfer completed, or whether the file still exists. Deferring a reminder does not mark the data as backed up and never prevents recording a measurement.
+
+Where the browser supports it, Settings can request persistent storage to reduce the chance that the browser automatically evicts local data. Browsers may deny or omit this capability, and even granted protection cannot prevent manual site-data clearing, removal of the browser profile, or loss of the device. A downloaded copy stored somewhere safe remains the recovery mechanism.
+
 Restore accepts only a valid, supported Health Tracker backup. It merges records by collision-resistant ID: new IDs are added, while existing IDs remain unchanged. The app reports how many records were added, kept unchanged as duplicates, or skipped because they were dated in the future. To intentionally replace a record, edit it in the app; restore never silently replaces one.
 
 The backup file uses JSON internally and contains sensitive health information, so it should be protected accordingly. CSV data exchange is not exposed in the production interface because it does not yet provide a complete, round-trippable format.

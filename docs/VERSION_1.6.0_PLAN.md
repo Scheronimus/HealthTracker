@@ -11,7 +11,7 @@ This living plan defines the intended scope for the next feature release. The re
 - Show the latest recorded backup date and whether newer measurements or profile changes exist in Settings.
 - Show a prominent, localized reminder when the app is opened after the backup interval has elapsed and recoverable health data exists.
 - Let the person download a complete backup immediately or defer the reminder. The reminder must not block viewing or recording health data.
-- Provide a small set of understandable reminder intervals, with a safe default, rather than requiring people to understand backup strategy before protection begins. Final interval choices and snooze behavior will be settled during implementation.
+- Provide 7-, 14-, and 30-day reminder intervals, with 14 days as the default, rather than requiring people to understand backup strategy before protection begins. “Remind me later” defers an actionable reminder for three days.
 - Explain that a backup file contains sensitive health information and should be saved outside this browser, such as in protected device files, another device, or a cloud-storage location chosen by the person.
 - Request persistent browser storage where supported and explain its limited purpose. Persistent storage can reduce automatic eviction, but it does not protect against clearing site data, browser-profile removal, or device loss.
 - Keep reminder state and storage-permission state outside the versioned health-data store. They are device/browser preferences and must not be presented as part of a recoverable backup.

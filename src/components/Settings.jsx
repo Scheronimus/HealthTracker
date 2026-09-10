@@ -3,8 +3,10 @@ import { languageNames } from '../i18n.js'
 import productionQrUrl from '../../docs/production-app-qr.svg?url'
 import { deployment } from '../../deployment.config.mjs'
 import { shareAppLink } from './shareApp.js'
+import { BACKUP_INTERVALS, BACKUP_PREVIEW_STATES } from '../utils/backupReminder.js'
+import { formatDate } from '../utils/date.js'
 
-export function Settings({ language, onLanguage, theme, onTheme, onProfile, profile, onBackup, onRestore, onLoadDemo, onClearAll, t }) {
+export function Settings({ language, onLanguage, theme, onTheme, onProfile, profile, onBackup, onRestore, onLoadDemo, onClearAll, backupStatus, backupInterval, onBackupInterval, storageProtection, onProtectStorage, backupPreview = 'normal', onBackupPreview, t }) {
   const backupInput = useRef(null)
   const [message, setMessage] = useState('')
   const [shareMessage, setShareMessage] = useState('')
@@ -40,6 +42,10 @@ export function Settings({ language, onLanguage, theme, onTheme, onProfile, prof
     <div className="settings-section">
       <h2>{t('settings')}</h2>
       <p className="data-intro">{t('dataHint')}</p>
+      {backupStatus && <div className="backup-status" aria-labelledby="backup-status-title">
+        <div><strong id="backup-status-title">{t('backupStatus')}</strong><p>{backupStatusText(backupStatus, language, t)}</p></div>
+        <label>{t('backupInterval')}<select value={backupInterval} onChange={(event) => onBackupInterval(event.target.value)}>{BACKUP_INTERVALS.map((days) => <option key={days} value={days}>{t('backupEveryDays', { days })}</option>)}</select></label>
+      </div>}
       <div className="backup-actions">
         <div className="backup-action">
           <div><strong>{t('backup')}</strong><p>{t('backupHint')}</p></div>
@@ -53,12 +59,19 @@ export function Settings({ language, onLanguage, theme, onTheme, onProfile, prof
       </div>
       {message && <p className="status" role="status">{message}</p>}
       <p className="data-warning">{t('backupSensitive')}</p>
+      {storageProtection && <div className="storage-protection">
+        <div><strong>{t('storageProtection')}</strong><p>{t(`storageProtection_${storageProtection}`)}</p></div>
+        {storageProtection === 'unknown' && <button type="button" onClick={onProtectStorage}>{t('storageProtectionAction')}</button>}
+      </div>}
     </div>
     {import.meta.env.DEV && <div className="debug-section">
       <strong>{t('debugTools')}</strong>
       <div className="debug-actions">
         <button className="debug-load-button" type="button" onClick={loadDemo}>{t('loadDemo')}</button>
         <button className="debug-delete-button" type="button" onClick={clearAll}>{t('clearAll')}</button>
+        {onBackupPreview && <label className="debug-preview">{t('backupPreview')}
+          <select value={backupPreview} onChange={(event) => onBackupPreview(event.target.value)}>{BACKUP_PREVIEW_STATES.map((state) => <option key={state} value={state}>{t(`backupState_${state}`)}</option>)}</select>
+        </label>}
       </div>
     </div>}
     <aside className="settings-privacy"><strong>⌂ {t('privacyTitle')}</strong><p>{t('privacyBody')}</p></aside>
@@ -77,4 +90,11 @@ export function Settings({ language, onLanguage, theme, onTheme, onProfile, prof
     </details>
     <p className="settings-offline">● {t('install')}</p>
   </section>
+}
+
+function backupStatusText(status, language, t) {
+  if (!status.lastBackupAt) return status.measurementCount ? t('backupStatusNever') : t('backupStatusEmpty')
+  const date = formatDate(status.lastBackupAt, language)
+  if (status.changedCount > 0) return t('backupStatusChanged', { date, count: status.changedCount })
+  return t('backupStatusCurrent', { date })
 }
