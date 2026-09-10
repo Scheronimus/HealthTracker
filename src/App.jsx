@@ -102,7 +102,7 @@ export default function App() {
       </div>}
     </header>
 
-    {showReleaseNotes && <ReleaseNotes onDismiss={dismissReleaseNotes} t={t} />}
+    {showReleaseNotes && screen === 'dashboard' && <ReleaseNotes onDismiss={dismissReleaseNotes} t={t} />}
 
     {screen === 'dashboard' && <main>
       <ActiveDashboard measurements={moduleMeasurements} language={language} profile={store.profile} state={moduleState} onStateChange={setActiveModuleState} onProfileChange={(profile) => setStore((current) => ({ ...current, profile }))} onEdit={openEntry} t={t} />

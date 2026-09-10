@@ -24,8 +24,8 @@ describe('translation contract', () => {
     }
   })
 
-  it.each(languages)('provides the data and v1.5 release-note wording in %s', (language) => {
-    for (const key of ['settings', 'downloadBackup', 'backupHint', 'restore', 'restoreHint', 'backupSensitive', 'whatsNew', 'releaseTitle', 'releaseSharing', 'dismissReleaseNotes']) {
+  it.each(languages)('provides the data and v1.5.1 release-note wording in %s', (language) => {
+    for (const key of ['settings', 'downloadBackup', 'backupHint', 'restore', 'restoreHint', 'backupSensitive', 'whatsNew', 'releaseTitle', 'releaseHeaderActions', 'releaseNoticePlacement', 'dismissReleaseNotes']) {
       expect(translate(language, key)).not.toBe(key)
     }
   })

@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.5.1 - 2026-09-10
+
+### Fixed
+
+- Kept complete Cancel and Save labels visible in narrow entry and profile headers across English, Spanish, German, and French, allowing long centered titles to wrap without displacing either action.
+- Kept the localized “What’s new” notice on the dashboard instead of carrying it into measurement entry screens.
+
+### Data compatibility
+
+- The persisted health-data schema remains at version 6; no migration is required.
+
 ## 1.5.0 - 2026-09-09
 
 ### Added
