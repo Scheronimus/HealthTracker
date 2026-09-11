@@ -24,8 +24,8 @@ describe('translation contract', () => {
     }
   })
 
-  it.each(languages)('provides the data and v1.5.1 release-note wording in %s', (language) => {
-    for (const key of ['settings', 'downloadBackup', 'backupHint', 'restore', 'restoreHint', 'backupSensitive', 'whatsNew', 'releaseTitle', 'releaseHeaderActions', 'releaseNoticePlacement', 'dismissReleaseNotes']) {
+  it.each(languages)('provides the data, backup-reminder, and v1.5.1 release-note wording in %s', (language) => {
+    for (const key of ['settings', 'downloadBackup', 'backupHint', 'restore', 'restoreHint', 'backupSensitive', 'backupAdvanced', 'backupAdvancedHint', 'back', 'backupStatus', 'backupReminderTitle', 'backupRemindLater', 'backupPreview', 'whatsNew', 'releaseTitle', 'releaseHeaderActions', 'releaseNoticePlacement', 'dismissReleaseNotes']) {
       expect(translate(language, key)).not.toBe(key)
     }
   })
@@ -34,5 +34,12 @@ describe('translation contract', () => {
     for (const key of ['backup', 'downloadBackup', 'restore', 'chooseBackup', 'restoreHint', 'restoreConfirm', 'invalidBackup', 'dataHint', 'backupSensitive']) {
       expect(translate('de', key), key).toContain('Datensicherung')
     }
+  })
+
+  it.each(languages)('provides singular and plural backup-change wording in %s', (language) => {
+    expect(translate(language, 'backupStatusChangedOne', { date: '1/1/2026' })).not.toContain('{')
+    expect(translate(language, 'backupDueBodyOne', { date: '1/1/2026' })).not.toContain('{')
+    expect(translate(language, 'backupOverdueBodyOne', { date: '1/1/2026' })).not.toContain('{')
+    expect(translate(language, 'backupStatusChanged', { date: '1/1/2026', count: 2 })).toContain('2')
   })
 })

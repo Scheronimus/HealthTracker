@@ -14,6 +14,7 @@ function renderSettings(language = 'en') {
     onProfile={() => {}}
     onBackup={() => {}}
     onRestore={() => {}}
+    onBackupSettings={() => {}}
     onClearAll={() => {}}
     t={(key, values) => translate(language, key, values)}
   />)
@@ -41,6 +42,13 @@ describe('Settings data workflow', () => {
   it('does not expose CSV controls in production settings', () => {
     const html = renderSettings()
     expect(html).not.toMatch(/CSV|\.csv|text\/csv/i)
+  })
+
+  it.each(['en', 'es', 'de', 'fr'])('keeps advanced backup controls behind a localized navigation row in %s', (language) => {
+    const html = renderSettings(language)
+    expect(html).toContain(translate(language, 'backupAdvanced'))
+    expect(html).toContain(translate(language, 'backupAdvancedHint'))
+    expect(html).not.toContain('<select value="14"')
   })
 })
 

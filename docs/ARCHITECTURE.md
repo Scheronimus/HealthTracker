@@ -16,6 +16,10 @@ Mixed Weight and blood-pressure stores are validated and included in backup/rest
 
 The complete store is serialized under `health-tracker-data`; the language uses `health-tracker-language`. Invalid local data fails closed to an empty store. JSON backup envelopes contain a kind, format version, export timestamp, and full versioned store. Restore validates first, requests explicit confirmation, then adds records whose IDs are new. Matching IDs preserve the local record.
 
+Backup-reminder preferences are stored separately under `health-tracker-backup-reminder`; they do not change the health-data schema and are not included in backups. The preference records the reminder interval, download timestamp, a compact store fingerprint and revision counters used to detect meaningful store changes, and a temporary snooze date. It never stores a second copy of measurements. Initiating a download updates the recorded backup revision, but the interface explicitly avoids claiming that the browser saved or retained the file successfully.
+
+The dashboard derives empty, first-backup, current, changed, due, overdue, and snoozed states from the health store and reminder preference. Only actionable first-backup, due, and overdue states produce the normal non-blocking dashboard card; a short confirmation follows download initiation. The primary Data screen stays focused on backup download and restore, with a separate Advanced backup settings screen for recorded status and the 7-, 14-, or 30-day interval. Development builds can preview every presentation state without mutating health data or normal reminder preferences.
+
 
 ## Optional profile and BMI
 
