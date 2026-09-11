@@ -1,6 +1,7 @@
 import { renderToStaticMarkup } from 'react-dom/server'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { translate } from '../i18n.js'
+import { formatDate } from '../utils/date.js'
 import { BackupReminder } from './BackupReminder.jsx'
 
 function render(kind, language = 'en', preview = null) {
@@ -38,5 +39,31 @@ describe('BackupReminder', () => {
     const html = render('downloaded')
     expect(html).toContain('Backup download started')
     expect(html).not.toContain('Remind me')
+  })
+
+  it('connects both actions for first and recurring reminders', () => {
+    for (const kind of ['never', 'due']) {
+      const onBackup = vi.fn()
+      const onSnooze = vi.fn()
+      const tree = BackupReminder({
+        status: { kind, lastBackupAt: '2026-09-01T12:00:00Z', measurementCount: 4, changedCount: 2 },
+        language: 'en', onBackup, onSnooze, preview: null, onEndPreview: () => {},
+        t: (key, values) => translate('en', key, values),
+      })
+      const actions = tree.props.children[1].props.children[2]
+      actions.props.children[0].props.onClick()
+      actions.props.children[1].props.onClick()
+      expect(onBackup).toHaveBeenCalledOnce()
+      expect(onSnooze).toHaveBeenCalledOnce()
+    }
+  })
+
+  it.each(['en', 'es', 'de', 'fr'])('uses singular wording for one newer change in %s', (language) => {
+    const html = renderToStaticMarkup(<BackupReminder
+      status={{ kind: 'due', lastBackupAt: '2026-09-01T12:00:00Z', measurementCount: 4, changedCount: 1 }}
+      language={language} onBackup={() => {}} onSnooze={() => {}} preview={null} onEndPreview={() => {}}
+      t={(key, values) => translate(language, key, values)}
+    />)
+    expect(html).toContain(translate(language, 'backupDueBodyOne', { date: formatDate('2026-09-01T12:00:00Z', language) }))
   })
 })

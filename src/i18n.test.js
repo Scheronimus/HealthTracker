@@ -35,4 +35,11 @@ describe('translation contract', () => {
       expect(translate('de', key), key).toContain('Datensicherung')
     }
   })
+
+  it.each(languages)('provides singular and plural backup-change wording in %s', (language) => {
+    expect(translate(language, 'backupStatusChangedOne', { date: '1/1/2026' })).not.toContain('{')
+    expect(translate(language, 'backupDueBodyOne', { date: '1/1/2026' })).not.toContain('{')
+    expect(translate(language, 'backupOverdueBodyOne', { date: '1/1/2026' })).not.toContain('{')
+    expect(translate(language, 'backupStatusChanged', { date: '1/1/2026', count: 2 })).toContain('2')
+  })
 })

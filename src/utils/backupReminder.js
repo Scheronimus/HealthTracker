@@ -75,11 +75,11 @@ export function backupReminderStatus(store, reminder, now = new Date()) {
   const changedCount = Math.max(0, reminder.dataRevision - reminder.backedUpRevision)
   const base = { ...reminder, measurementCount, changedCount, kind: 'empty' }
   if (measurementCount === 0) return base
+  if (reminder.snoozedUntil && Date.parse(reminder.snoozedUntil) > now.getTime()) return { ...base, kind: 'snoozed' }
   if (!reminder.lastBackupAt) {
     return { ...base, kind: measurementCount >= FIRST_BACKUP_MEASUREMENT_COUNT ? 'never' : 'waiting' }
   }
   if (changedCount === 0) return { ...base, kind: 'current' }
-  if (reminder.snoozedUntil && Date.parse(reminder.snoozedUntil) > now.getTime()) return { ...base, kind: 'snoozed' }
   const ageDays = Math.floor((now.getTime() - Date.parse(reminder.lastBackupAt)) / DAY_MS)
   if (ageDays < reminder.intervalDays) return { ...base, kind: 'changed', ageDays }
   return { ...base, kind: ageDays >= reminder.intervalDays * 2 ? 'overdue' : 'due', ageDays }

@@ -68,6 +68,12 @@ describe('backup reminder state', () => {
     expect(backupReminderStatus(store(3), { ...base, snoozedUntil: '2026-10-01T12:00:00Z' }, now).kind).toBe('snoozed')
   })
 
+  it('honors and expires snooze before the first backup download', () => {
+    const neverBackedUp = { ...defaultBackupReminder(), snoozedUntil: '2026-10-01T12:00:00Z' }
+    expect(backupReminderStatus(store(3), neverBackedUp, now).kind).toBe('snoozed')
+    expect(backupReminderStatus(store(3), neverBackedUp, new Date('2026-10-01T12:00:00Z')).kind).toBe('never')
+  })
+
   it('builds deterministic development previews', () => {
     expect(previewBackupStatus('empty', defaultBackupReminder(), now).measurementCount).toBe(0)
     expect(previewBackupStatus('overdue', defaultBackupReminder(), now)).toMatchObject({ kind: 'overdue', ageDays: 28 })

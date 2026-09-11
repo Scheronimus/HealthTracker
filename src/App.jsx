@@ -102,7 +102,7 @@ export default function App() {
   }
 
   const calculatedBackupStatus = backupReminderStatus(store, backupPreference)
-  const visibleBackupStatus = backupPreview !== 'normal' && !backupPreview.startsWith('storage')
+  const visibleBackupStatus = backupPreview !== 'normal'
     ? previewBackupStatus(backupPreview, backupPreference)
     : backupDownloaded ? previewBackupStatus('downloaded', backupPreference) : calculatedBackupStatus
 
@@ -156,7 +156,7 @@ export default function App() {
       <Settings language={language} onLanguage={changeLanguage} theme={theme} onTheme={changeTheme} profile={store.profile} onProfile={() => showScreen('profile')} onBackup={downloadBackup} onRestore={restore} onBackupSettings={() => showScreen('backupSettings')} onLoadDemo={import.meta.env.DEV ? loadDemo : undefined} onClearAll={clearAll} backupPreview={backupPreview} onBackupPreview={changeBackupPreview} t={t} />
     </main>}
     {screen === 'backupSettings' && <main className="settings-screen">
-      <BackupSettings language={language} backupStatus={calculatedBackupStatus} backupInterval={backupPreference.intervalDays} onBackupInterval={changeBackupInterval} t={t} />
+      <BackupSettings language={language} backupStatus={visibleBackupStatus} backupInterval={backupPreference.intervalDays} onBackupInterval={changeBackupInterval} preview={backupPreview === 'normal' ? null : backupPreview} onEndPreview={() => setBackupPreview('normal')} t={t} />
     </main>}
     <footer className="app-version">Health Tracker · v{packageJson.version} · {new Date().getFullYear()}</footer>
   </>
