@@ -3,7 +3,7 @@ export const BACKUP_INTERVALS = [7, 14, 30]
 export const DEFAULT_BACKUP_INTERVAL_DAYS = 14
 export const BACKUP_SNOOZE_DAYS = 3
 export const FIRST_BACKUP_MEASUREMENT_COUNT = 3
-export const BACKUP_PREVIEW_STATES = ['normal', 'empty', 'never', 'current', 'changed', 'due', 'overdue', 'snoozed', 'downloaded', 'storageUnsupported', 'storageDenied']
+export const BACKUP_PREVIEW_STATES = ['normal', 'empty', 'never', 'current', 'changed', 'due', 'overdue', 'snoozed', 'downloaded']
 
 const DAY_MS = 24 * 60 * 60 * 1000
 
@@ -15,7 +15,6 @@ export function defaultBackupReminder() {
     dataRevision: 0,
     observedStore: null,
     snoozedUntil: null,
-    storageProtection: 'unknown',
   }
 }
 
@@ -25,14 +24,12 @@ export function loadBackupReminder(storage = localStorage) {
   const fallback = defaultBackupReminder()
   if (!parsed || !BACKUP_INTERVALS.includes(parsed.intervalDays)) return fallback
   return {
-    ...fallback,
-    ...parsed,
+    intervalDays: parsed.intervalDays,
     lastBackupAt: validDate(parsed.lastBackupAt),
     snoozedUntil: validDate(parsed.snoozedUntil),
     backedUpRevision: validRevision(parsed.backedUpRevision),
     dataRevision: validRevision(parsed.dataRevision),
     observedStore: typeof parsed.observedStore === 'string' ? parsed.observedStore : null,
-    storageProtection: ['unknown', 'granted', 'denied', 'unsupported'].includes(parsed.storageProtection) ? parsed.storageProtection : 'unknown',
   }
 }
 
@@ -71,19 +68,6 @@ export function setBackupInterval(intervalDays, storage = localStorage) {
 export function snoozeBackupReminder(now = new Date(), storage = localStorage) {
   const current = loadBackupReminder(storage)
   return saveBackupReminder({ ...current, snoozedUntil: new Date(now.getTime() + BACKUP_SNOOZE_DAYS * DAY_MS).toISOString() }, storage)
-}
-
-export function setStorageProtection(storageProtection, storage = localStorage) {
-  if (!['granted', 'denied', 'unsupported'].includes(storageProtection)) return loadBackupReminder(storage)
-  return saveBackupReminder({ ...loadBackupReminder(storage), storageProtection }, storage)
-}
-
-export async function requestPersistentStorage(storageManager = globalThis.navigator?.storage) {
-  if (!storageManager?.persist) return 'unsupported'
-  try {
-    if (await storageManager.persisted?.()) return 'granted'
-    return await storageManager.persist() ? 'granted' : 'denied'
-  } catch { return 'denied' }
 }
 
 export function backupReminderStatus(store, reminder, now = new Date()) {

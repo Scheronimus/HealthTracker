@@ -3,6 +3,7 @@ import packageJson from '../package.json'
 import { ProfileForm } from './components/ProfileForm.jsx'
 import { ReleaseNotes } from './components/ReleaseNotes.jsx'
 import { BackupReminder } from './components/BackupReminder.jsx'
+import { BackupSettings } from './components/BackupSettings.jsx'
 import { Settings } from './components/Settings.jsx'
 import { createBackup, mergeRestore, parseBackup } from './data/transfer.js'
 import { loadLanguage, saveLanguage } from './data/storage.js'
@@ -12,7 +13,7 @@ import { downloadText } from './utils/download.js'
 import { MODULES_BY_ID } from './modules/registry.jsx'
 import { applyTheme, loadTheme, saveTheme, watchSystemTheme } from './utils/theme.js'
 import { markReleaseNotesSeen, shouldShowReleaseNotes } from './utils/releaseNotes.js'
-import { backupReminderStatus, observeBackupChanges, previewBackupStatus, recordBackupDownload, requestPersistentStorage, setBackupInterval, setStorageProtection, snoozeBackupReminder } from './utils/backupReminder.js'
+import { backupReminderStatus, observeBackupChanges, previewBackupStatus, recordBackupDownload, setBackupInterval, snoozeBackupReminder } from './utils/backupReminder.js'
 import './App.css'
 
 export default function App() {
@@ -95,10 +96,6 @@ export default function App() {
   }
   function changeBackupInterval(days) { setBackupPreference(setBackupInterval(days)) }
   function snoozeBackup() { setBackupPreference(snoozeBackupReminder()); setBackupDownloaded(false) }
-  async function protectStorage() {
-    const result = await requestPersistentStorage()
-    setBackupPreference(setStorageProtection(result))
-  }
   function changeBackupPreview(next) {
     setBackupPreview(next)
     if (next === 'downloaded') setBackupDownloaded(false)
@@ -108,7 +105,6 @@ export default function App() {
   const visibleBackupStatus = backupPreview !== 'normal' && !backupPreview.startsWith('storage')
     ? previewBackupStatus(backupPreview, backupPreference)
     : backupDownloaded ? previewBackupStatus('downloaded', backupPreference) : calculatedBackupStatus
-  const visibleStorageProtection = backupPreview === 'storageUnsupported' ? 'unsupported' : backupPreview === 'storageDenied' ? 'denied' : backupPreference.storageProtection
 
   return <>
     <header className="app-header">
@@ -136,6 +132,11 @@ export default function App() {
         <h1>{t('menu')}</h1>
         <span aria-hidden="true" />
       </div>}
+      {screen === 'backupSettings' && <div className="topbar settings-topbar">
+        <button className="header-action" type="button" onClick={() => showScreen('settings')}>{t('back')}</button>
+        <h1>{t('backupAdvanced')}</h1>
+        <span aria-hidden="true" />
+      </div>}
     </header>
 
     {showReleaseNotes && screen === 'dashboard' && <ReleaseNotes onDismiss={dismissReleaseNotes} t={t} />}
@@ -152,7 +153,10 @@ export default function App() {
       <ProfileForm profile={store.profile} onSave={saveProfile} t={t} />
     </main>}
     {screen === 'settings' && <main className="settings-screen">
-      <Settings language={language} onLanguage={changeLanguage} theme={theme} onTheme={changeTheme} profile={store.profile} onProfile={() => showScreen('profile')} onBackup={downloadBackup} onRestore={restore} onLoadDemo={import.meta.env.DEV ? loadDemo : undefined} onClearAll={clearAll} backupStatus={calculatedBackupStatus} backupInterval={backupPreference.intervalDays} onBackupInterval={changeBackupInterval} storageProtection={visibleStorageProtection} onProtectStorage={protectStorage} backupPreview={backupPreview} onBackupPreview={changeBackupPreview} t={t} />
+      <Settings language={language} onLanguage={changeLanguage} theme={theme} onTheme={changeTheme} profile={store.profile} onProfile={() => showScreen('profile')} onBackup={downloadBackup} onRestore={restore} onBackupSettings={() => showScreen('backupSettings')} onLoadDemo={import.meta.env.DEV ? loadDemo : undefined} onClearAll={clearAll} backupPreview={backupPreview} onBackupPreview={changeBackupPreview} t={t} />
+    </main>}
+    {screen === 'backupSettings' && <main className="settings-screen">
+      <BackupSettings language={language} backupStatus={calculatedBackupStatus} backupInterval={backupPreference.intervalDays} onBackupInterval={changeBackupInterval} t={t} />
     </main>}
     <footer className="app-version">Health Tracker · v{packageJson.version} · {new Date().getFullYear()}</footer>
   </>

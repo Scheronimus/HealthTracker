@@ -4,7 +4,7 @@ This living plan defines the intended scope for the next feature release. The re
 
 ## Scope
 
-### Backup reminders and local-storage protection
+### Backup reminders
 
 - Keep the existing complete, validated JSON backup and non-overwriting restore behavior.
 - Record locally when a backup download is initiated and whether health data has changed since that download. Do not claim that the browser verified where the file was saved or that it remains recoverable.
@@ -13,8 +13,7 @@ This living plan defines the intended scope for the next feature release. The re
 - Let the person download a complete backup immediately or defer the reminder. The reminder must not block viewing or recording health data.
 - Provide 7-, 14-, and 30-day reminder intervals, with 14 days as the default, rather than requiring people to understand backup strategy before protection begins. “Remind me later” defers an actionable reminder for three days.
 - Explain that a backup file contains sensitive health information and should be saved outside this browser, such as in protected device files, another device, or a cloud-storage location chosen by the person.
-- Request persistent browser storage where supported and explain its limited purpose. Persistent storage can reduce automatic eviction, but it does not protect against clearing site data, browser-profile removal, or device loss.
-- Keep reminder state and storage-permission state outside the versioned health-data store. They are device/browser preferences and must not be presented as part of a recoverable backup.
+- Keep reminder state outside the versioned health-data store. It is a device/browser preference and must not be presented as part of a recoverable backup.
 
 ### Reminder experience
 
@@ -30,14 +29,14 @@ This living plan defines the intended scope for the next feature release. The re
   - Use the normal accent treatment when the configured interval is reached.
   - Use a more prominent but non-alarming amber treatment when significantly overdue. Reserve red for errors rather than backup age.
   - Hide a deferred reminder until its snooze date unless the final specification defines an exceptional change threshold.
-- Keep a persistent Backup status section in Settings with the latest recorded download date, newer-change summary, reminder interval, and complete-backup action.
+- Keep the primary Data screen simple: complete-backup download and restore remain the prominent actions. Put the latest recorded download date, newer-change summary, and reminder interval in a dedicated Advanced backup settings screen reached from Data.
 - Use specific localized dates and counts where possible instead of relying only on vague terms such as “recently.”
 - Ensure the card remains compact on narrow screens, supports keyboard and screen-reader use, and works in light and dark appearances.
 
 ### Development preview controls
 
 - Extend the existing development-only Settings tools with controls that preview every backup presentation state without waiting for real time to pass or changing the device clock.
-- Include at least: no data/no reminder, first measurements with no recorded backup, current/up to date, reminder due, significantly overdue, deferred, download-started confirmation, persistent-storage unsupported, and persistent-storage denied.
+- Include at least: no data/no reminder, first measurements with no recorded backup, current/up to date, reminder due, significantly overdue, deferred, and download-started confirmation.
 - Where useful, allow representative change summaries to be previewed so singular, plural, long translated text, and narrow-screen wrapping can be checked.
 - Keep preview state separate from measurements and normal backup-reminder preferences. Entering or leaving a preview must not add, edit, delete, restore, or mark real health data as backed up.
 - Make the active preview state obvious and provide one action to return to normal calculated behavior.
@@ -58,7 +57,7 @@ This living plan defines the intended scope for the next feature release. The re
 - Add component tests for reminder visibility, Settings status, backup actions, and translation parity.
 - Test the progressive visual states, snooze behavior, direct dashboard download action, and post-download confirmation wording.
 - Add tests that every development preview maps to the intended presentation and that preview actions do not mutate the persisted health store or normal reminder state.
-- Manually verify download behavior and persistent-storage capability handling in supported desktop and mobile browsers without making either capability a prerequisite for using the app.
+- Manually verify download behavior in supported desktop and mobile browsers.
 - Run `npm test`, `npm run lint`, `npm run build`, and `git diff --check`.
 
 ## Acceptance criteria
@@ -66,10 +65,10 @@ This living plan defines the intended scope for the next feature release. The re
 - A person with recoverable health data is reminded after the configured interval when no newer backup download has been recorded.
 - A person can create the existing complete JSON backup directly from the reminder.
 - Settings clearly reports the recorded download date and whether data changed afterward.
+- Normal users see backup status and scheduling only after opening Advanced backup settings; these details do not compete with download and restore on the primary Data screen.
 - Deferring a reminder is temporary, does not mark the data as backed up, and does not prevent measurement entry.
 - The dashboard reminder is useful but non-blocking, gives immediate access to backup download, and becomes more prominent without using medical or alarm styling as it grows overdue.
 - A developer or tester can reliably trigger every reminder and storage-capability presentation through development-only controls, then return to genuine calculated state without affecting user data.
-- Unsupported or denied persistent-storage requests degrade cleanly without affecting persistence, backup, restore, or offline use.
 - No health data leaves the device unless the person explicitly chooses what to do with the downloaded backup file.
 
 ## Out of scope

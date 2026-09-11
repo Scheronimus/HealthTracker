@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { BACKUP_REMINDER_KEY, backupReminderStatus, defaultBackupReminder, loadBackupReminder, observeBackupChanges, previewBackupStatus, recordBackupDownload, requestPersistentStorage, setBackupInterval, snoozeBackupReminder } from './backupReminder.js'
+import { BACKUP_REMINDER_KEY, backupReminderStatus, defaultBackupReminder, loadBackupReminder, observeBackupChanges, previewBackupStatus, recordBackupDownload, setBackupInterval, snoozeBackupReminder } from './backupReminder.js'
 
 function memoryStorage() {
   const values = new Map()
@@ -72,13 +72,5 @@ describe('backup reminder state', () => {
     expect(previewBackupStatus('empty', defaultBackupReminder(), now).measurementCount).toBe(0)
     expect(previewBackupStatus('overdue', defaultBackupReminder(), now)).toMatchObject({ kind: 'overdue', ageDays: 28 })
     expect(previewBackupStatus('downloaded', defaultBackupReminder(), now)).toMatchObject({ kind: 'downloaded', changedCount: 0 })
-  })
-})
-
-describe('persistent storage request', () => {
-  it('handles supported, denied, and unsupported browsers', async () => {
-    await expect(requestPersistentStorage(undefined)).resolves.toBe('unsupported')
-    await expect(requestPersistentStorage({ persisted: vi.fn().mockResolvedValue(true), persist: vi.fn() })).resolves.toBe('granted')
-    await expect(requestPersistentStorage({ persisted: vi.fn().mockResolvedValue(false), persist: vi.fn().mockResolvedValue(false) })).resolves.toBe('denied')
   })
 })

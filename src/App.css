@@ -110,10 +110,9 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 .backup-action strong { color: var(--ink); }
 .backup-action p { margin: .25rem 0 0; color: var(--muted); font-size: .78rem; line-height: 1.4; }
 .backup-action button { width: 100%; }
-.backup-status, .storage-protection { display: grid; gap: .75rem; margin: .8rem 0; padding: .8rem; border: 1px solid var(--line); border-radius: 12px; background: var(--primary-soft); }
-.backup-status p, .storage-protection p { margin: .25rem 0 0; color: var(--muted); font-size: .8rem; line-height: 1.4; }
-.backup-status label { font-size: .78rem; }
-.backup-status select { margin-top: .35rem; }
+.backup-settings-link { margin-top: .8rem; }
+.backup-settings-panel .settings-section + .settings-section { border-top: 1px solid var(--line); }
+.backup-settings-panel label { margin-top: 1rem; }
 .backup-reminder-wrap { width: min(620px, calc(100% - 2rem)); margin: 1rem auto 0; }
 .backup-reminder { display: grid; grid-template-columns: auto 1fr; gap: .8rem; padding: 1rem; border-left: 4px solid var(--accent); }
 .backup-reminder-overdue { border-left-color: var(--backup-warning); }

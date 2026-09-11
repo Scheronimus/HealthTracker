@@ -14,12 +14,8 @@ function renderSettings(language = 'en') {
     onProfile={() => {}}
     onBackup={() => {}}
     onRestore={() => {}}
+    onBackupSettings={() => {}}
     onClearAll={() => {}}
-    backupStatus={{ kind: 'current', lastBackupAt: '2026-09-01T12:00:00Z', measurementCount: 3, changedCount: 0 }}
-    backupInterval={14}
-    onBackupInterval={() => {}}
-    storageProtection="unknown"
-    onProtectStorage={() => {}}
     t={(key, values) => translate(language, key, values)}
   />)
 }
@@ -48,12 +44,11 @@ describe('Settings data workflow', () => {
     expect(html).not.toMatch(/CSV|\.csv|text\/csv/i)
   })
 
-  it.each(['en', 'es', 'de', 'fr'])('renders localized backup status, interval, and storage protection in %s', (language) => {
+  it.each(['en', 'es', 'de', 'fr'])('keeps advanced backup controls behind a localized navigation row in %s', (language) => {
     const html = renderSettings(language)
-    expect(html).toContain(translate(language, 'backupStatus'))
-    expect(html).toContain(translate(language, 'backupInterval'))
-    expect(html).toContain(translate(language, 'storageProtection'))
-    expect(html).toContain('<option value="14" selected="">')
+    expect(html).toContain(translate(language, 'backupAdvanced'))
+    expect(html).toContain(translate(language, 'backupAdvancedHint'))
+    expect(html).not.toContain('<select value="14"')
   })
 })
 

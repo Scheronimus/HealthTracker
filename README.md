@@ -21,7 +21,7 @@ Health Tracker supports modular Weight and Blood Pressure areas. Blood Pressure 
 - English, Spanish, German, and French interfaces with a locally saved preference.
 - System, light, and dark appearance choices with a locally saved preference.
 - Versioned and validated local data, tested migration infrastructure, and complete backup/merge restore.
-- Non-blocking backup reminders, locally recorded backup status, and optional browser-storage protection where supported.
+- Non-blocking backup reminders with locally recorded backup status and configurable timing.
 - A short, localized “What’s new” notice after each app version change.
 - Installable PWA with a cached application shell for offline use.
 - Expandable sharing QR code and native share button in Settings for opening the production app on another device.
