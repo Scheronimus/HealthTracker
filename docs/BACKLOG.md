@@ -34,7 +34,23 @@ Product and architecture constraints:
 
 Estimated difficulty: large. Start with a later discovery/specification milestone, then consider a small first version limited to local goals, progress, education, and in-app prompts.
 
-## User-controlled Google Drive backup
+## Additional backup destinations and automation
+
+These stages build on the local reminder and backup-status work planned for v1.6.0. Each requires a separate product specification and must keep complete JSON download/restore available as the service-independent recovery path.
+
+### Share or save a backup through the device
+
+Offer an explicit action that passes the existing complete JSON backup to the operating-system share sheet when file sharing is supported. This could let a person save to device files, Drive, iCloud, Dropbox, another device, or another installed destination without Health Tracker integrating separately with each provider.
+
+- Keep normal JSON download as the universal fallback.
+- Require an explicit user action and display the sensitive-data warning before sharing.
+- Detect support at runtime and do not show a control that cannot share files.
+- Do not assume that opening the share sheet proves the backup was saved successfully.
+- Specify cancellation, errors, filename behavior, accessibility, localization, offline behavior, and mobile-browser testing before implementation.
+
+Estimated difficulty: small-to-medium, but practical value depends on mobile browser and installed-app support.
+
+### User-controlled Google Drive backup
 
 Investigate an explicit, opt-in action that uploads the existing complete JSON backup to a file in the user's own Google Drive and can select that file for restore.
 
@@ -48,4 +64,16 @@ Feasibility and constraints:
 - Update the privacy documentation and product wording because this is an external health-data integration and changes the current "data never leaves the device" promise, even though Health Tracker itself would still operate without a server.
 - Register and configure a Google Cloud OAuth client for the production origin and complete any required consent-screen/brand verification before release.
 
-Estimated difficulty: medium-to-large for manual backup and restore; very large for automatic background backup or multi-device synchronization. Treat manual Drive backup as a later standalone feature rather than adding it to v1.5.0.
+Estimated difficulty: medium-to-large. Treat manual Drive backup as a standalone external-integration feature after the local reminder and device-sharing stages.
+
+### Automatic cloud backup
+
+Investigate true automatic backup only as a separate privacy and architecture decision. A dependable scheduled cloud backup while the PWA is closed is not equivalent to repeatedly downloading a file and may require accounts, durable authorization, background execution, and server-side infrastructure.
+
+- Define the recovery guarantee, supported providers, encryption and key ownership, retention, deletion, account switching, revocation, offline changes, and conflict behavior before selecting an architecture.
+- Obtain explicit opt-in consent and make clear which health and profile data leaves the device, where it is stored, and how the connection can be disabled.
+- Keep local use and manual complete JSON backup available without a cloud account.
+- Do not turn backup into multi-device synchronization without a separate data-conflict and product specification.
+- Update the privacy promise, threat model, operational responsibilities, and applicable compliance assessment before implementation.
+
+Estimated difficulty: very large. This is a long-term candidate, not an incremental extension of the local reminder.

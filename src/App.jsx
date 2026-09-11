@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import packageJson from '../package.json'
 import { ProfileForm } from './components/ProfileForm.jsx'
 import { ReleaseNotes } from './components/ReleaseNotes.jsx'
+import { BackupReminder } from './components/BackupReminder.jsx'
+import { BackupSettings } from './components/BackupSettings.jsx'
 import { Settings } from './components/Settings.jsx'
 import { createBackup, mergeRestore, parseBackup } from './data/transfer.js'
 import { loadLanguage, saveLanguage } from './data/storage.js'
@@ -11,6 +13,7 @@ import { downloadText } from './utils/download.js'
 import { MODULES_BY_ID } from './modules/registry.jsx'
 import { applyTheme, loadTheme, saveTheme, watchSystemTheme } from './utils/theme.js'
 import { markReleaseNotesSeen, shouldShowReleaseNotes } from './utils/releaseNotes.js'
+import { backupReminderStatus, observeBackupChanges, previewBackupStatus, recordBackupDownload, setBackupInterval, snoozeBackupReminder } from './utils/backupReminder.js'
 import './App.css'
 
 export default function App() {
@@ -23,6 +26,9 @@ export default function App() {
   const [entryPreset, setEntryPreset] = useState(null)
   const [moduleStates, setModuleStates] = useState({})
   const [showReleaseNotes, setShowReleaseNotes] = useState(() => shouldShowReleaseNotes(packageJson.version))
+  const [backupPreference, setBackupPreference] = useState(() => observeBackupChanges(store))
+  const [backupDownloaded, setBackupDownloaded] = useState(false)
+  const [backupPreview, setBackupPreview] = useState('normal')
   const activeModule = MODULES_BY_ID[feature]
   const moduleMeasurements = measurements.filter(({ type }) => type === activeModule.measurementType)
   const moduleState = moduleStates[feature] ?? activeModule.initialState
@@ -31,6 +37,16 @@ export default function App() {
   const ActiveEntryForm = activeModule.EntryForm
   const t = (key, values) => translate(language, key, values)
   useEffect(() => watchSystemTheme(theme, () => applyTheme(theme)), [theme])
+  useEffect(() => {
+    const next = observeBackupChanges(store)
+    const timeout = window.setTimeout(() => setBackupPreference(next), 0)
+    return () => window.clearTimeout(timeout)
+  }, [store])
+  useEffect(() => {
+    if (!backupDownloaded) return undefined
+    const timeout = window.setTimeout(() => setBackupDownloaded(false), 5000)
+    return () => window.clearTimeout(timeout)
+  }, [backupDownloaded])
   function changeLanguage(next) { setLanguage(next); saveLanguage(next) }
   function changeTheme(next) { setTheme(next); saveTheme(next); applyTheme(next) }
   function showScreen(next) { setScreen(next); window.scrollTo(0, 0) }
@@ -73,6 +89,22 @@ export default function App() {
     if (!result.data.profile.modules.includes(feature)) setFeature(result.data.profile.modules[0])
     return t('restoreDone', result)
   }
+  function downloadBackup() {
+    downloadText(filename('json'), JSON.stringify(createBackup(store), null, 2), 'application/json')
+    setBackupPreference(recordBackupDownload(store))
+    setBackupDownloaded(true)
+  }
+  function changeBackupInterval(days) { setBackupPreference(setBackupInterval(days)) }
+  function snoozeBackup() { setBackupPreference(snoozeBackupReminder()); setBackupDownloaded(false) }
+  function changeBackupPreview(next) {
+    setBackupPreview(next)
+    if (next === 'downloaded') setBackupDownloaded(false)
+  }
+
+  const calculatedBackupStatus = backupReminderStatus(store, backupPreference)
+  const visibleBackupStatus = backupPreview !== 'normal'
+    ? previewBackupStatus(backupPreview, backupPreference)
+    : backupDownloaded ? previewBackupStatus('downloaded', backupPreference) : calculatedBackupStatus
 
   return <>
     <header className="app-header">
@@ -100,9 +132,15 @@ export default function App() {
         <h1>{t('menu')}</h1>
         <span aria-hidden="true" />
       </div>}
+      {screen === 'backupSettings' && <div className="topbar settings-topbar">
+        <button className="header-action" type="button" onClick={() => showScreen('settings')}>{t('back')}</button>
+        <h1>{t('backupAdvanced')}</h1>
+        <span aria-hidden="true" />
+      </div>}
     </header>
 
     {showReleaseNotes && screen === 'dashboard' && <ReleaseNotes onDismiss={dismissReleaseNotes} t={t} />}
+    {screen === 'dashboard' && <BackupReminder status={visibleBackupStatus} language={language} onBackup={backupPreview === 'normal' ? downloadBackup : () => setBackupPreview('downloaded')} onSnooze={backupPreview === 'normal' ? snoozeBackup : () => setBackupPreview('snoozed')} preview={backupPreview === 'normal' ? null : backupPreview} onEndPreview={() => setBackupPreview('normal')} t={t} />}
 
     {screen === 'dashboard' && <main>
       <ActiveDashboard measurements={moduleMeasurements} language={language} profile={store.profile} state={moduleState} onStateChange={setActiveModuleState} onProfileChange={(profile) => setStore((current) => ({ ...current, profile }))} onEdit={openEntry} t={t} />
@@ -115,7 +153,10 @@ export default function App() {
       <ProfileForm profile={store.profile} onSave={saveProfile} t={t} />
     </main>}
     {screen === 'settings' && <main className="settings-screen">
-      <Settings language={language} onLanguage={changeLanguage} theme={theme} onTheme={changeTheme} profile={store.profile} onProfile={() => showScreen('profile')} onBackup={() => downloadText(filename('json'), JSON.stringify(createBackup(store), null, 2), 'application/json')} onRestore={restore} onLoadDemo={import.meta.env.DEV ? loadDemo : undefined} onClearAll={clearAll} t={t} />
+      <Settings language={language} onLanguage={changeLanguage} theme={theme} onTheme={changeTheme} profile={store.profile} onProfile={() => showScreen('profile')} onBackup={downloadBackup} onRestore={restore} onBackupSettings={() => showScreen('backupSettings')} onLoadDemo={import.meta.env.DEV ? loadDemo : undefined} onClearAll={clearAll} backupPreview={backupPreview} onBackupPreview={changeBackupPreview} t={t} />
+    </main>}
+    {screen === 'backupSettings' && <main className="settings-screen">
+      <BackupSettings language={language} backupStatus={visibleBackupStatus} backupInterval={backupPreference.intervalDays} onBackupInterval={changeBackupInterval} preview={backupPreview === 'normal' ? null : backupPreview} onEndPreview={() => setBackupPreview('normal')} t={t} />
     </main>}
     <footer className="app-version">Health Tracker · v{packageJson.version} · {new Date().getFullYear()}</footer>
   </>

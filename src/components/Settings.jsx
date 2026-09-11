@@ -3,8 +3,9 @@ import { languageNames } from '../i18n.js'
 import productionQrUrl from '../../docs/production-app-qr.svg?url'
 import { deployment } from '../../deployment.config.mjs'
 import { shareAppLink } from './shareApp.js'
+import { BACKUP_PREVIEW_STATES } from '../utils/backupReminder.js'
 
-export function Settings({ language, onLanguage, theme, onTheme, onProfile, profile, onBackup, onRestore, onLoadDemo, onClearAll, t }) {
+export function Settings({ language, onLanguage, theme, onTheme, onProfile, profile, onBackup, onRestore, onBackupSettings, onLoadDemo, onClearAll, backupPreview = 'normal', onBackupPreview, t }) {
   const backupInput = useRef(null)
   const [message, setMessage] = useState('')
   const [shareMessage, setShareMessage] = useState('')
@@ -53,12 +54,16 @@ export function Settings({ language, onLanguage, theme, onTheme, onProfile, prof
       </div>
       {message && <p className="status" role="status">{message}</p>}
       <p className="data-warning">{t('backupSensitive')}</p>
+      <button className="profile-link backup-settings-link" type="button" onClick={onBackupSettings}><span><strong>{t('backupAdvanced')}</strong><small>{t('backupAdvancedHint')}</small></span><b aria-hidden="true">›</b></button>
     </div>
     {import.meta.env.DEV && <div className="debug-section">
       <strong>{t('debugTools')}</strong>
       <div className="debug-actions">
         <button className="debug-load-button" type="button" onClick={loadDemo}>{t('loadDemo')}</button>
         <button className="debug-delete-button" type="button" onClick={clearAll}>{t('clearAll')}</button>
+        {onBackupPreview && <label className="debug-preview">{t('backupPreview')}
+          <select value={backupPreview} onChange={(event) => onBackupPreview(event.target.value)}>{BACKUP_PREVIEW_STATES.map((state) => <option key={state} value={state}>{t(`backupState_${state}`)}</option>)}</select>
+        </label>}
       </div>
     </div>}
     <aside className="settings-privacy"><strong>⌂ {t('privacyTitle')}</strong><p>{t('privacyBody')}</p></aside>

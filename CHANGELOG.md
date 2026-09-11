@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.6.0 - 2026-09-11
+
+### Added
+
+- Added calm, non-blocking dashboard reminders to create the existing complete JSON backup after the first few measurements and when changed data has gone beyond its reminder interval.
+- Added direct Download backup and three-day deferral actions to reminder cards, plus a short confirmation that accurately reports only that the browser download started.
+- Added an Advanced backup settings screen with locally recorded backup status and 7-, 14-, or 30-day reminder intervals; 14 days is the default.
+- Added development-only previews for every reminder presentation state without changing real health data or backup status.
+
+### Changed
+
+- Kept the primary Data screen focused on complete backup download and safe merge restore, with reminder details placed behind the advanced settings row.
+- Added singular and plural change summaries in English, Spanish, German, and French.
+
+### Data compatibility
+
+- The persisted health-data schema remains at version 6; no migration is required.
+- Reminder timing, change revisions, snooze state, and the recorded download date are stored separately under `health-tracker-backup-reminder` and are not included in health-data backups.
+- A recorded backup date means only that Health Tracker initiated the browser download; it does not verify where the file was saved or whether it remains recoverable.
+
 ## 1.5.1 - 2026-09-10
 
 ### Fixed
