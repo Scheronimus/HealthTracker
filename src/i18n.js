@@ -95,7 +95,7 @@ Object.assign(translations.en, {
   restoreDone:'Restore complete: {added} added, {duplicates} unchanged, {future} future measurements skipped.',
   dataHint:'Use a complete backup to move or recover your Health Tracker data.', backupSensitive:'Backup files contain sensitive health information. Store them somewhere safe.',
   clearAll:'Delete all measurements', clearAllConfirm:'Delete every measurement on this device? This cannot be undone.', clearAllDone:'All measurements were deleted.',
-  whatsNew:'What’s new', releaseTitle:'Health Tracker 1.5.1', releaseHeaderActions:'Entry headers now keep the complete Cancel and Save actions visible when titles need more room.', releaseNoticePlacement:'The “What’s new” notice now stays on the dashboard instead of appearing in measurement entry screens.', dismissReleaseNotes:'Dismiss release notes'
+  whatsNew:'What’s new', releaseTitle:'Health Tracker 1.6.0', releaseBackupReminders:'Backup reminders now help you protect new and changed health data without blocking the dashboard.', releaseBackupSettings:'Review backup status and choose a 7-, 14-, or 30-day reminder interval in Advanced backup settings.', dismissReleaseNotes:'Dismiss release notes'
 })
 Object.assign(translations.es, {
   tagline:'Tus datos de salud, privados en este dispositivo.', settings:'Datos',
@@ -106,7 +106,7 @@ Object.assign(translations.es, {
   restoreDone:'Restauración terminada: {added} añadidos, {duplicates} sin cambios y {future} mediciones futuras omitidas.',
   dataHint:'Utiliza una copia completa para trasladar o recuperar tus datos de Health Tracker.', backupSensitive:'Las copias contienen información de salud sensible. Guárdalas en un lugar seguro.',
   clearAll:'Eliminar todas las mediciones', clearAllConfirm:'¿Eliminar todas las mediciones de este dispositivo? Esta acción no se puede deshacer.', clearAllDone:'Se eliminaron todas las mediciones.',
-  whatsNew:'Novedades', releaseTitle:'Health Tracker 1.5.1', releaseHeaderActions:'Los encabezados de entrada ahora muestran completas las acciones Cancelar y Guardar cuando los títulos necesitan más espacio.', releaseNoticePlacement:'El aviso de novedades ahora permanece en el panel principal en lugar de aparecer en las pantallas de entrada de mediciones.', dismissReleaseNotes:'Cerrar las novedades'
+  whatsNew:'Novedades', releaseTitle:'Health Tracker 1.6.0', releaseBackupReminders:'Los recordatorios de copia ahora ayudan a proteger los datos de salud nuevos y modificados sin bloquear el panel principal.', releaseBackupSettings:'Consulta el estado de la copia y elige un intervalo de 7, 14 o 30 días en los ajustes avanzados de copia.', dismissReleaseNotes:'Cerrar las novedades'
 })
 Object.assign(translations.de, {
   tagline:'Deine Gesundheitsdaten bleiben privat auf diesem Gerät.', settings:'Daten',
@@ -117,7 +117,7 @@ Object.assign(translations.de, {
   restoreDone:'Wiederherstellung abgeschlossen: {added} hinzugefügt, {duplicates} unverändert, {future} zukünftige Messungen übersprungen.',
   invalidBackup:'Diese Datei ist keine gültige Health-Tracker-Datensicherung.', dataHint:'Mit einer vollständigen Datensicherung kannst du deine Health-Tracker-Daten übertragen oder wiederherstellen.', backupSensitive:'Datensicherungsdateien enthalten sensible Gesundheitsdaten. Bewahre sie an einem sicheren Ort auf.',
   clearAll:'Alle Messungen löschen', clearAllConfirm:'Alle Messungen auf diesem Gerät löschen? Dies kann nicht rückgängig gemacht werden.', clearAllDone:'Alle Messungen wurden gelöscht.',
-  whatsNew:'Neu in dieser Version', releaseTitle:'Health Tracker 1.5.1', releaseHeaderActions:'In Eingabe-Kopfzeilen bleiben Abbrechen und Speichern jetzt vollständig sichtbar, wenn Titel mehr Platz benötigen.', releaseNoticePlacement:'Der Versionshinweis bleibt jetzt auf der Übersicht, statt in Eingabemasken für Messungen zu erscheinen.', dismissReleaseNotes:'Versionshinweise schließen'
+  whatsNew:'Neu in dieser Version', releaseTitle:'Health Tracker 1.6.0', releaseBackupReminders:'Sicherungserinnerungen helfen jetzt, neue und geänderte Gesundheitsdaten zu schützen, ohne die Übersicht zu blockieren.', releaseBackupSettings:'Prüfe den Sicherungsstatus und wähle in den erweiterten Sicherungseinstellungen ein Intervall von 7, 14 oder 30 Tagen.', dismissReleaseNotes:'Versionshinweise schließen'
 })
 Object.assign(translations.fr, {
   tagline:'Vos données de santé restent privées sur cet appareil.', settings:'Données',
@@ -129,7 +129,7 @@ Object.assign(translations.fr, {
   restoreDone:'Restauration terminée : {added} ajoutées, {duplicates} inchangées et {future} mesures futures ignorées.',
   dataHint:'Utilisez une sauvegarde complète pour transférer ou récupérer vos données Health Tracker.', backupSensitive:'Les sauvegardes contiennent des données de santé sensibles. Conservez-les en lieu sûr.',
   clearAll:'Supprimer toutes les mesures', clearAllConfirm:'Supprimer toutes les mesures de cet appareil ? Cette action est irréversible.', clearAllDone:'Toutes les mesures ont été supprimées.',
-  whatsNew:'Nouveautés', releaseTitle:'Health Tracker 1.5.1', releaseHeaderActions:'Les en-têtes de saisie affichent désormais les actions Annuler et Enregistrer en entier lorsque les titres nécessitent plus d’espace.', releaseNoticePlacement:'L’avis des nouveautés reste désormais sur le tableau de bord au lieu d’apparaître dans les écrans de saisie des mesures.', dismissReleaseNotes:'Fermer les nouveautés'
+  whatsNew:'Nouveautés', releaseTitle:'Health Tracker 1.6.0', releaseBackupReminders:'Les rappels de sauvegarde aident maintenant à protéger les données de santé nouvelles et modifiées sans bloquer le tableau de bord.', releaseBackupSettings:'Consultez l’état de la sauvegarde et choisissez un intervalle de 7, 14 ou 30 jours dans les paramètres avancés.', dismissReleaseNotes:'Fermer les nouveautés'
 })
 
 Object.assign(translations.en, {

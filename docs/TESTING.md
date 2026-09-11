@@ -2,7 +2,7 @@
 
 ## Automated
 
-Tests cover the module registry contract, schema v6 and all migration paths, mixed stores/backups, module and appearance preferences, backup-reminder timing/change/status behavior, translation-key and placeholder parity across all four languages, the Data and v1.5.1 release-note wording, once-per-version notice state, date-input limits, core dark-theme WCAG contrast pairs, specialized dark button styling, the two-readings-per-date limit and edit exclusion, local date/time conversion, DST-safe first-reading-anchored periods, available-reading averages, chart ordering/scale/domain/markers/nearest point, Weight graph/history range synchronization and empty states, and the retained internal CSV parsing behavior.
+Tests cover the module registry contract, schema v6 and all migration paths, mixed stores/backups, module and appearance preferences, backup-reminder timing/change/status behavior, translation-key and placeholder parity across all four languages, the Data and v1.6.0 release-note wording, once-per-version notice state, date-input limits, core dark-theme WCAG contrast pairs, specialized dark button styling, the two-readings-per-date limit and edit exclusion, local date/time conversion, DST-safe first-reading-anchored periods, available-reading averages, chart ordering/scale/domain/markers/nearest point, Weight graph/history range synchronization and empty states, and the retained internal CSV parsing behavior.
 
 Run `npm test`, `npm run lint`, and `npm run build`. Regenerate the weekly and irregular one-year graph fixtures with `npm run generate:demo-backup` and `npm run generate:irregular-demo-backup` when their generators change. Tests cover schema validation, unique IDs, version-zero migration, future-version rejection, backup round trips, non-overwriting restore, malformed imports, and CSV escaping.
 
@@ -62,7 +62,7 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 - In development Settings, select every backup preview state. Confirm the dashboard and Settings render the expected state in all four languages, the preview is clearly identified, “Return to real status” restores calculated behavior, and no preview changes measurements or real backup status.
 - In a production build, confirm the backup preview selector is absent while normal reminders and status remain available.
 - Try malformed JSON, an unsupported schema version, duplicate IDs, invalid units, and invalid timestamps; confirm nothing changes.
-- Simulate a previous app version and confirm the localized v1.5.1 notice appears without blocking the dashboard. Change language before dismissing it, dismiss it, reload, and confirm it stays hidden.
+- Simulate a previous app version and confirm the localized v1.6.0 notice describes backup reminders and advanced settings without blocking the dashboard. Change language before dismissing it, dismiss it, reload, and confirm it stays hidden.
 - While the release notice is visible, open an entry screen and confirm the notice remains dashboard-only and does not appear beneath the entry header.
 - Build and preview, load once online, go offline, reload, and confirm the shell and local edits work.
 - Install on supported desktop/mobile browsers and confirm standalone launch under `/HealthTracker/`.
