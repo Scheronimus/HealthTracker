@@ -69,7 +69,7 @@ export function WeightChart({ averages = [], showAverage = false, onAverageChang
     </div>
     {!points.length ? <div className="chart-empty"><span>⌁</span><p>{t('noChartData')}</p></div> : <>
       <div className="chart-wrap">
-        <svg className="chart-svg" viewBox={`0 0 ${WIDTH + PAD.left + PAD.right} ${HEIGHT + PAD.top + PAD.bottom}`} role="img" aria-label={t('chartDescription', { count: points.length })}>
+        <svg className="chart-svg" viewBox={`0 0 ${WIDTH + PAD.left + PAD.right} ${HEIGHT + PAD.top + PAD.bottom}`} role="group" aria-label={t('chartDescription', { count: points.length })}>
           <defs><linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1"><stop className="trend-area-start" offset="0" /><stop className="trend-area-end" offset="1" /></linearGradient></defs>
           <g transform={`translate(${PAD.left} ${PAD.top})`}>
             {visibleBands.map((band) => <rect key={band.key} className={`bmi-zone ${band.key}`} x="0" y={band.top} width={WIDTH} height={band.height} />)}

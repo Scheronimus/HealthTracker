@@ -80,6 +80,8 @@ The retained importer detects rows by column count and parses quoted CSV cells. 
 
 `deployment.config.mjs` is the deployment identity source. Vite uses `/HealthTracker/`; `vite-plugin-pwa` generates a manifest and auto-updating service worker that precaches the application shell. On pushes to `main`, the GitHub Actions Pages workflow installs with Node.js 24, then tests, lints, builds, and deploys the application.
 
+Pages deployment waits for the reusable release-checks workflow: unit/lint/build verification, Chromium/Firefox/WebKit browser scenarios, axe scans, production offline checks, and canonical Windows/Chromium screenshot comparisons. The browser suite lives in `e2e/` and exercises the built application through a dedicated Playwright-managed preview server. Fixtures, fixed clocks, storage seeding, and failure reports are test-only; no test dependency or runtime instrumentation is added to the application bundle.
+
 ## Appearance preference
 
 The appearance preference is stored separately under `health-tracker-theme`, like the language preference, and does not change the versioned health-data store or backup format. System is the default and follows `prefers-color-scheme`; Light and Dark explicitly override the device preference. The resolved theme is applied to the document root so native controls and application colors use the same color scheme.

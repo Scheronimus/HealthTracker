@@ -2,7 +2,7 @@
 
 - `localStorage` is synchronous and appropriate for the initial data volume, but IndexedDB should be evaluated if measurements or attachment-like data grow substantially.
 - Migration version 0 exists as the tested bootstrap path. Every future schema bump must add a sequential migration plus fixtures for valid, invalid, and partially migrated data.
-- Automated tests focus on the highest-risk data boundary. Component accessibility and end-to-end PWA install/offline behavior still need browser automation.
+- Release automation now covers real Weight workflows, cross-browser accessibility, production service-worker offline editing, and controlled visual comparisons. Physical mobile keyboard/touch behavior, installation UI, and an actual service-worker upgrade across different deployed builds still need targeted device/integration coverage; browser emulation alone cannot prove these.
 - The service worker uses automatic updates. A future app with long-running unsaved forms should add an update-available flow before activation.
 - On iOS, opening a numeric keyboard can move the visual viewport independently of the layout viewport, allowing an entry header to scroll out of view. A future fix needs device-tested keyboard and safe-area behavior; the initial Visual Viewport offset workaround was rejected because it made the header position worse.
 - Restore preserves collisions by ID but does not offer a manual conflict-resolution UI.

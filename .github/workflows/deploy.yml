@@ -15,7 +15,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  release-checks:
+    uses: ./.github/workflows/release-checks.yml
   build:
+    needs: release-checks
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -24,8 +27,6 @@ jobs:
           node-version: 24.20.0
           cache: npm
       - run: npm ci
-      - run: npm test
-      - run: npm run lint
       - run: npm run build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4

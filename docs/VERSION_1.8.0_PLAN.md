@@ -14,14 +14,23 @@
 
 ## Verification and acceptance
 
+- Add Playwright release automation against the production build with isolated storage, a fixed clock, deterministic fixtures, and Chromium/Firefox/WebKit projects.
+- Automate Weight entry/edit/delete/validation, hero/insight/history synchronization, chart and BMI interactions, backup/restore safety, production offline behavior, accessibility scans, and controlled Chromium visual baselines.
+- Run browser checks in CI for pull requests and release branches and gate deployment on them; retain failure traces, screenshots, and HTML reports. Use Windows as the canonical screenshot environment to match locally reviewable baselines.
+- Keep device-only acceptance limited to native mobile keyboard/touch feel and actual installation; no product or persisted-schema changes are part of this test work.
+- Fix accessibility defects demonstrated by the new scans: expose the interactive Weight SVG as a labeled group rather than an atomic image so its keyboard slider remains available to assistive technology.
+- Correct other defects exposed by release tests: keep narrow localized header actions unobscured, improve Settings privacy text contrast, and preserve absent optional profile numbers as null rather than coercing them to zero during Save.
+
 - Run npm test, npm run lint, npm run build, and git diff --check.
 - Check range synchronization, newest-weight hero, single/empty chart states, BMI context, and history notes/future flags with focused component tests.
-- Manually review 320px/mobile/desktop layouts in all languages and themes, chart pointer/touch/keyboard selection, edit/delete flows, and production offline/install behavior following docs/TESTING.md.
+- Review canonical visual baselines at narrow/mobile/desktop widths in all languages and themes. Automate chart pointer/touch/keyboard selection, edit/delete flows, and production offline behavior following docs/TESTING.md; retain only the small physical-device smoke test.
 - Accept when the flow remains current weight/chart → summary → history, values are prominent, controls remain accessible, and rows no longer resemble input cards.
 
 ## UX review evidence
 
+- Release automation verified locally on Windows: 180 unit tests and 120 browser checks passed (34 scenarios in each of Chromium, Firefox, and WebKit, plus 18 Chromium screenshot comparisons). Lint, production build, and whitespace checks passed. Reviewed all 18 visual baselines; CI configuration awaits its first pushed run.
+
 - Reviewed rendered Edge layouts with irregular demo measurements at 320px, 390px, and 1024px in English, Spanish, German, and French, in light and dark themes (24 combinations). No horizontal overflow, clipped axis labels, or chart switches below 44px height were detected.
 - Verified keyboard Home/End, pointer selection, touch-emulated endpoint selection, recorded/average mode, BMI zones and disclosure, synchronized chart/history counts for all three spans, and entry edit/cancel preserving the full store. Selected tooltip remains below endpoint date labels.
 - The latest hierarchy refinement removes the repeated current-weight insight and presents evolution/BMI side by side; the hero reference period remains fixed and is not configurable.
-- Browser checks use an isolated test profile and synthetic demo data. Physical-device touch feel and PWA install/offline regression remain manual acceptance checks before release.
+- Browser checks use an isolated test profile and synthetic demo data. Production offline reload/edit/reconnect is automated with a stoppable origin; physical-device touch feel, actual PWA installation, and installed service-worker upgrades remain device acceptance checks before release.
