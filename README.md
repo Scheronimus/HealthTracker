@@ -52,6 +52,8 @@ Demo data is intended for interface testing only.
 
 Run `npm test`, `npm run lint`, and `npm run build`. See [Testing](docs/TESTING.md) for manual checks.
 
+For release verification, install test browsers once with `npx playwright install chromium firefox webkit`, then run `npm run test:release`. This adds production-browser workflows, offline checks, accessibility scans, and Windows/Chromium visual regression to the normal checks. CI runs the complete gate before deployment; see [Testing](docs/TESTING.md) for reports, baselines, and the small remaining device smoke test.
+
 ## Branch and deployment workflow
 
 Start each version with a living `docs/VERSION_<version>_PLAN.md` before implementing its release scope. A quick, disposable prototype may be built first to test an idea, but an accepted prototype must be added to the version plan before or when it is merged into `develop`.

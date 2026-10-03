@@ -60,7 +60,9 @@ The dashboard is the default screen and opens the first module in the profile's 
 
 ## Dashboard summaries
 
-The graph span is dashboard-level state shared by the chart, summary, and raw Weight history. Current weight always uses the newest measurement; Change compares the newest and oldest measurements visible in the selected 3-month, 1-year, or all-time range and displays the localized date of that oldest comparison measurement. The history list and its count include only measurements in that same range, and row changes compare adjacent visible records. The previous-entry summary is intentionally omitted.
+Weight presentation styles live in `src/modules/weight/weight.css` and are scoped to its dashboard. The open current-weight hero precedes a subtle chart surface grouping title, controls, period selector, and plot. Open insights contain selected-period evolution with a localized “Since” reference date and optional BMI without repeating current weight, followed by separated, fully selectable history rows. The BMI number badge reuses the chart's band classes, semantic colors, and blend strength independently of the chart-zone toggle; under-18 BMI remains neutral. A native info disclosure presents classification, band range, height context, age caution, and the screening disclaimer in a compact popover. It supports click/touch, keyboard activation, Escape, focus departure, and outside-pointer dismissal. Chart selection uses a floating panel below the plot, preserving endpoint labels and existing pointer, touch, and keyboard navigation.
+
+The graph span is dashboard-level state shared by the chart, insights, and raw Weight history. Current weight always uses the newest measurement. Hero evolution compares the newest and oldest recorded measurements within a fixed last-three-month window, independently of chart span. With fewer than two readings in that window, no hero change is implied. The evolution insight compares the newest and oldest measurements visible in the selected 3-month, 1-year, or all-time range and displays the localized date of that oldest comparison measurement. The history list and its count include only measurements in that same selected range, and row changes compare adjacent visible records. Hero reference-period configuration is not implemented. The previous-entry summary is intentionally omitted.
 
 ## Date-only weight policy
 
@@ -77,6 +79,8 @@ The retained importer detects rows by column count and parses quoted CSV cells. 
 ## Offline and deployment
 
 `deployment.config.mjs` is the deployment identity source. Vite uses `/HealthTracker/`; `vite-plugin-pwa` generates a manifest and auto-updating service worker that precaches the application shell. On pushes to `main`, the GitHub Actions Pages workflow installs with Node.js 24, then tests, lints, builds, and deploys the application.
+
+Pages deployment waits for the reusable release-checks workflow: unit/lint/build verification, Chromium/Firefox/WebKit browser scenarios, axe scans, production offline checks, and canonical Windows/Chromium screenshot comparisons. The browser suite lives in `e2e/` and exercises the built application through a dedicated Playwright-managed preview server. Fixtures, fixed clocks, storage seeding, and failure reports are test-only; no test dependency or runtime instrumentation is added to the application bundle.
 
 ## Appearance preference
 

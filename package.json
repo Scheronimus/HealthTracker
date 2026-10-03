@@ -18,6 +18,11 @@
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:functional": "playwright test --project=chromium --project=firefox --project=webkit",
+    "test:visual": "playwright test --project=visual",
+    "test:visual:update": "playwright test --project=visual --update-snapshots",
+    "test:release": "npm test && npm run lint && npm run build && npm run test:e2e && git diff --check",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -25,7 +30,9 @@
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
     "@eslint/js": "^9.39.0",
+    "@playwright/test": "1.63.0",
     "@vitejs/plugin-react": "^5.1.0",
     "eslint": "^9.39.0",
     "eslint-plugin-react-hooks": "^7.0.1",

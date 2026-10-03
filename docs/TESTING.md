@@ -2,6 +2,25 @@
 
 ## Automated
 
+### Release browser suite
+
+The release gate is `npm run test:release`: unit tests, lint, production build, Playwright, and `git diff --check`. Once after `npm ci`, install browsers with `npx playwright install chromium firefox webkit`.
+
+Playwright tests the **production preview** at `http://127.0.0.1:4178/HealthTracker/` (port 4178 must be free), not Vite's development server. Each test has a fresh browser context; deterministic fixtures seed storage once, and a fixed 3 October 2026 clock plus Europe/Berlin timezone stabilize dates and chart spans. Reloads never reseed storage, so persistence and offline tests exercise real app writes. Tests use synthetic records only.
+
+- `npm run test:e2e:functional` runs the workflows, dashboard interactions, backup/restore, migration, offline/service-worker, and axe accessibility checks in Chromium, Firefox, and WebKit. Build first with `npm run build`.
+- `npm run test:visual` compares reviewed screenshots in pinned Chromium on **Windows**, the canonical environment used by CI. Coverage includes all four languages in both themes, 320px/375px/desktop layouts, empty states, chart selection, and BMI popovers. The visual project is explicitly skipped on other operating systems; cross-browser functional tests remain portable. Passing a non-Windows local run is not full visual release sign-off.
+- `npm run test:visual:update` intentionally regenerates baselines after a visual change, including release metadata visible in the footer. Inspect every changed PNG/diff and commit only approved baselines. CI never updates them. Small rendering tolerance handles antialiasing; it is not permission to accept layout changes.
+- `npx playwright show-report` opens the HTML report. Failures retain screenshots, traces, and accessibility violations in ignored `playwright-report/` and `test-results/` directories; `npx playwright show-trace <trace.zip>` opens a trace. CI retains these artifacts for 14 days.
+
+The `Release checks` workflow runs on pull requests, pushes to `develop`/`release/**`, and manual dispatch. Pages deployment calls the same workflow and waits for it before building/deploying. Required-status protection for merges must be configured separately in GitHub repository settings.
+
+The offline test serves the built app on an isolated local origin, stops that server, verifies raw HTTP fails, then reloads and edits through the production service worker before reconnecting. This tests actual origin unavailability across all engines and avoids a [WebKit offline-emulation defect](https://github.com/microsoft/playwright/issues/42775). The helper is test infrastructure only.
+
+Accessibility scans cover WCAG A/AA rules detectable by axe; they do not claim complete screen-reader conformance. Automated WebKit and touch emulation do not reproduce physical iOS keyboards or the actual installation UI. The remaining device smoke test is deliberately small: native keyboard/header behavior, physical chart drag/popover taps, and installed-PWA launch. The detailed manual scenarios below are diagnostic reference, not a mandatory repeated release checklist.
+
+Implementation references: [Playwright projects](https://playwright.dev/docs/test-projects), [clock](https://playwright.dev/docs/clock), [visual comparisons](https://playwright.dev/docs/test-snapshots), and [accessibility testing](https://playwright.dev/docs/accessibility-testing).
+
 Tests cover the module registry contract, schema v6 and all migration paths, mixed stores/backups, module and appearance preferences, backup-reminder timing/change/status behavior, translation-key and placeholder parity across all four languages, the Data and v1.7.1 release-note wording, once-per-version notice state, date-input limits, core dark-theme WCAG contrast pairs, specialized dark button styling, the two-readings-per-date limit and edit exclusion, local date/time conversion, DST-safe first-reading-anchored periods, available-reading averages, chart ordering/scale/domain/markers/nearest point, Weight graph/history range synchronization and empty states, and the retained internal CSV parsing behavior.
 
 Run `npm test`, `npm run lint`, and `npm run build`. Regenerate the weekly and irregular one-year graph fixtures with `npm run generate:demo-backup` and `npm run generate:irregular-demo-backup` when their generators change. Tests cover schema validation, unique IDs, version-zero migration, future-version rejection, backup round trips, non-overwriting restore, malformed imports, and CSV escaping.
@@ -67,6 +86,17 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 - Build and preview, load once online, go offline, reload, and confirm the shell and local edits work.
 - Install on supported desktop/mobile browsers and confirm standalone launch under `/HealthTracker/`.
 - Run the same-Wi-Fi launcher and open its QR URL from a phone. Note that install/service-worker testing generally requires HTTPS or localhost, so use production for the final PWA check.
+
+## Weight visual redesign checks
+
+- At 320px, phone, and desktop widths in all four languages and both themes, review the current-weight hero, compact period selector, summary values, and separated history rows. Check long multiline notes and future-record flags.
+- Confirm the hero always uses the latest recorded weight and fixed last-three-month change. Switching chart periods must leave the hero unchanged; fewer than two recent readings must not imply a change even when older readings exist.
+- Confirm insights show selected-chart-period evolution and optional BMI, with no repeated current-weight statistic. Verify the comparison date and BMI disclosure remain accessible, and disabling BMI leaves only the evolution insight.
+- In light and dark mode, verify the chart surface groups title, switches, period selector, plot, and tooltip without borders or nested cards; inspect the open hero, insights, and history at narrow widths.
+- Confirm evolution displays only its change and localized “Since” reference date, changing with the chart period. With fewer than two readings, no change is invented.
+- Open the BMI info icon with touch/click, Enter, and Space; confirm classification, band range, height context, older-adult caution when applicable, and the existing disclaimer are inside the popover rather than permanently visible. Verify Escape returns focus to the info control, and outside taps or Tab away close it. Check the popover fits at 320px in all languages and themes.
+- Confirm the BMI badge matches its chart-zone semantic color with chart zones both on and off. Check all six bands in both themes; under-18 BMI stays neutral and explains why adult ranges do not apply.
+- Select chart endpoints with pointer, touch, and keyboard. The floating tooltip stays below the chart and preserves date, note, and optional average details without obscuring endpoint labels. Confirm one recorded measurement has a visible point.
 
 ## Weight smoothing checks
 

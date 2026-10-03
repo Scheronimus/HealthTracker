@@ -1,0 +1,36 @@
+name: Release checks
+
+on:
+  pull_request:
+  push:
+    branches: [develop, 'release/**']
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Unit, browser, accessibility, offline, and visual checks
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24.20.0
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install chromium firefox webkit
+      - run: npm run test:release
+      - name: Retain browser report and failure evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-test-report
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
+          retention-days: 14
