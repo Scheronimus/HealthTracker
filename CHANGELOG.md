@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.7.1 - 2026-10-03
+
+### Fixed
+
+- Placed the Weight BMI-zone and Average switches side by side, with a short localized Average label in all four languages.
+- Kept the time-span selector directly above the graph on mobile and desktop.
+
+### Data compatibility
+
+- Measurements, five-measurement average calculations, and persisted schema version 6 are unchanged; no migration is required.
+
 ## 1.7.0 - 2026-10-03
 
 ### Added
