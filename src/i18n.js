@@ -154,25 +154,25 @@ Object.assign(translations.fr, {
 })
 
 Object.assign(translations.en, {
-  weightAverageToggle: 'Average', weightAverage: '5-measurement average',
+  bmiDetails: 'BMI details', weightAverageToggle: 'Average', weightAverage: '5-measurement average',
   releaseWeightControls: 'The BMI zones and Average switches now sit side by side, with shorter average labels.',
   releaseWeightControlsDetails: 'The time-span selector stays directly above the Weight graph on phones and desktops. Measurements and average calculations are unchanged.',
   weightAverageUnavailable: 'The average begins at the fifth measurement; none is available in this range.'
 })
 Object.assign(translations.es, {
-  weightAverageToggle: 'Media', weightAverage: 'Media de 5 mediciones',
+  bmiDetails: 'Detalles del IMC', weightAverageToggle: 'Media', weightAverage: 'Media de 5 mediciones',
   releaseWeightControls: 'Los interruptores de zonas de IMC y Media aparecen juntos, con una etiqueta más corta para la media.',
   releaseWeightControlsDetails: 'El selector de período permanece justo encima del gráfico de peso en móviles y ordenadores. Las mediciones y el cálculo de la media no cambian.',
   weightAverageUnavailable: 'La media comienza en la quinta medición; no hay ninguna disponible en este período.'
 })
 Object.assign(translations.de, {
-  weightAverageToggle: 'Durchschnitt', weightAverage: 'Durchschnitt aus 5 Messungen',
+  bmiDetails: 'BMI-Details', weightAverageToggle: 'Durchschnitt', weightAverage: 'Durchschnitt aus 5 Messungen',
   releaseWeightControls: 'Die Schalter für BMI-Zonen und Durchschnitt stehen jetzt nebeneinander, mit kürzerer Durchschnittsbeschriftung.',
   releaseWeightControlsDetails: 'Die Zeitraumwahl bleibt auf Smartphones und Computern direkt über dem Gewichtsdiagramm. Messungen und Durchschnittsberechnung bleiben unverändert.',
   weightAverageUnavailable: 'Der Durchschnitt beginnt bei der fünften Messung; in diesem Zeitraum ist keiner verfügbar.'
 })
 Object.assign(translations.fr, {
-  weightAverageToggle: 'Moyenne', weightAverage: 'Moyenne de 5 mesures',
+  bmiDetails: 'Détails de l’IMC', weightAverageToggle: 'Moyenne', weightAverage: 'Moyenne de 5 mesures',
   releaseWeightControls: 'Les options Zones colorées de l’IMC et Moyenne sont désormais côte à côte, avec un libellé plus court pour la moyenne.',
   releaseWeightControlsDetails: 'Le sélecteur de période reste juste au-dessus du graphique du poids sur téléphone et ordinateur. Les mesures et le calcul de la moyenne restent inchangés.',
   weightAverageUnavailable: 'La moyenne commence à la cinquième mesure ; aucune n’est disponible sur cette période.'

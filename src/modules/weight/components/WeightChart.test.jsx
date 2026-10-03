@@ -23,7 +23,7 @@ describe('WeightChart BMI layers', () => {
     expect(area).toBeGreaterThan(-1)
     expect(area).toBeGreaterThan(zones)
     expect(line).toBeGreaterThan(area)
-    expect(html).toContain('weight-chart card bmi-zones-visible')
+    expect(html).toContain('weight-chart bmi-zones-visible')
   })
 })
 
@@ -36,6 +36,13 @@ describe('WeightChart average mode', () => {
     language: 'en', span: 'allTime', onSpanChange: () => {}, onAverageChange: () => {},
     profile: {}, t: (key) => key,
   }
+
+  it('shows a single recorded measurement without adding permanent markers to a multi-reading line', () => {
+    const single = renderToStaticMarkup(<WeightChart {...props} measurements={measurements.slice(0, 1)} />)
+    expect(single).toContain('class="weight-selected-point"')
+    const multiple = renderToStaticMarkup(<WeightChart {...props} />)
+    expect(multiple).not.toContain('class="weight-selected-point"')
+  })
 
   it('switches between recorded and average lines without superimposing them', () => {
     const off = renderToStaticMarkup(<WeightChart {...props} />)

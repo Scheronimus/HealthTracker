@@ -68,6 +68,13 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 - Install on supported desktop/mobile browsers and confirm standalone launch under `/HealthTracker/`.
 - Run the same-Wi-Fi launcher and open its QR URL from a phone. Note that install/service-worker testing generally requires HTTPS or localhost, so use production for the final PWA check.
 
+## Weight visual redesign checks
+
+- At 320px, phone, and desktop widths in all four languages and both themes, review the current-weight hero, compact period selector, summary values, and separated history rows. Check long multiline notes and future-record flags.
+- Confirm the hero always uses the latest recorded weight, while its change uses the selected span; empty spans must not imply a change.
+- Expand BMI context with keyboard and touch; verify height context and the older-adult caution remain available and the screening disclaimer remains visible when collapsed.
+- Select chart endpoints with pointer, touch, and keyboard. The floating tooltip stays below the chart and preserves date, note, and optional average details without obscuring endpoint labels. Confirm one recorded measurement has a visible point.
+
 ## Weight smoothing checks
 
 - Confirm the BMI zones and Average switches appear side by side in all four languages at 320 px and wider, and the span selector stays directly above the graph. Hide BMI in Profile and confirm Average still works.

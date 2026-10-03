@@ -60,6 +60,8 @@ The dashboard is the default screen and opens the first module in the profile's 
 
 ## Dashboard summaries
 
+Weight presentation styles live in `src/modules/weight/weight.css` and are scoped to its dashboard. The current-weight hero precedes the chart, followed by a compact summary and separated, fully selectable history rows. BMI screening context remains visible; height context and age caution are available through a native disclosure. Chart selection uses a floating panel below the plot, preserving endpoint labels and existing pointer, touch, and keyboard navigation.
+
 The graph span is dashboard-level state shared by the chart, summary, and raw Weight history. Current weight always uses the newest measurement; Change compares the newest and oldest measurements visible in the selected 3-month, 1-year, or all-time range and displays the localized date of that oldest comparison measurement. The history list and its count include only measurements in that same range, and row changes compare adjacent visible records. The previous-entry summary is intentionally omitted.
 
 ## Date-only weight policy

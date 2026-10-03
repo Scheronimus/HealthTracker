@@ -25,6 +25,26 @@ const props = {
 }
 
 describe('WeightDashboard range filtering', () => {
+  it('keeps the newest weight in the hero even when the selected range is empty', () => {
+    const html = renderToStaticMarkup(<WeightDashboard {...props} measurements={[measurements[2]]} state={{ chartSpan: 'threeMonths' }} />)
+    expect(html).toContain('class="weight-hero"')
+    expect(html).toContain('82.0 <small>kg</small>')
+    expect(html).toContain('noChartData')
+    expect(html).not.toContain('↓')
+  })
+
+  it('preserves optional BMI context behind a disclosure without hiding its value or classification', () => {
+    const html = renderToStaticMarkup(<WeightDashboard {...props} profile={{ ...props.profile, heightCm: 180, age: 70, showBmi: true }} state={{ chartSpan: 'allTime' }} />)
+    expect(html).toContain('24.4')
+    expect(html).toContain('bmiWithin')
+    expect(html).toContain('<details class="weight-bmi-details">')
+    expect(html).toContain('<summary>bmiDetails</summary>')
+    expect(html).toContain('bmiBasedOn')
+    expect(html).toContain('bmiOlderCaution')
+    expect(html).toContain('bmiDisclaimer')
+    expect(html.indexOf('bmiDisclaimer')).toBeGreaterThan(html.indexOf('</details>'))
+  })
+
   it('includes earlier off-screen readings in the average view without adding them to history', () => {
     const data = [90, 88, 86, 84, 82, 80].map((value, index) => ({
       id: String(index), type: 'weight', value, unit: 'kg', timestamp: monthsAgo(6 - index), note: `note-${index}`,

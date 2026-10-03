@@ -5,7 +5,7 @@ import { formatDate } from '../../../utils/date.js'
 
 const WIDTH = 800
 const HEIGHT = 400
-const PAD = { top: 18, right: 18, bottom: 42, left: 55 }
+const PAD = { top: 18, right: 18, bottom: 52, left: 76 }
 
 export function WeightChart({ averages = [], showAverage = false, onAverageChange, measurements, language, span, onSpanChange, profile, onBmiZonesChange, t }) {
   const [activeIndex, setActiveIndex] = useState(null)
@@ -55,9 +55,9 @@ export function WeightChart({ averages = [], showAverage = false, onAverageChang
   const averageText = activeAverage === undefined ? '' : `, ${t('weightAverage')}: ${activeAverage.toFixed(2)} kg`
   const activeText = active ? `${formatDate(active.timestamp, language)}, ${active.value.toFixed(1)} kg${averageText}` : t('chartDescription', { count: points.length })
 
-  return <section className={`weight-chart card${visibleBands.length ? ' bmi-zones-visible' : ''}`} aria-labelledby="chart-title">
+  return <section className={`weight-chart${visibleBands.length ? ' bmi-zones-visible' : ''}`} aria-labelledby="chart-title">
     <div className="chart-header">
-      <div className="chart-title-group"><h2 id="chart-title">{t('trend')}</h2><p>{t('trendHint')}</p></div>
+      <div className="chart-title-group"><h2 id="chart-title">{t('trend')}</h2></div>
     </div>
     <div className="weight-chart-options">
       {profile.showBmi && (profile.age === null || profile.age >= 18) && <button className="chart-bmi-toggle" type="button" role="switch" aria-checked={profile.showBmiRange} onClick={() => onBmiZonesChange(!profile.showBmiRange)}><i aria-hidden="true" />{t('bmiZonesToggle')}</button>}
@@ -79,13 +79,14 @@ export function WeightChart({ averages = [], showAverage = false, onAverageChang
             {averagePoints.length > 1 && <polyline className="weight-average-line" points={averageLine} />}
             {averagePoints.length === 1 && <circle className="weight-average-point" cx={averagePoints[0].x} cy={averagePoints[0].y} r="5" />}
             {active && <line className="chart-crosshair" x1={active.x} x2={active.x} y1="0" y2={HEIGHT} />}
+            {((active && !showAverage) || (!showAverage && points.length === 1)) && <circle className="weight-selected-point" cx={(active ?? first).x} cy={(active ?? first).y} r="5" />}
             <text className="axis-label x-start" x="0" y={HEIGHT + 28}>{new Intl.DateTimeFormat(language, { dateStyle: 'medium' }).format(new Date(first.timestamp))}</text>
             {last.id !== first.id && <text className="axis-label x-end" x={WIDTH} y={HEIGHT + 28}>{new Intl.DateTimeFormat(language, { dateStyle: 'medium' }).format(new Date(last.timestamp))}</text>}
             <rect className="chart-navigation" x="0" y="0" width={WIDTH} height={HEIGHT} tabIndex="0" role="slider" aria-label={t('chartNavigation')} aria-valuemin="0" aria-valuemax={points.length - 1} aria-valuenow={activeIndex ?? points.length - 1} aria-valuetext={activeText} onFocus={() => setActiveIndex((current) => current ?? points.length - 1)} onKeyDown={navigate} onPointerDown={(event) => { event.currentTarget.setPointerCapture?.(event.pointerId); selectAtPointer(event) }} onPointerMove={selectAtPointer} />
           </g>
         </svg>
       </div>
-      {active && <div className="chart-tooltip"><strong>{active.value.toFixed(1)} kg</strong><span>{formatDate(active.timestamp, language)}</span>{activeAverage !== undefined && <small>{t('weightAverage')}: {activeAverage.toFixed(2)} kg</small>}{active.note && <small>{active.note}</small>}</div>}
+      <div className="weight-tooltip-slot" aria-live="polite">{active && <div className="chart-tooltip"><strong>{active.value.toFixed(1)} kg</strong><span>{formatDate(active.timestamp, language)}</span>{activeAverage !== undefined && <small>{t('weightAverage')}: {activeAverage.toFixed(2)} kg</small>}{active.note && <small>{active.note}</small>}</div>}</div>
       {bmiBands.length > 0 && <div className="bmi-zone-legend" aria-label={t('whoBmiZones')}>{bmiBands.map((band) => <div key={band.key}><i className={`bmi-swatch ${band.key}`} aria-hidden="true" /><span><b>{band.range}</b>{t(band.key)}</span></div>)}</div>}
       <p className="chart-caption">{t('visibleEntries', { count: points.length })}</p>
     </>}
