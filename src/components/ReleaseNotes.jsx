@@ -4,8 +4,8 @@ export function ReleaseNotes({ onDismiss, t }) {
       <p className="release-eyebrow">{t('whatsNew')}</p>
       <h2 id="release-notes-title">{t('releaseTitle')}</h2>
       <ul>
-        <li>{t('releaseWeightAverage')}</li>
-        <li>{t('releaseWeightAverageDetails')}</li>
+        <li>{t('releaseWeightControls')}</li>
+        <li>{t('releaseWeightControlsDetails')}</li>
       </ul>
     </div>
     <button type="button" onClick={onDismiss} aria-label={t('dismissReleaseNotes')}>{t('close')}</button>
