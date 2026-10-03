@@ -154,24 +154,32 @@ Object.assign(translations.fr, {
 })
 
 Object.assign(translations.en, {
+  weightSince: 'Since {date}',
+  weightEvolution: 'Evolution', weightBmi: 'BMI', weightPeriod_threeMonths: 'Last 3 months', weightPeriod_oneYear: 'Last year', weightPeriod_allTime: 'All time',
   bmiDetails: 'BMI details', weightAverageToggle: 'Average', weightAverage: '5-measurement average',
   releaseWeightControls: 'The BMI zones and Average switches now sit side by side, with shorter average labels.',
   releaseWeightControlsDetails: 'The time-span selector stays directly above the Weight graph on phones and desktops. Measurements and average calculations are unchanged.',
   weightAverageUnavailable: 'The average begins at the fifth measurement; none is available in this range.'
 })
 Object.assign(translations.es, {
+  weightSince: 'Desde el {date}',
+  weightEvolution: 'Cambio', weightBmi: 'IMC', weightPeriod_threeMonths: 'Últimos 3 meses', weightPeriod_oneYear: 'Último año', weightPeriod_allTime: 'Todo el período',
   bmiDetails: 'Detalles del IMC', weightAverageToggle: 'Media', weightAverage: 'Media de 5 mediciones',
   releaseWeightControls: 'Los interruptores de zonas de IMC y Media aparecen juntos, con una etiqueta más corta para la media.',
   releaseWeightControlsDetails: 'El selector de período permanece justo encima del gráfico de peso en móviles y ordenadores. Las mediciones y el cálculo de la media no cambian.',
   weightAverageUnavailable: 'La media comienza en la quinta medición; no hay ninguna disponible en este período.'
 })
 Object.assign(translations.de, {
+  weightSince: 'Seit dem {date}',
+  weightEvolution: 'Änderung', weightBmi: 'BMI', weightPeriod_threeMonths: 'Letzte 3 Monate', weightPeriod_oneYear: 'Letztes Jahr', weightPeriod_allTime: 'Gesamter Zeitraum',
   bmiDetails: 'BMI-Details', weightAverageToggle: 'Durchschnitt', weightAverage: 'Durchschnitt aus 5 Messungen',
   releaseWeightControls: 'Die Schalter für BMI-Zonen und Durchschnitt stehen jetzt nebeneinander, mit kürzerer Durchschnittsbeschriftung.',
   releaseWeightControlsDetails: 'Die Zeitraumwahl bleibt auf Smartphones und Computern direkt über dem Gewichtsdiagramm. Messungen und Durchschnittsberechnung bleiben unverändert.',
   weightAverageUnavailable: 'Der Durchschnitt beginnt bei der fünften Messung; in diesem Zeitraum ist keiner verfügbar.'
 })
 Object.assign(translations.fr, {
+  weightSince: 'Depuis le {date}',
+  weightEvolution: 'Évolution', weightBmi: 'IMC', weightPeriod_threeMonths: '3 derniers mois', weightPeriod_oneYear: 'Dernière année', weightPeriod_allTime: 'Toute la période',
   bmiDetails: 'Détails de l’IMC', weightAverageToggle: 'Moyenne', weightAverage: 'Moyenne de 5 mesures',
   releaseWeightControls: 'Les options Zones colorées de l’IMC et Moyenne sont désormais côte à côte, avec un libellé plus court pour la moyenne.',
   releaseWeightControlsDetails: 'Le sélecteur de période reste juste au-dessus du graphique du poids sur téléphone et ordinateur. Les mesures et le calcul de la moyenne restent inchangés.',

@@ -6,8 +6,10 @@
 - Preserve the blue/white header identity, all four languages, mobile and dark-mode support.
 - Keep recorded values, calculations, ranges, averages, BMI zones, editing, storage, backup formats, and offline deployment unchanged.
 - Keep implementation inside the Weight module; no release metadata changes until release preparation.
-- UX review: remove unused tooltip spacing, improve phone axis-label readability, retain a visible BMI disclaimer with a concise localized details disclosure, and provide 44px touch targets for chart switches.
+- UX review: remove unused tooltip spacing, improve phone axis-label readability, retain BMI context through an accessible info disclosure, and provide 44px touch targets for chart switches.
 - Final polish: tighten header-to-hero and hero-to-chart spacing, slightly reduce hero type, shorten BMI zone switch labels in all languages, reduce segmented-control padding while retaining 44px targets, and quiet chart dates/count metadata without changing chart interactions.
+- Hierarchy refinement: the hero always compares recorded measurements within the last three months, independently of chart selection. Insights contain selected-chart-period evolution and optional BMI, without a repeated current-weight value. Group chart controls and plot on a subtle blue-gray surface (slightly lighter than the dark page); keep hero, insights, and history open.
+- Insight simplification: evolution shows only change and the actual reference measurement's localized “Since” date. BMI shows only its number with a subtle existing-zone-color badge and info control; classification, range, height/age interpretation, and the existing medical disclaimer move into a keyboard/touch-accessible popover. Chart-zone visibility never changes the badge color.
 
 ## Verification and acceptance
 
@@ -20,5 +22,5 @@
 
 - Reviewed rendered Edge layouts with irregular demo measurements at 320px, 390px, and 1024px in English, Spanish, German, and French, in light and dark themes (24 combinations). No horizontal overflow, clipped axis labels, or chart switches below 44px height were detected.
 - Verified keyboard Home/End, pointer selection, touch-emulated endpoint selection, recorded/average mode, BMI zones and disclosure, synchronized chart/history counts for all three spans, and entry edit/cancel preserving the full store. Selected tooltip remains below endpoint date labels.
-- The Weight screen has stronger hierarchy and quieter framing. The requested summary recap still repeats hero information, and optional BMI context remains a comparatively tall section on phones; these are remaining design tradeoffs.
+- The latest hierarchy refinement removes the repeated current-weight insight and presents evolution/BMI side by side; the hero reference period remains fixed and is not configurable.
 - Browser checks use an isolated test profile and synthetic demo data. Physical-device touch feel and PWA install/offline regression remain manual acceptance checks before release.

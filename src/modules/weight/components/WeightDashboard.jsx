@@ -9,12 +9,13 @@ export function WeightDashboard({ measurements, language, profile, state, onStat
   const chartSpan = state.chartSpan ?? 'threeMonths'
   const visibleMeasurements = filterBySpan(measurements, chartSpan)
   const averages = filterBySpan(fiveMeasurementAverages(measurements), chartSpan)
-  const { current, rangeChange } = summarizeWeights(measurements, visibleMeasurements)
+  const heroMeasurements = filterBySpan(measurements, 'threeMonths')
+  const { current, rangeChange } = summarizeWeights(measurements, heroMeasurements)
   return <div className="weight-dashboard">
     {current !== null && <div className="weight-hero">
       <span>{t('currentWeight')}</span>
       <strong>{current.toFixed(1)} <small>kg</small></strong>
-      <p>{rangeChange !== null && <><span aria-hidden="true">{rangeChange < 0 ? '↓' : rangeChange > 0 ? '↑' : '→'} </span>{rangeChange > 0 ? '+' : ''}{rangeChange.toFixed(1)} kg · </>}{t(chartSpan)}</p>
+      <p>{rangeChange !== null && <><span aria-hidden="true">{rangeChange < 0 ? '↓' : rangeChange > 0 ? '↑' : '→'} </span>{rangeChange > 0 ? '+' : ''}{rangeChange.toFixed(1)} kg · </>}{t('threeMonths')}</p>
     </div>}
     <WeightChart averages={averages} showAverage={state.showAverage ?? false} onAverageChange={(showAverage) => onStateChange({ ...state, showAverage })} measurements={visibleMeasurements} language={language} span={chartSpan} onSpanChange={(next) => onStateChange({ ...state, chartSpan: next })} profile={profile} onBmiZonesChange={(showBmiRange) => onProfileChange({ ...profile, showBmiRange })} t={t} />
     <WeightSummary measurements={measurements} visibleMeasurements={visibleMeasurements} span={chartSpan} language={language} profile={profile} t={t} />

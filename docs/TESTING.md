@@ -71,8 +71,12 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 ## Weight visual redesign checks
 
 - At 320px, phone, and desktop widths in all four languages and both themes, review the current-weight hero, compact period selector, summary values, and separated history rows. Check long multiline notes and future-record flags.
-- Confirm the hero always uses the latest recorded weight, while its change uses the selected span; empty spans must not imply a change.
-- Expand BMI context with keyboard and touch; verify height context and the older-adult caution remain available and the screening disclaimer remains visible when collapsed.
+- Confirm the hero always uses the latest recorded weight and fixed last-three-month change. Switching chart periods must leave the hero unchanged; fewer than two recent readings must not imply a change even when older readings exist.
+- Confirm insights show selected-chart-period evolution and optional BMI, with no repeated current-weight statistic. Verify the comparison date and BMI disclosure remain accessible, and disabling BMI leaves only the evolution insight.
+- In light and dark mode, verify the chart surface groups title, switches, period selector, plot, and tooltip without borders or nested cards; inspect the open hero, insights, and history at narrow widths.
+- Confirm evolution displays only its change and localized “Since” reference date, changing with the chart period. With fewer than two readings, no change is invented.
+- Open the BMI info icon with touch/click, Enter, and Space; confirm classification, band range, height context, older-adult caution when applicable, and the existing disclaimer are inside the popover rather than permanently visible. Verify Escape returns focus to the info control, and outside taps or Tab away close it. Check the popover fits at 320px in all languages and themes.
+- Confirm the BMI badge matches its chart-zone semantic color with chart zones both on and off. Check all six bands in both themes; under-18 BMI stays neutral and explains why adult ranges do not apply.
 - Select chart endpoints with pointer, touch, and keyboard. The floating tooltip stays below the chart and preserves date, note, and optional average details without obscuring endpoint labels. Confirm one recorded measurement has a visible point.
 
 ## Weight smoothing checks
