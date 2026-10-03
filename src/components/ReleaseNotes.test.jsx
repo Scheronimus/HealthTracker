@@ -4,13 +4,14 @@ import { translate } from '../i18n.js'
 import { ReleaseNotes } from './ReleaseNotes.jsx'
 
 describe('ReleaseNotes', () => {
-  it.each(['en', 'es', 'de', 'fr'])('renders localized, accessible v1.7.1 notes in %s', (language) => {
+  it.each(['en', 'es', 'de', 'fr'])('renders localized, accessible v1.8.0 notes in %s', (language) => {
     const html = renderToStaticMarkup(<ReleaseNotes onDismiss={() => {}} t={(key) => translate(language, key)} />)
     expect(html).toContain('aria-labelledby="release-notes-title"')
     expect(html).toContain(translate(language, 'releaseTitle'))
-    expect(translate(language, 'releaseTitle')).toBe('Health Tracker 1.7.1')
-    expect(html).toContain(translate(language, 'releaseWeightControls'))
-    expect(html).toContain(translate(language, 'releaseWeightControlsDetails'))
+    expect(translate(language, 'releaseTitle')).toBe('Health Tracker 1.8.0')
+    for (const key of ['releaseWeightOverview', 'releaseWeightPeriods', 'releaseWeightBmi', 'releaseCompatibility']) {
+      expect(html).toContain(translate(language, key))
+    }
     expect(html).toContain(translate(language, 'dismissReleaseNotes'))
   })
 })

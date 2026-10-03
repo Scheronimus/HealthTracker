@@ -9,8 +9,8 @@ export function ProfileForm({ profile, onSave, t }) {
 
   function submit(event) {
     event.preventDefault()
-    const age = draft.age === '' ? null : Number(draft.age)
-    const heightCm = draft.heightCm === '' ? null : Number(draft.heightCm)
+    const age = draft.age === '' || draft.age === null ? null : Number(draft.age)
+    const heightCm = draft.heightCm === '' || draft.heightCm === null ? null : Number(draft.heightCm)
     if ((age !== null && (!Number.isInteger(age) || age < 0 || age > 130))
       || (heightCm !== null && (!Number.isFinite(heightCm) || heightCm < 50 || heightCm > 300))) {
       setError(t('profileInvalid'))

@@ -11,7 +11,7 @@ describe('WeightHistory future records', () => {
       t={(key) => key}
     />)
 
-    expect(html).toContain('class="entry entry-link card future-record"')
+    expect(html).toContain('class="entry entry-link future-record"')
     expect(html).toContain('futureMeasurementLabel')
     expect(html).not.toContain('disabled')
   })

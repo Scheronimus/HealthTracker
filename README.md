@@ -17,8 +17,8 @@ Health Tracker supports modular Weight and Blood Pressure areas. Blood Pressure 
 - Review a focused blood-pressure overview, compact two-reading diary, and accessible 7-day to 1-year trends using daily or weekly averages without connecting individual readings into a misleading line.
 - Prominent interactive weight graph with 3-month, 1-year, and all-time ranges.
 - Optional Weight graph mode showing only a dashed average line instead of the recorded line, using the average of each measurement and the previous four, calculated from full history; enabled for the current session only.
-- Newest-first Weight history filtered to the selected graph span, with current weight and graph-span change summaries.
-- Optional local profile, WHO BMI screening context, and height-specific WHO color zones on the unchanged graph scale.
+- A centered current-weight hero with a fixed last-three-month change, a selected-period evolution insight, and newest-first history filtered to the graph span.
+- Optional local profile, a BMI badge using the graph’s zone colors, accessible WHO screening context, and height-specific WHO color zones on the unchanged graph scale.
 - English, Spanish, German, and French interfaces with a locally saved preference.
 - System, light, and dark appearance choices with a locally saved preference.
 - Versioned and validated local data, tested migration infrastructure, and complete backup/merge restore.
@@ -51,6 +51,8 @@ Demo data is intended for interface testing only.
 ## Quality checks
 
 Run `npm test`, `npm run lint`, and `npm run build`. See [Testing](docs/TESTING.md) for manual checks.
+
+For release verification, install test browsers once with `npx playwright install chromium firefox webkit`, then run `npm run test:release`. This adds production-browser workflows, offline checks, accessibility scans, and Windows/Chromium visual regression to the normal checks. CI runs the complete gate before deployment; see [Testing](docs/TESTING.md) for reports, baselines, and the small remaining device smoke test.
 
 ## Branch and deployment workflow
 

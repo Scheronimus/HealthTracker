@@ -1,5 +1,29 @@
 # Changelog
 
+## 1.8.0 - 2026-10-03
+
+### Changed
+
+- Refined the mobile Weight screen with a centered current-weight hero, compact period selector, a subtle chart surface, quieter typography, and clean history rows with notes and weight changes.
+- Kept the hero change fixed to the last three months, independently of the chart period. The complementary insight below the chart follows the selected period and shows the actual reference measurement date.
+- Removed the duplicated current-weight statistic. BMI now uses a subtle badge matching the existing chart-zone color and an accessible info popover for classification, range, interpretation, and the medical disclaimer.
+- Preserved light/dark appearance, responsive layouts, keyboard/pointer/touch chart interactions, and equivalent English, Spanish, German, and French interfaces.
+
+### Added
+
+- Added a single automated release gate covering unit tests, lint, production builds, Chromium/Firefox/WebKit workflows, accessibility, backup/restore safety, migrations, persistence, and real service-worker offline editing.
+- Added reviewed Windows/Chromium visual baselines for all languages and themes, narrow/mobile/desktop layouts, empty states, chart tooltips, and BMI popovers. CI retains failure evidence and gates Pages deployment.
+
+### Fixed
+
+- Kept the chart keyboard slider accessible to assistive technology, prevented narrow localized header actions from being obscured, and improved Settings privacy text contrast.
+- Preserved absent optional age and height as null when saving a profile, rather than converting them to zero.
+
+### Data compatibility
+
+- Recorded measurements, BMI thresholds, five-measurement averages, backup formats, and persisted schema version 6 are unchanged; no migration is required.
+- All health data remains local to the browser. Offline behavior and the `/HealthTracker/` deployment base are preserved.
+
 ## 1.7.1 - 2026-10-03
 
 ### Fixed
