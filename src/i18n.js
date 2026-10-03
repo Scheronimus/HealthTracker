@@ -95,7 +95,7 @@ Object.assign(translations.en, {
   restoreDone:'Restore complete: {added} added, {duplicates} unchanged, {future} future measurements skipped.',
   dataHint:'Use a complete backup to move or recover your Health Tracker data.', backupSensitive:'Backup files contain sensitive health information. Store them somewhere safe.',
   clearAll:'Delete all measurements', clearAllConfirm:'Delete every measurement on this device? This cannot be undone.', clearAllDone:'All measurements were deleted.',
-  whatsNew:'What’s new', releaseTitle:'Health Tracker 1.7.1', dismissReleaseNotes:'Dismiss release notes'
+  whatsNew:'What’s new', releaseTitle:'Health Tracker 1.8.0', dismissReleaseNotes:'Dismiss release notes'
 })
 Object.assign(translations.es, {
   tagline:'Tus datos de salud, privados en este dispositivo.', settings:'Datos', allTime:'Todo', averageSoFar:'Promedio provisional', bpRangeHint:'Los rangos evitan errores de escritura; no evalúan tu estado de salud.',
@@ -106,7 +106,7 @@ Object.assign(translations.es, {
   restoreDone:'Restauración terminada: {added} añadidos, {duplicates} sin cambios y {future} mediciones futuras omitidas.',
   dataHint:'Utiliza una copia completa para trasladar o recuperar tus datos de Health Tracker.', backupSensitive:'Las copias contienen información de salud sensible. Guárdalas en un lugar seguro.',
   clearAll:'Eliminar todas las mediciones', clearAllConfirm:'¿Eliminar todas las mediciones de este dispositivo? Esta acción no se puede deshacer.', clearAllDone:'Se eliminaron todas las mediciones.',
-  whatsNew:'Novedades', releaseTitle:'Health Tracker 1.7.1', dismissReleaseNotes:'Cerrar las novedades'
+  whatsNew:'Novedades', releaseTitle:'Health Tracker 1.8.0', dismissReleaseNotes:'Cerrar las novedades'
 })
 Object.assign(translations.de, {
   tagline:'Deine Gesundheitsdaten bleiben privat auf diesem Gerät.', settings:'Daten', csvImportDone:'CSV-Import abgeschlossen: {added} hinzugefügt, {duplicates} vorhandene Datumswerte unverändert, {skipped} fehlende Werte übersprungen.',
@@ -117,7 +117,7 @@ Object.assign(translations.de, {
   restoreDone:'Wiederherstellung abgeschlossen: {added} hinzugefügt, {duplicates} unverändert, {future} zukünftige Messungen übersprungen.',
   invalidBackup:'Diese Datei ist keine gültige Gesundheits-Tracker-Datensicherung.', dataHint:'Mit einer vollständigen Datensicherung kannst du deine Gesundheits-Tracker-Daten übertragen oder wiederherstellen.', backupSensitive:'Datensicherungen enthalten sensible Gesundheitsdaten. Bewahre sie an einem sicheren Ort auf.',
   clearAll:'Alle Messungen löschen', clearAllConfirm:'Alle Messungen auf diesem Gerät löschen? Dies kann nicht rückgängig gemacht werden.', clearAllDone:'Alle Messungen wurden gelöscht.',
-  whatsNew:'Neu in dieser Version', releaseTitle:'Health Tracker 1.7.1', dismissReleaseNotes:'Versionshinweise schließen'
+  whatsNew:'Neu in dieser Version', releaseTitle:'Health Tracker 1.8.0', dismissReleaseNotes:'Versionshinweise schließen'
 })
 Object.assign(translations.fr, {
   tagline:'Vos données de santé restent privées sur cet appareil.', settings:'Données', privacyTitle:'Vos données restent privées',
@@ -129,7 +129,7 @@ Object.assign(translations.fr, {
   restoreDone:'Restauration terminée : {added} ajoutées, {duplicates} inchangées et {future} mesures futures ignorées.',
   dataHint:'Utilisez une sauvegarde complète pour transférer ou récupérer vos données Health Tracker.', backupSensitive:'Les sauvegardes contiennent des données de santé sensibles. Conservez-les en lieu sûr.',
   clearAll:'Supprimer toutes les mesures', clearAllConfirm:'Supprimer toutes les mesures de cet appareil ? Cette action est irréversible.', clearAllDone:'Toutes les mesures ont été supprimées.',
-  whatsNew:'Nouveautés', releaseTitle:'Health Tracker 1.7.1', dismissReleaseNotes:'Fermer les nouveautés'
+  whatsNew:'Nouveautés', releaseTitle:'Health Tracker 1.8.0', dismissReleaseNotes:'Fermer les nouveautés'
 })
 
 Object.assign(translations.en, {
@@ -157,32 +157,40 @@ Object.assign(translations.en, {
   weightSince: 'Since {date}',
   weightEvolution: 'Evolution', weightBmi: 'BMI', weightPeriod_threeMonths: 'Last 3 months', weightPeriod_oneYear: 'Last year', weightPeriod_allTime: 'All time',
   bmiDetails: 'BMI details', weightAverageToggle: 'Average', weightAverage: '5-measurement average',
-  releaseWeightControls: 'The BMI zones and Average switches now sit side by side, with shorter average labels.',
-  releaseWeightControlsDetails: 'The time-span selector stays directly above the Weight graph on phones and desktops. Measurements and average calculations are unchanged.',
+  releaseWeightOverview: 'A clearer Weight screen with a prominent current weight, a calmer chart, and compact history.',
+  releaseWeightPeriods: 'The current-weight change always covers the last 3 months; the insight below the chart follows your selected period.',
+  releaseWeightBmi: 'BMI uses the chart’s zone colors, with range and screening information available from the info control.',
+  releaseCompatibility: 'Measurements and backups are preserved. Saving a profile now keeps missing age and height empty.',
   weightAverageUnavailable: 'The average begins at the fifth measurement; none is available in this range.'
 })
 Object.assign(translations.es, {
   weightSince: 'Desde el {date}',
   weightEvolution: 'Cambio', weightBmi: 'IMC', weightPeriod_threeMonths: 'Últimos 3 meses', weightPeriod_oneYear: 'Último año', weightPeriod_allTime: 'Todo el período',
   bmiDetails: 'Detalles del IMC', weightAverageToggle: 'Media', weightAverage: 'Media de 5 mediciones',
-  releaseWeightControls: 'Los interruptores de zonas de IMC y Media aparecen juntos, con una etiqueta más corta para la media.',
-  releaseWeightControlsDetails: 'El selector de período permanece justo encima del gráfico de peso en móviles y ordenadores. Las mediciones y el cálculo de la media no cambian.',
+  releaseWeightOverview: 'Una pantalla de peso más clara, con el peso actual destacado, un gráfico más limpio y un historial compacto.',
+  releaseWeightPeriods: 'El cambio junto al peso actual siempre abarca los últimos 3 meses; el dato bajo el gráfico sigue el período seleccionado.',
+  releaseWeightBmi: 'El IMC utiliza los colores de las zonas del gráfico; el control de información muestra el rango y las indicaciones de interpretación.',
+  releaseCompatibility: 'Se conservan las mediciones y las copias de seguridad. Al guardar el perfil, la edad y la altura no indicadas permanecen vacías.',
   weightAverageUnavailable: 'La media comienza en la quinta medición; no hay ninguna disponible en este período.'
 })
 Object.assign(translations.de, {
   weightSince: 'Seit dem {date}',
   weightEvolution: 'Änderung', weightBmi: 'BMI', weightPeriod_threeMonths: 'Letzte 3 Monate', weightPeriod_oneYear: 'Letztes Jahr', weightPeriod_allTime: 'Gesamter Zeitraum',
   bmiDetails: 'BMI-Details', weightAverageToggle: 'Durchschnitt', weightAverage: 'Durchschnitt aus 5 Messungen',
-  releaseWeightControls: 'Die Schalter für BMI-Zonen und Durchschnitt stehen jetzt nebeneinander, mit kürzerer Durchschnittsbeschriftung.',
-  releaseWeightControlsDetails: 'Die Zeitraumwahl bleibt auf Smartphones und Computern direkt über dem Gewichtsdiagramm. Messungen und Durchschnittsberechnung bleiben unverändert.',
+  releaseWeightOverview: 'Eine übersichtlichere Gewichtsansicht mit hervorgehobenem aktuellem Gewicht, ruhigerem Diagramm und kompaktem Verlauf.',
+  releaseWeightPeriods: 'Die Änderung beim aktuellen Gewicht bezieht sich immer auf die letzten 3 Monate; die Angabe unter dem Diagramm folgt dem gewählten Zeitraum.',
+  releaseWeightBmi: 'Der BMI verwendet die Zonenfarben des Diagramms. Referenzbereich und Hinweise zur Einordnung sind über das Infosymbol erreichbar.',
+  releaseCompatibility: 'Messungen und Datensicherungen bleiben erhalten. Nicht angegebene Werte für Alter und Größe bleiben beim Speichern des Profils leer.',
   weightAverageUnavailable: 'Der Durchschnitt beginnt bei der fünften Messung; in diesem Zeitraum ist keiner verfügbar.'
 })
 Object.assign(translations.fr, {
   weightSince: 'Depuis le {date}',
   weightEvolution: 'Évolution', weightBmi: 'IMC', weightPeriod_threeMonths: '3 derniers mois', weightPeriod_oneYear: 'Dernière année', weightPeriod_allTime: 'Toute la période',
   bmiDetails: 'Détails de l’IMC', weightAverageToggle: 'Moyenne', weightAverage: 'Moyenne de 5 mesures',
-  releaseWeightControls: 'Les options Zones colorées de l’IMC et Moyenne sont désormais côte à côte, avec un libellé plus court pour la moyenne.',
-  releaseWeightControlsDetails: 'Le sélecteur de période reste juste au-dessus du graphique du poids sur téléphone et ordinateur. Les mesures et le calcul de la moyenne restent inchangés.',
+  releaseWeightOverview: 'Un écran Poids plus lisible, avec le poids actuel mis en avant, un graphique épuré et un historique compact.',
+  releaseWeightPeriods: 'L’évolution près du poids actuel porte toujours sur les 3 derniers mois ; celle sous le graphique suit la période sélectionnée.',
+  releaseWeightBmi: 'L’IMC reprend les couleurs des zones du graphique. Le contrôle d’information donne accès à la plage de référence et aux précautions d’interprétation.',
+  releaseCompatibility: 'Les mesures et les sauvegardes sont conservées. L’âge et la taille non renseignés restent vides lors de l’enregistrement du profil.',
   weightAverageUnavailable: 'La moyenne commence à la cinquième mesure ; aucune n’est disponible sur cette période.'
 })
 

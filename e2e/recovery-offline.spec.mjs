@@ -44,6 +44,8 @@ test('restore merges missing records, keeps local IDs/profile/Blood Pressure, an
   page.once('dialog', (dialog) => dialog.accept())
   await upload(page, JSON.stringify(backup(imported)))
   await expect(page.getByRole('status')).toContainText('Restore complete')
+  // The confirmation render can precede the storage effect, especially in WebKit.
+  await expect.poll(async () => (await readStore(page)).measurements.length).toBe(3)
   const restored = await readStore(page)
   expect(restored.measurements).toHaveLength(3)
   expect(restored.measurements).toContainEqual(local.measurements[0])

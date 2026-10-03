@@ -1,5 +1,5 @@
 import AxeBuilder from '@axe-core/playwright'
-import { test, expect, populatedStore, store, weight, openSettings } from './fixtures.mjs'
+import { test, expect, store, weight, openSettings } from './fixtures.mjs'
 
 async function scan(page, testInfo, state) {
   const result = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']).analyze()
@@ -32,18 +32,12 @@ for (const theme of ['light', 'dark']) {
   })
 }
 
-test('all BMI band badges have AA text contrast in both themes and reuse chart semantic colors', async ({ page, app }) => {
-  await app()
-  for (const theme of ['light', 'dark']) for (const [bmi, band] of [
-    [17, 'bmiBelow'], [22, 'bmiWithin'], [28, 'bmiAbove'], [32, 'bmiClass1'], [37, 'bmiClass2'], [42, 'bmiClass3'],
-  ]) {
-    const data = populatedStore()
-    data.measurements = [weight('2026-10-01', bmi * (1.72 ** 2))]
-    await page.evaluate(({ data, theme }) => {
-      localStorage.setItem('health-tracker-data', JSON.stringify(data))
-      localStorage.setItem('health-tracker-theme', theme)
-    }, { data, theme })
-    await page.reload()
+for (const theme of ['light', 'dark']) for (const [bmi, band] of [
+  [17, 'bmiBelow'], [22, 'bmiWithin'], [28, 'bmiAbove'], [32, 'bmiClass1'], [37, 'bmiClass2'], [42, 'bmiClass3'],
+]) {
+  test(`BMI ${band}/${theme} badge has AA contrast and reuses chart semantic color`, async ({ page, app }) => {
+    // Each case starts in a fresh context; changing live storage can race app saves.
+    await app({ theme, data: store([weight('2026-10-01', bmi * (1.72 ** 2))]) })
     await expect(page.locator('.weight-bmi-value')).toHaveClass(`weight-bmi-value ${band}`)
     const colors = await page.locator('.weight-bmi-value').evaluate((element) => {
       const canvas = document.createElement('canvas')
@@ -66,5 +60,5 @@ test('all BMI band badges have AA text contrast in both themes and reuse chart s
     await page.getByRole('switch', { name: 'BMI zones' }).check()
     const chartColor = await page.locator(`.bmi-swatch.${band}`).evaluate((element) => getComputedStyle(element).getPropertyValue('--bmi-color').trim())
     expect(colors.semantic).toBe(chartColor)
-  }
-})
+  })
+}
