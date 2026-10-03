@@ -366,9 +366,10 @@ footer { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 }
 :root[data-theme='dark'] .bp-trend-range button, :root[data-theme='dark'] .bp-trend-mode button { color: #d8edf7; }
 
-.weight-average-controls { margin-bottom: .5rem; }
-.weight-average-controls .chart-bmi-toggle { max-width: 100%; text-align: start; }
-.weight-average-controls .chart-bmi-toggle i { flex-shrink: 0; }
+.weight-chart-options { display: flex; align-items: center; gap: .5rem; margin-bottom: .75rem; }
+.weight-chart-options .chart-bmi-toggle { min-width: 0; max-width: 100%; margin-top: 0; text-align: start; }
+.weight-chart-options .chart-bmi-toggle i { flex-shrink: 0; }
+.weight-chart-span { width: 100%; margin-bottom: .75rem; }
 .weight-average-line { fill: none; stroke: #7541a0; stroke-width: 3; stroke-dasharray: 8 5; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .weight-average-point { fill: #7541a0; }
 :root[data-theme='dark'] .weight-average-line { stroke: #dfb8ff; }
