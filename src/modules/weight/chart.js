@@ -10,10 +10,19 @@ export function filterBySpan(measurements, span, now = new Date()) {
   return measurements.filter(({ timestamp }) => Date.parse(timestamp) >= cutoff.getTime())
 }
 
-export function chartGeometry(measurements, width = 800, height = 300) {
+export function fiveMeasurementAverages(measurements) {
+  const sorted = [...measurements].sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp))
+  return sorted.slice(4).map((measurement, index) => ({
+    id: measurement.id,
+    timestamp: measurement.timestamp,
+    value: sorted.slice(index, index + 5).reduce((sum, item) => sum + item.value, 0) / 5,
+  }))
+}
+
+export function chartGeometry(measurements, width = 800, height = 300, additionalValues = []) {
   const sorted = [...measurements].sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp))
   if (!sorted.length) return { points: [], ticks: [], min: 0, max: 0, plotInset: 0, plotHeight: height }
-  const values = sorted.map(({ value }) => value)
+  const values = [...sorted.map(({ value }) => value), ...additionalValues]
   const rawMin = Math.min(...values)
   const rawMax = Math.max(...values)
   const step = niceIntegerStep(rawMax - rawMin)
