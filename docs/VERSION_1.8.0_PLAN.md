@@ -1,11 +1,11 @@
-# Proposed v1.8.0 scope
+# v1.8.0 release scope — frozen 2026-10-03
 
 ## Scope
 
 - Refine the Weight dashboard with a current-weight/chart hero, compact period control, quieter summary, expandable BMI context, and separated history rows.
 - Preserve the blue/white header identity, all four languages, mobile and dark-mode support.
 - Keep recorded values, calculations, ranges, averages, BMI zones, editing, storage, backup formats, and offline deployment unchanged.
-- Keep implementation inside the Weight module; no release metadata changes until release preparation.
+- Keep Weight implementation inside its module; update version metadata and localized release notes during release preparation. Shared accessibility and profile fixes are limited to defects exposed by release automation.
 - UX review: remove unused tooltip spacing, improve phone axis-label readability, retain BMI context through an accessible info disclosure, and provide 44px touch targets for chart switches.
 - Final polish: tighten header-to-hero and hero-to-chart spacing, slightly reduce hero type, shorten BMI zone switch labels in all languages, reduce segmented-control padding while retaining 44px targets, and quiet chart dates/count metadata without changing chart interactions.
 - Hierarchy refinement: the hero always compares recorded measurements within the last three months, independently of chart selection. Insights contain selected-chart-period evolution and optional BMI, without a repeated current-weight value. Group chart controls and plot on a subtle blue-gray surface (slightly lighter than the dark page); keep hero, insights, and history open.
@@ -27,6 +27,8 @@
 - Accept when the flow remains current weight/chart → summary → history, values are prominent, controls remain accessible, and rows no longer resemble input cards.
 
 ## UX review evidence
+
+- Release preparation: package metadata and all four localized notices identify v1.8.0. Changelog covers the complete shipped scope, and release-notice browser tests cover accessibility, dashboard-only display, persistent dismissal, and unchanged health data. Final local gate passed 180 unit tests and 165 browser/visual checks; refreshed baselines retain the approved layout. Initial develop CI passed. Physical-device installation/keyboard/touch smoke testing remains unverified.
 
 - Release automation verified locally on Windows: 180 unit tests and 120 browser checks passed (34 scenarios in each of Chromium, Firefox, and WebKit, plus 18 Chromium screenshot comparisons). Lint, production build, and whitespace checks passed. Reviewed all 18 visual baselines; CI configuration awaits its first pushed run.
 
