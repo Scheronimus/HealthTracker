@@ -7,11 +7,11 @@ const WIDTH = 800
 const HEIGHT = 400
 const PAD = { top: 18, right: 18, bottom: 42, left: 55 }
 
-export function WeightChart({ measurements, language, span, onSpanChange, profile, onBmiZonesChange, t }) {
+export function WeightChart({ averages = [], showAverage = false, onAverageChange, measurements, language, span, onSpanChange, profile, onBmiZonesChange, t }) {
   const [activeIndex, setActiveIndex] = useState(null)
   const gradientId = useId().replaceAll(':', '')
   const bmiBands = useMemo(() => profile.showBmiRange && (profile.age === null || profile.age >= 18) ? bmiWeightBands(profile.heightCm) : [], [profile.age, profile.heightCm, profile.showBmiRange])
-  const geometry = useMemo(() => chartGeometry(measurements, WIDTH, HEIGHT), [measurements])
+  const geometry = useMemo(() => chartGeometry(measurements, WIDTH, HEIGHT, showAverage ? averages.map(({ value }) => value) : []), [measurements, averages, showAverage])
   const { points, ticks } = geometry
   const visibleBands = bmiBands.map((band) => {
     const lower = Math.max(band.minKg, geometry.min)
@@ -21,8 +21,15 @@ export function WeightChart({ measurements, language, span, onSpanChange, profil
     const bottom = chartValueY(lower, geometry, HEIGHT)
     return { ...band, top, height: bottom - top }
   }).filter(Boolean)
+  const averagesById = new Map(averages.map((item) => [item.id, item.value]))
+  const averagePoints = showAverage ? points.filter(({ id }) => averagesById.has(id)).map((point) => ({
+    ...point, y: chartValueY(averagesById.get(point.id), geometry, HEIGHT),
+  })) : []
+  const averageLine = averagePoints.map(({ x, y }) => `${x},${y}`).join(' ')
   const line = points.map(({ x, y }) => `${x},${y}`).join(' ')
-  const area = points.length ? `0,${HEIGHT} ${line} ${WIDTH},${HEIGHT}` : ''
+  const displayedPoints = showAverage ? averagePoints : points
+  const displayedLine = showAverage ? averageLine : line
+  const area = displayedPoints.length ? `${displayedPoints[0].x},${HEIGHT} ${displayedLine} ${displayedPoints.at(-1).x},${HEIGHT}` : ''
   const first = points[0]
   const last = points.at(-1)
   const active = activeIndex === null ? null : points[activeIndex] ?? null
@@ -44,7 +51,9 @@ export function WeightChart({ measurements, language, span, onSpanChange, profil
     setActiveIndex(Math.max(0, Math.min(points.length - 1, next)))
   }
 
-  const activeText = active ? `${formatDate(active.timestamp, language)}, ${active.value.toFixed(1)} kg` : t('chartDescription', { count: points.length })
+  const activeAverage = active && showAverage ? averagesById.get(active.id) : undefined
+  const averageText = activeAverage === undefined ? '' : `, ${t('weightAverage')}: ${activeAverage.toFixed(2)} kg`
+  const activeText = active ? `${formatDate(active.timestamp, language)}, ${active.value.toFixed(1)} kg${averageText}` : t('chartDescription', { count: points.length })
 
   return <section className={`weight-chart card${visibleBands.length ? ' bmi-zones-visible' : ''}`} aria-labelledby="chart-title">
     <div className="chart-header">
@@ -53,15 +62,21 @@ export function WeightChart({ measurements, language, span, onSpanChange, profil
         {['threeMonths', 'oneYear', 'allTime'].map((option) => <button key={option} type="button" className={span === option ? 'active' : ''} aria-pressed={span === option} onClick={() => { onSpanChange(option); setActiveIndex(null) }}>{t(option)}</button>)}
       </div>
     </div>
+    <div className="weight-average-controls">
+      <button className="chart-bmi-toggle" type="button" role="switch" aria-checked={showAverage} aria-describedby={showAverage && !averagePoints.length ? 'weight-average-unavailable' : undefined} onClick={() => onAverageChange?.(!showAverage)}><i aria-hidden="true" />{t('weightAverageToggle')}</button>
+      {showAverage && !averagePoints.length && <p id="weight-average-unavailable" className="chart-caption">{t('weightAverageUnavailable')}</p>}
+    </div>
     {!points.length ? <div className="chart-empty"><span>⌁</span><p>{t('noChartData')}</p></div> : <>
       <div className="chart-wrap">
         <svg className="chart-svg" viewBox={`0 0 ${WIDTH + PAD.left + PAD.right} ${HEIGHT + PAD.top + PAD.bottom}`} role="img" aria-label={t('chartDescription', { count: points.length })}>
           <defs><linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1"><stop className="trend-area-start" offset="0" /><stop className="trend-area-end" offset="1" /></linearGradient></defs>
           <g transform={`translate(${PAD.left} ${PAD.top})`}>
             {visibleBands.map((band) => <rect key={band.key} className={`bmi-zone ${band.key}`} x="0" y={band.top} width={WIDTH} height={band.height} />)}
-            {points.length > 1 && <polygon className="trend-area" points={area} fill={`url(#${gradientId})`} />}
+            {displayedPoints.length > 1 && <polygon className="trend-area" points={area} fill={`url(#${gradientId})`} />}
             {ticks.map(({ value, y }) => <g key={value}><line className="grid-line" x1="0" x2={WIDTH} y1={y} y2={y} /><text className="axis-label y-label" x="-10" y={y + 4}>{value.toFixed(0)}</text></g>)}
-            {points.length > 1 && <polyline className="trend-line" points={line} />}
+            {!showAverage && points.length > 1 && <polyline className="trend-line" points={line} />}
+            {averagePoints.length > 1 && <polyline className="weight-average-line" points={averageLine} />}
+            {averagePoints.length === 1 && <circle className="weight-average-point" cx={averagePoints[0].x} cy={averagePoints[0].y} r="5" />}
             {active && <line className="chart-crosshair" x1={active.x} x2={active.x} y1="0" y2={HEIGHT} />}
             <text className="axis-label x-start" x="0" y={HEIGHT + 28}>{new Intl.DateTimeFormat(language, { dateStyle: 'medium' }).format(new Date(first.timestamp))}</text>
             {last.id !== first.id && <text className="axis-label x-end" x={WIDTH} y={HEIGHT + 28}>{new Intl.DateTimeFormat(language, { dateStyle: 'medium' }).format(new Date(last.timestamp))}</text>}
@@ -69,7 +84,7 @@ export function WeightChart({ measurements, language, span, onSpanChange, profil
           </g>
         </svg>
       </div>
-      {active && <div className="chart-tooltip"><strong>{active.value.toFixed(1)} kg</strong><span>{formatDate(active.timestamp, language)}</span>{active.note && <small>{active.note}</small>}</div>}
+      {active && <div className="chart-tooltip"><strong>{active.value.toFixed(1)} kg</strong><span>{formatDate(active.timestamp, language)}</span>{activeAverage !== undefined && <small>{t('weightAverage')}: {activeAverage.toFixed(2)} kg</small>}{active.note && <small>{active.note}</small>}</div>}
       {bmiBands.length > 0 && <div className="bmi-zone-legend" aria-label={t('whoBmiZones')}>{bmiBands.map((band) => <div key={band.key}><i className={`bmi-swatch ${band.key}`} aria-hidden="true" /><span><b>{band.range}</b>{t(band.key)}</span></div>)}</div>}
       <p className="chart-caption">{t('visibleEntries', { count: points.length })}</p>
     </>}

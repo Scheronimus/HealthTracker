@@ -25,6 +25,19 @@ const props = {
 }
 
 describe('WeightDashboard range filtering', () => {
+  it('includes earlier off-screen readings in the average view without adding them to history', () => {
+    const data = [90, 88, 86, 84, 82, 80].map((value, index) => ({
+      id: String(index), type: 'weight', value, unit: 'kg', timestamp: monthsAgo(6 - index), note: `note-${index}`,
+    }))
+    const html = renderToStaticMarkup(<WeightDashboard {...props} measurements={data} state={{ chartSpan: 'threeMonths', showAverage: true }} />)
+    expect(html).toContain('class="weight-average-line"')
+    expect(html).not.toContain('weightAverageUnavailable')
+    expect(html).not.toContain('note-0')
+    expect(html).toContain('note-5')
+    const off = renderToStaticMarkup(<WeightDashboard {...props} measurements={data} state={{ chartSpan: 'threeMonths' }} />)
+    expect(off).not.toContain('class="weight-average-line"')
+  })
+
   it('shows only three-month measurements in both the graph and raw history', () => {
     const html = renderToStaticMarkup(<WeightDashboard {...props} state={{ chartSpan: 'threeMonths' }} />)
     expect(html).toContain('chartDescription:2')
