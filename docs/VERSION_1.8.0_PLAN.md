@@ -7,6 +7,7 @@
 - Keep recorded values, calculations, ranges, averages, BMI zones, editing, storage, backup formats, and offline deployment unchanged.
 - Keep implementation inside the Weight module; no release metadata changes until release preparation.
 - UX review: remove unused tooltip spacing, improve phone axis-label readability, retain a visible BMI disclaimer with a concise localized details disclosure, and provide 44px touch targets for chart switches.
+- Final polish: tighten header-to-hero and hero-to-chart spacing, slightly reduce hero type, shorten BMI zone switch labels in all languages, reduce segmented-control padding while retaining 44px targets, and quiet chart dates/count metadata without changing chart interactions.
 
 ## Verification and acceptance
 
