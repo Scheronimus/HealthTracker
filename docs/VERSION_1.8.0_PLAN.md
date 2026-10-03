@@ -10,6 +10,7 @@
 - Final polish: tighten header-to-hero and hero-to-chart spacing, slightly reduce hero type, shorten BMI zone switch labels in all languages, reduce segmented-control padding while retaining 44px targets, and quiet chart dates/count metadata without changing chart interactions.
 - Hierarchy refinement: the hero always compares recorded measurements within the last three months, independently of chart selection. Insights contain selected-chart-period evolution and optional BMI, without a repeated current-weight value. Group chart controls and plot on a subtle blue-gray surface (slightly lighter than the dark page); keep hero, insights, and history open.
 - Insight simplification: evolution shows only change and the actual reference measurement's localized “Since” date. BMI shows only its number with a subtle existing-zone-color badge and info control; classification, range, height/age interpretation, and the existing medical disclaimer move into a keyboard/touch-accessible popover. Chart-zone visibility never changes the badge color.
+- Hero-only polish: center label, value/unit, and fixed-three-month change; slightly strengthen numeric type and breathing room while keeping the page background open. Share History's down/up color declarations for the change and arrow, including its existing down color for zero; keep period metadata neutral.
 
 ## Verification and acceptance
 

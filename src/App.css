@@ -30,7 +30,7 @@ button:hover { filter: brightness(.96); } .error { color: var(--danger); font-si
 .entry { display: grid; grid-template-columns: 1fr auto; gap: .7rem; padding: .9rem; }
 .entry time { color: var(--muted); font-size: .82rem; } .entry p { margin: .35rem 0 0; white-space: pre-wrap; font-size: .9rem; }
 .entry > strong { font-size: 1.15rem; text-align: right; } .entry small { font-size: .72rem; color: var(--muted); }
-.entry em { display: block; font-size: .7rem; font-style: normal; margin-top: .2rem; } .entry em.down { color: var(--decrease); } .entry em.up { color: var(--increase); }
+.entry em { display: block; font-size: .7rem; font-style: normal; margin-top: .2rem; } .entry em.down, .weight-hero .down { color: var(--decrease); } .entry em.up, .weight-hero .up { color: var(--increase); }
 .entry-actions { grid-column: 1 / -1; display: flex; justify-content: flex-end; gap: .4rem; border-top: 1px solid #eaf0f3; padding-top: .6rem; }
 .entry-actions button { padding: .42rem .65rem; font-size: .78rem; } .entry-actions .danger { color: var(--danger); border-color: #e2bcbc; }
 .empty { text-align: center; padding: 2rem 1rem; color: var(--muted); } .empty span { font-size: 2rem; color: #7aabc4; } .empty p { margin: .5rem 0 0; }
