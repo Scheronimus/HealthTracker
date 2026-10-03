@@ -95,7 +95,7 @@ Object.assign(translations.en, {
   restoreDone:'Restore complete: {added} added, {duplicates} unchanged, {future} future measurements skipped.',
   dataHint:'Use a complete backup to move or recover your Health Tracker data.', backupSensitive:'Backup files contain sensitive health information. Store them somewhere safe.',
   clearAll:'Delete all measurements', clearAllConfirm:'Delete every measurement on this device? This cannot be undone.', clearAllDone:'All measurements were deleted.',
-  whatsNew:'What’s new', releaseTitle:'Health Tracker 1.6.0', releaseBackupReminders:'Backup reminders now help you protect new and changed health data without blocking the dashboard.', releaseBackupSettings:'Review backup status and choose a 7-, 14-, or 30-day reminder interval in Advanced backup settings.', dismissReleaseNotes:'Dismiss release notes'
+  whatsNew:'What’s new', releaseTitle:'Health Tracker 1.7.0', dismissReleaseNotes:'Dismiss release notes'
 })
 Object.assign(translations.es, {
   tagline:'Tus datos de salud, privados en este dispositivo.', settings:'Datos', allTime:'Todo', averageSoFar:'Promedio provisional', bpRangeHint:'Los rangos evitan errores de escritura; no evalúan tu estado de salud.',
@@ -106,7 +106,7 @@ Object.assign(translations.es, {
   restoreDone:'Restauración terminada: {added} añadidos, {duplicates} sin cambios y {future} mediciones futuras omitidas.',
   dataHint:'Utiliza una copia completa para trasladar o recuperar tus datos de Health Tracker.', backupSensitive:'Las copias contienen información de salud sensible. Guárdalas en un lugar seguro.',
   clearAll:'Eliminar todas las mediciones', clearAllConfirm:'¿Eliminar todas las mediciones de este dispositivo? Esta acción no se puede deshacer.', clearAllDone:'Se eliminaron todas las mediciones.',
-  whatsNew:'Novedades', releaseTitle:'Health Tracker 1.6.0', releaseBackupReminders:'Los recordatorios ahora te avisan cuando se recomienda crear una nueva copia de seguridad, sin bloquear el panel principal.', releaseBackupSettings:'Consulta el estado de la copia y elige un intervalo de 7, 14 o 30 días en los ajustes avanzados de copia.', dismissReleaseNotes:'Cerrar las novedades'
+  whatsNew:'Novedades', releaseTitle:'Health Tracker 1.7.0', dismissReleaseNotes:'Cerrar las novedades'
 })
 Object.assign(translations.de, {
   tagline:'Deine Gesundheitsdaten bleiben privat auf diesem Gerät.', settings:'Daten', csvImportDone:'CSV-Import abgeschlossen: {added} hinzugefügt, {duplicates} vorhandene Datumswerte unverändert, {skipped} fehlende Werte übersprungen.',
@@ -117,7 +117,7 @@ Object.assign(translations.de, {
   restoreDone:'Wiederherstellung abgeschlossen: {added} hinzugefügt, {duplicates} unverändert, {future} zukünftige Messungen übersprungen.',
   invalidBackup:'Diese Datei ist keine gültige Gesundheits-Tracker-Datensicherung.', dataHint:'Mit einer vollständigen Datensicherung kannst du deine Gesundheits-Tracker-Daten übertragen oder wiederherstellen.', backupSensitive:'Datensicherungen enthalten sensible Gesundheitsdaten. Bewahre sie an einem sicheren Ort auf.',
   clearAll:'Alle Messungen löschen', clearAllConfirm:'Alle Messungen auf diesem Gerät löschen? Dies kann nicht rückgängig gemacht werden.', clearAllDone:'Alle Messungen wurden gelöscht.',
-  whatsNew:'Neu in dieser Version', releaseTitle:'Health Tracker 1.6.0', releaseBackupReminders:'Erinnerungen weisen dich jetzt darauf hin, wenn eine neue Datensicherung empfohlen wird, ohne die Übersicht zu blockieren.', releaseBackupSettings:'Prüfe den Sicherungsstatus und wähle in den erweiterten Sicherungseinstellungen ein Intervall von 7, 14 oder 30 Tagen.', dismissReleaseNotes:'Versionshinweise schließen'
+  whatsNew:'Neu in dieser Version', releaseTitle:'Health Tracker 1.7.0', dismissReleaseNotes:'Versionshinweise schließen'
 })
 Object.assign(translations.fr, {
   tagline:'Vos données de santé restent privées sur cet appareil.', settings:'Données', privacyTitle:'Vos données restent privées',
@@ -129,7 +129,7 @@ Object.assign(translations.fr, {
   restoreDone:'Restauration terminée : {added} ajoutées, {duplicates} inchangées et {future} mesures futures ignorées.',
   dataHint:'Utilisez une sauvegarde complète pour transférer ou récupérer vos données Health Tracker.', backupSensitive:'Les sauvegardes contiennent des données de santé sensibles. Conservez-les en lieu sûr.',
   clearAll:'Supprimer toutes les mesures', clearAllConfirm:'Supprimer toutes les mesures de cet appareil ? Cette action est irréversible.', clearAllDone:'Toutes les mesures ont été supprimées.',
-  whatsNew:'Nouveautés', releaseTitle:'Health Tracker 1.6.0', releaseBackupReminders:'Les rappels vous avertissent désormais lorsqu’une nouvelle sauvegarde est recommandée, sans bloquer le tableau de bord.', releaseBackupSettings:'Consultez l’état de la sauvegarde et choisissez un intervalle de 7, 14 ou 30 jours dans les paramètres avancés.', dismissReleaseNotes:'Fermer les nouveautés'
+  whatsNew:'Nouveautés', releaseTitle:'Health Tracker 1.7.0', dismissReleaseNotes:'Fermer les nouveautés'
 })
 
 Object.assign(translations.en, {
@@ -151,6 +151,31 @@ Object.assign(translations.fr, {
   backupAdvanced:'Paramètres avancés de sauvegarde', backupAdvancedHint:'Consultez l’état de la sauvegarde et choisissez quand afficher les rappels.', back:'Retour', backupStatus:'État de la sauvegarde', backupStatusEmpty:'Ajoutez des mesures pour activer les rappels de sauvegarde.', backupStatusNever:'Aucune sauvegarde téléchargée pour le moment.', backupStatusCurrent:'À jour · Dernière sauvegarde : {date}.', backupStatusChangedOne:'Dernière sauvegarde : {date} · 1 modification depuis cette sauvegarde.', backupStatusChanged:'Dernière sauvegarde : {date} · {count} modifications depuis cette sauvegarde.',
   backupInterval:'Intervalle de rappel', backupEveryDays:'Tous les {days} jours', backupReminderTitle:'Protégez vos données', backupFirstTitle:'Protégez vos premières mesures', backupFirstBody:'Vous avez {count} mesures stockées uniquement dans ce navigateur. Téléchargez une sauvegarde pour pouvoir les récupérer.', backupDueBodyOne:'Dernière sauvegarde : {date}. Une modification a été effectuée depuis.', backupDueBody:'Dernière sauvegarde : {date}. {count} modifications ont été effectuées depuis.', backupOverdueBodyOne:'Votre dernière sauvegarde date du {date}. Une modification a été effectuée depuis. Créez une nouvelle sauvegarde.', backupOverdueBody:'Votre dernière sauvegarde date du {date}. {count} modifications ont été effectuées depuis. Créez une nouvelle sauvegarde.', backupRemindLater:'Me le rappeler dans 3 jours', backupDownloadedTitle:'Téléchargement de la sauvegarde lancé', backupDownloadedBody:'Conservez le fichier téléchargé dans un emplacement sûr, distinct du stockage du navigateur.',
   backupPreview:'Tester un état de sauvegarde', backupPreviewActive:'Mode de test : {state}', backupPreviewReset:'Revenir à l’état réel', backupState_normal:'État actuel', backupState_empty:'Aucune donnée ni rappel', backupState_never:'Jamais sauvegardé', backupState_current:'À jour', backupState_changed:'Modifications récentes', backupState_due:'Sauvegarde à effectuer', backupState_overdue:'Sauvegarde très en retard', backupState_snoozed:'Reporté', backupState_downloaded:'Confirmation du téléchargement'
+})
+
+Object.assign(translations.en, {
+  weightAverageToggle: 'Show 5-measurement average', weightAverage: '5-measurement average',
+  releaseWeightAverage: 'See a smoother Weight trend with the optional average of the last five measurements.',
+  releaseWeightAverageDetails: 'Switch between recorded weights and their average, with one graph line at a time. The average starts at the fifth measurement and stays consistent across time ranges. The switch resets when you reload; history and summaries still use recorded weights.',
+  weightAverageUnavailable: 'The average begins at the fifth measurement; none is available in this range.'
+})
+Object.assign(translations.es, {
+  weightAverageToggle: 'Mostrar la media de 5 mediciones', weightAverage: 'Media de 5 mediciones',
+  releaseWeightAverage: 'Consulta una evolución del peso más suave con la media opcional de las últimas cinco mediciones.',
+  releaseWeightAverageDetails: 'Alterna entre los pesos registrados y su media, con una sola línea a la vez. La media comienza en la quinta medición y se mantiene al cambiar de período. La opción se desactiva al recargar; el historial y los resúmenes siguen usando los pesos registrados.',
+  weightAverageUnavailable: 'La media comienza en la quinta medición; no hay ninguna disponible en este período.'
+})
+Object.assign(translations.de, {
+  weightAverageToggle: 'Durchschnitt aus 5 Messungen anzeigen', weightAverage: 'Durchschnitt aus 5 Messungen',
+  releaseWeightAverage: 'Sieh einen geglätteten Gewichtsverlauf mit dem optionalen Durchschnitt der letzten fünf Messungen.',
+  releaseWeightAverageDetails: 'Wechsle zwischen gemessenen Gewichten und ihrem Durchschnitt mit jeweils nur einer Diagrammlinie. Der Durchschnitt beginnt bei der fünften Messung und bleibt beim Wechsel des Zeitraums gleich. Nach dem Neuladen ist die Option aus; Verlauf und Zusammenfassungen verwenden weiterhin gemessene Gewichte.',
+  weightAverageUnavailable: 'Der Durchschnitt beginnt bei der fünften Messung; in diesem Zeitraum ist keiner verfügbar.'
+})
+Object.assign(translations.fr, {
+  weightAverageToggle: 'Afficher la moyenne de 5 mesures', weightAverage: 'Moyenne de 5 mesures',
+  releaseWeightAverage: 'Consultez une évolution du poids plus lisse grâce à la moyenne facultative des cinq dernières mesures.',
+  releaseWeightAverageDetails: 'Alternez entre les poids enregistrés et leur moyenne, avec une seule ligne à la fois. La moyenne commence à la cinquième mesure et reste identique quand vous changez de période. L’option se désactive au rechargement ; l’historique et les résumés utilisent toujours les poids enregistrés.',
+  weightAverageUnavailable: 'La moyenne commence à la cinquième mesure ; aucune n’est disponible sur cette période.'
 })
 
 export const languageNames = { en: 'English', es: 'Español', de: 'Deutsch', fr: 'Français' }

@@ -7,6 +7,6 @@ export const weightModule = Object.freeze({
   Dashboard: WeightDashboard,
   EntryForm: WeightEntryForm,
   ProfileSettings: WeightProfileSettings,
-  initialState: Object.freeze({ chartSpan: 'threeMonths' }),
+  initialState: Object.freeze({ chartSpan: 'threeMonths', showAverage: false }),
   labels: Object.freeze({ add: 'add', edit: 'edit', deleteConfirm: 'deleteConfirm' }),
 })

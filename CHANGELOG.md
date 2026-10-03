@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.7.0 - 2026-10-03
+
+### Added
+
+- Added an optional Weight graph mode showing the average of each measurement and the previous four in chronological order. Averages begin at the fifth measurement and use full history before filtering, so overlapping dates retain the same average across graph ranges.
+- Added a localized switch between recorded weights and the dashed average line, showing one line and its matching shaded area at a time. A single available average appears as a point; ranges without an average show an availability message.
+- Included the corresponding average in existing pointer, touch, and keyboard selected-reading details.
+- Added English, Spanish, German, and French labels and an updated in-app “What’s new” notice.
+
+### Data compatibility
+
+- The persisted health-data schema remains at version 6; no migration is required. Recorded measurements, history, and weight summaries are unchanged.
+- The graph switch defaults off and lasts only for the current session; it is not included in backups.
+- The average uses five measurements regardless of their spacing and does not create measurements for missing days. Offline behavior and `/HealthTracker/` deployment are preserved.
+
 ## 1.6.0 - 2026-09-11
 
 ### Added
