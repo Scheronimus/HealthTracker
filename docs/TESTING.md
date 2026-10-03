@@ -70,7 +70,9 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 
 ## Weight smoothing checks
 
-- Toggle Show 5-measurement average in each language at narrow mobile widths and in light/dark mode, with and without BMI zones. Confirm only the recorded line appears when off and only the dashed average line appears when on; the shaded area follows the displayed line.
+- Confirm the BMI zones and Average switches appear side by side in all four languages at 320 px and wider, and the span selector stays directly above the graph. Hide BMI in Profile and confirm Average still works.
+
+- Toggle Average in each language at narrow mobile widths and in light/dark mode, with and without BMI zones. Confirm only the recorded line appears when off and only the dashed average line appears when on; the shaded area follows the displayed line.
 - Use the nine-reading sample (82.3, 81.9, 81.9, 82.2, 82.0, 81.9, 81.7, 82.4, 81.8); averages start at reading five: 82.06, 81.98, 81.94, 82.04, 81.96 kg.
 - Verify zero to four measurements show the unavailable explanation, five show one average point, and six or more connect average points.
 - Switch spans and verify averages on overlapping dates stay identical, including when their preceding readings are outside the span. Current weight, change, and history remain based on recorded measurements.

@@ -57,14 +57,15 @@ export function WeightChart({ averages = [], showAverage = false, onAverageChang
 
   return <section className={`weight-chart card${visibleBands.length ? ' bmi-zones-visible' : ''}`} aria-labelledby="chart-title">
     <div className="chart-header">
-      <div className="chart-title-group"><h2 id="chart-title">{t('trend')}</h2><p>{t('trendHint')}</p>{profile.showBmi && (profile.age === null || profile.age >= 18) && <button className="chart-bmi-toggle" type="button" role="switch" aria-checked={profile.showBmiRange} onClick={() => onBmiZonesChange(!profile.showBmiRange)}><i aria-hidden="true" />{t('bmiZonesToggle')}</button>}</div>
-      <div className="span-control" role="group" aria-label={t('timeSpan')}>
-        {['threeMonths', 'oneYear', 'allTime'].map((option) => <button key={option} type="button" className={span === option ? 'active' : ''} aria-pressed={span === option} onClick={() => { onSpanChange(option); setActiveIndex(null) }}>{t(option)}</button>)}
-      </div>
+      <div className="chart-title-group"><h2 id="chart-title">{t('trend')}</h2><p>{t('trendHint')}</p></div>
     </div>
-    <div className="weight-average-controls">
+    <div className="weight-chart-options">
+      {profile.showBmi && (profile.age === null || profile.age >= 18) && <button className="chart-bmi-toggle" type="button" role="switch" aria-checked={profile.showBmiRange} onClick={() => onBmiZonesChange(!profile.showBmiRange)}><i aria-hidden="true" />{t('bmiZonesToggle')}</button>}
       <button className="chart-bmi-toggle" type="button" role="switch" aria-checked={showAverage} aria-describedby={showAverage && !averagePoints.length ? 'weight-average-unavailable' : undefined} onClick={() => onAverageChange?.(!showAverage)}><i aria-hidden="true" />{t('weightAverageToggle')}</button>
-      {showAverage && !averagePoints.length && <p id="weight-average-unavailable" className="chart-caption">{t('weightAverageUnavailable')}</p>}
+    </div>
+    {showAverage && !averagePoints.length && <p id="weight-average-unavailable" className="chart-caption">{t('weightAverageUnavailable')}</p>}
+    <div className="span-control weight-chart-span" role="group" aria-label={t('timeSpan')}>
+      {['threeMonths', 'oneYear', 'allTime'].map((option) => <button key={option} type="button" className={span === option ? 'active' : ''} aria-pressed={span === option} onClick={() => { onSpanChange(option); setActiveIndex(null) }}>{t(option)}</button>)}
     </div>
     {!points.length ? <div className="chart-empty"><span>⌁</span><p>{t('noChartData')}</p></div> : <>
       <div className="chart-wrap">

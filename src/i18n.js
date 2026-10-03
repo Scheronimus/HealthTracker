@@ -154,25 +154,25 @@ Object.assign(translations.fr, {
 })
 
 Object.assign(translations.en, {
-  weightAverageToggle: 'Show 5-measurement average', weightAverage: '5-measurement average',
+  weightAverageToggle: 'Average', weightAverage: '5-measurement average',
   releaseWeightAverage: 'See a smoother Weight trend with the optional average of the last five measurements.',
   releaseWeightAverageDetails: 'Switch between recorded weights and their average, with one graph line at a time. The average starts at the fifth measurement and stays consistent across time ranges. The switch resets when you reload; history and summaries still use recorded weights.',
   weightAverageUnavailable: 'The average begins at the fifth measurement; none is available in this range.'
 })
 Object.assign(translations.es, {
-  weightAverageToggle: 'Mostrar la media de 5 mediciones', weightAverage: 'Media de 5 mediciones',
+  weightAverageToggle: 'Media', weightAverage: 'Media de 5 mediciones',
   releaseWeightAverage: 'Consulta una evolución del peso más suave con la media opcional de las últimas cinco mediciones.',
   releaseWeightAverageDetails: 'Alterna entre los pesos registrados y su media, con una sola línea a la vez. La media comienza en la quinta medición y se mantiene al cambiar de período. La opción se desactiva al recargar; el historial y los resúmenes siguen usando los pesos registrados.',
   weightAverageUnavailable: 'La media comienza en la quinta medición; no hay ninguna disponible en este período.'
 })
 Object.assign(translations.de, {
-  weightAverageToggle: 'Durchschnitt aus 5 Messungen anzeigen', weightAverage: 'Durchschnitt aus 5 Messungen',
+  weightAverageToggle: 'Durchschnitt', weightAverage: 'Durchschnitt aus 5 Messungen',
   releaseWeightAverage: 'Sieh einen geglätteten Gewichtsverlauf mit dem optionalen Durchschnitt der letzten fünf Messungen.',
   releaseWeightAverageDetails: 'Wechsle zwischen gemessenen Gewichten und ihrem Durchschnitt mit jeweils nur einer Diagrammlinie. Der Durchschnitt beginnt bei der fünften Messung und bleibt beim Wechsel des Zeitraums gleich. Nach dem Neuladen ist die Option aus; Verlauf und Zusammenfassungen verwenden weiterhin gemessene Gewichte.',
   weightAverageUnavailable: 'Der Durchschnitt beginnt bei der fünften Messung; in diesem Zeitraum ist keiner verfügbar.'
 })
 Object.assign(translations.fr, {
-  weightAverageToggle: 'Afficher la moyenne de 5 mesures', weightAverage: 'Moyenne de 5 mesures',
+  weightAverageToggle: 'Moyenne', weightAverage: 'Moyenne de 5 mesures',
   releaseWeightAverage: 'Consultez une évolution du poids plus lisse grâce à la moyenne facultative des cinq dernières mesures.',
   releaseWeightAverageDetails: 'Alternez entre les poids enregistrés et leur moyenne, avec une seule ligne à la fois. La moyenne commence à la cinquième mesure et reste identique quand vous changez de période. L’option se désactive au rechargement ; l’historique et les résumés utilisent toujours les poids enregistrés.',
   weightAverageUnavailable: 'La moyenne commence à la cinquième mesure ; aucune n’est disponible sur cette période.'
