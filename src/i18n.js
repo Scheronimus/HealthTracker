@@ -95,7 +95,7 @@ Object.assign(translations.en, {
   restoreDone:'Restore complete: {added} added, {duplicates} unchanged, {future} future measurements skipped.',
   dataHint:'Use a complete backup to move or recover your Health Tracker data.', backupSensitive:'Backup files contain sensitive health information. Store them somewhere safe.',
   clearAll:'Delete all measurements', clearAllConfirm:'Delete every measurement on this device? This cannot be undone.', clearAllDone:'All measurements were deleted.',
-  whatsNew:'What’s new', releaseTitle:'Health Tracker 1.7.0', dismissReleaseNotes:'Dismiss release notes'
+  whatsNew:'What’s new', releaseTitle:'Health Tracker 1.7.1', dismissReleaseNotes:'Dismiss release notes'
 })
 Object.assign(translations.es, {
   tagline:'Tus datos de salud, privados en este dispositivo.', settings:'Datos', allTime:'Todo', averageSoFar:'Promedio provisional', bpRangeHint:'Los rangos evitan errores de escritura; no evalúan tu estado de salud.',
@@ -106,7 +106,7 @@ Object.assign(translations.es, {
   restoreDone:'Restauración terminada: {added} añadidos, {duplicates} sin cambios y {future} mediciones futuras omitidas.',
   dataHint:'Utiliza una copia completa para trasladar o recuperar tus datos de Health Tracker.', backupSensitive:'Las copias contienen información de salud sensible. Guárdalas en un lugar seguro.',
   clearAll:'Eliminar todas las mediciones', clearAllConfirm:'¿Eliminar todas las mediciones de este dispositivo? Esta acción no se puede deshacer.', clearAllDone:'Se eliminaron todas las mediciones.',
-  whatsNew:'Novedades', releaseTitle:'Health Tracker 1.7.0', dismissReleaseNotes:'Cerrar las novedades'
+  whatsNew:'Novedades', releaseTitle:'Health Tracker 1.7.1', dismissReleaseNotes:'Cerrar las novedades'
 })
 Object.assign(translations.de, {
   tagline:'Deine Gesundheitsdaten bleiben privat auf diesem Gerät.', settings:'Daten', csvImportDone:'CSV-Import abgeschlossen: {added} hinzugefügt, {duplicates} vorhandene Datumswerte unverändert, {skipped} fehlende Werte übersprungen.',
@@ -117,7 +117,7 @@ Object.assign(translations.de, {
   restoreDone:'Wiederherstellung abgeschlossen: {added} hinzugefügt, {duplicates} unverändert, {future} zukünftige Messungen übersprungen.',
   invalidBackup:'Diese Datei ist keine gültige Gesundheits-Tracker-Datensicherung.', dataHint:'Mit einer vollständigen Datensicherung kannst du deine Gesundheits-Tracker-Daten übertragen oder wiederherstellen.', backupSensitive:'Datensicherungen enthalten sensible Gesundheitsdaten. Bewahre sie an einem sicheren Ort auf.',
   clearAll:'Alle Messungen löschen', clearAllConfirm:'Alle Messungen auf diesem Gerät löschen? Dies kann nicht rückgängig gemacht werden.', clearAllDone:'Alle Messungen wurden gelöscht.',
-  whatsNew:'Neu in dieser Version', releaseTitle:'Health Tracker 1.7.0', dismissReleaseNotes:'Versionshinweise schließen'
+  whatsNew:'Neu in dieser Version', releaseTitle:'Health Tracker 1.7.1', dismissReleaseNotes:'Versionshinweise schließen'
 })
 Object.assign(translations.fr, {
   tagline:'Vos données de santé restent privées sur cet appareil.', settings:'Données', privacyTitle:'Vos données restent privées',
@@ -129,7 +129,7 @@ Object.assign(translations.fr, {
   restoreDone:'Restauration terminée : {added} ajoutées, {duplicates} inchangées et {future} mesures futures ignorées.',
   dataHint:'Utilisez une sauvegarde complète pour transférer ou récupérer vos données Health Tracker.', backupSensitive:'Les sauvegardes contiennent des données de santé sensibles. Conservez-les en lieu sûr.',
   clearAll:'Supprimer toutes les mesures', clearAllConfirm:'Supprimer toutes les mesures de cet appareil ? Cette action est irréversible.', clearAllDone:'Toutes les mesures ont été supprimées.',
-  whatsNew:'Nouveautés', releaseTitle:'Health Tracker 1.7.0', dismissReleaseNotes:'Fermer les nouveautés'
+  whatsNew:'Nouveautés', releaseTitle:'Health Tracker 1.7.1', dismissReleaseNotes:'Fermer les nouveautés'
 })
 
 Object.assign(translations.en, {
@@ -154,27 +154,27 @@ Object.assign(translations.fr, {
 })
 
 Object.assign(translations.en, {
-  weightAverageToggle: 'Show 5-measurement average', weightAverage: '5-measurement average',
-  releaseWeightAverage: 'See a smoother Weight trend with the optional average of the last five measurements.',
-  releaseWeightAverageDetails: 'Switch between recorded weights and their average, with one graph line at a time. The average starts at the fifth measurement and stays consistent across time ranges. The switch resets when you reload; history and summaries still use recorded weights.',
+  weightAverageToggle: 'Average', weightAverage: '5-measurement average',
+  releaseWeightControls: 'The BMI zones and Average switches now sit side by side, with shorter average labels.',
+  releaseWeightControlsDetails: 'The time-span selector stays directly above the Weight graph on phones and desktops. Measurements and average calculations are unchanged.',
   weightAverageUnavailable: 'The average begins at the fifth measurement; none is available in this range.'
 })
 Object.assign(translations.es, {
-  weightAverageToggle: 'Mostrar la media de 5 mediciones', weightAverage: 'Media de 5 mediciones',
-  releaseWeightAverage: 'Consulta una evolución del peso más suave con la media opcional de las últimas cinco mediciones.',
-  releaseWeightAverageDetails: 'Alterna entre los pesos registrados y su media, con una sola línea a la vez. La media comienza en la quinta medición y se mantiene al cambiar de período. La opción se desactiva al recargar; el historial y los resúmenes siguen usando los pesos registrados.',
+  weightAverageToggle: 'Media', weightAverage: 'Media de 5 mediciones',
+  releaseWeightControls: 'Los interruptores de zonas de IMC y Media aparecen juntos, con una etiqueta más corta para la media.',
+  releaseWeightControlsDetails: 'El selector de período permanece justo encima del gráfico de peso en móviles y ordenadores. Las mediciones y el cálculo de la media no cambian.',
   weightAverageUnavailable: 'La media comienza en la quinta medición; no hay ninguna disponible en este período.'
 })
 Object.assign(translations.de, {
-  weightAverageToggle: 'Durchschnitt aus 5 Messungen anzeigen', weightAverage: 'Durchschnitt aus 5 Messungen',
-  releaseWeightAverage: 'Sieh einen geglätteten Gewichtsverlauf mit dem optionalen Durchschnitt der letzten fünf Messungen.',
-  releaseWeightAverageDetails: 'Wechsle zwischen gemessenen Gewichten und ihrem Durchschnitt mit jeweils nur einer Diagrammlinie. Der Durchschnitt beginnt bei der fünften Messung und bleibt beim Wechsel des Zeitraums gleich. Nach dem Neuladen ist die Option aus; Verlauf und Zusammenfassungen verwenden weiterhin gemessene Gewichte.',
+  weightAverageToggle: 'Durchschnitt', weightAverage: 'Durchschnitt aus 5 Messungen',
+  releaseWeightControls: 'Die Schalter für BMI-Zonen und Durchschnitt stehen jetzt nebeneinander, mit kürzerer Durchschnittsbeschriftung.',
+  releaseWeightControlsDetails: 'Die Zeitraumwahl bleibt auf Smartphones und Computern direkt über dem Gewichtsdiagramm. Messungen und Durchschnittsberechnung bleiben unverändert.',
   weightAverageUnavailable: 'Der Durchschnitt beginnt bei der fünften Messung; in diesem Zeitraum ist keiner verfügbar.'
 })
 Object.assign(translations.fr, {
-  weightAverageToggle: 'Afficher la moyenne de 5 mesures', weightAverage: 'Moyenne de 5 mesures',
-  releaseWeightAverage: 'Consultez une évolution du poids plus lisse grâce à la moyenne facultative des cinq dernières mesures.',
-  releaseWeightAverageDetails: 'Alternez entre les poids enregistrés et leur moyenne, avec une seule ligne à la fois. La moyenne commence à la cinquième mesure et reste identique quand vous changez de période. L’option se désactive au rechargement ; l’historique et les résumés utilisent toujours les poids enregistrés.',
+  weightAverageToggle: 'Moyenne', weightAverage: 'Moyenne de 5 mesures',
+  releaseWeightControls: 'Les options Zones colorées de l’IMC et Moyenne sont désormais côte à côte, avec un libellé plus court pour la moyenne.',
+  releaseWeightControlsDetails: 'Le sélecteur de période reste juste au-dessus du graphique du poids sur téléphone et ordinateur. Les mesures et le calcul de la moyenne restent inchangés.',
   weightAverageUnavailable: 'La moyenne commence à la cinquième mesure ; aucune n’est disponible sur cette période.'
 })
 
