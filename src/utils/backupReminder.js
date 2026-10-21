@@ -72,12 +72,14 @@ export function snoozeBackupReminder(now = new Date(), storage = localStorage) {
 
 export function backupReminderStatus(store, reminder, now = new Date()) {
   const measurementCount = store.measurements.length
+  const recordCount = Object.values(store).filter(Array.isArray).reduce((sum, records) => sum + records.length, 0)
   const changedCount = Math.max(0, reminder.dataRevision - reminder.backedUpRevision)
-  const base = { ...reminder, measurementCount, changedCount, kind: 'empty' }
-  if (measurementCount === 0) return base
+  const base = { ...reminder, measurementCount, recordCount, changedCount, kind: 'empty' }
+  const hasOtherRecords = recordCount > measurementCount
+  if (measurementCount === 0 && !hasOtherRecords) return base
   if (reminder.snoozedUntil && Date.parse(reminder.snoozedUntil) > now.getTime()) return { ...base, kind: 'snoozed' }
   if (!reminder.lastBackupAt) {
-    return { ...base, kind: measurementCount >= FIRST_BACKUP_MEASUREMENT_COUNT ? 'never' : 'waiting' }
+    return { ...base, kind: hasOtherRecords || measurementCount >= FIRST_BACKUP_MEASUREMENT_COUNT ? 'never' : 'waiting' }
   }
   if (changedCount === 0) return { ...base, kind: 'current' }
   const ageDays = Math.floor((now.getTime() - Date.parse(reminder.lastBackupAt)) / DAY_MS)

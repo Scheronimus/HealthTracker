@@ -1,5 +1,5 @@
-export const SCHEMA_VERSION = 6
-import { DEFAULT_MODULES, MODULE_DATA_BY_TYPE } from '../modules/catalog.js'
+export const SCHEMA_VERSION = 7
+import { DEFAULT_MODULES, MODULE_CATALOG, MODULE_DATA_BY_TYPE } from '../modules/catalog.js'
 export { createWeightMeasurement } from '../modules/weight/model.js'
 export { createBloodPressureMeasurement } from '../modules/blood-pressure/model.js'
 export { createId } from '../utils/id.js'
@@ -11,7 +11,7 @@ export const LANGUAGE_KEY = 'health-tracker-language'
 export const SUPPORTED_LANGUAGES = ['en', 'es', 'de', 'fr']
 
 export function emptyStore() {
-  return { schemaVersion: SCHEMA_VERSION, measurements: [], profile: emptyProfile() }
+  return { schemaVersion: SCHEMA_VERSION, measurements: [], goals: [], profile: emptyProfile() }
 }
 
 export function emptyProfile() {
@@ -43,6 +43,12 @@ export function validateStore(value) {
   if (!value.measurements.every(validateMeasurement)) return false
   if (new Set(value.measurements.map(({ id }) => id)).size !== value.measurements.length) return false
   for (const [type, module] of Object.entries(MODULE_DATA_BY_TYPE)) if (module.validateCollection && !module.validateCollection(value.measurements.filter((item) => item.type === type))) return false
+  for (const module of MODULE_CATALOG.filter((item) => !item.measurementType)) {
+    const records = value[module.recordCollection]
+    if (!Array.isArray(records) || !records.every(module.validateRecord) || !module.validateCollection(records)) return false
+  }
+  const allRecords = [...new Set(MODULE_CATALOG.map((module) => module.recordCollection))].flatMap((key) => value[key])
+  if (new Set(allRecords.map((item) => item.id)).size !== allRecords.length) return false
   return true
 }
 

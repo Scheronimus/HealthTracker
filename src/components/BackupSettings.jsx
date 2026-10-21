@@ -13,7 +13,7 @@ export function BackupSettings({ language, backupStatus, backupInterval, onBacku
 }
 
 function backupStatusText(status, language, t) {
-  if (!status.lastBackupAt) return status.measurementCount ? t('backupStatusNever') : t('backupStatusEmpty')
+  if (!status.lastBackupAt) return (status.recordCount ?? status.measurementCount) ? t('backupStatusNever') : t('backupStatusEmpty')
   const date = formatDate(status.lastBackupAt, language)
   if (status.changedCount > 0) return t(status.changedCount === 1 ? 'backupStatusChangedOne' : 'backupStatusChanged', { date, count: status.changedCount })
   return t('backupStatusCurrent', { date })

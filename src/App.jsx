@@ -8,6 +8,7 @@ import { Settings } from './components/Settings.jsx'
 import { createBackup, mergeRestore, parseBackup } from './data/transfer.js'
 import { loadLanguage, saveLanguage } from './data/storage.js'
 import { useHealthData } from './hooks/useHealthData.js'
+import { moduleSources, recordsForModule, replaceModuleRecords, saveModuleRecord } from './data/modules.js'
 import { translate } from './i18n.js'
 import { downloadText } from './utils/download.js'
 import { MODULES_BY_ID } from './modules/registry.jsx'
@@ -19,18 +20,20 @@ import './App.css'
 export default function App() {
   const [language, setLanguage] = useState(loadLanguage)
   const [theme, setTheme] = useState(() => { const saved = loadTheme(); applyTheme(saved); return saved })
-  const { store, setStore, measurements, add, update, remove } = useHealthData()
+  const { store, setStore, remove } = useHealthData()
   const [screen, setScreen] = useState('dashboard')
   const [feature, setFeature] = useState(() => store.profile.modules[0])
   const [editing, setEditing] = useState(null)
   const [entryPreset, setEntryPreset] = useState(null)
+  const [entryReturn, setEntryReturn] = useState(null)
   const [moduleStates, setModuleStates] = useState({})
   const [showReleaseNotes, setShowReleaseNotes] = useState(() => shouldShowReleaseNotes(packageJson.version))
   const [backupPreference, setBackupPreference] = useState(() => observeBackupChanges(store))
   const [backupDownloaded, setBackupDownloaded] = useState(false)
   const [backupPreview, setBackupPreview] = useState('normal')
   const activeModule = MODULES_BY_ID[feature]
-  const moduleMeasurements = measurements.filter(({ type }) => type === activeModule.measurementType)
+  const moduleMeasurements = recordsForModule(store, activeModule)
+  const sources = moduleSources(store)
   const moduleState = moduleStates[feature] ?? activeModule.initialState
   const visibleModules = store.profile.modules.map((id) => MODULES_BY_ID[id]).filter(Boolean)
   const ActiveDashboard = activeModule.Dashboard
@@ -51,17 +54,30 @@ export default function App() {
   function changeTheme(next) { setTheme(next); saveTheme(next); applyTheme(next) }
   function showScreen(next) { setScreen(next); window.scrollTo(0, 0) }
   function setActiveModuleState(next) { setModuleStates((current) => ({ ...current, [feature]: next })) }
-  function openEntry(item = null, preset = null) { setEditing(item); setEntryPreset(preset); showScreen('entry') }
-  function closeEntry() { setEditing(null); setEntryPreset(null); showScreen('dashboard') }
+  function openEntry(item = null, preset = null) {
+    if (activeModule.prepareEntryState) setActiveModuleState(activeModule.prepareEntryState(moduleState))
+    setEditing(item); setEntryPreset(preset); showScreen('entry')
+  }
+  function closeEntry() {
+    if (entryReturn) { setFeature(entryReturn.feature); setEditing(entryReturn.editing); setEntryPreset(entryReturn.preset); showScreen(entryReturn.screen); setEntryReturn(null) }
+    else { setEditing(null); setEntryPreset(null); showScreen('dashboard') }
+  }
+  function navigateModule(id, options = {}) {
+    if (!store.profile.modules.includes(id) || !MODULES_BY_ID[id]) return
+    if (options.entry) {
+      setEntryReturn({ feature, screen, editing, preset: entryPreset }); setEditing(options.editing ?? null); setEntryPreset(options.preset ?? null)
+    }
+    setFeature(id); showScreen(options.entry ? 'entry' : 'dashboard')
+  }
   function saveProfile(profile) { setStore((current) => ({ ...current, profile })); setFeature(profile.modules[0]); showScreen('settings') }
-  function save(item) {
-    editing ? update(item) : add(item)
+  function save(item, additionalRecords = []) {
+    setStore((current) => saveModuleRecord(current, activeModule, item, additionalRecords))
     if (activeModule.afterSave) setActiveModuleState(activeModule.afterSave({ item, measurements: moduleMeasurements, state: moduleState }))
     closeEntry()
   }
   function deleteItem(id) {
     if (!confirm(t(activeModule.labels.deleteConfirm))) return
-    remove(id)
+    remove(id, activeModule.recordCollection)
     closeEntry()
   }
   function filename(extension) { return `health-tracker-${new Date().toISOString().slice(0, 10)}.${extension}` }
@@ -114,13 +130,13 @@ export default function App() {
           <button className="settings-button" type="button" onClick={() => showScreen('settings')} aria-label={t('menu')} title={t('menu')}>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M6 14v6" /></svg>
           </button>
-          <button className="add-entry-button" type="button" onClick={() => openEntry()} aria-label={t(activeModule.labels.add)} title={t(activeModule.labels.add)}>+</button>
+          {(!activeModule.canAdd || activeModule.canAdd(moduleMeasurements)) && <button className="add-entry-button" type="button" onClick={() => openEntry()} aria-label={t(activeModule.labels.add)} title={t(activeModule.labels.add)}>+</button>}
         </div>
       </div>}
       {screen === 'entry' && <div className="topbar entry-topbar">
         <button className="header-action" type="button" onClick={closeEntry}>{t('cancel')}</button>
         <h1>{t(editing ? activeModule.labels.edit : activeModule.labels.add)}</h1>
-        <button className="header-action save-action" type="submit" form="entry-form">{t('save')}</button>
+        <button className="header-action save-action" type="submit" form="entry-form" disabled={activeModule.canSubmitEntry ? !activeModule.canSubmitEntry({ state: moduleState, editing, sources, preset: entryPreset }) : false}>{t('save')}</button>
       </div>}
       {screen === 'profile' && <div className="topbar entry-topbar">
         <button className="header-action" type="button" onClick={() => showScreen('settings')}>{t('cancel')}</button>
@@ -143,10 +159,10 @@ export default function App() {
     {screen === 'dashboard' && <BackupReminder status={visibleBackupStatus} language={language} onBackup={backupPreview === 'normal' ? downloadBackup : () => setBackupPreview('downloaded')} onSnooze={backupPreview === 'normal' ? snoozeBackup : () => setBackupPreview('snoozed')} preview={backupPreview === 'normal' ? null : backupPreview} onEndPreview={() => setBackupPreview('normal')} t={t} />}
 
     {screen === 'dashboard' && <main>
-      <ActiveDashboard measurements={moduleMeasurements} language={language} profile={store.profile} state={moduleState} onStateChange={setActiveModuleState} onProfileChange={(profile) => setStore((current) => ({ ...current, profile }))} onEdit={openEntry} t={t} />
+      <ActiveDashboard measurements={moduleMeasurements} sources={sources} language={language} profile={store.profile} state={moduleState} onStateChange={setActiveModuleState} onRecordsChange={(records) => setStore((current) => replaceModuleRecords(current, activeModule, records))} onNavigate={navigateModule} onDelete={deleteItem} onProfileChange={(profile) => setStore((current) => ({ ...current, profile }))} onEdit={openEntry} t={t} />
     </main>}
     {screen === 'entry' && <main className="entry-screen">
-      <ActiveEntryForm key={`${feature}-${editing?.id ?? entryPreset?.date ?? 'new'}-${entryPreset?.slot ?? ''}`} editing={editing} preset={entryPreset} measurements={moduleMeasurements} onSave={save} onDelete={deleteItem} t={t} />
+      <ActiveEntryForm key={`${feature}-${editing?.id ?? entryPreset?.date ?? 'new'}-${entryPreset?.slot ?? ''}`} editing={editing} preset={entryPreset} measurements={moduleMeasurements} sources={sources} profile={store.profile} language={language} state={moduleState} onStateChange={setActiveModuleState} onNavigate={navigateModule} onSave={save} onDelete={deleteItem} t={t} />
       <p className="entry-privacy">{t('privacyBody')}</p>
     </main>}
     {screen === 'profile' && <main className="entry-screen">

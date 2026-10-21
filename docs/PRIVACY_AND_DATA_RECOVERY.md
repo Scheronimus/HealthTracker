@@ -2,6 +2,10 @@
 
 Weight and blood-pressure records share the same local-only, versioned store. A downloaded Health Tracker backup is the complete mixed-data recovery format. Restore preserves matching IDs and keeps local records when an imported blood-pressure reading would exceed the two-readings-per-date limit.
 
+Goals, their order, saved starting-weight baselines and dated milestone achievements are included in the same local store and complete JSON backup. Restore preserves existing goals by ID and also keeps the local goal when an imported goal has the same singleton kind. Compatible new goals append without replacing local order or achievement history. Goals without measurements are still eligible for backup reminders.
+
+Target calculations carry the latest actual weight forward across missing dates as derived values; no additional measurements are saved. Measurement reminders count only actual entries. A confirmed milestone remains achieved after later readings rise or source measurements are corrected/deleted. A goal's starting baseline is saved independently so it survives source deletion; editing the goal can deliberately derive a new baseline and retains previous achievements separately.
+
 Health Tracker sends no health data anywhere. It has no account, backend, analytics, advertising, telemetry, or external health integration. Measurements, optional profile details, BMI preferences, visible-module order, and language preference remain in browser `localStorage` for the current origin and browser profile.
 
 This also means there is no server-side recovery. Data can be lost if site data is cleared, the browser profile is removed, the device is lost, or a private-browsing session ends. Download JSON backups regularly, verify the file is safely stored, and create a fresh backup after important changes.

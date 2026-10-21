@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.9.0 - 2026-10-21
+
+### Added
+
+- Added an optional Goals module with one Record measurements goal and one Weight target, independently selectable, customizable and reorderable with drag, touch or keyboard controls. The add button disappears when both types exist and returns after deletion.
+- Added daily or selected-weekday measurement reminders for Weight or one/two Blood Pressure readings. Due reminders stand out, saved readings turn them grey, and the existing entry form returns to Goals after Save or Cancel. Reminders are in-app, not background notifications.
+- Added Weight targets with a start-date-derived baseline, complete-target progress bar, gold next-milestone marker, aligned milestones, consecutive green confirmation dots and expandable dated achievement history. The current-average trend arrow opens the Weight graph.
+- Confirm milestones and the final target after five consecutive qualifying daily averages. Each daily average uses up to five calendar days, carrying the latest recorded weight across missing dates without creating measurements. A nonqualifying average resets active dots; confirmed achievements stay locked. Targets support loss or gain, and revised settings retain earlier achievements separately.
+- Celebrate a confirmed final target with a lasting gold trophy, target value, confirmation date and completed progress bar, including after a rebound or reload.
+- Show gold final-target and next-milestone reference lines in the Weight graph, each with its own switch, enabled by default. Visible reference values extend the graph range; coinciding values share one line. No Target goal means no reference lines or switches.
+- Included equivalent English, Spanish, German and French interfaces, narrow-screen light/dark layouts, and automated Goals workflows, accessibility, backup and offline tests.
+
+### Data compatibility
+
+- Schema version 7 adds an ordered Goals collection. Sequential migration preserves existing measurements, profile values and module order, appends Goals to available navigation, and creates no goals automatically.
+- Complete JSON backups include goal settings, baseline, order and achievement histories. Restore validates first, keeps local IDs/configuration, and skips competing singleton goals. Goal-only data and goal changes participate in backup reminders.
+- Goals work locally and offline. Recorded Weight/Blood Pressure validation, the Weight graph's separate five-measurement average, and the `/HealthTracker/` deployment base are preserved. No accounts, servers or external health integrations are added.
+- Weight maintenance and activity goals are deferred to a later release.
+
 ## 1.8.0 - 2026-10-03
 
 ### Changed

@@ -13,6 +13,14 @@ const measurement = (id) => ({ id, type: 'weight', timestamp: '2026-09-01T12:00:
 const store = (count = 0) => ({ schemaVersion: 6, measurements: Array.from({ length: count }, (_, index) => measurement(String(index))), profile: { name: '', age: null, heightCm: null, showBmi: false, showBmiZones: false, modules: ['weight', 'bloodPressure'] } })
 
 describe('backup reminder preferences', () => {
+  it('protects goal-only data and observes changes to goals and achievements', () => {
+    const storage = memoryStorage()
+    const data = { ...store(0), goals: [{ id: 'goal-only', kind: 'measurement' }] }
+    expect(backupReminderStatus(data, defaultBackupReminder())).toMatchObject({ kind: 'never', recordCount: 1 })
+    const first = observeBackupChanges(data, storage)
+    const next = observeBackupChanges({ ...data, goals: [{ ...data.goals[0], name: 'Changed' }] }, storage)
+    expect(next.dataRevision).toBe(first.dataRevision + 1)
+  })
   it('uses safe defaults for absent or malformed preferences', () => {
     const storage = memoryStorage()
     expect(loadBackupReminder(storage)).toEqual(defaultBackupReminder())
