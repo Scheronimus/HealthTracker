@@ -97,7 +97,7 @@ Object.assign(translations.en, {
   restoreDone:'Restore complete: {added} added, {duplicates} unchanged, {future} future measurements skipped.',
   dataHint:'Use a complete backup to move or recover your Health Tracker data.', backupSensitive:'Backup files contain sensitive health information. Store them somewhere safe.',
   clearAll:'Delete all measurements', clearAllConfirm:'Delete every measurement on this device? This cannot be undone.', clearAllDone:'All measurements were deleted.',
-  whatsNew:'What’s new', releaseTitle:'Health Tracker 1.8.0', dismissReleaseNotes:'Dismiss release notes'
+  whatsNew:'What’s new', releaseTitle:'Health Tracker 1.9.0', dismissReleaseNotes:'Dismiss release notes'
 })
 Object.assign(translations.es, {
   tagline:'Tus datos de salud, privados en este dispositivo.', settings:'Datos', allTime:'Todo', averageSoFar:'Promedio provisional', bpRangeHint:'Los rangos evitan errores de escritura; no evalúan tu estado de salud.',
@@ -108,7 +108,7 @@ Object.assign(translations.es, {
   restoreDone:'Restauración terminada: {added} añadidos, {duplicates} sin cambios y {future} mediciones futuras omitidas.',
   dataHint:'Utiliza una copia completa para trasladar o recuperar tus datos de Health Tracker.', backupSensitive:'Las copias contienen información de salud sensible. Guárdalas en un lugar seguro.',
   clearAll:'Eliminar todas las mediciones', clearAllConfirm:'¿Eliminar todas las mediciones de este dispositivo? Esta acción no se puede deshacer.', clearAllDone:'Se eliminaron todas las mediciones.',
-  whatsNew:'Novedades', releaseTitle:'Health Tracker 1.8.0', dismissReleaseNotes:'Cerrar las novedades'
+  whatsNew:'Novedades', releaseTitle:'Health Tracker 1.9.0', dismissReleaseNotes:'Cerrar las novedades'
 })
 Object.assign(translations.de, {
   tagline:'Deine Gesundheitsdaten bleiben privat auf diesem Gerät.', settings:'Daten', csvImportDone:'CSV-Import abgeschlossen: {added} hinzugefügt, {duplicates} vorhandene Datumswerte unverändert, {skipped} fehlende Werte übersprungen.',
@@ -119,7 +119,7 @@ Object.assign(translations.de, {
   restoreDone:'Wiederherstellung abgeschlossen: {added} hinzugefügt, {duplicates} unverändert, {future} zukünftige Messungen übersprungen.',
   invalidBackup:'Diese Datei ist keine gültige Gesundheits-Tracker-Datensicherung.', dataHint:'Mit einer vollständigen Datensicherung kannst du deine Gesundheits-Tracker-Daten übertragen oder wiederherstellen.', backupSensitive:'Datensicherungen enthalten sensible Gesundheitsdaten. Bewahre sie an einem sicheren Ort auf.',
   clearAll:'Alle Messungen löschen', clearAllConfirm:'Alle Messungen auf diesem Gerät löschen? Dies kann nicht rückgängig gemacht werden.', clearAllDone:'Alle Messungen wurden gelöscht.',
-  whatsNew:'Neu in dieser Version', releaseTitle:'Health Tracker 1.8.0', dismissReleaseNotes:'Versionshinweise schließen'
+  whatsNew:'Neu in dieser Version', releaseTitle:'Health Tracker 1.9.0', dismissReleaseNotes:'Versionshinweise schließen'
 })
 Object.assign(translations.fr, {
   tagline:'Vos données de santé restent privées sur cet appareil.', settings:'Données', privacyTitle:'Vos données restent privées',
@@ -131,7 +131,7 @@ Object.assign(translations.fr, {
   restoreDone:'Restauration terminée : {added} ajoutées, {duplicates} inchangées et {future} mesures futures ignorées.',
   dataHint:'Utilisez une sauvegarde complète pour transférer ou récupérer vos données Health Tracker.', backupSensitive:'Les sauvegardes contiennent des données de santé sensibles. Conservez-les en lieu sûr.',
   clearAll:'Supprimer toutes les mesures', clearAllConfirm:'Supprimer toutes les mesures de cet appareil ? Cette action est irréversible.', clearAllDone:'Toutes les mesures ont été supprimées.',
-  whatsNew:'Nouveautés', releaseTitle:'Health Tracker 1.8.0', dismissReleaseNotes:'Fermer les nouveautés'
+  whatsNew:'Nouveautés', releaseTitle:'Health Tracker 1.9.0', dismissReleaseNotes:'Fermer les nouveautés'
 })
 
 Object.assign(translations.en, {
@@ -159,40 +159,44 @@ Object.assign(translations.en, {
   weightSince: 'Since {date}',
   weightEvolution: 'Evolution', weightBmi: 'BMI', weightPeriod_threeMonths: 'Last 3 months', weightPeriod_oneYear: 'Last year', weightPeriod_allTime: 'All time',
   bmiDetails: 'BMI details', weightAverageToggle: 'Average', weightAverage: '5-measurement average',
-  releaseWeightOverview: 'A clearer Weight screen with a prominent current weight, a calmer chart, and compact history.',
-  releaseWeightPeriods: 'The current-weight change always covers the last 3 months; the insight below the chart follows your selected period.',
-  releaseWeightBmi: 'BMI uses the chart’s zone colors, with range and screening information available from the info control.',
-  releaseCompatibility: 'Measurements and backups are preserved. Saving a profile now keeps missing age and height empty.',
+  releaseGoals: 'New Goals area: add one measurement reminder and one Weight target, customize them and arrange their order.',
+  releaseRecord: 'Choose daily or selected-weekday reminders for Weight or one/two Blood Pressure readings. Due goals stand out; completed ones turn grey.',
+  releaseTarget: 'Start from a date, follow milestones and celebrate your target with a gold trophy. Five consecutive qualifying daily averages confirm achievements permanently; missing dates use the latest recorded weight.',
+  releaseChart: 'The Weight graph shows gold final-target and next-milestone lines, with separate switches to hide each.',
+  releaseCompatibility: 'Existing measurements are preserved. Goals, their order and achievements are included in JSON backups and work locally and offline.',
   weightAverageUnavailable: 'The average begins at the fifth measurement; none is available in this range.'
 })
 Object.assign(translations.es, {
   weightSince: 'Desde el {date}',
   weightEvolution: 'Cambio', weightBmi: 'IMC', weightPeriod_threeMonths: 'Últimos 3 meses', weightPeriod_oneYear: 'Último año', weightPeriod_allTime: 'Todo el período',
   bmiDetails: 'Detalles del IMC', weightAverageToggle: 'Media', weightAverage: 'Media de 5 mediciones',
-  releaseWeightOverview: 'Una pantalla de peso más clara, con el peso actual destacado, un gráfico más limpio y un historial compacto.',
-  releaseWeightPeriods: 'El cambio junto al peso actual siempre abarca los últimos 3 meses; el dato bajo el gráfico sigue el período seleccionado.',
-  releaseWeightBmi: 'El IMC utiliza los colores de las zonas del gráfico; el control de información muestra el rango y las indicaciones de interpretación.',
-  releaseCompatibility: 'Se conservan las mediciones y las copias de seguridad. Al guardar el perfil, la edad y la altura no indicadas permanecen vacías.',
+  releaseGoals: 'Nueva sección Objetivos: añade un recordatorio de mediciones y un objetivo de peso, personalízalos y cambia su orden.',
+  releaseRecord: 'Elige recordatorios diarios o por días de la semana para el peso o una/dos lecturas de presión arterial. Los pendientes destacan; los completados se vuelven grises.',
+  releaseTarget: 'Elige una fecha inicial, sigue los hitos y celebra tu objetivo con un trofeo dorado. Cinco promedios diarios consecutivos que cumplen el criterio confirman los logros permanentemente; los días sin datos usan el último peso registrado.',
+  releaseChart: 'El gráfico de peso muestra líneas doradas para el objetivo final y el próximo hito, con controles separados para ocultarlas.',
+  releaseCompatibility: 'Se conservan las mediciones existentes. Los objetivos, su orden y sus logros se incluyen en las copias JSON y funcionan localmente y sin conexión.',
   weightAverageUnavailable: 'La media comienza en la quinta medición; no hay ninguna disponible en este período.'
 })
 Object.assign(translations.de, {
   weightSince: 'Seit dem {date}',
   weightEvolution: 'Änderung', weightBmi: 'BMI', weightPeriod_threeMonths: 'Letzte 3 Monate', weightPeriod_oneYear: 'Letztes Jahr', weightPeriod_allTime: 'Gesamter Zeitraum',
   bmiDetails: 'BMI-Details', weightAverageToggle: 'Durchschnitt', weightAverage: 'Durchschnitt aus 5 Messungen',
-  releaseWeightOverview: 'Eine übersichtlichere Gewichtsansicht mit hervorgehobenem aktuellem Gewicht, ruhigerem Diagramm und kompaktem Verlauf.',
-  releaseWeightPeriods: 'Die Änderung beim aktuellen Gewicht bezieht sich immer auf die letzten 3 Monate; die Angabe unter dem Diagramm folgt dem gewählten Zeitraum.',
-  releaseWeightBmi: 'Der BMI verwendet die Zonenfarben des Diagramms. Referenzbereich und Hinweise zur Einordnung sind über das Infosymbol erreichbar.',
-  releaseCompatibility: 'Messungen und Datensicherungen bleiben erhalten. Nicht angegebene Werte für Alter und Größe bleiben beim Speichern des Profils leer.',
+  releaseGoals: 'Neuer Bereich Ziele: Lege eine Messerinnerung und ein Gewichtsziel an, passe sie an und ändere ihre Reihenfolge.',
+  releaseRecord: 'Wähle tägliche Erinnerungen oder bestimmte Wochentage für Gewicht oder eine/zwei Blutdruckmessungen. Fällige Ziele fallen auf; erledigte werden grau.',
+  releaseTarget: 'Wähle ein Startdatum, erreiche Meilensteine und feiere dein Ziel mit einem goldenen Pokal. Fünf passende tägliche Durchschnitte in Folge bestätigen Erfolge dauerhaft; für fehlende Tage gilt das zuletzt erfasste Gewicht.',
+  releaseChart: 'Das Gewichtsdiagramm zeigt goldene Linien für Endziel und nächsten Meilenstein, die du unabhängig ausblenden kannst.',
+  releaseCompatibility: 'Vorhandene Messungen bleiben erhalten. Ziele, Reihenfolge und Erfolge sind in JSON-Datensicherungen enthalten und funktionieren lokal und offline.',
   weightAverageUnavailable: 'Der Durchschnitt beginnt bei der fünften Messung; in diesem Zeitraum ist keiner verfügbar.'
 })
 Object.assign(translations.fr, {
   weightSince: 'Depuis le {date}',
   weightEvolution: 'Évolution', weightBmi: 'IMC', weightPeriod_threeMonths: '3 derniers mois', weightPeriod_oneYear: 'Dernière année', weightPeriod_allTime: 'Toute la période',
   bmiDetails: 'Détails de l’IMC', weightAverageToggle: 'Moyenne', weightAverage: 'Moyenne de 5 mesures',
-  releaseWeightOverview: 'Un écran Poids plus lisible, avec le poids actuel mis en avant, un graphique épuré et un historique compact.',
-  releaseWeightPeriods: 'L’évolution près du poids actuel porte toujours sur les 3 derniers mois ; celle sous le graphique suit la période sélectionnée.',
-  releaseWeightBmi: 'L’IMC reprend les couleurs des zones du graphique. Le contrôle d’information donne accès à la plage de référence et aux précautions d’interprétation.',
-  releaseCompatibility: 'Les mesures et les sauvegardes sont conservées. L’âge et la taille non renseignés restent vides lors de l’enregistrement du profil.',
+  releaseGoals: 'Nouvelle section Objectifs : ajoutez un rappel de mesures et un objectif de poids, personnalisez-les et changez leur ordre.',
+  releaseRecord: 'Choisissez des rappels quotidiens ou certains jours pour le poids ou une/deux mesures de tension. Les objectifs à faire ressortent ; ceux terminés deviennent gris.',
+  releaseTarget: 'Choisissez une date de départ, franchissez des paliers et célébrez votre objectif avec un trophée doré. Cinq moyennes quotidiennes conformes de suite confirment les réussites définitivement ; les jours sans données utilisent le dernier poids saisi.',
+  releaseChart: 'Le graphique de poids affiche des lignes dorées pour la cible finale et le prochain palier, avec des commandes séparées pour les masquer.',
+  releaseCompatibility: 'Les mesures existantes sont conservées. Les objectifs, leur ordre et leurs réussites sont inclus dans les sauvegardes JSON et fonctionnent localement et hors ligne.',
   weightAverageUnavailable: 'La moyenne commence à la cinquième mesure ; aucune n’est disponible sur cette période.'
 })
 

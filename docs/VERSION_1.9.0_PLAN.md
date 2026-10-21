@@ -1,8 +1,10 @@
 # Version 1.9.0 plan
 
-Status: production integration implemented on `feature/goals-integration`; verification recorded below. Record measurements and Weight target are the agreed delivery scope; maintenance/activity discovery is deferred.
+Status: scope frozen for release preparation on `release/1.9.0`, based on the approved integration commit `39f41bf` via `develop`. Record measurements and Weight target, chart reference lines and final-target celebration are the delivery scope. Maintenance/activity work is deferred. Keep this plan until the release is finalized; metadata, changelog and localized notice are prepared here before review and merge to `main`.
 
 ## Current delivery decision
+
+Release preparation verification (21 October 2026): `npm run test:release` passed with 197 unit tests and 186 browser/visual checks, lint, build and whitespace validation. Version metadata, changelog, four localized notices and reviewed visual baselines are updated for 1.9.0. See `RELEASE_1.9.0.md`. Release changes remain for review; the release is not yet finalized or published.
 
 Target completion: after the final target receives its fifth consecutive qualifying average, show a lasting gold trophy celebration with the target value and achievement date on both overview and detail. Show the completed progress bar, retain actual current-average/chart access and dated milestone history, and preserve completion after rebound/reload. Do not celebrate a single below-target entry. Keep the visual calm and accessible, without a blocking dialog or repeated animation.
 
