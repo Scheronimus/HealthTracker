@@ -24,8 +24,8 @@ describe('translation contract', () => {
     }
   })
 
-  it.each(languages)('provides the data, backup-reminder, and v1.8.0 release-note wording in %s', (language) => {
-    for (const key of ['settings', 'downloadBackup', 'backupHint', 'restore', 'restoreHint', 'backupSensitive', 'backupAdvanced', 'backupAdvancedHint', 'back', 'backupStatus', 'backupReminderTitle', 'backupRemindLater', 'backupPreview', 'whatsNew', 'releaseTitle', 'releaseWeightOverview', 'releaseWeightPeriods', 'releaseWeightBmi', 'releaseCompatibility', 'dismissReleaseNotes']) {
+  it.each(languages)('provides the data, backup-reminder, and v1.9.0 release-note wording in %s', (language) => {
+    for (const key of ['settings', 'downloadBackup', 'backupHint', 'restore', 'restoreHint', 'backupSensitive', 'backupAdvanced', 'backupAdvancedHint', 'back', 'backupStatus', 'backupReminderTitle', 'backupRemindLater', 'backupPreview', 'whatsNew', 'releaseTitle', 'releaseGoals', 'releaseRecord', 'releaseTarget', 'releaseChart', 'releaseCompatibility', 'dismissReleaseNotes']) {
       expect(translate(language, key)).not.toBe(key)
     }
   })
