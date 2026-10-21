@@ -1,6 +1,6 @@
-# Release 1.9.0 preparation
+# Release 1.9.0 record
 
-Prepared on 21 October 2026 on `release/1.9.0`, from `develop` containing approved integration commit `39f41bf`. Scope is frozen. This document records preparation, not publication or deployment.
+Prepared and approved for release on 21 October 2026 on `release/1.9.0`, from `develop` containing integration commit `39f41bf`. Scope is frozen. This document records release scope and verification; Git tags and GitHub Actions record publication and deployment status.
 
 ## Frozen scope
 
@@ -17,8 +17,8 @@ Maintenance/activity goals, background notifications and external integrations a
 - Package and lockfile version: 1.9.0; no dependency changes.
 - Changelog date: 2026-10-21, including data compatibility and deferred scope.
 - Localized in-app notice: Goals, reminders, milestone/target achievements, graph controls and local/offline backup compatibility.
-- Preserve `/HealthTracker/` and the client-only PWA. Release preparation creates no tag, push or deployment.
-- Retain `VERSION_1.9.0_PLAN.md` until release finalization. It may be deleted only after checking the shipped scope against the changelog and all four localized notices.
+- Preserve `/HealthTracker/` and the client-only PWA.
+- The temporary `VERSION_1.9.0_PLAN.md` is archived in Git history after checking the shipped scope against the changelog and all four localized notices. Preparation is retained in commit `e00205f`.
 
 ## Verification
 
@@ -33,4 +33,4 @@ Reviewed all 18 regenerated visual baselines against the previous commit: versio
 
 Physical-device installation, native keyboard behavior and an actual deployed service-worker upgrade remain device checks; browser emulation does not establish these. These checks have not been claimed as completed.
 
-After review, commit release preparation, merge the verified release into `main`, tag 1.9.0 and synchronize `develop` according to the repository workflow. Publishing/deployment requires the release decision; it is not performed during preparation.
+The user approved committing and performing the release. Finalization follows the repository convention: merge the verified release into `main`, tag `v1.9.0`, push to trigger the gated Pages workflow, and synchronize `develop`. Existing repository releases use Git tags rather than separate GitHub Release objects. Check GitHub Actions for the authoritative deployment result.
