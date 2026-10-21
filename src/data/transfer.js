@@ -18,21 +18,35 @@ export function parseBackup(text) {
 }
 
 export function mergeRestore(existing, imported, now = new Date()) {
+  existing = migrateStore(existing)
+  imported = migrateStore(imported)
   const byId = new Map(existing.measurements.map((item) => [item.id, item]))
+  const allIds = new Set([...new Set(MODULE_CATALOG.map((module) => module.recordCollection))].flatMap((key) => existing[key]).map((item) => item.id))
   let added = 0
   let duplicates = 0
   let future = 0
   for (const item of imported.measurements) {
     const module = MODULE_DATA_BY_TYPE[item.type]
     if (module?.isFutureMeasurement?.(item, now)) { future += 1; continue }
-    if (byId.has(item.id) || (module?.canRestore && !module.canRestore([...byId.values()], item))) { duplicates += 1; continue }
+    if (allIds.has(item.id) || (module?.canRestore && !module.canRestore([...byId.values()], item))) { duplicates += 1; continue }
     byId.set(item.id, item)
+    allIds.add(item.id)
     added += 1
   }
   const localProfile = existing.profile ?? emptyProfile()
   const importedProfile = imported.profile ?? emptyProfile()
   const hasLocalProfile = JSON.stringify(localProfile) !== JSON.stringify(emptyProfile())
-  return { data: { schemaVersion: SCHEMA_VERSION, measurements: [...byId.values()], profile: hasLocalProfile ? localProfile : importedProfile }, added, duplicates, future }
+  const collections = {}
+  for (const module of MODULE_CATALOG.filter((item) => !item.measurementType)) {
+    const records = [...existing[module.recordCollection]]
+    for (const item of imported[module.recordCollection]) {
+      if (module.isFutureMeasurement?.(item, now)) { future += 1; continue }
+      if (allIds.has(item.id) || !module.canRestore(records, item)) { duplicates += 1; continue }
+      records.push(item); allIds.add(item.id); added += 1
+    }
+    collections[module.recordCollection] = records
+  }
+  return { data: { schemaVersion: SCHEMA_VERSION, measurements: [...byId.values()], ...collections, profile: hasLocalProfile ? localProfile : importedProfile }, added, duplicates, future }
 }
 
 export function parseHealthImportCsv(text) {

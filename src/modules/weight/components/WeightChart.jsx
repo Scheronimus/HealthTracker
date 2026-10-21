@@ -7,11 +7,21 @@ const WIDTH = 800
 const HEIGHT = 400
 const PAD = { top: 18, right: 18, bottom: 52, left: 76 }
 
-export function WeightChart({ averages = [], showAverage = false, onAverageChange, measurements, language, span, onSpanChange, profile, onBmiZonesChange, t }) {
+export function WeightChart({ referenceLines = [], showFinalTarget = true, showMilestone = true, onFinalTargetChange, onMilestoneChange, averages = [], showAverage = false, onAverageChange, measurements, language, span, onSpanChange, profile, onBmiZonesChange, t }) {
   const [activeIndex, setActiveIndex] = useState(null)
   const gradientId = useId().replaceAll(':', '')
   const bmiBands = useMemo(() => profile.showBmiRange && (profile.age === null || profile.age >= 18) ? bmiWeightBands(profile.heightCm) : [], [profile.age, profile.heightCm, profile.showBmiRange])
-  const geometry = useMemo(() => chartGeometry(measurements, WIDTH, HEIGHT, showAverage ? averages.map(({ value }) => value) : []), [measurements, averages, showAverage])
+  const visibleReferences = useMemo(() => {
+    const lines = referenceLines.filter((line) => line.kind === 'target' ? showFinalTarget : showMilestone)
+    return lines.reduce((result, line) => {
+      const same = result.find((item) => item.value === line.value)
+      if (same) same.kinds.push(line.kind)
+      else result.push({ ...line, kinds: [line.kind] })
+      return result
+    }, [])
+  }, [referenceLines, showFinalTarget, showMilestone])
+  const geometry = useMemo(() => chartGeometry(measurements, WIDTH, HEIGHT, [...(showAverage ? averages.map(({ value }) => value) : []), ...visibleReferences.map(({ value }) => value)]), [measurements, averages, showAverage, visibleReferences])
+  const referenceLabel = (line) => `${line.kinds.map((kind) => t(kind === 'target' ? 'weightFinalTarget' : 'weightNextMilestone')).join(' / ')}: ${new Intl.NumberFormat(language, { maximumFractionDigits: 2 }).format(line.value)} kg`
   const { points, ticks } = geometry
   const visibleBands = bmiBands.map((band) => {
     const lower = Math.max(band.minKg, geometry.min)
@@ -62,7 +72,10 @@ export function WeightChart({ averages = [], showAverage = false, onAverageChang
     <div className="weight-chart-options">
       {profile.showBmi && (profile.age === null || profile.age >= 18) && <button className="chart-bmi-toggle" type="button" role="switch" aria-checked={profile.showBmiRange} onClick={() => onBmiZonesChange(!profile.showBmiRange)}><i aria-hidden="true" />{t('bmiZonesToggle')}</button>}
       <button className="chart-bmi-toggle" type="button" role="switch" aria-checked={showAverage} aria-describedby={showAverage && !averagePoints.length ? 'weight-average-unavailable' : undefined} onClick={() => onAverageChange?.(!showAverage)}><i aria-hidden="true" />{t('weightAverageToggle')}</button>
+      {referenceLines.some((line) => line.kind === 'target') && <button className="chart-bmi-toggle" type="button" role="switch" aria-checked={showFinalTarget} onClick={() => onFinalTargetChange?.(!showFinalTarget)}><i aria-hidden="true" />{t('weightFinalTarget')}</button>}
+      {referenceLines.some((line) => line.kind === 'milestone') && <button className="chart-bmi-toggle" type="button" role="switch" aria-checked={showMilestone} onClick={() => onMilestoneChange?.(!showMilestone)}><i aria-hidden="true" />{t('weightNextMilestone')}</button>}
     </div>
+    {visibleReferences.length > 0 && <div className="weight-target-legend">{visibleReferences.map((line) => <span key={line.kind}><i className={`weight-reference-swatch ${line.kind}`} aria-hidden="true" />{referenceLabel(line)}</span>)}</div>}
     {showAverage && !averagePoints.length && <p id="weight-average-unavailable" className="chart-caption">{t('weightAverageUnavailable')}</p>}
     <div className="span-control weight-chart-span" role="group" aria-label={t('timeSpan')}>
       {['threeMonths', 'oneYear', 'allTime'].map((option) => <button key={option} type="button" className={span === option ? 'active' : ''} aria-pressed={span === option} onClick={() => { onSpanChange(option); setActiveIndex(null) }}>{t(option)}</button>)}
@@ -75,6 +88,7 @@ export function WeightChart({ averages = [], showAverage = false, onAverageChang
             {visibleBands.map((band) => <rect key={band.key} className={`bmi-zone ${band.key}`} x="0" y={band.top} width={WIDTH} height={band.height} />)}
             {displayedPoints.length > 1 && <polygon className="trend-area" points={area} fill={`url(#${gradientId})`} />}
             {ticks.map(({ value, y }) => <g key={value}><line className="grid-line" x1="0" x2={WIDTH} y1={y} y2={y} /><text className="axis-label y-label" x="-10" y={y + 4}>{value.toFixed(0)}</text></g>)}
+            {visibleReferences.map((line) => <line key={line.kind} className={`weight-reference-line ${line.kind}`} role="img" aria-label={referenceLabel(line)} x1="0" x2={WIDTH} y1={chartValueY(line.value, geometry, HEIGHT)} y2={chartValueY(line.value, geometry, HEIGHT)} />)}
             {!showAverage && points.length > 1 && <polyline className="trend-line" points={line} />}
             {averagePoints.length > 1 && <polyline className="weight-average-line" points={averageLine} />}
             {averagePoints.length === 1 && <circle className="weight-average-point" cx={averagePoints[0].x} cy={averagePoints[0].y} r="5" />}

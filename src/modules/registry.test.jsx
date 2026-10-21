@@ -11,8 +11,16 @@ describe('module registry contract', () => {
       expect(module.Dashboard).toBeTypeOf('function')
       expect(module.EntryForm).toBeTypeOf('function')
       expect(module.labels).toMatchObject({ add: expect.any(String), edit: expect.any(String), deleteConfirm: expect.any(String) })
-      expect(MODULE_DATA_BY_TYPE[metadata.measurementType]?.validateMeasurement).toBeTypeOf('function')
-      expect(MODULE_DATA_BY_TYPE[metadata.measurementType]?.csv.parse).toBeTypeOf('function')
+      expect(metadata.recordCollection).toBeTypeOf('string')
+      if (metadata.measurementType) {
+        expect(MODULE_DATA_BY_TYPE[metadata.measurementType]?.validateMeasurement).toBeTypeOf('function')
+        expect(MODULE_DATA_BY_TYPE[metadata.measurementType]?.csv.parse).toBeTypeOf('function')
+      } else {
+        expect(metadata.validateRecord).toBeTypeOf('function')
+        expect(metadata.validateCollection).toBeTypeOf('function')
+        expect(metadata.reconcileRecords).toBeTypeOf('function')
+      }
+      for (const capability of ['prepareEntryState', 'canSubmitEntry', 'canAdd', 'referenceLines']) if (module[capability]) expect(module[capability]).toBeTypeOf('function')
     }
   })
 

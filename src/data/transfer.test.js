@@ -3,7 +3,7 @@ import { emptyProfile } from './schema.js'
 import { createBackup, mergeBloodPressureImport, mergeRestore, mergeWeightImport, parseBackup, parseBloodPressureImportCsv, parseHealthImportCsv, parseWeightImportCsv, weightCsv } from './transfer.js'
 
 const item = { id: 'record-123456', type: 'weight', value: 70.5, unit: 'kg', timestamp: '2026-08-22T08:00:00.000Z', note: 'a, "note"' }
-const store = { schemaVersion: 6, measurements: [item], profile: emptyProfile() }
+const store = { schemaVersion: 7, goals: [], measurements: [item], profile: emptyProfile() }
 
 describe('backup and export', () => {
   it('round-trips a versioned backup', () => expect(parseBackup(JSON.stringify(createBackup(store)))).toEqual(store))

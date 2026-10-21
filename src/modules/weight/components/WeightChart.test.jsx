@@ -44,6 +44,31 @@ describe('WeightChart average mode', () => {
     expect(multiple).not.toContain('class="weight-selected-point"')
   })
 
+  it('shows references by default, expands the range and hides them independently', () => {
+    const referenceLines = [{ kind: 'target', value: 60 }, { kind: 'milestone', value: 75 }]
+    const on = renderToStaticMarkup(<WeightChart {...props} referenceLines={referenceLines} />)
+    expect(on).toContain('class="weight-reference-line target"')
+    expect(on).toContain('aria-label="weightFinalTarget: 60 kg"')
+    expect(on).toContain('class="weight-reference-line milestone"')
+    expect(on).toContain('>60</text>')
+    const milestoneOnly = renderToStaticMarkup(<WeightChart {...props} referenceLines={referenceLines} showFinalTarget={false} />)
+    expect(milestoneOnly).not.toContain('class="weight-reference-line target"')
+    expect(milestoneOnly).toContain('class="weight-reference-line milestone"')
+    const targetOnly = renderToStaticMarkup(<WeightChart {...props} referenceLines={referenceLines} showMilestone={false} />)
+    expect(targetOnly).toContain('class="weight-reference-line target"')
+    expect(targetOnly).not.toContain('class="weight-reference-line milestone"')
+    const off = renderToStaticMarkup(<WeightChart {...props} referenceLines={referenceLines} showFinalTarget={false} showMilestone={false} />)
+    expect(off).not.toContain('weight-reference-line')
+    expect(off).toContain('weightFinalTarget')
+    expect(off).not.toContain('>60</text>')
+    expect(renderToStaticMarkup(<WeightChart {...props} />)).not.toContain('weightFinalTarget')
+    const same = [{ kind: 'target', value: 60 }, { kind: 'milestone', value: 60 }]
+    const combined = renderToStaticMarkup(<WeightChart {...props} referenceLines={same} />)
+    expect(combined.match(/class="weight-reference-line /g)).toHaveLength(1)
+    expect(combined).toContain('weightFinalTarget / weightNextMilestone: 60 kg')
+    expect(renderToStaticMarkup(<WeightChart {...props} referenceLines={same} showFinalTarget={false} />)).toContain('class="weight-reference-line milestone"')
+  })
+
   it('switches between recorded and average lines without superimposing them', () => {
     const off = renderToStaticMarkup(<WeightChart {...props} />)
     expect(off).not.toContain('class="weight-average-line"')

@@ -1,5 +1,7 @@
 # Technical debt
 
+- The v1.9.0 third-module review delivers generic non-measurement collections, observation/navigation/entry-return contracts, and module-owned Goals translations/styles. It deliberately retains current flat profile/BMI settings and existing Weight/Blood Pressure transfer compatibility exports: Goals adds no module-specific profile fields or compatibility exports. Their complete cleanup remains a separate migration/refactor; do not extend those legacy patterns for later modules.
+
 - `localStorage` is synchronous and appropriate for the initial data volume, but IndexedDB should be evaluated if measurements or attachment-like data grow substantially.
 - Migration version 0 exists as the tested bootstrap path. Every future schema bump must add a sequential migration plus fixtures for valid, invalid, and partially migrated data.
 - Release automation now covers real Weight workflows, cross-browser accessibility, production service-worker offline editing, and controlled visual comparisons. Physical mobile keyboard/touch behavior, installation UI, and an actual service-worker upgrade across different deployed builds still need targeted device/integration coverage; browser emulation alone cannot prove these.

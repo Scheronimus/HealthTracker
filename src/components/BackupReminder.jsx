@@ -21,7 +21,7 @@ export function BackupReminder({ status, language, onBackup, onSnooze, preview, 
 }
 
 function reminderMessage(status, language, t) {
-  if (status.kind === 'never') return t('backupFirstBody', { count: status.measurementCount })
+  if (status.kind === 'never') return t('backupFirstBody', { count: status.recordCount ?? status.measurementCount })
   if (status.kind === 'downloaded') return t('backupDownloadedBody')
   const prefix = status.kind === 'overdue' ? 'backupOverdueBody' : 'backupDueBody'
   return t(status.changedCount === 1 ? `${prefix}One` : prefix, {

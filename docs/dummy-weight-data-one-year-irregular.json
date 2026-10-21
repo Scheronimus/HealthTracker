@@ -3,7 +3,7 @@
   "formatVersion": 1,
   "exportedAt": "2026-08-22T12:00:00.000Z",
   "data": {
-    "schemaVersion": 1,
+    "schemaVersion": 7,
     "measurements": [
       {
         "id": "demo-irregular-weight-001",
@@ -1925,6 +1925,19 @@
         "timestamp": "2026-08-22T07:15:00.000Z",
         "note": "One-year check-in"
       }
-    ]
+    ],
+    "goals": [],
+    "profile": {
+      "name": "",
+      "age": null,
+      "heightCm": null,
+      "showBmi": false,
+      "showBmiRange": false,
+      "modules": [
+        "weight",
+        "bloodPressure",
+        "goals"
+      ]
+    }
   }
 }

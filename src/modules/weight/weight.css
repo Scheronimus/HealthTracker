@@ -8,7 +8,15 @@
 .weight-dashboard .weight-chart { padding: .85rem .65rem .65rem; margin: .25rem 0 1.25rem; border: 0; border-radius: 16px; background: #edf3f7; overflow: visible; }
 .weight-dashboard .chart-header { margin-bottom: .35rem; }
 .weight-dashboard h2 { font-size: 1.15rem; letter-spacing: -.015em; }
-.weight-dashboard .weight-chart-options { gap: .75rem; margin-bottom: .35rem; }
+.weight-dashboard .weight-chart-options { flex-wrap: wrap; gap: .75rem; margin-bottom: .35rem; }
+.weight-dashboard .weight-target-legend { display: flex; flex-wrap: wrap; gap: .35rem 1rem; margin: .35rem 0 .75rem; color: var(--ink); font-size: .8rem; }
+.weight-target-legend > span { display: inline-flex; align-items: center; gap: .4rem; }
+.weight-reference-line { stroke: #856000; stroke-width: 1.8; vector-effect: non-scaling-stroke; pointer-events: none; }
+.weight-reference-line.milestone { stroke-dasharray: 6 5; }
+.weight-reference-swatch { width: 1.4rem; border-top: 2px solid #856000; }
+.weight-reference-swatch.milestone { border-top-style: dashed; }
+:root[data-theme='dark'] .weight-reference-line { stroke: #e8bd54; }
+:root[data-theme='dark'] .weight-reference-swatch { border-color: #e8bd54; }
 .weight-dashboard .chart-bmi-toggle { min-height: 44px; border: 0; padding: .25rem 0; background: transparent; font-size: .82rem; font-weight: 500; }
 .weight-dashboard .weight-chart-span { width: min(100%, 360px); min-width: 0; margin: 0 0 .65rem; padding: .15rem; border-radius: 10px; }
 .weight-dashboard .span-control button { min-height: 44px; padding: .35rem .3rem; font-size: .85rem; font-weight: 600; }

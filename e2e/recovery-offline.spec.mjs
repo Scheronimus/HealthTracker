@@ -77,7 +77,7 @@ test('legacy store migrates in the browser and keeps original measurement timest
   const legacy = { schemaVersion: 1, measurements: [weight('2026-09-01', 85)] }
   await app({ data: legacy })
   const saved = await readStore(page)
-  expect(saved.schemaVersion).toBe(6)
+  expect(saved.schemaVersion).toBe(7)
   expect(saved.measurements).toEqual(legacy.measurements)
   await expect(page.locator('.weight-hero strong')).toHaveText('85.0 kg')
   await page.reload()

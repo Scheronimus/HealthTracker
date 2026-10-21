@@ -16,6 +16,11 @@ const migrations = {
     }),
   }),
   6: (versionFive) => ({ ...versionFive, schemaVersion: 6, profile: { ...versionFive.profile, modules: ['weight', 'bloodPressure'] } }),
+  7: (versionSix) => {
+    const modules = versionSix.profile?.modules
+    if (!Array.isArray(modules) || !modules.length || new Set(modules).size !== modules.length) throw new Error('invalidData')
+    return { ...versionSix, schemaVersion: 7, goals: [], profile: { ...versionSix.profile, modules: [...modules.filter((id) => id !== 'goals'), 'goals'] } }
+  },
 }
 
 export function migrateStore(input) {

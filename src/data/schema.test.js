@@ -23,22 +23,22 @@ describe('measurement schema', () => {
   })
   it('migrates a version-two profile with the graph range disabled', () => {
     const legacy = { schemaVersion: 2, measurements: [], profile: { name: 'Alex', age: 35, heightCm: 180, showBmi: true } }
-    expect(migrateStore(legacy).profile).toEqual({ ...legacy.profile, showBmiRange: false, modules: ['weight', 'bloodPressure'] })
+    expect(migrateStore(legacy).profile).toEqual({ ...legacy.profile, showBmiRange: false, modules: ['weight', 'bloodPressure', 'goals'] })
   })
   it('migrates schema three to the current version without changing non-pressure data', () => {
     const legacy = { schemaVersion: 3, measurements: [], profile: emptyProfile() }
-    expect(migrateStore(legacy)).toEqual({ ...legacy, schemaVersion: 6 })
+    expect(migrateStore(legacy)).toEqual({ ...legacy, schemaVersion: 7, goals: [] })
   })
   it('removes the legacy period label while preserving blood-pressure readings', () => {
     const pressure = { id: 'pressure-123', type: 'bloodPressure', timestamp: '2026-08-22T18:00:00.000Z', period: 'evening', systolicMmHg: 125, diastolicMmHg: 80, pulseBpm: 62 }
     const legacy = { schemaVersion: 4, measurements: [pressure], profile: emptyProfile() }
     const migratedPressure = { ...pressure }
     delete migratedPressure.period
-    expect(migrateStore(legacy)).toEqual({ ...legacy, schemaVersion: 6, measurements: [migratedPressure] })
+    expect(migrateStore(legacy)).toEqual({ ...legacy, schemaVersion: 7, goals: [], measurements: [migratedPressure] })
   })
   it('adds default module preferences to schema five profiles', () => {
     const profile = { name: '', age: null, heightCm: null, showBmi: false, showBmiRange: false }
-    expect(migrateStore({ schemaVersion: 5, measurements: [], profile }).profile.modules).toEqual(['weight', 'bloodPressure'])
+    expect(migrateStore({ schemaVersion: 5, measurements: [], profile }).profile.modules).toEqual(['weight', 'bloodPressure', 'goals'])
   })
   it('migrates a version-one store without changing measurements', () => {
     const legacy = { schemaVersion: 1, measurements: [] }

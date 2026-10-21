@@ -22,6 +22,8 @@ Estimated difficulty: small-to-medium once these definitions are settled. This i
 
 ## Coach module
 
+Measurement reminders and Weight targets are implemented for v1.9.0 under the working name **Goals**. Weight maintenance, activity motivation and the remaining guidance ideas below stay deferred. See `VERSION_1.9.0_PLAN.md` for accepted scope.
+
 Add an optional Coach area that helps users set goals and improve measurement consistency. Candidate capabilities include a weight target with factual progress feedback, prompts to add enough measurements for a useful trend, and neutral instructions for performing a consistent blood-pressure measurement.
 
 Product and architecture constraints:

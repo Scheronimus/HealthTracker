@@ -1,16 +1,28 @@
 # Version 1.9.0 plan
 
-Status: discovery draft; scope and calculation rules are not frozen. No implementation is authorized by this plan alone.
+Status: production integration implemented on `feature/goals-integration`; verification recorded below. Record measurements and Weight target are the agreed delivery scope; maintenance/activity discovery is deferred.
 
 ## Current delivery decision
+
+Target completion: after the final target receives its fifth consecutive qualifying average, show a lasting gold trophy celebration with the target value and achievement date on both overview and detail. Show the completed progress bar, retain actual current-average/chart access and dated milestone history, and preserve completion after rebound/reload. Do not celebrate a single below-target entry. Keep the visual calm and accessible, without a blocking dialog or repeated animation.
+
+Full Goals overview: hide the add button when both singleton goal types exist and restore it after a goal is removed. No explanatory message is needed.
+
+Weight graph addition: a Target goal contributes labeled final-target and next-milestone gold lines, enabled by default. Separate switches hide each independently for the session; without a target there are no lines or switches. Reference values extend the chart range; coinciding visible milestone/target values share one line while remaining independently selectable. Updates follow goal edits, confirmation and deletion through a catalog capability, without cross-module imports. Verify rendering, calculations and four-language narrow light/dark behavior.
+
+Chart addition verified with 197 passing unit tests, lint/build/whitespace checks, and 18 passing Goals browser scenarios across Chromium, Firefox and WebKit. Browser checks cover independent switches, default visibility after reload, absent controls after deletion, and Weight/Goals accessibility in all four languages and both themes at 320px. The narrow production chart was visually inspected using synthetic data.
+
+Integration verification: 195 unit tests, lint, production build and whitespace checks pass. All 162 functional browser scenarios passed across Chromium, Firefox and WebKit; three additional two-reading reminder checks also passed. All 18 existing Windows visual baselines pass. Goals coverage includes missing-day examples, persisted ordering, real entry/chart navigation, backups, offline creation and four-language light/dark accessibility at 320px. The integrated mobile overview was visually inspected. Physical-device installation/keyboard checks remain for release preparation.
 
 The user has now requested production integration of the two agreed designs: **Record measurements** and **Weight target**. These are the 1.9.0 delivery priorities. Defer Weight maintenance and Activity goals to a later release; their discovery notes and prototype examples below remain reference only, not accepted 1.9.0 scope.
 
 Preserve the locked UI while replacing synthetic data and memory-only interactions with the real module catalog, local persistence, sequential schema migration, non-overwriting JSON restore, backup-change tracking and generic navigation to measurement entry and the Weight graph. Goals must remain a non-measurement module and must not import another health module. Retain the no-commit-without-approval workflow. The prototype is a coherent verified checkpoint before production integration.
 
-Before completing production Target calculations, settle the previously open missing-day/coverage policy; the conservative prototype policy is not an agreed release rule. Required acceptance includes singleton limits, persisted priority ordering, permanent dated achievements, all four languages, accessible due/done states, reload and backup recovery, and unchanged Weight/Blood Pressure validation and offline behavior.
+The user has agreed that missing dates use the latest actual recorded weight as a derived calculation value. Use up to five available effective calendar days for each daily average, without inventing values before the first measurement. Five consecutive qualifying averages confirm; a nonqualifying average resets the current streak. The two day-1/day-2/day-7 acceptance examples are automated tests. This supersedes the historical provisional prototype policy below. Required acceptance includes singleton limits, persisted priority ordering, permanent dated achievements, all four languages, accessible due/done states, reload and backup recovery, and unchanged Weight/Blood Pressure validation and offline behavior.
 
 ## Purpose and working name
+
+The sections below preserve earlier discovery. The current delivery decision above takes precedence. The implemented reminder schedules are daily or selected weekdays, with one Weight entry or one/two Blood Pressure readings. Targets support loss and gain with matching directional confirmation rules. Changing target settings retains earlier achievements separately. No release version metadata is changed on this feature branch.
 
 Introduce an optional area where users define personal goals, see what needs attention, and track progress using their locally stored data. Working name: **Goals**; revisit naming after the workflows are agreed. The earlier Coach backlog proposal is the starting point, narrowed here to user-defined goals rather than health guidance.
 

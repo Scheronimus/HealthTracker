@@ -13,8 +13,8 @@ export const bloodPressure = {
 }
 export function store(measurements = [], profile = {}) {
   return {
-    schemaVersion: 6, measurements,
-    profile: { name: '', age: 40, heightCm: 172, showBmi: true, showBmiRange: false, modules: ['weight', 'bloodPressure'], ...profile },
+    schemaVersion: 7, measurements, goals: [],
+    profile: { name: '', age: 40, heightCm: 172, showBmi: true, showBmiRange: false, modules: ['weight', 'bloodPressure', 'goals'], ...profile },
   }
 }
 export function populatedStore() {

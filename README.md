@@ -8,6 +8,10 @@ Production target: <https://scheronimus.github.io/HealthTracker/>
 
 ## Features
 
+When a Weight target is set, the Weight graph shows gold reference lines for the final target and next milestone. Separate Final target and Next milestone switches hide each independently for the session; without a target, neither switches nor lines appear.
+
+The development version adds a **Goals** area with measurement reminders and Weight targets. Add either or both, customize them, and arrange their order. Due reminders stand out; completed reminders turn grey. Targets use a date-derived baseline, an overall progress bar with a gold next-milestone marker, consecutive green confirmation dots and expandable dated achievements. The trend arrow opens Weight; reminders open the existing entry form and return to Goals. Goals stay local, persist across reload, work offline and are included in JSON backups. Maintenance/activity goals remain deferred.
+
 Health Tracker supports modular Weight and Blood Pressure areas. Blood Pressure records exact local date/time, systolic and diastolic pressure, and pulse. Each date can contain up to two time-ordered readings at least two hours apart. Seven-day measurement periods begin with the first reading rather than on Monday. The app averages whatever readings are available and reports neutral coverage by readings and days. Complete backups include both modules, profile details, and module preferences.
 
 - Record, edit, and delete dated weight measurements in kilograms with optional notes.

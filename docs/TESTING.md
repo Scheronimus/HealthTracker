@@ -27,6 +27,26 @@ Run `npm test`, `npm run lint`, and `npm run build`. Regenerate the weekly and i
 
 ## Manual regression
 
+### Goals integration
+
+- Confirm final-target celebration appears only after five qualifying daily averages: gold trophy, target value, confirmation date and full gold progress bar on overview/detail. A rebound/reload preserves it, while the current average remains factual. Check 320px and both themes in all four languages; no blocking dialog or repeated animation.
+
+- With both goal types configured, confirm the + control is absent. Delete either goal: + returns, the remaining type cannot be duplicated, and adding the missing type hides + again.
+
+- With a Target goal, open Weight using the trend arrow: final-target and next-milestone lines are gold, solid/dashed and labeled with values. Both are initially visible even outside the measurement range. Separate Final target and Next milestone switches hide each independently and adjust the range; reload defaults both on. Confirm no lines/switches without a Target goal, a shared line when the final target is the next milestone (either switch still works independently), and updates after goal edits, milestone confirmation or deletion. Check 320px, all languages, light/dark and Average/BMI overlays together.
+
+- Migrate an existing v6 store: measurements/profile values and module order are preserved, Goals appears at the end, and no goals are fabricated.
+- Select Goals and create either a measurement reminder or a Weight target; at most one of each exists. Add, edit, remove, and arrange with pointer, touch or keyboard. Reload to verify persisted order/configuration.
+- A due reminder is amber and opens the owning module's real entry form. Save/Cancel returns to Goals. Only real entries complete reminders, including the second required Blood Pressure reading; its two-hour rule still applies. Completed reminders turn grey, and selected unscheduled weekdays remain neutral. Check rollover after midnight or returning to the app.
+- Start a target with a historical date; the exact/latest earlier measurement and its actual date are shown. The picker excludes dates before the earliest reading and after today. With no measurements, create a first Weight entry from target setup and verify the draft survives the round trip.
+- Confirm overall progress has no large percentage or distance-covered sentence. The gold line marks the next milestone; the aligned trend arrow opens the real Weight graph without a separate hyperlink. Test all four languages, 320px, light/dark, and keyboard access.
+- Verify interval-aligned milestones, green consecutive-average dots (four then a miss resets to zero), and expandable dated confirmed achievements. A rebound or source correction/deletion must not revoke confirmed milestones. A changed target/start date/interval keeps earlier configuration achievements separately.
+- Test the agreed carry-forward examples in synthetic data: day 1 = 90.1, day 2 = 89.9, day 7 = 89.2 confirms a 90 milestone on day 7; omit day 2 and only the day-7 average qualifies. Missing values are derived, never saved as measurements, and must not complete record reminders.
+- Download/restore goal-only and mixed backups. Local IDs/configuration/order win; competing singleton kinds are skipped and reported. Malformed goals change nothing. New achievements and goal edits change backup status.
+- Build/preview, load once online, stop the origin, reload and create/edit goals offline; confirm they survive another reload. Maintenance/activity goal creation and prototype/demo controls must be absent from production.
+
+Automated coverage lives in `src/modules/goals/goals.test.js`, the updated schema/registry/backup tests, and `e2e/goals.spec.mjs`; the latter exercises real entry/navigation, durable goals, backups, offline service-worker behavior and four-language light/dark accessibility.
+
 For Blood Pressure, also verify the focused Overview, up to two time-ordered readings per date, historical backfilling, compact Diary navigation, factual averages without medical interpretation, future-date prevention, pointer/touch and keyboard chart navigation, four languages, narrow layouts, and dark mode. Confirm the banner module selector switches between Weight and Blood Pressure and remains usable with keyboard navigation.
 
 - Enter two readings on the same date less than two hours apart and confirm the second is rejected; confirm a two-hour separation is accepted.
