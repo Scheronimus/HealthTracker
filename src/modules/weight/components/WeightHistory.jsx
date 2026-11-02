@@ -1,8 +1,8 @@
 import { formatDate, isFutureLocalDate, localDateValue } from '../../../utils/date.js'
 
-export function WeightHistory({ measurements, language, onEdit, t }) {
-  return <section className="history">
-    <div className="section-heading"><h2>{t('history')}</h2><span>{measurements.length}</span></div>
+export function WeightHistory({ measurements, language, onEdit, t, open = false, onOpenChange }) {
+  return <details className="history" open={open} onToggle={(event) => { if (event.currentTarget.open !== open) onOpenChange?.(event.currentTarget.open) }}>
+    <summary className="section-heading"><span>{t('history')}</span><span>{measurements.length}</span></summary>
     {!measurements.length && <div className="empty card"><span>↗</span><p>{t('noEntries')}</p></div>}
     <div className="entry-list">{measurements.map((item, index) => {
       const change = index < measurements.length - 1 ? item.value - measurements[index + 1].value : null
@@ -14,5 +14,5 @@ export function WeightHistory({ measurements, language, onEdit, t }) {
         {item.note && <p className="weight-history-note">{item.note}</p>}
       </button>
     })}</div>
-  </section>
+  </details>
 }

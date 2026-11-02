@@ -81,3 +81,17 @@
   .weight-dashboard .axis-label { font-size: 22px; }
   .weight-dashboard .x-start, .weight-dashboard .x-end { font-size: 18px; }
 }
+
+.weight-dashboard .history > summary { display: flex; align-items: center; justify-content: space-between; gap: .75rem; min-height: 44px; cursor: pointer; font-weight: 600; }
+.weight-dashboard .history > summary::after { content: "\2304"; }
+.weight-dashboard .history[open] > summary::after { content: "\2303"; }
+.weight-dashboard .history > summary > span:first-child { margin-right: auto; padding: 0; background: transparent; font-size: 1.15rem; }
+
+.weight-dashboard .chart-header { flex-direction: row; align-items: center; justify-content: space-between; }
+.graph-settings-button { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; background: transparent; color: var(--ink); }
+.graph-settings-button svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+.graph-settings-button[aria-expanded="true"] { background: var(--primary-soft); }
+
+.weight-dashboard .chart-tooltip.average-mode { background: #7541a0; color: #ffffff; }
+.weight-dashboard .chart-tooltip.average-mode small { color: #ffffff; }
+:root[data-theme='dark'] .weight-dashboard .chart-tooltip.average-mode { background: #57247b; }

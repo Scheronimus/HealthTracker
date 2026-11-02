@@ -25,7 +25,7 @@ describe('module registry contract', () => {
   })
 
   it('keeps module state defaults isolated', () => {
-    expect(MODULES_BY_ID.weight.initialState).toEqual({ chartSpan: 'threeMonths', showAverage: false })
+    expect(MODULES_BY_ID.weight.initialState).toEqual({})
     expect(MODULES_BY_ID.bloodPressure.initialState).toEqual({ selectedWeek: null, view: 'overview' })
   })
 })

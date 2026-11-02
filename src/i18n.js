@@ -212,3 +212,8 @@ for (const module of MODULE_CATALOG) for (const [language, messages] of Object.e
 export function translate(language, key, values = {}) {
   return Object.entries(values).reduce((text, [name, value]) => text.replace(`{${name}}`, value), translations[language]?.[key] ?? translations.en[key] ?? key)
 }
+
+Object.assign(translations.en, { weightGraphSettings: 'Graph settings' })
+Object.assign(translations.es, { weightGraphSettings: 'Ajustes del gráfico' })
+Object.assign(translations.de, { weightGraphSettings: 'Diagrammeinstellungen' })
+Object.assign(translations.fr, { weightGraphSettings: 'Réglages du graphique' })
