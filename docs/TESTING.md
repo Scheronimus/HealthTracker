@@ -21,7 +21,7 @@ Accessibility scans cover WCAG A/AA rules detectable by axe; they do not claim c
 
 Implementation references: [Playwright projects](https://playwright.dev/docs/test-projects), [clock](https://playwright.dev/docs/clock), [visual comparisons](https://playwright.dev/docs/test-snapshots), and [accessibility testing](https://playwright.dev/docs/accessibility-testing).
 
-Tests cover the module registry contract, schema v7 and all migration paths, mixed stores/backups, module and appearance preferences, backup-reminder timing/change/status behavior, translation-key and placeholder parity across all four languages, the Data and v1.9.0 release-note wording, once-per-version notice state, date-input limits, core dark-theme WCAG contrast pairs, specialized dark button styling, the two-readings-per-date limit and edit exclusion, local date/time conversion, DST-safe first-reading-anchored periods, available-reading averages, chart ordering/scale/domain/markers/nearest point, Weight graph/history range synchronization and empty states, and the retained internal CSV parsing behavior.
+Tests cover the module registry contract, schema v7 and all migration paths, mixed stores/backups, module and appearance preferences, backup-reminder timing/change/status behavior, translation-key and placeholder parity across all four languages, the Data and v1.9.1 release-note wording, once-per-version notice state, date-input limits, core dark-theme WCAG contrast pairs, specialized dark button styling, the two-readings-per-date limit and edit exclusion, local date/time conversion, DST-safe first-reading-anchored periods, available-reading averages, chart ordering/scale/domain/markers/nearest point, Weight graph/history range synchronization and empty states, and the retained internal CSV parsing behavior.
 
 Run `npm test`, `npm run lint`, and `npm run build`. Regenerate the weekly and irregular one-year graph fixtures with `npm run generate:demo-backup` and `npm run generate:irregular-demo-backup` when their generators change. Tests cover schema validation, unique IDs, version-zero migration, future-version rejection, backup round trips, non-overwriting restore, malformed imports, and CSV escaping.
 
@@ -33,7 +33,7 @@ Run `npm test`, `npm run lint`, and `npm run build`. Regenerate the weekly and i
 
 - With both goal types configured, confirm the + control is absent. Delete either goal: + returns, the remaining type cannot be duplicated, and adding the missing type hides + again.
 
-- With a Target goal, open Weight using the trend arrow: final-target and next-milestone lines are gold, solid/dashed and labeled with values. Both are initially visible even outside the measurement range. Separate Final target and Next milestone switches hide each independently and adjust the range; reload defaults both on. Confirm no lines/switches without a Target goal, a shared line when the final target is the next milestone (either switch still works independently), and updates after goal edits, milestone confirmation or deletion. Check 320px, all languages, light/dark and Average/BMI overlays together.
+- With a Target goal, open Weight using the trend arrow: final-target and next-milestone lines are gold, solid/dashed and labeled with values. Both are initially visible even outside the measurement range. Separate Final target and Next milestone switches hide each independently and adjust the range; reload preserves both choices. Open the graph settings icon to access the switches. Confirm no lines/switches without a Target goal, a shared line when the final target is the next milestone (either switch still works independently), and updates after goal edits, milestone confirmation or deletion. Check 320px, all languages, light/dark and Average/BMI overlays together.
 
 - Migrate an existing v6 store: measurements/profile values and module order are preserved, Goals appears at the end, and no goals are fabricated.
 - Select Goals and create either a measurement reminder or a Weight target; at most one of each exists. Add, edit, remove, and arrange with pointer, touch or keyboard. Reload to verify persisted order/configuration.
@@ -68,7 +68,7 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 - Confirm Cancel returns without changes; confirm Save validates, stores the entry, and returns to the dashboard.
 - Confirm Weight rejects a date after today and Blood Pressure rejects both a later date and a time later today.
 - If an existing future-dated record is present, confirm it is marked in red and can still be opened and deleted in both modules.
-- Confirm history has no inline Edit/Delete buttons; select anywhere on a row and confirm the edit screen opens with its existing data.
+- Expand History (collapsed on launch, with its filtered count visible). Confirm history has no inline Edit/Delete buttons; select anywhere on a row and confirm the edit screen opens with its existing data.
 - Confirm Delete appears on existing-record edit screens only, still requires confirmation, and returns to the dashboard after deletion.
 - Add a valid weight with date and multiline note; confirm no time field is shown, then refresh and confirm it persists.
 - Open a new Weight form and confirm the latest weight appears in grey while the field remains empty and required. Type a value and confirm the hint disappears; clear the field and confirm it returns. Confirm edit forms show the stored value instead of the hint.
@@ -101,7 +101,7 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 - In development Settings, select every backup preview state. Confirm the dashboard and Settings render the expected state in all four languages, the preview is clearly identified, “Return to real status” restores calculated behavior, and no preview changes measurements or real backup status.
 - In a production build, confirm the backup preview selector is absent while normal reminders and status remain available.
 - Try malformed JSON, an unsupported schema version, duplicate IDs, invalid units, and invalid timestamps; confirm nothing changes.
-- Simulate a previous app version and confirm the localized v1.9.0 notice describes Goals, measurement reminders, lasting milestones, target celebration, independent Weight graph reference switches and complete local/offline backups without blocking the dashboard. Change language before dismissing it, dismiss it, reload, and confirm it stays hidden.
+- Simulate a previous app version and confirm the localized v1.9.1 notice describes the purple average tooltip, compact settings and History, persisted graph choices, visible BMI legend ranges, a tighter shared scale and unchanged local/offline data without blocking the dashboard. Change language before dismissing it, dismiss it, reload, and confirm it stays hidden.
 - While the release notice is visible, open an entry screen and confirm the notice remains dashboard-only and does not appear beneath the entry header.
 - Build and preview, load once online, go offline, reload, and confirm the shell and local edits work.
 - Install on supported desktop/mobile browsers and confirm standalone launch under `/HealthTracker/`.
@@ -120,16 +120,27 @@ For Blood Pressure, also verify the focused Overview, up to two time-ordered rea
 
 ## Weight smoothing checks
 
-- Confirm the BMI zones and Average switches appear side by side in all four languages at 320 px and wider, and the span selector stays directly above the graph. Hide BMI in Profile and confirm Average still works.
+- Open Graph settings and confirm the BMI zones and Average switches appear side by side in all four languages at 320 px and wider, and the span selector stays directly above the graph. Hide BMI in Profile and confirm Average still works.
 
 - Toggle Average in each language at narrow mobile widths and in light/dark mode, with and without BMI zones. Confirm only the recorded line appears when off and only the dashed average line appears when on; the shaded area follows the displayed line.
 - Use the nine-reading sample (82.3, 81.9, 81.9, 82.2, 82.0, 81.9, 81.7, 82.4, 81.8); averages start at reading five: 82.06, 81.98, 81.94, 82.04, 81.96 kg.
 - Verify zero to four measurements show the unavailable explanation, five show one average point, and six or more connect average points.
-- Switch spans and verify averages on overlapping dates stay identical, including when their preceding readings are outside the span. Current weight, change, and history remain based on recorded measurements.
-- Select readings with pointer, touch, and Left/Right/Home/End. Average values appear only where five readings exist and only while enabled.
+- Switch spans and verify averages on overlapping dates stay identical, including when their preceding readings are outside the span. The hero, change indicators, BMI and history remain based on recorded measurements.
+- Select readings with pointer, touch, and Left/Right/Home/End. Average mode navigates only points where five readings exist, using the average as the tooltip primary value without duplicate average text.
 - Edit, delete, or backfill a reading and confirm affected averages recalculate. Verify irregular demo dates are retained without invented measurements.
-- Switch away from Weight and return; the choice remains during the session. Reload and confirm default off. Verify the average view works offline in a production preview.
+- Switch away from Weight and return; the choice remains during the session. Reload and confirm the choice persists while the settings panel starts closed. Verify the average view works offline in a production preview.
 
 ## Profile and BMI checks
 
-Automated tests cover BMI calculation and WHO categories, six-band weight conversion, chart-layer ordering, optional profile validation, sequential migrations through schema version 7, unchanged measurement-derived graph scaling, module preferences, and safe profile restore. Manually verify Profile Cancel/Save, localized labels, the height requirement when BMI is enabled, BMI visibility using the newest weight, the graph-level zone switch appearing only with BMI enabled, matching chart/legend zone colors in light and dark modes, and mobile summary layout.
+Automated tests cover BMI calculation and WHO categories, six-band weight conversion, chart-layer ordering, optional profile validation, sequential migrations through schema version 7, shared recorded/average graph scaling with visible reference lines, module preferences, and safe profile restore. Manually verify Profile Cancel/Save, localized labels, the height requirement when BMI is enabled, BMI visibility using the newest weight, the graph-level zone switch appearing only with BMI enabled, matching chart/legend zone colors in light and dark modes, and mobile summary layout.
+
+## Compact Weight dashboard checks
+
+- Reload after choosing each period, Average mode and independent target switches: choices persist locally and offline, with settings and History initially collapsed. BMI zones keep their existing profile persistence.
+- Open settings and History with keyboard and touch; verify focus, expanded states, counts and editing/return behavior at 320px in all languages and both themes.
+- Confirm BMI legend contains exactly the bands drawn, including a single-band scale, and displays only color swatches and numeric ranges. Context remains in the BMI info popover.
+- With fewer than five measurements, Average mode shows the existing explanation and no selected-average tooltip; the hero stays unchanged.
+
+- Confirm only Average mode gives the selected-point tooltip a purple background and displays the selected average, date and note with readable text in both themes. Recorded mode keeps the original blue tooltip; the hero stays unchanged.
+
+- Review a roughly 81-93 kg trend: bounds fit around the combined recorded/average range rather than rounding out to 70-100 kg. Switching Average must preserve the same scale; visible target lines still fit. Check recorded mode, flat/single-point data and integer ticks without changing dates or average values.

@@ -26,6 +26,20 @@ const props = {
 }
 
 describe('WeightDashboard range filtering', () => {
+  it('keeps the hero recorded and unchanged in Average mode', () => {
+    const data = [80, 81, 82, 83, 84].map((value, index) => ({ ...measurements[0], id: String(index), value, timestamp: new Date(2026, 0, index + 1, 12).toISOString() })).reverse()
+    const html = renderToStaticMarkup(<WeightDashboard {...props} measurements={data} state={{ showAverage: true, chartSpan: 'allTime' }} />)
+    const hero = html.match(/<div class="weight-hero">(.*?)<\/div>/s)[1]
+    expect(hero).toContain('84.0 <small>kg</small>')
+    expect(hero).toContain('currentWeight')
+    expect(hero).not.toContain('weightAverage')
+    expect(html).toContain('<details class="history">')
+    expect(html).toContain('aria-expanded="false"')
+    const unavailable = renderToStaticMarkup(<WeightDashboard {...props} measurements={data.slice(1)} state={{ showAverage: true }} />)
+    expect(unavailable).toContain('83.0 <small>kg</small>')
+    expect(unavailable).toContain('weightAverageUnavailable')
+  })
+
   it('keeps the hero on three months while insights follow the chart span without duplicating current weight', () => {
     const views = ['threeMonths', 'oneYear', 'allTime'].map((chartSpan) => renderToStaticMarkup(<WeightDashboard {...props} state={{ chartSpan }} />))
     const hero = (html) => html.match(/<div class="weight-hero">(.*?)<\/div>/s)[1]

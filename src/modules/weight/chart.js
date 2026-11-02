@@ -26,9 +26,9 @@ export function chartGeometry(measurements, width = 800, height = 300, additiona
   const rawMin = Math.min(...values)
   const rawMax = Math.max(...values)
   const step = niceIntegerStep(rawMax - rawMin)
-  let min = Math.floor(rawMin / step) * step
-  let max = Math.ceil(rawMax / step) * step
-  if (min === max) { min -= step; max += step }
+  let min = Math.floor(rawMin)
+  let max = Math.ceil(rawMax)
+  if (min === max) { min -= 1; max += 1 }
   const start = Date.parse(sorted[0].timestamp)
   const end = Date.parse(sorted.at(-1).timestamp)
   const timeRange = end - start || 1
@@ -42,7 +42,7 @@ export function chartGeometry(measurements, width = 800, height = 300, additiona
     index,
   }))
   const ticks = []
-  for (let value = min; value <= max; value += step) {
+  for (let value = Math.ceil(min / step) * step; value <= max; value += step) {
     ticks.push({ value, y: height - plotInset - ((value - min) / valueRange) * plotHeight })
   }
   return { points, ticks, min, max, plotInset, plotHeight }

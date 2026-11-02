@@ -8,9 +8,11 @@ Production target: <https://scheronimus.github.io/HealthTracker/>
 
 ## Features
 
-When a Weight target is set, the Weight graph shows gold reference lines for the final target and next milestone. Separate Final target and Next milestone switches hide each independently for the session; without a target, neither switches nor lines appear.
+Version 1.9.1 makes the Weight screen more compact: graph settings open from an icon, History starts collapsed, and graph choices persist across sessions. Average mode shows the selected average in a purple tooltip; both modes share a tighter scale. The BMI legend shows only visible numeric ranges. Measurements, calculations and backups stay unchanged.
 
-Version 1.9.0 adds a **Goals** area with measurement reminders and Weight targets. Add either or both, customize them, and arrange their order. Due reminders stand out; completed reminders turn grey. Targets use a date-derived baseline, an overall progress bar with a gold next-milestone marker, consecutive green confirmation dots and expandable dated achievements. Confirmed final targets receive a lasting gold trophy celebration. The trend arrow opens Weight; reminders open the existing entry form and return to Goals. Goals stay local, persist across reload, work offline and are included in JSON backups. Maintenance/activity goals remain deferred.
+When a Weight target is set, the Weight graph shows gold reference lines for the final target and next milestone. Separate Final target and Next milestone switches hide each independently across sessions; without a target, neither switches nor lines appear.
+
+The **Goals** area provides measurement reminders and Weight targets. Add either or both, customize them, and arrange their order. Due reminders stand out; completed reminders turn grey. Targets use a date-derived baseline, an overall progress bar with a gold next-milestone marker, consecutive green confirmation dots and expandable dated achievements. Confirmed final targets receive a lasting gold trophy celebration. The trend arrow opens Weight; reminders open the existing entry form and return to Goals. Goals stay local, persist across reload, work offline and are included in JSON backups. Maintenance/activity goals remain deferred.
 
 Health Tracker supports modular Weight and Blood Pressure areas. Blood Pressure records exact local date/time, systolic and diastolic pressure, and pulse. Each date can contain up to two time-ordered readings at least two hours apart. Seven-day measurement periods begin with the first reading rather than on Monday. The app averages whatever readings are available and reports neutral coverage by readings and days. Complete backups include both modules, profile details, and module preferences.
 
@@ -20,8 +22,8 @@ Health Tracker supports modular Weight and Blood Pressure areas. Blood Pressure 
 - Prevent future-dated or future-timed measurements in manual entry and backup restore while keeping existing records deletable.
 - Review a focused blood-pressure overview, compact two-reading diary, and accessible 7-day to 1-year trends using daily or weekly averages without connecting individual readings into a misleading line.
 - Prominent interactive weight graph with 3-month, 1-year, and all-time ranges.
-- Optional Weight graph mode showing only a dashed average line instead of the recorded line, using the average of each measurement and the previous four, calculated from full history; enabled for the current session only.
-- A centered current-weight hero with a fixed last-three-month change, a selected-period evolution insight, and newest-first history filtered to the graph span.
+- Optional Weight graph mode showing only a dashed average line instead of the recorded line, using the average of each measurement and the previous four, calculated from full history; with the last graph choices remembered across sessions.
+- A centered current-weight hero with a fixed last-three-month change, a selected-period evolution insight, and expandable newest-first history filtered to the graph span. Graph options are tucked behind a settings icon; BMI legends show only visible numeric bands.
 - Optional local profile, a BMI badge using the graph’s zone colors, accessible WHO screening context, and height-specific WHO color zones on the unchanged graph scale.
 - English, Spanish, German, and French interfaces with a locally saved preference.
 - System, light, and dark appearance choices with a locally saved preference.

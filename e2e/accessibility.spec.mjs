@@ -7,11 +7,40 @@ async function scan(page, testInfo, state) {
   expect(result.violations, `${state}: ${JSON.stringify(result.violations.map(({ id, nodes }) => ({ id, targets: nodes.map(({ target }) => target) })))}`).toEqual([])
 }
 
+for (const theme of ['light', 'dark']) {
+  test(`accessible purple Average tooltip: ${theme}`, async ({ page, app }, testInfo) => {
+    await app({ theme })
+    const hero = await page.locator('.weight-hero').innerText()
+    const slider = page.getByRole('slider')
+    const tooltip = page.locator('.chart-tooltip')
+    await slider.focus()
+    await slider.press('End')
+    const recordedBackground = await tooltip.evaluate((element) => getComputedStyle(element).backgroundColor)
+    await page.locator('.graph-settings-button').click()
+    await page.getByRole('switch', { name: 'Average', exact: true }).check()
+    await slider.focus()
+    await slider.press('End')
+    await expect(tooltip).toHaveClass('chart-tooltip average-mode')
+    await expect(tooltip.locator('strong')).toHaveText('82.30 kg')
+    await expect(tooltip).not.toContainText('5-measurement average')
+    expect(await tooltip.evaluate((element) => getComputedStyle(element).backgroundColor)).not.toBe(recordedBackground)
+    expect(await page.locator('.weight-hero').innerText()).toBe(hero)
+    await scan(page, testInfo, 'average-tooltip')
+    await page.getByRole('switch', { name: 'Average', exact: true }).uncheck()
+    await slider.focus()
+    await slider.press('End')
+    expect(await tooltip.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe(recordedBackground)
+  })
+}
+
 for (const language of ['en', 'es', 'de', 'fr']) for (const theme of ['light', 'dark']) {
   test(`accessible dashboard, BMI popover, and entry: ${language}/${theme}`, async ({ page, app }, testInfo) => {
     await page.setViewportSize({ width: 320, height: 800 })
     await app({ language, theme })
     await scan(page, testInfo, 'dashboard')
+    await page.locator('.graph-settings-button').click()
+    await page.locator('.history > summary').click()
+    await scan(page, testInfo, 'expanded-dashboard')
     await page.locator('.weight-bmi-info summary').click()
     await expect(page.locator('.weight-bmi-popover')).toBeVisible()
     await scan(page, testInfo, 'bmi-popover')
@@ -57,6 +86,7 @@ for (const theme of ['light', 'dark']) for (const [bmi, band] of [
     }
     const light = luminance(colors.foreground), dark = luminance(colors.background)
     expect((Math.max(light, dark) + 0.05) / (Math.min(light, dark) + 0.05)).toBeGreaterThanOrEqual(4.5)
+    await page.locator('.graph-settings-button').click()
     await page.getByRole('switch', { name: 'BMI zones' }).check()
     const chartColor = await page.locator(`.bmi-swatch.${band}`).evaluate((element) => getComputedStyle(element).getPropertyValue('--bmi-color').trim())
     expect(colors.semantic).toBe(chartColor)

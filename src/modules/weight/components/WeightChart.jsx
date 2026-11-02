@@ -9,6 +9,8 @@ const PAD = { top: 18, right: 18, bottom: 52, left: 76 }
 
 export function WeightChart({ referenceLines = [], showFinalTarget = true, showMilestone = true, onFinalTargetChange, onMilestoneChange, averages = [], showAverage = false, onAverageChange, measurements, language, span, onSpanChange, profile, onBmiZonesChange, t }) {
   const [activeIndex, setActiveIndex] = useState(null)
+  const [settingsOpen, setSettingsOpen] = useState(false)
+  const settingsId = useId()
   const gradientId = useId().replaceAll(':', '')
   const bmiBands = useMemo(() => profile.showBmiRange && (profile.age === null || profile.age >= 18) ? bmiWeightBands(profile.heightCm) : [], [profile.age, profile.heightCm, profile.showBmiRange])
   const visibleReferences = useMemo(() => {
@@ -20,7 +22,7 @@ export function WeightChart({ referenceLines = [], showFinalTarget = true, showM
       return result
     }, [])
   }, [referenceLines, showFinalTarget, showMilestone])
-  const geometry = useMemo(() => chartGeometry(measurements, WIDTH, HEIGHT, [...(showAverage ? averages.map(({ value }) => value) : []), ...visibleReferences.map(({ value }) => value)]), [measurements, averages, showAverage, visibleReferences])
+  const geometry = useMemo(() => chartGeometry(measurements, WIDTH, HEIGHT, [...averages.map(({ value }) => value), ...visibleReferences.map(({ value }) => value)]), [measurements, averages, visibleReferences])
   const referenceLabel = (line) => `${line.kinds.map((kind) => t(kind === 'target' ? 'weightFinalTarget' : 'weightNextMilestone')).join(' / ')}: ${new Intl.NumberFormat(language, { maximumFractionDigits: 2 }).format(line.value)} kg`
   const { points, ticks } = geometry
   const visibleBands = bmiBands.map((band) => {
@@ -42,38 +44,48 @@ export function WeightChart({ referenceLines = [], showFinalTarget = true, showM
   const area = displayedPoints.length ? `${displayedPoints[0].x},${HEIGHT} ${displayedLine} ${displayedPoints.at(-1).x},${HEIGHT}` : ''
   const first = points[0]
   const last = points.at(-1)
-  const active = activeIndex === null ? null : points[activeIndex] ?? null
+  const active = activeIndex === null ? null : displayedPoints[activeIndex] ?? null
+
+  function toggleAverage() {
+    const nextPoints = showAverage ? points : points.filter(({ id }) => averagesById.has(id))
+    const nextIndex = active ? nextPoints.findIndex(({ id }) => id === active.id) : -1
+    setActiveIndex(nextIndex < 0 ? null : nextIndex)
+    onAverageChange?.(!showAverage)
+  }
 
   function selectAtPointer(event) {
+    if (!displayedPoints.length) return
     const bounds = event.currentTarget.getBoundingClientRect()
     const chartX = ((event.clientX - bounds.left) / bounds.width) * WIDTH
-    setActiveIndex(nearestPointIndex(points, chartX))
+    setActiveIndex(nearestPointIndex(displayedPoints, chartX))
   }
 
   function navigate(event) {
-    let next = activeIndex ?? points.length - 1
+    if (!displayedPoints.length) return
+    let next = activeIndex ?? displayedPoints.length - 1
     if (event.key === 'ArrowLeft') next -= 1
     else if (event.key === 'ArrowRight') next += 1
     else if (event.key === 'Home') next = 0
-    else if (event.key === 'End') next = points.length - 1
+    else if (event.key === 'End') next = displayedPoints.length - 1
     else return
     event.preventDefault()
-    setActiveIndex(Math.max(0, Math.min(points.length - 1, next)))
+    setActiveIndex(Math.max(0, Math.min(displayedPoints.length - 1, next)))
   }
 
-  const activeAverage = active && showAverage ? averagesById.get(active.id) : undefined
-  const averageText = activeAverage === undefined ? '' : `, ${t('weightAverage')}: ${activeAverage.toFixed(2)} kg`
-  const activeText = active ? `${formatDate(active.timestamp, language)}, ${active.value.toFixed(1)} kg${averageText}` : t('chartDescription', { count: points.length })
+  const activeValue = active ? showAverage ? averagesById.get(active.id) : active.value : null
+  const activeText = active ? `${formatDate(active.timestamp, language)}, ${activeValue.toFixed(showAverage ? 2 : 1)} kg` : t('chartDescription', { count: points.length })
 
   return <section className={`weight-chart${visibleBands.length ? ' bmi-zones-visible' : ''}`} aria-labelledby="chart-title">
     <div className="chart-header">
       <div className="chart-title-group"><h2 id="chart-title">{t('trend')}</h2></div>
+      <button type="button" className="graph-settings-button" aria-label={t('weightGraphSettings')} aria-expanded={settingsOpen} aria-controls={settingsId} onClick={() => setSettingsOpen(!settingsOpen)}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M6 14v6" /></svg></button>
     </div>
-    <div className="weight-chart-options">
+    <div id={settingsId} hidden={!settingsOpen}><div className="weight-chart-options">
       {profile.showBmi && (profile.age === null || profile.age >= 18) && <button className="chart-bmi-toggle" type="button" role="switch" aria-checked={profile.showBmiRange} onClick={() => onBmiZonesChange(!profile.showBmiRange)}><i aria-hidden="true" />{t('bmiZonesToggle')}</button>}
-      <button className="chart-bmi-toggle" type="button" role="switch" aria-checked={showAverage} aria-describedby={showAverage && !averagePoints.length ? 'weight-average-unavailable' : undefined} onClick={() => onAverageChange?.(!showAverage)}><i aria-hidden="true" />{t('weightAverageToggle')}</button>
+      <button className="chart-bmi-toggle" type="button" role="switch" aria-checked={showAverage} aria-describedby={showAverage && !averagePoints.length ? 'weight-average-unavailable' : undefined} onClick={toggleAverage}><i aria-hidden="true" />{t('weightAverageToggle')}</button>
       {referenceLines.some((line) => line.kind === 'target') && <button className="chart-bmi-toggle" type="button" role="switch" aria-checked={showFinalTarget} onClick={() => onFinalTargetChange?.(!showFinalTarget)}><i aria-hidden="true" />{t('weightFinalTarget')}</button>}
       {referenceLines.some((line) => line.kind === 'milestone') && <button className="chart-bmi-toggle" type="button" role="switch" aria-checked={showMilestone} onClick={() => onMilestoneChange?.(!showMilestone)}><i aria-hidden="true" />{t('weightNextMilestone')}</button>}
+    </div>
     </div>
     {visibleReferences.length > 0 && <div className="weight-target-legend">{visibleReferences.map((line) => <span key={line.kind}><i className={`weight-reference-swatch ${line.kind}`} aria-hidden="true" />{referenceLabel(line)}</span>)}</div>}
     {showAverage && !averagePoints.length && <p id="weight-average-unavailable" className="chart-caption">{t('weightAverageUnavailable')}</p>}
@@ -96,12 +108,12 @@ export function WeightChart({ referenceLines = [], showFinalTarget = true, showM
             {((active && !showAverage) || (!showAverage && points.length === 1)) && <circle className="weight-selected-point" cx={(active ?? first).x} cy={(active ?? first).y} r="5" />}
             <text className="axis-label x-start" x="0" y={HEIGHT + 28}>{new Intl.DateTimeFormat(language, { dateStyle: 'medium' }).format(new Date(first.timestamp))}</text>
             {last.id !== first.id && <text className="axis-label x-end" x={WIDTH} y={HEIGHT + 28}>{new Intl.DateTimeFormat(language, { dateStyle: 'medium' }).format(new Date(last.timestamp))}</text>}
-            <rect className="chart-navigation" x="0" y="0" width={WIDTH} height={HEIGHT} tabIndex="0" role="slider" aria-label={t('chartNavigation')} aria-valuemin="0" aria-valuemax={points.length - 1} aria-valuenow={activeIndex ?? points.length - 1} aria-valuetext={activeText} onFocus={() => setActiveIndex((current) => current ?? points.length - 1)} onKeyDown={navigate} onPointerDown={(event) => { event.currentTarget.setPointerCapture?.(event.pointerId); selectAtPointer(event) }} onPointerMove={selectAtPointer} />
+            <rect className="chart-navigation" x="0" y="0" width={WIDTH} height={HEIGHT} tabIndex={displayedPoints.length ? 0 : undefined} role="slider" aria-label={t('chartNavigation')} aria-valuemin="0" aria-valuemax={Math.max(0, displayedPoints.length - 1)} aria-valuenow={activeIndex ?? Math.max(0, displayedPoints.length - 1)} aria-valuetext={activeText} onFocus={() => setActiveIndex((current) => current ?? displayedPoints.length - 1)} onKeyDown={navigate} onPointerDown={(event) => { event.currentTarget.setPointerCapture?.(event.pointerId); selectAtPointer(event) }} onPointerMove={selectAtPointer} />
           </g>
         </svg>
       </div>
-      <div className="weight-tooltip-slot" aria-live="polite">{active && <div className="chart-tooltip"><strong>{active.value.toFixed(1)} kg</strong><span>{formatDate(active.timestamp, language)}</span>{activeAverage !== undefined && <small>{t('weightAverage')}: {activeAverage.toFixed(2)} kg</small>}{active.note && <small>{active.note}</small>}</div>}</div>
-      {bmiBands.length > 0 && <div className="bmi-zone-legend" aria-label={t('whoBmiZones')}>{bmiBands.map((band) => <div key={band.key}><i className={`bmi-swatch ${band.key}`} aria-hidden="true" /><span><b>{band.range}</b>{t(band.key)}</span></div>)}</div>}
+      <div className="weight-tooltip-slot" aria-live="polite">{active && <div className={`chart-tooltip${showAverage ? ' average-mode' : ''}`}><strong>{activeValue.toFixed(showAverage ? 2 : 1)} kg</strong><span>{formatDate(active.timestamp, language)}</span>{active.note && <small>{active.note}</small>}</div>}</div>
+      {visibleBands.length > 0 && <div className="bmi-zone-legend" aria-label={t('whoBmiZones')}>{visibleBands.map((band) => <div key={band.key}><i className={`bmi-swatch ${band.key}`} aria-hidden="true" /><span><b>{band.range}</b></span></div>)}</div>}
       <p className="chart-caption">{t('visibleEntries', { count: points.length })}</p>
     </>}
   </section>
