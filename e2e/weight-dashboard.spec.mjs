@@ -1,5 +1,46 @@
 import { test, expect, store, weight, populatedStore, readStore } from './fixtures.mjs'
 
+test('recorded and average modes share a scale fitting both series', async ({ page, app }) => {
+  const values = [120, 70, 90, 90, 90, 90, 90]
+  await app({ data: store(values.map((value, index) => weight(`2026-09-0${index + 1}`, value))) })
+  const recordedTicks = await page.locator('.y-label').allTextContents()
+  await page.locator('.graph-settings-button').click()
+  await page.getByRole('switch', { name: 'Average', exact: true }).check()
+  await expect(page.locator('.y-label')).toHaveText(recordedTicks)
+  const slider = page.getByRole('slider')
+  await slider.focus()
+  await slider.press('Home')
+  await expect(page.locator('.chart-tooltip strong')).toHaveText('92.00 kg')
+  await slider.press('End')
+  await expect(page.locator('.chart-tooltip strong')).toHaveText('90.00 kg')
+  await page.getByRole('switch', { name: 'Average', exact: true }).uncheck()
+  await expect(page.locator('.y-label').last()).toHaveText('120')
+})
+
+test('compact disclosures support keyboard, retain History during editing and reset on reload', async ({ page, app }) => {
+  await app()
+  const history = page.locator('.history')
+  const settings = page.getByRole('button', { name: 'Graph settings' })
+  await expect(history).not.toHaveAttribute('open')
+  await expect(history.locator('summary')).toHaveText('History5')
+  await expect(settings).toHaveAttribute('aria-expanded', 'false')
+  await settings.focus()
+  await settings.press('Enter')
+  await expect(settings).toHaveAttribute('aria-expanded', 'true')
+  await page.getByRole('switch', { name: 'Average', exact: true }).check()
+  await expect(page.locator('.weight-hero strong')).toHaveText('81.0 kg')
+  await history.locator('summary').focus()
+  await history.locator('summary').press('Enter')
+  await expect(history).toHaveAttribute('open', '')
+  await history.locator('.entry-link').first().click()
+  await page.getByRole('button', { name: 'Cancel', exact: true }).click()
+  await expect(history).toHaveAttribute('open', '')
+  await page.reload()
+  await expect(history).not.toHaveAttribute('open')
+  await expect(settings).toHaveAttribute('aria-expanded', 'false')
+  await expect(page.locator('.weight-hero strong')).toHaveText('81.0 kg')
+})
+
 test('period selection updates chart, insight/reference date, and history but never the hero', async ({ page, app }) => {
   await app()
   const hero = await page.locator('.weight-hero').innerText()
@@ -16,7 +57,7 @@ test('period selection updates chart, insight/reference date, and history but ne
     expect(await page.locator('.weight-hero').innerText()).toBe(hero)
   }
   await page.reload()
-  await expect(page.getByRole('button', { name: '3 months', exact: true })).toHaveAttribute('aria-pressed', 'true')
+  await expect(page.getByRole('button', { name: 'All time', exact: true })).toHaveAttribute('aria-pressed', 'true')
 })
 
 test('keyboard and touch chart selection expose the correct recorded values and notes', async ({ page, app }) => {
@@ -49,26 +90,34 @@ test('keyboard and touch chart selection expose the correct recorded values and 
   await expect(slider).toHaveAttribute('aria-valuenow', '4')
 })
 
-test('average uses full history, preserves summaries, and resets only on reload', async ({ page, app }) => {
+test('average uses full history, preserves summaries, and persists across reload', async ({ page, app }) => {
   await app()
   const before = await readStore(page)
   const summary = await page.locator('.summary').innerText()
+  await page.getByRole('slider').focus()
+  await page.getByRole('slider').press('End')
+  await page.locator('.graph-settings-button').click()
   await page.getByRole('switch', { name: 'Average', exact: true }).check()
+  await expect(page.locator('.chart-tooltip strong')).toHaveText('82.30 kg')
   await expect(page.locator('.weight-average-line')).toBeVisible()
   await expect(page.locator('.trend-line')).toHaveCount(0)
   const slider = page.getByRole('slider')
   await slider.focus()
   await slider.press('End')
-  await expect(page.locator('.chart-tooltip')).toContainText('5-measurement average: 82.30 kg')
+  await expect(page.locator('.chart-tooltip')).toContainText('82.30 kg')
   await slider.press('Home')
-  await expect(page.locator('.chart-tooltip')).toContainText('5-measurement average: 85.50 kg')
+  await expect(page.locator('.chart-tooltip')).toContainText('85.50 kg')
   expect(await page.locator('.summary').innerText()).toBe(summary)
   expect(await readStore(page)).toEqual(before)
   await page.getByRole('combobox', { name: 'Health areas' }).selectOption('bloodPressure')
   await page.getByRole('combobox', { name: 'Health areas' }).selectOption('weight')
+  await page.locator('.graph-settings-button').click()
   await expect(page.getByRole('switch', { name: 'Average', exact: true })).toBeChecked()
   await page.reload()
-  await expect(page.getByRole('switch', { name: 'Average', exact: true })).not.toBeChecked()
+  await expect(page.locator('.weight-hero strong')).toHaveText('81.0 kg')
+  await expect(page.locator('.graph-settings-button')).toHaveAttribute('aria-expanded', 'false')
+  await page.locator('.graph-settings-button').click()
+  await expect(page.getByRole('switch', { name: 'Average', exact: true })).toBeChecked()
 })
 
 for (const count of [0, 1, 4, 5, 6]) {
@@ -77,6 +126,7 @@ for (const count of [0, 1, 4, 5, 6]) {
     await expect(page.locator('.entry-link')).toHaveCount(count)
     if (!count) await expect(page.locator('.chart-empty')).toBeVisible()
     if (count === 1) await expect(page.locator('.weight-selected-point')).toBeVisible()
+    await page.locator('.graph-settings-button').click()
     await page.getByRole('switch', { name: 'Average', exact: true }).check()
     if (count < 5) await expect(page.locator('#weight-average-unavailable')).toBeVisible()
     else if (count === 5) await expect(page.locator('.weight-average-point')).toBeVisible()
@@ -95,6 +145,7 @@ test('no recent data does not imply a hero change; old and future records remain
 
 test('existing future record is flagged and can be deleted', async ({ page, app }) => {
   await app({ data: store([weight('2026-10-04', 81)]) })
+  await page.locator('.history > summary').click()
   await expect(page.locator('.future-record')).toBeVisible()
   await page.locator('.future-record').click()
   page.once('dialog', (dialog) => dialog.accept())
@@ -107,6 +158,7 @@ test('BMI badge stays semantic when chart zones are toggled; info supports keybo
   const badge = page.locator('.weight-bmi-value')
   await expect(badge).toHaveClass(/bmiAbove/)
   const color = await badge.evaluate((element) => getComputedStyle(element).backgroundColor)
+  await page.locator('.graph-settings-button').click()
   await page.getByRole('switch', { name: 'BMI zones' }).check()
   await expect(page.locator('.bmi-zone')).not.toHaveCount(0)
   expect(await badge.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe(color)

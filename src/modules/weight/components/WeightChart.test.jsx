@@ -24,6 +24,11 @@ describe('WeightChart BMI layers', () => {
     expect(area).toBeGreaterThan(zones)
     expect(line).toBeGreaterThan(area)
     expect(html).toContain('weight-chart bmi-zones-visible')
+    const legend = html.match(/<div class="bmi-zone-legend".*?<\/div><\/div>/s)[0]
+    expect(legend.match(/class="bmi-swatch /g)).toHaveLength(html.match(/class="bmi-zone /g).length)
+    expect(legend).not.toContain('bmiBelow')
+    expect(legend).not.toContain('bmiClass3')
+    expect(legend).not.toContain('</b>bmi')
   })
 })
 
@@ -78,6 +83,16 @@ describe('WeightChart average mode', () => {
     expect(on).toContain('class="weight-average-line"')
     expect(on).toContain('aria-checked="true"')
     expect(on).not.toContain('weightAverageUnavailable')
+  })
+
+  it('uses the same tight scale for both modes including averages from preceding history', () => {
+    const averages = [{ id: '5', value: 94.2 }]
+    const recorded = renderToStaticMarkup(<WeightChart {...props} averages={averages} />)
+    const averaged = renderToStaticMarkup(<WeightChart {...props} averages={averages} showAverage />)
+    const ticks = (html) => html.match(/<text class="axis-label y-label"[^>]*>.*?<\/text>/g)
+    expect(ticks(recorded)).toEqual(ticks(averaged))
+    expect(ticks(recorded).join('')).toContain('>95</text>')
+    expect(recorded).not.toContain('>100</text>')
   })
 
   it('renders one average as a point and explains unavailable averages', () => {

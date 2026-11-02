@@ -35,6 +35,23 @@ for (const theme of ['light', 'dark']) {
     await expect(page.locator('.chart-tooltip')).toBeVisible()
     await capture(page, `weight-tooltip-${theme}.png`)
   })
+  test(`Weight expanded settings and history ${theme}`, async ({ page, app }) => {
+    await page.setViewportSize({ width: 320, height: 800 })
+    await app({ theme, language: 'de' })
+    await page.locator('.graph-settings-button').click()
+    await page.locator('.history > summary').click()
+    await capture(page, `weight-expanded-${theme}.png`)
+  })
+  test(`Weight average and visible BMI legend ${theme}`, async ({ page, app }) => {
+    await app({ theme })
+    await page.locator('.graph-settings-button').click()
+    await page.getByRole('switch', { name: 'Average', exact: true }).check()
+    await page.getByRole('switch', { name: 'BMI zones', exact: true }).check()
+    await page.locator('.graph-settings-button').click()
+    await page.getByRole('slider').focus()
+    await page.getByRole('slider').press('End')
+    await capture(page, `weight-average-${theme}.png`)
+  })
   test(`Weight BMI popover ${theme}`, async ({ page, app }) => {
     await app({ theme })
     await page.locator('.weight-bmi-info summary').click()

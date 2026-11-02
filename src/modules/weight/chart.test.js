@@ -73,4 +73,22 @@ describe('weight chart', () => {
     expect(ticksFor([85, 95])).toEqual([85, 90, 95])
     expect(ticksFor([89.5, 91.2]).every(Number.isInteger)).toBe(true)
   })
+
+  it('fits the bounds to the displayed line independently of coarse tick spacing', () => {
+    const readings = [entry('a', '2026-01-01', 80.8), entry('b', '2026-01-02', 92.4)]
+    const average = chartGeometry(readings, 800, 300, [82, 90.1])
+    expect(average.min).toBe(80)
+    expect(average.max).toBe(93)
+    expect((92.4 - 80.8) / (average.max - average.min)).toBeGreaterThan(0.85)
+    expect(average.points.map(({ x }) => x)).toEqual([0, 800])
+    expect(average.ticks.every(({ value, y }) => Number.isInteger(value) && y >= 0 && y <= 300)).toBe(true)
+    const target = chartGeometry(readings, 800, 300, [60, 82, 90.1])
+    expect(target.min).toBeLessThanOrEqual(60)
+    expect(target.max).toBeGreaterThanOrEqual(92.4)
+    for (const value of [82, 82.3]) {
+      const flat = chartGeometry([entry('flat', '2026-01-01', value)], 800, 300)
+      expect(flat.max).toBeGreaterThan(flat.min)
+      expect(flat.points.every(({ y }) => Number.isFinite(y))).toBe(true)
+    }
+  })
 })

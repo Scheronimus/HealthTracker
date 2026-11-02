@@ -22,6 +22,7 @@ test('downloaded backup round-trips through the UI without replacing edited reco
   expect(exported.exportedAt).toBe(NOW)
   await page.getByRole('button', { name: 'Close', exact: true }).click()
   await addWeight(page, { date: '2026-10-02', value: 80.5 })
+  if ((await page.locator('.history').getAttribute('open')) === null) await page.locator('.history > summary').click()
   await page.locator('.entry-link').nth(1).click()
   await page.getByRole('spinbutton').fill('81.2')
   await page.getByRole('button', { name: 'Save', exact: true }).click()
@@ -76,6 +77,7 @@ test('invalid backup variants and cancelled restore leave storage unchanged', as
 test('legacy store migrates in the browser and keeps original measurement timestamps', async ({ page, app }) => {
   const legacy = { schemaVersion: 1, measurements: [weight('2026-09-01', 85)] }
   await app({ data: legacy })
+  await expect.poll(async () => (await readStore(page)).schemaVersion).toBe(7)
   const saved = await readStore(page)
   expect(saved.schemaVersion).toBe(7)
   expect(saved.measurements).toEqual(legacy.measurements)
@@ -96,10 +98,12 @@ test('production service worker reloads offline and retains offline edits after 
     const manifest = await (await context.request.get(new URL(manifestUrl, page.url()).href)).json()
     expect(manifest.scope).toBe('/HealthTracker/')
     expect(manifest.start_url).toBe('/HealthTracker/')
+    await page.getByRole('button', { name: 'All time', exact: true }).click()
     await origin.stop()
     // Negative control: raw HTTP cannot reach the origin; the browser must use its cache.
     await expect(context.request.get(origin.url, { timeout: 2000 })).rejects.toThrow()
     await page.reload()
+    await expect(page.getByRole('button', { name: 'All time', exact: true })).toHaveAttribute('aria-pressed', 'true')
     await expect(page.locator('.weight-hero strong')).toHaveText('81.0 kg')
     await addWeight(page, { date: '2026-10-02', value: 80.5, note: 'Saved offline' })
     await page.reload()
