@@ -4,9 +4,9 @@ export function ReleaseNotes({ onDismiss, t }) {
       <p className="release-eyebrow">{t('whatsNew')}</p>
       <h2 id="release-notes-title">{t('releaseTitle')}</h2>
       <ul>
-        <li>{t('releaseGoals')}</li>
-        <li>{t('releaseRecord')}</li>
-        <li>{t('releaseTarget')}</li>
+        <li>{t('releaseTooltip')}</li>
+        <li>{t('releaseControls')}</li>
+        <li>{t('releaseLegend')}</li>
         <li>{t('releaseChart')}</li>
         <li>{t('releaseCompatibility')}</li>
       </ul>

@@ -1,6 +1,6 @@
 # Version 1.9.1 implementation plan
 
-Status: implemented and verified on feature/weight-dashboard-compact; uncommitted, not released. Version 1.9.1 is the proposed next patch after 1.9.0.
+Status: scope frozen on release/1.9.1 on 2 November 2026. Implementation committed as 94d4daa and integrated into develop. Release preparation and the complete release gate passed; ready for review, with publication pending. See RELEASE_1.9.1.md for the release record. Retain this plan until release finalization.
 
 ## Scope and decisions
 
@@ -56,6 +56,7 @@ Make the Weight dashboard more compact on phones and retain graph preferences ac
 
 ## Verification record
 
+- Release gate for 1.9.1: npm run test:release passed with 202 unit tests, lint, production build, 202 Playwright checks (180 across three browsers plus 22 visual baselines), and git diff --check. Version metadata, changelog and all four localized notices match the frozen scope.
 - Unit tests: 202 passed across 28 files. Lint, production build and git diff --check passed.
 - Chromium functional workflows passed, including disclosure keyboard behavior, History editing/return, persisted graph choices and offline period reuse. Four-language, two-theme accessibility checks include expanded controls.
 - Final affected browser workflows, target-line checks, tooltip contrast and visual snapshots passed across Chromium, Firefox and WebKit (88 checks). The common scale fits both series and does not move when Average is toggled. Selected dates remain selected across modes wherever an average exists.
