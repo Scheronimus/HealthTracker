@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.9.1 - 2026-11-02
+
+### Changed
+
+- Made the Weight dashboard more compact: graph switches open from an accessible settings icon, the period selector remains visible, and History starts collapsed with its filtered count. Expanded History retains its state while editing records.
+- Remember the graph period, Average mode and independent final-target/milestone visibility across sessions. BMI-zone visibility keeps its existing profile persistence. Invalid or unavailable display-preference storage does not prevent using the dashboard.
+- In Average mode, the selected-point tooltip shows the existing average as its primary value on a purple background, with date and note but no duplicate average sentence. Recorded mode retains its original tooltip, and the current-weight hero stays unchanged. Pointer, touch and keyboard navigation select only available averages; switching modes preserves the selected date wherever an average exists.
+- Limit the BMI legend to color swatches and numeric ranges actually visible in the plot. Explanatory context remains available through the BMI information control.
+- Tighten vertical bounds independently of coarse tick spacing. Recorded and Average modes share one scale fitted to both series and visible target/milestone lines, so switching modes does not move the scale. Flat series retain padding and the time axis is preserved.
+- Updated equivalent English, Spanish, German and French interfaces, accessibility checks, browser workflows and reviewed mobile/desktop light/dark screenshots.
+
+### Data compatibility
+
+- Measurements, five-measurement averages, BMI and Goals calculations, schema version 7 and JSON backup formats are unchanged; no migration is required.
+- New graph display preferences are stored locally under `health-tracker-weight-graph`, separately from health data and outside JSON backups. Existing BMI-zone preferences remain in the backed-up profile. History expansion and the open settings panel are not saved across sessions.
+- Preserve the client-only application, offline/installable behavior and `/HealthTracker/` deployment base. No dependencies, accounts, servers, analytics or external integrations were added.
+
 ## 1.9.0 - 2026-10-21
 
 ### Added
